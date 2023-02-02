@@ -28,7 +28,15 @@ public class Ferme {
         return ParcelleValue.EMPTY;
     }
     ReadOnlyObjectProperty<ParcelleValue> valueProperty(int line, int col) {
-        return terrain.(line, col);
+        return terrain.valueProperty(line, col);
+    }
+    ReadOnlyObjectProperty<FermeStatus> fermeStatusProperty() {
+        return fermeStatus;
+    }
+
+
+    public void newGame() {
+        fermeStatus.set(FermeStatus.START);
     }
 
 }
