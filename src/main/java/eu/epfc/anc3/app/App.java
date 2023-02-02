@@ -1,6 +1,7 @@
 //ANC3 2223 c01
 package eu.epfc.anc3.app;
 
+import eu.epfc.anc3.view.FermeView;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -27,6 +28,8 @@ public class App extends Application  {
         stage.setTitle("Projet ANC3 2223 c01");
         stage.setMinHeight(stage.getHeight());
         stage.setMinWidth(stage.getWidth());
+
+        FermeView ferme = new FermeView(stage);
     }
 
     public static void main(String[] args) {
