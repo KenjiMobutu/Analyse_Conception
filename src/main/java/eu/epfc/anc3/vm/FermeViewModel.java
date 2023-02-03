@@ -15,6 +15,7 @@ public class FermeViewModel {
     public MenuViewModel getMenuViewModel() {
         return menuViewModel;
     }
+
     public ReadOnlyStringProperty titleProperty() {
         return new SimpleStringProperty("Farm");
     }

@@ -30,7 +30,6 @@ public class FermeFacade {
                 .isEqualTo(FermeStatus.STARTED)
                 .or(ferme.fermeStatusProperty().isEqualTo(FermeStatus.PLANT_GRASS))
                 .or(ferme.fermeStatusProperty().isEqualTo(FermeStatus.DEPLANT_GRASS)));
-
     }
     public static int gridWidth() {
         return Terrain.GRID_WIDTH;
@@ -39,4 +38,51 @@ public class FermeFacade {
     public ReadOnlyBooleanProperty isStartedProperty() {
         return isStarted;
     }
+
+    public void start() {
+        if (isStartable.get()) {
+            farmer.validateWithException();
+            ferme.start();
+        }
+    }
+
+
+
+    public void moveFarmer(Controls controls){
+        switch (controls){
+            case UP :
+                goUp();
+                break;
+            case DOWN:
+                goDown();
+                break;
+            case LEFT:
+                goLeft();
+                break;
+            case RIGHT:
+                goRight();
+                break;
+            case SPACE:
+                //action
+                break;
+        }
+    }
+
+    private void goUp(){
+        Position up = new Position(farmer.getPosFarmer().getPosX()-1, farmer.getPosFarmer().getPosY());
+        // action a verifier genre s'il veut poser de l'herbe ?
+        farmer.setPosPlayer(up.getPosX(),up.getPosY());
+        ferme.setPosFarmerInGame(farmer);
+    }
+
+    private void goDown(){
+
+    }
+    private void goRight(){
+
+    }
+    private void goLeft(){
+
+    }
+
 }

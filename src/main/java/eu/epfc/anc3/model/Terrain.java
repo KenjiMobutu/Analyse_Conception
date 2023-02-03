@@ -38,6 +38,10 @@ public class Terrain {
         return ParcelleValue.GRASS;
     }
 
+    public void setValueOnTerrain(int x, int y, ParcelleValue parcelleValue){
+        matrix[x][y].setValue(parcelleValue);
+    }
+
     boolean isFull() {
         for(int i = 0; i < GRID_WIDTH; ++i)
             for(int j = 0; j < GRID_WIDTH; ++j)

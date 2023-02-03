@@ -18,9 +18,9 @@ public class Ferme {
 
     ParcelleValue play(int x, int y){
         switch (status()){
-            case START :
+            case STARTED:
             case PLANT_GRASS: return ParcelleValue.GRASS;
-            case DEPLANT_GRASS: return ParcelleValue.EMPTY;
+            case DEPLANT_GRASS: return ParcelleValue.EMPTY; // a vérifier s'il faudrait pas faire une value deplant grass
         }
         /**
          * ajout de la fonction d'action du joueur (Terrain.play)
@@ -37,6 +37,10 @@ public class Ferme {
 
     public void newGame() {
         fermeStatus.set(FermeStatus.START);
+    }
+
+    public void setPosFarmerInGame(Farmer farmer){
+        terrain.setValueOnTerrain(farmer.getPosFarmer().getPosX(),farmer.getPosFarmer().getPosY(), ParcelleValue.FARMER);
     }
 
 }
