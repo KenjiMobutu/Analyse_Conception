@@ -13,6 +13,8 @@ public class ParcelleViewModel {
         this.line = line;
         this.ferme = ferme;
     }
+//    public ReadOnlyObjectProperty<ParcelleValue> gameStatusProperty(){return ferme.fermeStatusProperty();}
+
 
     public ReadOnlyObjectProperty<ParcelleValue> valueProperty(){return ferme.valueProperty(line,col);}
 }
