@@ -27,10 +27,12 @@ public class Terrain {
         return matrix[line][col].getValue();
     }
 
-    boolean play(int line, int col, ParcelleValue playerValue) {
-        return matrix[line][col].setValue(playerValue);
+//    boolean play(int line, int col, ParcelleValue playerValue) {
+//        return matrix[line][col].setValue(playerValue);
+//    }
+    public void setValueOnTerrain(int x, int y, ParcelleValue parcelleValue){
+        matrix[x][y].setValue(parcelleValue);
     }
-
 
     private ParcelleValue checkCell(int line, int column){
         ParcelleValue res = matrix[line][column].getValue();
@@ -38,9 +40,7 @@ public class Terrain {
         return ParcelleValue.GRASS;
     }
 
-    public void setValueOnTerrain(int x, int y, ParcelleValue parcelleValue){
-        matrix[x][y].setValue(parcelleValue);
-    }
+
 
     boolean isFull() {
         for(int i = 0; i < GRID_WIDTH; ++i)
