@@ -13,7 +13,7 @@ public class Terrain {
     Terrain() {
         matrix = new Parcelle[GRID_HEIGHT][];
         for (int i = 0; i < GRID_HEIGHT; ++i) {
-            matrix[i] = new Parcelle[GRID_WIDTH];
+//            matrix[i] = new Parcelle[GRID_WIDTH];
             for (int j = 0; j < GRID_WIDTH; ++j) {
                 matrix[i][j] = new Parcelle();
             }
