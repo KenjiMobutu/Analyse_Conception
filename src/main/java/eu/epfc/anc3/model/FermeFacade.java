@@ -4,7 +4,10 @@ import eu.epfc.anc3.view.FermeView;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.geometry.Pos;
 
+import static eu.epfc.anc3.model.Terrain.GRID_WIDTH;
+import static eu.epfc.anc3.model.Terrain.GRID_HEIGHT;
 public class FermeFacade {
 
     private final Farmer farmer = new Farmer();
@@ -41,7 +44,6 @@ public class FermeFacade {
 
     public void start() {
         if (isStartable.get()) {
-            farmer.validateWithException();
             ferme.start();
         }
     }
@@ -71,18 +73,37 @@ public class FermeFacade {
     private void goUp(){
         Position up = new Position(farmer.getPosFarmer().getPosX()-1, farmer.getPosFarmer().getPosY());
         // action a verifier genre s'il veut poser de l'herbe ?
-        farmer.setPosPlayer(up.getPosX(),up.getPosY());
-        ferme.setPosFarmerInGame(farmer);
+        //si l'action est faisable dans la matrice?
+        if (up.getPosX() >= 0){
+            farmer.setPosPlayer(up.getPosX(),up.getPosY());
+            ferme.setPosFarmerInGame(farmer);
+        }
     }
 
     private void goDown(){
+        Position down = new Position(farmer.getPosFarmer().getPosX()+1, farmer.getPosFarmer().getPosY());
+        //action ?
+        if (down.getPosX() < GRID_HEIGHT){
+            farmer.setPosPlayer(down.getPosX(),down.getPosY());
+            ferme.setPosFarmerInGame(farmer);
+        }
 
     }
     private void goRight(){
-
+        Position right = new Position(farmer.getPosFarmer().getPosX(), farmer.getPosFarmer().getPosY()+1);
+        //action ?
+        if (right.getPosY() < GRID_WIDTH){
+            farmer.setPosPlayer(right.getPosX(),right.getPosY());
+            ferme.setPosFarmerInGame(farmer);
+        }
     }
     private void goLeft(){
-
+        Position left = new Position(farmer.getPosFarmer().getPosX(), farmer.getPosFarmer().getPosY()-1);
+        //action ?
+        if (left.getPosY() >= 0){
+            farmer.setPosPlayer(left.getPosX(),left.getPosY());
+            ferme.setPosFarmerInGame(farmer);
+        }
     }
 
 }
