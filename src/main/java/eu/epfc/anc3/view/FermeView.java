@@ -1,5 +1,6 @@
 package eu.epfc.anc3.view;
 
+import eu.epfc.anc3.model.Controls;
 import eu.epfc.anc3.model.FermeFacade;
 import eu.epfc.anc3.vm.FermeViewModel;
 import javafx.beans.binding.Bindings;
@@ -94,6 +95,21 @@ public class FermeView extends BorderPane {
     private void configMenu() {
         menuView = new MenuView(fermeViewModel.getMenuViewModel());
         setBottom(menuView);
+    }
+
+    public void configKeyPressed(Scene scene){
+        scene.setOnKeyPressed(keyEvent -> {
+            switch (keyEvent.getCode()){
+                case RIGHT :
+                    fermeViewModel.action(Controls.RIGHT);
+                case LEFT:
+                    fermeViewModel.action(Controls.LEFT);
+                case DOWN:
+                    fermeViewModel.action(Controls.DOWN);
+                case SPACE:
+                    fermeViewModel.action(Controls.SPACE);
+            }
+        });
     }
 
 }

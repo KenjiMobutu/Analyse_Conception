@@ -3,6 +3,7 @@ package eu.epfc.anc3.model;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class Farmer {
 
@@ -11,13 +12,10 @@ public class Farmer {
     private final Position posFarmer ;
 
     //devrait aller chercher l'image du fermier.
-    private final Image farmerImage = new Image(getClass().getResource("/ressources/farmer.png").toExternalForm());
-
     Farmer() {
         posFarmer = new Position(0,0);
 
-
-       // farmerImageView.xProperty().bind(player.xProperty());
+        // farmerImageView.xProperty().bind(player.xProperty());
        // farmerImageView.yProperty().bind(player.yProperty());
     }
 
