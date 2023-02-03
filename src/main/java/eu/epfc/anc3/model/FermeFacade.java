@@ -3,6 +3,7 @@ package eu.epfc.anc3.model;
 import eu.epfc.anc3.view.FermeView;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ReadOnlyBooleanProperty;
+import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Pos;
 
@@ -105,5 +106,7 @@ public class FermeFacade {
             ferme.setPosFarmerInGame(farmer);
         }
     }
+
+    public ReadOnlyObjectProperty<ParcelleValue> valueProperty(int line,int col){return ferme.valueProperty(line, col);}
 
 }
