@@ -16,7 +16,7 @@ public class App extends Application  {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Pane root = new StackPane();
+       /* Pane root = new StackPane();
         Label label = new Label("Hello !");
         label.setFont(Font.font("Comic Sans MS", FontWeight.BOLD, FontPosture.ITALIC, 60));
 
@@ -27,7 +27,7 @@ public class App extends Application  {
         stage.show();
         stage.setTitle("Projet ANC3 2223 c01");
         stage.setMinHeight(stage.getHeight());
-        stage.setMinWidth(stage.getWidth());
+        stage.setMinWidth(stage.getWidth());*/
 
         FermeView ferme = new FermeView(stage);
     }
