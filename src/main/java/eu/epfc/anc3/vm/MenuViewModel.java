@@ -28,4 +28,12 @@ public class MenuViewModel {
     public ReadOnlyStringProperty unPlantLabelProperty() {
         return new SimpleStringProperty("Tondre du gazon");
     }
+
+    public void start() {
+        ferme.start();
+    }
+    public void newGame() {
+        //ferme.start();
+        ferme.newGame();
+    }
 }
