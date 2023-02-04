@@ -1,8 +1,32 @@
 package eu.epfc.anc3.model;
 
-public class Farmer {
+import java.util.ArrayList;
+import java.util.List;
 
-//    scene.setOnKeyPressed(event -> {
+public class Farmer {
+    private final Position posFarmer;
+    public static Grass plantedGrass;
+    public final List<Grass> listOfPlantedGrass = new ArrayList<>();
+
+    public Farmer(){
+        posFarmer = new Position(0,0);
+    }
+    public List<Grass> getListOfPlantedGrass(){
+        return listOfPlantedGrass;
+    }
+    public void setPosFarmer(int x, int y){
+        posFarmer.setPosX(x);
+        posFarmer.setPosY(y);
+    }
+
+    public Position getPosFarmer() {
+        return posFarmer;
+    }
+
+    public static Grass getPlantedGrass() {
+        return plantedGrass;
+    }
+    //    scene.setOnKeyPressed(event -> {
 //        switch (event.getCode()) {
 //            case UP:
 //                // Code pour déplacer le joueur vers le haut
