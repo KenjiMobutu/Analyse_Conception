@@ -1,6 +1,7 @@
 package eu.epfc.anc3.vm;
 
 import eu.epfc.anc3.model.FermeFacade;
+import eu.epfc.anc3.model.Move;
 import eu.epfc.anc3.view.TerrainView;
 import javafx.beans.Observable;
 import javafx.beans.property.ReadOnlyBooleanProperty;
@@ -30,5 +31,8 @@ public class FermeViewModel {
         menuViewModel = new MenuViewModel(ferme);
         terrainViewModel = new TerrainViewModel(ferme);
 
+    }
+    public void keyPressed(Move move) {
+        //ferme.moveFarmer(move);
     }
 }
