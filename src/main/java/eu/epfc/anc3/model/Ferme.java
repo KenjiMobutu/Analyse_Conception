@@ -6,12 +6,13 @@ import javafx.beans.property.SimpleObjectProperty;
 
 public class Ferme {
 
-    private Terrain terrain;
+
+    private Terrain terrain = new Terrain();
+    private Grass plantedGrass;
     private final ObjectProperty<FermeStatus> fermeStatus = new SimpleObjectProperty<>(FermeStatus.START);
 
     void start(){
-        terrain = new Terrain();
-        fermeStatus.set(FermeStatus.START);
+        newGame();
     }
 
     private FermeStatus status(){return this.fermeStatus.get();}
@@ -39,4 +40,10 @@ public class Ferme {
         fermeStatus.set(FermeStatus.START);
     }
 
+    public void farmerInFarm(Farmer farmer) {
+        terrain.setValueOnField(farmer.getPosFarmer().getPosX(),farmer.getPosFarmer().getPosY(),ParcelleValue.FARMER);
+    }
+    public Terrain getTerrain(){
+        return terrain;
+    }
 }
