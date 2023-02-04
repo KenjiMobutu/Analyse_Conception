@@ -45,4 +45,8 @@ public class Terrain {
                     return false;
         return true;
     }
+
+    public void setValueOnField(int x, int y, ParcelleValue value) {
+        matrix[x][y].setValue(value);
+    }
 }
