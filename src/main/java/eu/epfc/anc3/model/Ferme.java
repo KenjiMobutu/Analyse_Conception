@@ -18,7 +18,6 @@ public class Ferme {
     }
 
     private FermeStatus status(){return this.fermeStatus.get();}
-
     ParcelleValue play(int line, int col){
         switch (status()){
             case START :
@@ -26,7 +25,6 @@ public class Ferme {
             case DEPLANT_GRASS: return ParcelleValue.EMPTY;
 
         }
-
 
         /**
          * ajout de la fonction d'action du joueur (Terrain.play)
