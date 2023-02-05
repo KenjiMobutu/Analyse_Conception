@@ -38,7 +38,7 @@ public class FermeView extends BorderPane {
         // Mise en place de la scène et affichage de la fenêtre
         Scene scene = new Scene(this,SCENE_MIN_WIDTH,SCENE_MIN_HEIGHT);
 
-        //configKeyPressed(scene);
+        configKeyPressed(scene);
         stage.setScene(scene);
         stage.show();
         stage.setMinHeight(stage.getHeight());
@@ -50,13 +50,14 @@ public class FermeView extends BorderPane {
 
         // Mise en place des composants du menu
         configMenu();
-        createTerrain();
+
         //Mise en place du Field du jeu
         configTerrainView();
 
     }
 
     private void configTerrainView() {
+        createTerrain();
         fermeViewModel.isFermeStartedProperty().addListener(
                 (obs, oldval, newval) -> configTerrainPane(newval));
     }
@@ -70,7 +71,7 @@ public class FermeView extends BorderPane {
     }
 
     private void removeTerrain() {
-        this.getChildren().remove(terrainView);
+       getChildren().remove(terrainView);
         terrainView  = null;
     }
 
