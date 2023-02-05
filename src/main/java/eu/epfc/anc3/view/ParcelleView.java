@@ -1,9 +1,7 @@
 package eu.epfc.anc3.view;
 
-import eu.epfc.anc3.model.Grass;
 import eu.epfc.anc3.model.ParcelleValue;
 import eu.epfc.anc3.vm.ParcelleViewModel;
-import eu.epfc.anc3.vm.TerrainViewModel;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.scene.image.Image;
@@ -22,19 +20,21 @@ public class ParcelleView extends StackPane {
         // nécessairement le comprendre.
         imageView.setPreserveRatio(true);
         imageView.fitWidthProperty().bind(parcelleWidthProperty);
-        imageView.setImage(setFermeImg(parcelleViewModel.valueProperty().get()));
         getChildren().add(imageView);
+
+        setFermeImage(imageView,parcelleViewModel.valueProperty().getValue());
         ReadOnlyObjectProperty<ParcelleValue> valueProp = parcelleViewModel.valueProperty();
-        valueProp.addListener((obs, old, newVal) -> imageView.setImage(setFermeImg(newVal)));
+        valueProp.addListener((obs, old, newVal) ->imageView.setImage(setFermeImg(newVal)));
 
         this.setOnMouseClicked(e -> parcelleViewModel.play());
 
     }
 
-    private void setFermeImage(ImageView imageView, ParcelleValue parcelleValue) {
+    private Image setFermeImage(ImageView imageView, ParcelleValue parcelleValue) {
         imageView.setImage(parcelleValue == ParcelleValue.EMPTY
                 ? DIRT
                 : GRASS);
+        return null;
     }
     private Image setFermeImg(ParcelleValue parcelleValue) {
         switch (parcelleValue){
@@ -42,6 +42,8 @@ public class ParcelleView extends StackPane {
                 return DIRT;
             case GRASS:
                 return GRASS;
+            case FARMER:
+                return FARMER;
             default:
                 return null;
         }
