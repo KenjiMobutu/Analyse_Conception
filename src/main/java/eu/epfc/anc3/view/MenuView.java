@@ -26,16 +26,11 @@ public class MenuView extends VBox {
     public MenuView(MenuViewModel menuViewModel) {
         this.menuViewModel = menuViewModel;
         configMenu();
-        configButtons();
+        // Gestion du click sur le bouton "Start"
         manageStartButton();
+
     }
 
-    private void configButtons() {
-        getChildren().addAll(buttons);
-        startButton.setDisable(false);
-        unPlantButton.setDisable(true);
-        configLabels();
-    }
 
     private void manageStartButton() {
         startButton.setOnAction(e -> menuViewModel.start());
@@ -44,12 +39,30 @@ public class MenuView extends VBox {
     private void configMenu() {
         setPadding(new Insets(PADDING));
         setMinWidth(MENU_WIDTH);
-        getChildren().addAll(nbHerb);
+        getChildren().addAll(nbHerb,buttons);
+        startButton.setDisable(false);
+        unPlantButton.setDisable(true);
+        configLabels();
     }
 
     private void configLabels() {
         startButton.textProperty().bind(menuViewModel.startLabelProperty());
         plantButton.textProperty().bind(menuViewModel.plantLabelProperty());
         unPlantButton.textProperty().bind(menuViewModel.unPlantLabelProperty());
+    }
+    private void configLogicBinding() {
+        startButton.disableProperty().bind(menuViewModel.isFermeStartableProperty().not());
+        menuViewModel.isFermeInProgressProperty().addListener((obs, oldval, newval) -> {
+            if (!newval)
+                manageNewGameButton();
+        });
+    }
+    private void manageNewGameButton() {
+        this.getChildren().add(startButton);
+
+        startButton.setOnAction(e -> {
+            this.getChildren().remove(startButton);
+            menuViewModel.newGame();
+        });
     }
 }
