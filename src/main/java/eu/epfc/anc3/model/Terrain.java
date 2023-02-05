@@ -27,10 +27,12 @@ public class Terrain {
         return matrix[line][col].getValue();
     }
 
-    boolean play(int line, int col, ParcelleValue playerValue) {
+    /*boolean play(int line, int col, ParcelleValue playerValue) {
         return matrix[line][col].setValue(playerValue);
+    }*/
+    void play(int line, int col, ParcelleValue playerValue) {
+       matrix[line][col].setValue(playerValue);
     }
-
 
     private ParcelleValue checkCell(int line, int column){
         ParcelleValue res = matrix[line][column].getValue();
@@ -46,7 +48,7 @@ public class Terrain {
         return true;
     }
 
-    public void setValueOnField(int x, int y, ParcelleValue value) {
+    public void setValueOnFarm(int x, int y, ParcelleValue value) {
         matrix[x][y].setValue(value);
     }
 }
