@@ -23,7 +23,7 @@ public class FermeFacade {
 
 
     public FermeFacade(){
-        //isStartable.bind(ferme.fermeStatusProperty().isEqualTo(FermeStatus.START));
+        isStartable.bind(ferme.fermeStatusProperty().isEqualTo(FermeStatus.START));
 
         isStarted.bind(ferme.fermeStatusProperty().isNotEqualTo(FermeStatus.START));
 
@@ -46,6 +46,7 @@ public class FermeFacade {
             //ajouter validation si demandé ultérieurement
             ferme.start();
             farmerInFarm();
+            System.out.println("START");
         }
     }
 
@@ -61,6 +62,14 @@ public class FermeFacade {
     }
     public void newGame() {
         ferme.newGame();
+    }
+
+    public ReadOnlyBooleanProperty isStartableProperty() {
+        return isStartable;
+    }
+
+    public ReadOnlyBooleanProperty isInProgressProperty() {
+        return isInProgress;
     }
 
     /*public void moveFarmer(Move move) {
