@@ -2,35 +2,62 @@ package eu.epfc.anc3.view;
 
 import eu.epfc.anc3.model.ParcelleValue;
 import eu.epfc.anc3.vm.ParcelleViewModel;
-import eu.epfc.anc3.vm.TerrainViewModel;
 import javafx.beans.binding.DoubleBinding;
+import javafx.beans.property.ReadOnlyObjectProperty;
+import eu.epfc.anc3.vm.TerrainViewModel;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 
 public class ParcelleView extends StackPane {
-    //cell
+private static final Image FARMER = new Image("farmer.png");
+private static final Image DIRT = new Image("dirt.png");
+private static final Image GRASS = new Image("grass.png");
+private final ImageView imageView = new ImageView();
+//cell
+// pourra ajouter plant etc
 
-    private final static Image FARMER = new Image("farmer.png");
-    private final static Image DIRT = new Image("dirt.png");
-    private final static Image GRASS = new Image("grass.png");
-    // pourra ajouter plant etc
-    private final ImageView imageView = new ImageView();
 
-
-    public ParcelleView(ParcelleViewModel parcelleViewModel, DoubleBinding parcelleWidthProperty){
+    public ParcelleView(ParcelleViewModel parcelleViewModel, DoubleBinding parcelleWidthProperty) {
         imageView.setPreserveRatio(true); // permet de garder son aspect meme en étant redimensionnée
         imageView.fitWidthProperty().bind(parcelleWidthProperty);
 
-        imageView.setImage(setImage(parcelleViewModel.valueProperty().get()));
+        imageView.setImage(setFermeImg(parcelleViewModel.valueProperty().get()));
         getChildren().add(imageView);
 
     }
 
 
-    private Image setImage(ParcelleValue parcelleValue){
-        switch (parcelleValue){
-            case EMPTY:
+//    private Image setImage(ParcelleValue parcelleValue) {
+//        switch (parcelleValue) {
+//            case EMPTY:
+//                // imageView prend tout l'espace disponible et garde ses proportions
+//                // Utilise des bindings (que nous verrons plus tard) : prenez ce code tel quel sans
+//                // nécessairement le comprendre.
+//                imageView.setPreserveRatio(true);
+//                imageView.fitWidthProperty().bind(parcelleWidthProperty);
+//                getChildren().add(imageView);
+//
+//                setFermeImage(imageView, parcelleViewModel.valueProperty().getValue());
+//                ReadOnlyObjectProperty<ParcelleValue> valueProp = parcelleViewModel.valueProperty();
+//                valueProp.addListener((obs, old, newVal) -> imageView.setImage(setFermeImg(newVal)));
+//
+//                this.setOnMouseClicked(e -> parcelleViewModel.play());
+//
+//        }
+//        return parcelleValue;
+//    }
+
+    private Image setFermeImage (ImageView imageView, ParcelleValue parcelleValue){
+        imageView.setImage(parcelleValue == ParcelleValue.EMPTY
+                ? DIRT
+                : GRASS);
+        return null;
+    }
+
+    private Image setFermeImg (ParcelleValue parcelleValue){
+        switch (parcelleValue) {
+            case DIRT:
                 return DIRT;
             case GRASS:
                 return GRASS;
@@ -38,6 +65,8 @@ public class ParcelleView extends StackPane {
                 return FARMER;
             default:
                 return null; //pas sûr de celui la
+
         }
     }
 }
+

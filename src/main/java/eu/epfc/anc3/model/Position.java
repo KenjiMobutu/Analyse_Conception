@@ -2,7 +2,6 @@ package eu.epfc.anc3.model;
 
 public class Position {
     private int posX, posY;
-
     public Position(){
         posY =0;
         posX =0;

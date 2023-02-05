@@ -54,6 +54,38 @@ public class FermeFacade {
     public void moveFarmer(Controls controls){
         switch (controls){
             case UP :
+            //ajouter validation si demandé ultérieurement
+            ferme.start();
+            farmerInFarm();
+            System.out.println("START");
+        }
+    }
+
+    public ParcelleValue play(int line, int col) {
+        return ferme.play(line,col);
+    }
+
+    public ReadOnlyObjectProperty<ParcelleValue> valueProperty(int line, int col) {
+        return ferme.valueProperty(line, col);
+    }
+    public void farmerInFarm(){
+        ferme.farmerInFarm(farmer);
+    }
+    public void newGame() {
+        ferme.newGame();
+    }
+
+    public ReadOnlyBooleanProperty isStartableProperty() {
+        return isStartable;
+    }
+
+    public ReadOnlyBooleanProperty isInProgressProperty() {
+        return isInProgress;
+    }
+
+    /*public void moveFarmer(Move move) {
+        switch (move){
+            case UP:
                 goUp();
                 break;
             case DOWN:
@@ -109,4 +141,8 @@ public class FermeFacade {
 
     public ReadOnlyObjectProperty<ParcelleValue> valueProperty(int line,int col){return ferme.valueProperty(line, col);}
 
+                dropGrass();
+                break;
+        }
+    }*/
 }

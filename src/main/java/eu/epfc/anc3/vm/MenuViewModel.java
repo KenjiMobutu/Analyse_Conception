@@ -1,6 +1,8 @@
 package eu.epfc.anc3.vm;
 
 import eu.epfc.anc3.model.FermeFacade;
+import javafx.beans.Observable;
+import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -28,4 +30,20 @@ public class MenuViewModel {
     public ReadOnlyStringProperty unPlantLabelProperty() {
         return new SimpleStringProperty("Tondre du gazon");
     }
+
+    public void start() {
+        ferme.start();
+    }
+    public void newGame() {
+        //ferme.start();
+        ferme.newGame();
+    }
+    public ReadOnlyBooleanProperty isFermeStartableProperty() {
+        return ferme.isStartableProperty();
+    }
+    public ReadOnlyBooleanProperty isFermeInProgressProperty() {
+        return ferme.isInProgressProperty();
+    }
+
+
 }

@@ -17,11 +17,14 @@ public class Parcelle {
     ParcelleValue getValue() {
         return value.getValue();
     }
-    boolean setValue(ParcelleValue value) {
+    /*boolean setValue(ParcelleValue value) {
         if(this.value.get() !=ParcelleValue.EMPTY)
             this.value.setValue(value); //enleve grass
         this.value.setValue(value); //met grass;.
         return true;
+    }*/
+    void setValue(ParcelleValue value){
+       this.value.setValue(value);
     }
 
     ReadOnlyObjectProperty<ParcelleValue> valueProperty() {
