@@ -1,6 +1,8 @@
 package eu.epfc.anc3.view;
 
+import eu.epfc.anc3.model.Controls;
 import eu.epfc.anc3.model.FermeFacade;
+import eu.epfc.anc3.model.Move;
 import eu.epfc.anc3.vm.FermeViewModel;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
@@ -14,8 +16,9 @@ public class FermeView extends BorderPane {
     static final int PADDING = 20;
     static final int MENU_WIDTH = 160;
     private static final int SCENE_MIN_WIDTH = 600;
-    private static final int SCENE_MIN_HEIGHT = 400;
+    private static final int SCENE_MIN_HEIGHT = 500;
     static final int GRID_WIDTH = FermeFacade.gridWidth();
+    static final int FERME_WIDTH = 15;
 
     // Contrainte de mise en page
     private final DoubleProperty gridWidthProperty = new SimpleDoubleProperty(250);
@@ -35,11 +38,7 @@ public class FermeView extends BorderPane {
 
         // Mise en place de la scène et affichage de la fenêtre
         Scene scene = new Scene(this,SCENE_MIN_WIDTH,SCENE_MIN_HEIGHT);
-
-        //background music
-
-
-        //configKeyPressed(scene);
+        configKeyPressed(scene);
         stage.setScene(scene);
         stage.show();
         stage.setMinHeight(stage.getHeight());
@@ -55,13 +54,17 @@ public class FermeView extends BorderPane {
         //Mise en place du Field du jeu
         configTerrainView();
 
-        //Mise en place du bouton start
-        //configPlayButton();
     }
 
+    /**
+     * ====================== ici la llaaaa =======
+     */
     private void configTerrainView() {
+        createTerrain();
         fermeViewModel.isFermeStartedProperty().addListener(
                 (obs, oldval, newval) -> configTerrainPane(newval));
+        this.setOnMouseClicked(e -> this.requestFocus());
+
     }
 
     private void configTerrainPane(Boolean gameStarted) {
@@ -73,15 +76,14 @@ public class FermeView extends BorderPane {
     }
 
     private void removeTerrain() {
-        this.getChildren().remove(terrainView);
+       getChildren().remove(terrainView);
         terrainView  = null;
     }
 
     private void createTerrain() {
         terrainView = new TerrainView(fermeViewModel.getTerrainViewModel(), gridWidthProperty);
+        System.out.println(terrainView);
         // Grille carrée
-        // Utilise des bindings (que nous verrons plus tard) : prenez ce code tel quel sans
-        // nécessairement le comprendre.
         terrainView.minHeightProperty().bind(gridWidthProperty);
         terrainView.minWidthProperty().bind(gridWidthProperty);
         terrainView.maxHeightProperty().bind(gridWidthProperty);
@@ -93,7 +95,50 @@ public class FermeView extends BorderPane {
 
     private void configMenu() {
         menuView = new MenuView(fermeViewModel.getMenuViewModel());
-        setBottom(menuView);
+        setTop(menuView.nbHerb);
+        setBottom(menuView.buttons);
     }
+    public void configKeyPressed(Scene scene){
+        //doit focus la scene
+        scene.setOnKeyPressed(keyEvent -> {
+            switch(keyEvent.getCode()) {
+                case RIGHT:
+                    System.out.println(keyEvent.getCode());
+                    fermeViewModel.keyPressed(Move.RIGHT);
+                    break;
+                case LEFT:
+                    System.out.println(keyEvent.getCode());
+                    fermeViewModel.keyPressed(Move.LEFT);
+                    break;
+                case UP:
+                    System.out.println(keyEvent.getCode());
+                    fermeViewModel.keyPressed(Move.UP);
+                    break;
+                case DOWN:
+                    System.out.println(keyEvent.getCode());
+                    fermeViewModel.keyPressed(Move.DOWN);
+                    break;
+                case SPACE:
+                    System.out.println(keyEvent.getCode());
+                    fermeViewModel.keyPressed(Move.SPACE);
+                    break;
+            }
+        });
+    }
+
+//    public void configKeyPressed(Scene scene){
+//        scene.setOnKeyPressed(keyEvent -> {
+//            switch (keyEvent.getCode()){
+//                case RIGHT :
+//                    fermeViewModel.action(Controls.RIGHT);
+//                case LEFT:
+//                    fermeViewModel.action(Controls.LEFT);
+//                case DOWN:
+//                    fermeViewModel.action(Controls.DOWN);
+//                case SPACE:
+//                    fermeViewModel.action(Controls.SPACE);
+//            }
+//        });
+//    }
 
 }
