@@ -2,6 +2,7 @@ package eu.epfc.anc3.view;
 
 
 import eu.epfc.anc3.vm.MenuViewModel;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -24,6 +25,7 @@ public class MenuView extends VBox {
 
     HBox nbHerb = new HBox(nbGrassTxt,nbGrass);
     HBox buttons = new HBox(startButton,plantButton,unPlantButton);
+
     private final MenuViewModel menuViewModel;
 
     private FermeView fermeView ;
@@ -38,6 +40,7 @@ public class MenuView extends VBox {
 
     private void manageStartButton() {
         startButton.setOnAction(e -> menuViewModel.start());
+
     }
 
     private void configMenu() {
