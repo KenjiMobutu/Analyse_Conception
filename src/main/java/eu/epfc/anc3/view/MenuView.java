@@ -26,7 +26,7 @@ public class MenuView extends VBox {
     HBox buttons = new HBox(startButton,plantButton,unPlantButton);
     private final MenuViewModel menuViewModel;
 
-    private FermeView fermeView;
+    private FermeView fermeView ;
     public MenuView(MenuViewModel menuViewModel) {
         this.menuViewModel = menuViewModel;
         configMenu();
