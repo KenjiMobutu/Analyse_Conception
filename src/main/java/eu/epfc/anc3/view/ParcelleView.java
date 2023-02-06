@@ -23,10 +23,9 @@ private final ImageView imageView = new ImageView();
         imageView.fitWidthProperty().bind(parcelleWidthProperty);
 
 //        imageView.setImage(setFermeImg(parcelleViewModel.valueProperty().get()));
-//        getChildren().add(imageView);
-
+        getChildren().add(imageView);
         imageView.setImage(DIRT);
-        //setFermeImage(imageView,parcelleViewModel.valueProperty().getValue());
+//        setFermeImage(imageView,parcelleViewModel.valueProperty().getValue());
         ReadOnlyObjectProperty<ParcelleValue> valueProp = parcelleViewModel.valueProperty();
         valueProp.addListener((obs, old, newVal) ->imageView.setImage(setFermeImg(newVal)));
 

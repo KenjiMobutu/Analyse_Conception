@@ -38,7 +38,6 @@ public class FermeView extends BorderPane {
 
         // Mise en place de la scène et affichage de la fenêtre
         Scene scene = new Scene(this,SCENE_MIN_WIDTH,SCENE_MIN_HEIGHT);
-
         configKeyPressed(scene);
         stage.setScene(scene);
         stage.show();
@@ -57,10 +56,14 @@ public class FermeView extends BorderPane {
 
     }
 
+    /**
+     * ====================== ici la llaaaa =======
+     */
     private void configTerrainView() {
         createTerrain();
         fermeViewModel.isFermeStartedProperty().addListener(
                 (obs, oldval, newval) -> configTerrainPane(newval));
+        this.setOnMouseClicked(e -> this.requestFocus());
     }
 
     private void configTerrainPane(Boolean gameStarted) {
@@ -95,21 +98,27 @@ public class FermeView extends BorderPane {
         setBottom(menuView.buttons);
     }
     public void configKeyPressed(Scene scene){
+        //doit focus la scene
         scene.setOnKeyPressed(keyEvent -> {
             switch(keyEvent.getCode()) {
                 case RIGHT:
+                    System.out.println(keyEvent.getCode());
                     fermeViewModel.keyPressed(Move.RIGHT);
                     break;
                 case LEFT:
+                    System.out.println(keyEvent.getCode());
                     fermeViewModel.keyPressed(Move.LEFT);
                     break;
                 case UP:
+                    System.out.println(keyEvent.getCode());
                     fermeViewModel.keyPressed(Move.UP);
                     break;
                 case DOWN:
+                    System.out.println(keyEvent.getCode());
                     fermeViewModel.keyPressed(Move.DOWN);
                     break;
                 case SPACE:
+                    System.out.println(keyEvent.getCode());
                     fermeViewModel.keyPressed(Move.SPACE);
                     break;
             }

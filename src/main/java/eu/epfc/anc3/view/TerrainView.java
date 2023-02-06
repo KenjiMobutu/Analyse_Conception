@@ -13,7 +13,6 @@ import static eu.epfc.anc3.view.FermeView.*;
 public class TerrainView extends GridPane {
     //grid
     public TerrainView (TerrainViewModel terrainViewModel, DoubleProperty fermeWidthProperty){
-
         setGridLinesVisible(true);
         setPadding(new Insets(10));
         // Cellules de même taille

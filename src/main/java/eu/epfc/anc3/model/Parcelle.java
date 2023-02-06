@@ -10,9 +10,10 @@ public class Parcelle {
     //cellule
     private final ObjectProperty<ParcelleValue> value = new SimpleObjectProperty<>(ParcelleValue.EMPTY);
 
-    private final ImageView imageView;
+//    private final ImageView imageView;
     public Parcelle(){
-        imageView = new ImageView(new Image(getClass().getResourceAsStream("/ressources/dirt.png")));
+
+//        imageView = new ImageView(new Image(getClass().getResourceAsStream("/ressources/dirt.png")));
     }
     ParcelleValue getValue() {
         return value.getValue();

@@ -46,6 +46,9 @@ public class FermeFacade {
     public void start() {
         if (isStartable.get()) {
             ferme.start();
+            farmerInFarm();
+            System.out.println("start");
+
         }
     }
 
@@ -88,9 +91,7 @@ public class FermeFacade {
             case UP:
                 goUp();
                 break;
-            case DOWN:
-                goDown();
-                break;
+
             case LEFT:
                 goLeft();
                 break;
@@ -101,6 +102,9 @@ public class FermeFacade {
                 //action
                 dropGrass();
                 break;
+            case DOWN:
+                goDown();
+                break;
         }
     }
 
@@ -110,7 +114,7 @@ public class FermeFacade {
         //si l'action est faisable dans la matrice?
         if (up.getPosX() >= 0){
             farmer.setPosFarmer(up.getPosX(),up.getPosY());
-            ferme.setPosFarmerInGame(farmer);
+            ferme.farmerInFarm(farmer);
         }
     }
 
@@ -119,16 +123,17 @@ public class FermeFacade {
         //action ?
         if (down.getPosX() < GRID_HEIGHT){
             farmer.setPosFarmer(down.getPosX(),down.getPosY());
-            ferme.setPosFarmerInGame(farmer);
+            ferme.farmerInFarm(farmer);
         }
 
     }
     private void goRight(){
         Position right = new Position(farmer.getPosFarmer().getPosX(), farmer.getPosFarmer().getPosY()+1);
+
         //action ?
         if (right.getPosY() < GRID_WIDTH){
             farmer.setPosFarmer(right.getPosX(),right.getPosY());
-            ferme.setPosFarmerInGame(farmer);
+            ferme.farmerInFarm(farmer);
         }
     }
     private void goLeft(){
@@ -136,7 +141,7 @@ public class FermeFacade {
         //action ?
         if (left.getPosY() >= 0){
             farmer.setPosFarmer(left.getPosX(),left.getPosY());
-            ferme.setPosFarmerInGame(farmer);
+            ferme.farmerInFarm(farmer);
         }
     }
     private void dropGrass() {
