@@ -48,6 +48,7 @@ public class FermeFacade {
             ferme.start();
             farmerInFarm();
             System.out.println("start");
+            System.out.println(isStarted.getValue());
 
         }
     }

@@ -24,7 +24,6 @@ public class FermeView extends BorderPane {
     private final DoubleProperty gridWidthProperty = new SimpleDoubleProperty(250);
     private final FermeViewModel fermeViewModel = new FermeViewModel();
     // Composants principaux
-    private FermeView fermeView;
     private TerrainView terrainView;
     private MenuView menuView;
 
@@ -43,6 +42,7 @@ public class FermeView extends BorderPane {
         stage.show();
         stage.setMinHeight(stage.getHeight());
         stage.setMinWidth(stage.getWidth());
+
     }
     private void configMainComponents(Stage stage){
         stage.titleProperty().bind(fermeViewModel.titleProperty());
@@ -64,11 +64,15 @@ public class FermeView extends BorderPane {
         fermeViewModel.isFermeStartedProperty().addListener(
                 (obs, oldval, newval) -> configTerrainPane(newval));
         this.setOnMouseClicked(e -> this.requestFocus());
+
     }
 
     private void configTerrainPane(Boolean gameStarted) {
         if (gameStarted) {
             createTerrain();
+            if (fermeViewModel.isFermeStartedProperty().getValue()){
+                this.requestFocus();
+            }
         } else {
             removeTerrain();
         }
@@ -96,6 +100,7 @@ public class FermeView extends BorderPane {
         menuView = new MenuView(fermeViewModel.getMenuViewModel());
         setTop(menuView.nbHerb);
         setBottom(menuView.buttons);
+
     }
     public void configKeyPressed(Scene scene){
         //doit focus la scene
@@ -124,20 +129,5 @@ public class FermeView extends BorderPane {
             }
         });
     }
-
-//    public void configKeyPressed(Scene scene){
-//        scene.setOnKeyPressed(keyEvent -> {
-//            switch (keyEvent.getCode()){
-//                case RIGHT :
-//                    fermeViewModel.action(Controls.RIGHT);
-//                case LEFT:
-//                    fermeViewModel.action(Controls.LEFT);
-//                case DOWN:
-//                    fermeViewModel.action(Controls.DOWN);
-//                case SPACE:
-//                    fermeViewModel.action(Controls.SPACE);
-//            }
-//        });
-//    }
 
 }
