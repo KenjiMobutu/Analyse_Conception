@@ -23,6 +23,10 @@ public class Position {
     public void setPosX(int posX) {
         this.posX = posX;
     }
+    public void setPosY(int y) {
+        this.posY = y;
+    }
+
 
     public void setPos(int posX,int posY) {
         this.posX = posX;
@@ -33,7 +37,4 @@ public class Position {
         getPosY();
     }
 
-    public void setPosY(int y) {
-        this.posY = posY;
-    }
 }

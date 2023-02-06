@@ -91,7 +91,9 @@ public class FermeFacade {
             case UP:
                 goUp();
                 break;
-
+            case DOWN:
+                goDown();
+                break;
             case LEFT:
                 goLeft();
                 break;
@@ -102,9 +104,6 @@ public class FermeFacade {
                 //action
                 dropGrass();
                 break;
-            case DOWN:
-                goDown();
-                break;
         }
     }
 
@@ -113,6 +112,7 @@ public class FermeFacade {
         // action a verifier genre s'il veut poser de l'herbe ?
         //si l'action est faisable dans la matrice?
         if (up.getPosX() >= 0){
+            System.out.println("x : " + up.getPosX() + "  y :" + up.getPosY());
             farmer.setPosFarmer(up.getPosX(),up.getPosY());
             ferme.farmerInFarm(farmer);
         }
@@ -122,6 +122,7 @@ public class FermeFacade {
         Position down = new Position(farmer.getPosFarmer().getPosX()+1, farmer.getPosFarmer().getPosY());
         //action ?
         if (down.getPosX() < GRID_HEIGHT){
+            System.out.println("x : " + down.getPosX() + "  y :" + down.getPosY());
             farmer.setPosFarmer(down.getPosX(),down.getPosY());
             ferme.farmerInFarm(farmer);
         }
@@ -131,7 +132,8 @@ public class FermeFacade {
         Position right = new Position(farmer.getPosFarmer().getPosX(), farmer.getPosFarmer().getPosY()+1);
 
         //action ?
-        if (right.getPosY() < GRID_WIDTH){
+        if (right.getPosY() <= GRID_WIDTH){
+            System.out.println("x : " + right.getPosX() + "  y :" + right.getPosY());
             farmer.setPosFarmer(right.getPosX(),right.getPosY());
             ferme.farmerInFarm(farmer);
         }
@@ -140,6 +142,8 @@ public class FermeFacade {
         Position left = new Position(farmer.getPosFarmer().getPosX(), farmer.getPosFarmer().getPosY()-1);
         //action ?
         if (left.getPosY() >= 0){
+            System.out.println("x : " + left.getPosX() + "  y :" + left.getPosY());
+
             farmer.setPosFarmer(left.getPosX(),left.getPosY());
             ferme.farmerInFarm(farmer);
         }
