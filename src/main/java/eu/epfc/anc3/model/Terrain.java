@@ -5,7 +5,7 @@ import javafx.beans.property.ReadOnlyObjectProperty;
 public class Terrain {
     //grid
 
-    static final int GRID_HEIGHT = 25;
+    static final int GRID_HEIGHT = 15;
     static final int GRID_WIDTH = 15;
 
     private final Parcelle[][] matrix;
