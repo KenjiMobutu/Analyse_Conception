@@ -22,9 +22,15 @@ private final ImageView imageView = new ImageView();
         imageView.setPreserveRatio(true); // permet de garder son aspect meme en étant redimensionnée
         imageView.fitWidthProperty().bind(parcelleWidthProperty);
 
-        imageView.setImage(setFermeImg(parcelleViewModel.valueProperty().get()));
-        getChildren().add(imageView);
+//        imageView.setImage(setFermeImg(parcelleViewModel.valueProperty().get()));
+//        getChildren().add(imageView);
 
+        imageView.setImage(DIRT);
+        //setFermeImage(imageView,parcelleViewModel.valueProperty().getValue());
+        ReadOnlyObjectProperty<ParcelleValue> valueProp = parcelleViewModel.valueProperty();
+        valueProp.addListener((obs, old, newVal) ->imageView.setImage(setFermeImg(newVal)));
+
+        this.setOnMouseClicked(e -> parcelleViewModel.play());
     }
 
 
@@ -68,5 +74,6 @@ private final ImageView imageView = new ImageView();
 
         }
     }
+
 }
 

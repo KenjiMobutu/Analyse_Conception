@@ -80,7 +80,6 @@ public class FermeView extends BorderPane {
         terrainView = new TerrainView(fermeViewModel.getTerrainViewModel(), gridWidthProperty);
         System.out.println(terrainView);
         // Grille carrée
-        //terrainView.setStyle("-fx-background-color: #6e5b02;");
         terrainView.minHeightProperty().bind(gridWidthProperty);
         terrainView.minWidthProperty().bind(gridWidthProperty);
         terrainView.maxHeightProperty().bind(gridWidthProperty);

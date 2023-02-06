@@ -83,7 +83,7 @@ public class FermeFacade {
         return isInProgress;
     }
 
-    /*public void moveFarmer(Move move) {
+    public void moveFarmer(Move move) {
         switch (move){
             case UP:
                 goUp();
@@ -99,6 +99,7 @@ public class FermeFacade {
                 break;
             case SPACE:
                 //action
+                dropGrass();
                 break;
         }
     }
@@ -108,7 +109,7 @@ public class FermeFacade {
         // action a verifier genre s'il veut poser de l'herbe ?
         //si l'action est faisable dans la matrice?
         if (up.getPosX() >= 0){
-            farmer.setPosPlayer(up.getPosX(),up.getPosY());
+            farmer.setPosFarmer(up.getPosX(),up.getPosY());
             ferme.setPosFarmerInGame(farmer);
         }
     }
@@ -117,7 +118,7 @@ public class FermeFacade {
         Position down = new Position(farmer.getPosFarmer().getPosX()+1, farmer.getPosFarmer().getPosY());
         //action ?
         if (down.getPosX() < GRID_HEIGHT){
-            farmer.setPosPlayer(down.getPosX(),down.getPosY());
+            farmer.setPosFarmer(down.getPosX(),down.getPosY());
             ferme.setPosFarmerInGame(farmer);
         }
 
@@ -126,7 +127,7 @@ public class FermeFacade {
         Position right = new Position(farmer.getPosFarmer().getPosX(), farmer.getPosFarmer().getPosY()+1);
         //action ?
         if (right.getPosY() < GRID_WIDTH){
-            farmer.setPosPlayer(right.getPosX(),right.getPosY());
+            farmer.setPosFarmer(right.getPosX(),right.getPosY());
             ferme.setPosFarmerInGame(farmer);
         }
     }
@@ -134,15 +135,12 @@ public class FermeFacade {
         Position left = new Position(farmer.getPosFarmer().getPosX(), farmer.getPosFarmer().getPosY()-1);
         //action ?
         if (left.getPosY() >= 0){
-            farmer.setPosPlayer(left.getPosX(),left.getPosY());
+            farmer.setPosFarmer(left.getPosX(),left.getPosY());
             ferme.setPosFarmerInGame(farmer);
         }
     }
-
-    public ReadOnlyObjectProperty<ParcelleValue> valueProperty(int line,int col){return ferme.valueProperty(line, col);}
-
-                dropGrass();
-                break;
-        }
-    }*/
+    private void dropGrass() {
+        Position currentPos = farmer.getPosFarmer();
+        ferme.setGrass(currentPos.getPosX(), currentPos.getPosY(), true);
+    }
 }

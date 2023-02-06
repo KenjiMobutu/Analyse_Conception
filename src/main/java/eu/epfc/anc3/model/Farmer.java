@@ -22,23 +22,22 @@ public class Farmer {
 
         // farmerImageView.xProperty().bind(player.xProperty());
         // farmerImageView.yProperty().bind(player.yProperty());
+
     }
-
-
-    public void setPosPlayer(int x, int y) {}
+    public List<Grass> getListOfPlantedGrass(){
+        return listOfPlantedGrass;
+    }
+    public void setPosFarmer(int x, int y){
+        posFarmer.setPosX(x);
+        posFarmer.setPosY(y);
+    }
 
 
 //        public Farmer() {
 //            posFarmer = new Position(3, 3);
 //        }
-        public List<Grass> getListOfPlantedGrass () {
-            return listOfPlantedGrass;
-        }
 
-        public void setPosFarmer ( int x, int y){
-            posFarmer.setPosX(x);
-            posFarmer.setPosY(y);
-        }
+
 
 //    scene.setOnKeyPressed(event -> {
 
