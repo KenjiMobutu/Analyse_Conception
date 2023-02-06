@@ -1,5 +1,6 @@
 package eu.epfc.anc3.view;
 
+import eu.epfc.anc3.model.Controls;
 import eu.epfc.anc3.model.FermeFacade;
 import eu.epfc.anc3.model.Move;
 import eu.epfc.anc3.vm.FermeViewModel;
@@ -37,7 +38,6 @@ public class FermeView extends BorderPane {
 
         // Mise en place de la scène et affichage de la fenêtre
         Scene scene = new Scene(this,SCENE_MIN_WIDTH,SCENE_MIN_HEIGHT);
-
         configKeyPressed(scene);
         stage.setScene(scene);
         stage.show();
@@ -56,11 +56,15 @@ public class FermeView extends BorderPane {
 
     }
 
+    /**
+     * ====================== ici la llaaaa =======
+     */
     private void configTerrainView() {
         createTerrain();
         fermeViewModel.isFermeStartedProperty().addListener(
                 (obs, oldval, newval) -> configTerrainPane(newval));
-        this.setOnMouseClicked(mouseEvent -> this.requestFocus());
+        this.setOnMouseClicked(e -> this.requestFocus());
+
     }
 
     private void configTerrainPane(Boolean gameStarted) {
@@ -95,25 +99,46 @@ public class FermeView extends BorderPane {
         setBottom(menuView.buttons);
     }
     public void configKeyPressed(Scene scene){
+        //doit focus la scene
         scene.setOnKeyPressed(keyEvent -> {
             switch(keyEvent.getCode()) {
                 case RIGHT:
+                    System.out.println(keyEvent.getCode());
                     fermeViewModel.keyPressed(Move.RIGHT);
                     break;
                 case LEFT:
+                    System.out.println(keyEvent.getCode());
                     fermeViewModel.keyPressed(Move.LEFT);
                     break;
                 case UP:
+                    System.out.println(keyEvent.getCode());
                     fermeViewModel.keyPressed(Move.UP);
                     break;
                 case DOWN:
+                    System.out.println(keyEvent.getCode());
                     fermeViewModel.keyPressed(Move.DOWN);
                     break;
                 case SPACE:
+                    System.out.println(keyEvent.getCode());
                     fermeViewModel.keyPressed(Move.SPACE);
                     break;
             }
         });
     }
+
+//    public void configKeyPressed(Scene scene){
+//        scene.setOnKeyPressed(keyEvent -> {
+//            switch (keyEvent.getCode()){
+//                case RIGHT :
+//                    fermeViewModel.action(Controls.RIGHT);
+//                case LEFT:
+//                    fermeViewModel.action(Controls.LEFT);
+//                case DOWN:
+//                    fermeViewModel.action(Controls.DOWN);
+//                case SPACE:
+//                    fermeViewModel.action(Controls.SPACE);
+//            }
+//        });
+//    }
 
 }

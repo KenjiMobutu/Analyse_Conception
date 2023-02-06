@@ -33,6 +33,7 @@ public class MenuViewModel {
 
     public void start() {
         ferme.start();
+
     }
     public void newGame() {
         //ferme.start();

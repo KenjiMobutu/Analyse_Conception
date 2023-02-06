@@ -17,6 +17,7 @@ public class MenuView extends VBox {
     // Composants du "menu"
     private final Label nbGrassTxt = new Label("Nombre de parcelles de gazon : ");
     private final TextField nbGrass= new TextField();
+
     private final Button startButton = new Button();
     private final Button plantButton = new Button();
     private final Button unPlantButton = new Button();
@@ -24,6 +25,8 @@ public class MenuView extends VBox {
     HBox nbHerb = new HBox(nbGrassTxt,nbGrass);
     HBox buttons = new HBox(startButton,plantButton,unPlantButton);
     private final MenuViewModel menuViewModel;
+
+    private FermeView fermeView;
     public MenuView(MenuViewModel menuViewModel) {
         this.menuViewModel = menuViewModel;
         configMenu();
@@ -41,12 +44,17 @@ public class MenuView extends VBox {
         setPadding(new Insets(PADDING));
         setMinWidth(MENU_WIDTH);
         getChildren().addAll(nbHerb,buttons);
+        nbHerb.setDisable(true);
         startButton.setDisable(false);
-        unPlantButton.setDisable(true);
+//        if(startButton.){
+//
+//        }
+        //bind nbHerb avec le compteur
         configLabels();
     }
 
     private void configLabels() {
+//        nbGrass.textProperty().bind(); doit etre bind avec son compteur
         startButton.textProperty().bind(menuViewModel.startLabelProperty());
         plantButton.textProperty().bind(menuViewModel.plantLabelProperty());
         unPlantButton.textProperty().bind(menuViewModel.unPlantLabelProperty());

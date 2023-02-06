@@ -16,15 +16,16 @@ public class Ferme {
     void start(){
         terrain = new Terrain();
         fermeStatus.set(FermeStatus.STARTED);
-        //newGame();
+        newGame();
     }
 
     private FermeStatus status(){return this.fermeStatus.get();}
     ParcelleValue play(int line, int col){
+
         switch (status()){
-            case START :
+            case STARTED:
             case PLANT_GRASS: return ParcelleValue.GRASS;
-            case DEPLANT_GRASS: return ParcelleValue.EMPTY;
+            case DEPLANT_GRASS: return ParcelleValue.EMPTY; // a vérifier s'il faudrait pas faire une value deplant grass
 
         }
 
@@ -83,10 +84,16 @@ public class Ferme {
         fermeStatus.set(FermeStatus.STARTED);
     }
 
+//    public void setPosFarmerInGame(Farmer farmer){
+//        terrain.setValueOnFarm(farmer.getPosFarmer().getPosX(),farmer.getPosFarmer().getPosY(), ParcelleValue.FARMER);
+//    }
+
     public void farmerInFarm(Farmer farmer) {
         System.out.println("Farmer");
         terrain.setValueOnFarm(farmer.getPosFarmer().getPosX(),farmer.getPosFarmer().getPosY(),ParcelleValue.FARMER);
+
     }
+
     public Terrain getTerrain(){
         return terrain;
     }

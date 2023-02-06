@@ -1,5 +1,6 @@
 package eu.epfc.anc3.vm;
 
+import eu.epfc.anc3.model.Controls;
 import eu.epfc.anc3.model.FermeFacade;
 import eu.epfc.anc3.model.Move;
 import eu.epfc.anc3.view.TerrainView;
@@ -16,6 +17,10 @@ public class FermeViewModel {
     public MenuViewModel getMenuViewModel() {
         return menuViewModel;
     }
+    public TerrainViewModel getTerrainViewModel() {
+        return terrainViewModel;
+    }
+
     public ReadOnlyStringProperty titleProperty() {
         return new SimpleStringProperty("Farm");
     }
@@ -24,14 +29,15 @@ public class FermeViewModel {
         return ferme.isStartedProperty();
     }
 
-    public TerrainViewModel getTerrainViewModel() {
-        return terrainViewModel;
-    }
     public FermeViewModel(){
         menuViewModel = new MenuViewModel(ferme);
         terrainViewModel = new TerrainViewModel(ferme);
-
     }
+
+    public void action(Controls control){
+        ferme.moveFarmer(control);
+    }
+
     public void keyPressed(Move move) {
         ferme.moveFarmer(move);
     }
