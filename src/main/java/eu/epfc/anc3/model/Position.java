@@ -24,7 +24,16 @@ class Position {
         this.posX = posX;
     }
 
-    public void setPosY(int posY) {
+    public void setPos(int posX,int posY) {
+        this.posX = posX;
+        this.posY = posY;
+    }
+    public void getPos() {
+        getPosX();
+        getPosY();
+    }
+
+    public void setPosY(int y) {
         this.posY = posY;
     }
 }

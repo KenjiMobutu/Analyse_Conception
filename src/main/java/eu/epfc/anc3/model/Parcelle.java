@@ -17,8 +17,10 @@ public class Parcelle {
         this.value.setValue(value); //met grass;.
         return true;
     }*/
-    void setValue(ParcelleValue value){
-       this.value.setValue(value);
+    boolean setValue(ParcelleValue value){
+        if (this.value.get() != ParcelleValue.EMPTY) return false;
+        this.value.setValue(value);
+        return true;
     }
 
     ReadOnlyObjectProperty<ParcelleValue> valueProperty() {
@@ -28,4 +30,7 @@ public class Parcelle {
     boolean isEmpty() {
         return value.get() == ParcelleValue.EMPTY;
     }
+
+
+
 }

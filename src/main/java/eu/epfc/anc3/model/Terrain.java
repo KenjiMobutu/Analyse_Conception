@@ -30,8 +30,8 @@ public class Terrain {
     /*boolean play(int line, int col, ParcelleValue playerValue) {
         return matrix[line][col].setValue(playerValue);
     }*/
-    void play(int line, int col, ParcelleValue playerValue) {
-       matrix[line][col].setValue(playerValue);
+    boolean play(int line, int col, ParcelleValue playerValue) {
+       return matrix[line][col].setValue(playerValue);
     }
 
     private ParcelleValue checkCell(int line, int column){
@@ -48,7 +48,7 @@ public class Terrain {
         return true;
     }
 
-    public void setValueOnFarm(int x, int y, ParcelleValue value) {
-        matrix[x][y].setValue(value);
+    public boolean setValueOnFarm(int x, int y, ParcelleValue value) {
+       return matrix[x][y].setValue(value);
     }
 }

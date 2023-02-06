@@ -21,8 +21,8 @@ public class ParcelleView extends StackPane {
         imageView.setPreserveRatio(true);
         imageView.fitWidthProperty().bind(parcelleWidthProperty);
         getChildren().add(imageView);
-
-        setFermeImage(imageView,parcelleViewModel.valueProperty().getValue());
+        imageView.setImage(DIRT);
+        //setFermeImage(imageView,parcelleViewModel.valueProperty().getValue());
         ReadOnlyObjectProperty<ParcelleValue> valueProp = parcelleViewModel.valueProperty();
         valueProp.addListener((obs, old, newVal) ->imageView.setImage(setFermeImg(newVal)));
 
@@ -48,4 +48,5 @@ public class ParcelleView extends StackPane {
                 return null;
         }
     }
+
 }

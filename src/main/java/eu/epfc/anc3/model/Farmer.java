@@ -9,7 +9,7 @@ public class Farmer {
     public final List<Grass> listOfPlantedGrass = new ArrayList<>();
 
     public Farmer(){
-        posFarmer = new Position(3,3);
+        posFarmer = new Position(0,0);
     }
     public List<Grass> getListOfPlantedGrass(){
         return listOfPlantedGrass;
@@ -31,6 +31,7 @@ public class Farmer {
         System.out.println(posFarmer);
         return posFarmer.toString();
     }
+
 
     //    scene.setOnKeyPressed(event -> {
 //        switch (event.getCode()) {

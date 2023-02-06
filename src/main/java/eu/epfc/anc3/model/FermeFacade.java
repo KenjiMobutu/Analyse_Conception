@@ -72,7 +72,7 @@ public class FermeFacade {
         return isInProgress;
     }
 
-    /*public void moveFarmer(Move move) {
+    public void moveFarmer(Move move) {
         switch (move){
             case UP:
                 goUp();
@@ -90,5 +90,38 @@ public class FermeFacade {
                 dropGrass();
                 break;
         }
-    }*/
+    }
+
+    private void dropGrass() {
+        Position currentPos = farmer.getPosFarmer();
+        ferme.setGrass(currentPos.getPosX(), currentPos.getPosY(), true);
+    }
+
+
+
+    private void goDown() {
+        Position down = new Position(farmer.getPosFarmer().getPosX() + 1, farmer.getPosFarmer().getPosY());
+        farmer.setPosFarmer(down.getPosX(), down.getPosY());
+        ferme.farmerInFarm(farmer);
+    }
+
+    private void goLeft() {
+        Position left = new Position(farmer.getPosFarmer().getPosX(), farmer.getPosFarmer().getPosY() - 1);
+        farmer.setPosFarmer(left.getPosX(), left.getPosY());
+        ferme.farmerInFarm(farmer);
+    }
+
+    private void goRight() {
+        System.out.println("right");
+        Position right = new Position(farmer.getPosFarmer().getPosX(), farmer.getPosFarmer().getPosY() + 1);
+        farmer.setPosFarmer(right.getPosX(), right.getPosY());
+        ferme.farmerInFarm(farmer);
+    }
+
+
+    private void goUp() {
+        Position up = new Position(farmer.getPosFarmer().getPosX()-1,farmer.getPosFarmer().getPosY());
+        farmer.setPosFarmer(up.getPosX(),up.getPosY());
+        ferme.farmerInFarm(farmer);
+    }
 }
