@@ -17,4 +17,10 @@ public class ParcelleViewModel {
 
 
     public ReadOnlyObjectProperty<ParcelleValue> valueProperty(){return ferme.valueProperty(line,col);}
+
+
+    public void play() {
+        ferme.play(line, col);
+    }
+
 }

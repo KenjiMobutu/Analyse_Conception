@@ -46,6 +46,9 @@ public class FermeFacade {
     public void start() {
         if (isStartable.get()) {
             ferme.start();
+            farmerInFarm();
+            System.out.println("start");
+
         }
     }
 
@@ -54,6 +57,38 @@ public class FermeFacade {
     public void moveFarmer(Controls controls){
         switch (controls){
             case UP :
+            //ajouter validation si demandé ultérieurement
+            ferme.start();
+            farmerInFarm();
+            System.out.println("START");
+        }
+    }
+
+    public ParcelleValue play(int line, int col) {
+        return ferme.play(line,col);
+    }
+
+    public ReadOnlyObjectProperty<ParcelleValue> valueProperty(int line, int col) {
+        return ferme.valueProperty(line, col);
+    }
+    public void farmerInFarm(){
+        ferme.farmerInFarm(farmer);
+    }
+    public void newGame() {
+        ferme.newGame();
+    }
+
+    public ReadOnlyBooleanProperty isStartableProperty() {
+        return isStartable;
+    }
+
+    public ReadOnlyBooleanProperty isInProgressProperty() {
+        return isInProgress;
+    }
+
+    public void moveFarmer(Move move) {
+        switch (move){
+            case UP:
                 goUp();
                 break;
             case DOWN:
@@ -67,6 +102,7 @@ public class FermeFacade {
                 break;
             case SPACE:
                 //action
+                dropGrass();
                 break;
         }
     }
@@ -76,8 +112,9 @@ public class FermeFacade {
         // action a verifier genre s'il veut poser de l'herbe ?
         //si l'action est faisable dans la matrice?
         if (up.getPosX() >= 0){
-            farmer.setPosPlayer(up.getPosX(),up.getPosY());
-            ferme.setPosFarmerInGame(farmer);
+            System.out.println("x : " + up.getPosX() + "  y :" + up.getPosY());
+            farmer.setPosFarmer(up.getPosX(),up.getPosY());
+            ferme.farmerInFarm(farmer);
         }
     }
 
@@ -85,28 +122,34 @@ public class FermeFacade {
         Position down = new Position(farmer.getPosFarmer().getPosX()+1, farmer.getPosFarmer().getPosY());
         //action ?
         if (down.getPosX() < GRID_HEIGHT){
-            farmer.setPosPlayer(down.getPosX(),down.getPosY());
-            ferme.setPosFarmerInGame(farmer);
+            System.out.println("x : " + down.getPosX() + "  y :" + down.getPosY());
+            farmer.setPosFarmer(down.getPosX(),down.getPosY());
+            ferme.farmerInFarm(farmer);
         }
 
     }
     private void goRight(){
         Position right = new Position(farmer.getPosFarmer().getPosX(), farmer.getPosFarmer().getPosY()+1);
+
         //action ?
-        if (right.getPosY() < GRID_WIDTH){
-            farmer.setPosPlayer(right.getPosX(),right.getPosY());
-            ferme.setPosFarmerInGame(farmer);
+        if (right.getPosY() <= GRID_WIDTH){
+            System.out.println("x : " + right.getPosX() + "  y :" + right.getPosY());
+            farmer.setPosFarmer(right.getPosX(),right.getPosY());
+            ferme.farmerInFarm(farmer);
         }
     }
     private void goLeft(){
         Position left = new Position(farmer.getPosFarmer().getPosX(), farmer.getPosFarmer().getPosY()-1);
         //action ?
         if (left.getPosY() >= 0){
-            farmer.setPosPlayer(left.getPosX(),left.getPosY());
-            ferme.setPosFarmerInGame(farmer);
+            System.out.println("x : " + left.getPosX() + "  y :" + left.getPosY());
+
+            farmer.setPosFarmer(left.getPosX(),left.getPosY());
+            ferme.farmerInFarm(farmer);
         }
     }
-
-    public ReadOnlyObjectProperty<ParcelleValue> valueProperty(int line,int col){return ferme.valueProperty(line, col);}
-
+    private void dropGrass() {
+        Position currentPos = farmer.getPosFarmer();
+        ferme.setGrass(currentPos.getPosX(), currentPos.getPosY(), true);
+    }
 }

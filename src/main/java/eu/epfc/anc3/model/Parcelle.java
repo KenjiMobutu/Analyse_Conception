@@ -10,17 +10,23 @@ public class Parcelle {
     //cellule
     private final ObjectProperty<ParcelleValue> value = new SimpleObjectProperty<>(ParcelleValue.EMPTY);
 
-    private final ImageView imageView;
+//    private final ImageView imageView;
     public Parcelle(){
-        imageView = new ImageView(new Image(getClass().getResourceAsStream("/ressources/dirt.png")));
+
+//        imageView = new ImageView(new Image(getClass().getResourceAsStream("/ressources/dirt.png")));
     }
     ParcelleValue getValue() {
         return value.getValue();
     }
-    boolean setValue(ParcelleValue value) {
+    /*boolean setValue(ParcelleValue value) {
         if(this.value.get() !=ParcelleValue.EMPTY)
             this.value.setValue(value); //enleve grass
         this.value.setValue(value); //met grass;.
+        return true;
+    }*/
+    boolean setValue(ParcelleValue value){
+        if (this.value.get() != ParcelleValue.EMPTY) return false;
+        this.value.setValue(value);
         return true;
     }
 
@@ -31,4 +37,7 @@ public class Parcelle {
     boolean isEmpty() {
         return value.get() == ParcelleValue.EMPTY;
     }
+
+
+
 }

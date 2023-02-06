@@ -13,7 +13,7 @@ public class Terrain {
     Terrain() {
         matrix = new Parcelle[GRID_HEIGHT][];
         for (int i = 0; i < GRID_HEIGHT; ++i) {
-//            matrix[i] = new Parcelle[GRID_WIDTH];
+            matrix[i] = new Parcelle[GRID_WIDTH];
             for (int j = 0; j < GRID_WIDTH; ++j) {
                 matrix[i][j] = new Parcelle();
             }
@@ -30,8 +30,14 @@ public class Terrain {
 //    boolean play(int line, int col, ParcelleValue playerValue) {
 //        return matrix[line][col].setValue(playerValue);
 //    }
-    public void setValueOnTerrain(int x, int y, ParcelleValue parcelleValue){
-        matrix[x][y].setValue(parcelleValue);
+//    public void setValueOnTerrain(int x, int y, ParcelleValue parcelleValue) {
+//        matrix[x][y].setValue(parcelleValue);
+//    }
+    /*boolean play(int line, int col, ParcelleValue playerValue) {
+        return matrix[line][col].setValue(playerValue);
+    }*/
+    boolean play(int line, int col, ParcelleValue playerValue) {
+       return matrix[line][col].setValue(playerValue);
     }
 
     private ParcelleValue checkCell(int line, int column){
@@ -48,5 +54,9 @@ public class Terrain {
                 if(matrix[i][j].isEmpty())
                     return false;
         return true;
+    }
+
+    public boolean setValueOnFarm(int x, int y, ParcelleValue value) {
+       return matrix[x][y].setValue(value);
     }
 }

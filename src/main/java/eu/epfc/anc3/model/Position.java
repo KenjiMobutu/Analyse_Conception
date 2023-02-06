@@ -2,7 +2,6 @@ package eu.epfc.anc3.model;
 
 public class Position {
     private int posX, posY;
-
     public Position(){
         posY =0;
         posX =0;
@@ -24,8 +23,18 @@ public class Position {
     public void setPosX(int posX) {
         this.posX = posX;
     }
+    public void setPosY(int y) {
+        this.posY = y;
+    }
 
-    public void setPosY(int posY) {
+
+    public void setPos(int posX,int posY) {
+        this.posX = posX;
         this.posY = posY;
     }
+    public void getPos() {
+        getPosX();
+        getPosY();
+    }
+
 }
