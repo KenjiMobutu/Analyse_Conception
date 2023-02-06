@@ -47,8 +47,11 @@ public class FermeFacade {
             ferme.start();
             farmerInFarm();
             System.out.println("START");
+
         }
     }
+
+
 
     public ParcelleValue play(int line, int col) {
         return ferme.play(line,col);
@@ -100,12 +103,14 @@ public class FermeFacade {
 
 
     private void goDown() {
+        System.out.println("down");
         Position down = new Position(farmer.getPosFarmer().getPosX() + 1, farmer.getPosFarmer().getPosY());
         farmer.setPosFarmer(down.getPosX(), down.getPosY());
         ferme.farmerInFarm(farmer);
     }
 
     private void goLeft() {
+        System.out.println("Left");
         Position left = new Position(farmer.getPosFarmer().getPosX(), farmer.getPosFarmer().getPosY() - 1);
         farmer.setPosFarmer(left.getPosX(), left.getPosY());
         ferme.farmerInFarm(farmer);
@@ -120,6 +125,7 @@ public class FermeFacade {
 
 
     private void goUp() {
+        System.out.println("up");
         Position up = new Position(farmer.getPosFarmer().getPosX()-1,farmer.getPosFarmer().getPosY());
         farmer.setPosFarmer(up.getPosX(),up.getPosY());
         ferme.farmerInFarm(farmer);

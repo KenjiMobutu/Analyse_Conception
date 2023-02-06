@@ -15,7 +15,7 @@ public class FermeView extends BorderPane {
     static final int PADDING = 20;
     static final int MENU_WIDTH = 160;
     private static final int SCENE_MIN_WIDTH = 600;
-    private static final int SCENE_MIN_HEIGHT = 400;
+    private static final int SCENE_MIN_HEIGHT = 500;
     static final int GRID_WIDTH = FermeFacade.gridWidth();
     static final int FERME_WIDTH = 15;
 
@@ -60,6 +60,7 @@ public class FermeView extends BorderPane {
         createTerrain();
         fermeViewModel.isFermeStartedProperty().addListener(
                 (obs, oldval, newval) -> configTerrainPane(newval));
+        this.setOnMouseClicked(mouseEvent -> this.requestFocus());
     }
 
     private void configTerrainPane(Boolean gameStarted) {

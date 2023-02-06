@@ -20,6 +20,7 @@ public class MenuView extends VBox {
     private final Button startButton = new Button();
     private final Button plantButton = new Button();
     private final Button unPlantButton = new Button();
+
     HBox nbHerb = new HBox(nbGrassTxt,nbGrass);
     HBox buttons = new HBox(startButton,plantButton,unPlantButton);
     private final MenuViewModel menuViewModel;
