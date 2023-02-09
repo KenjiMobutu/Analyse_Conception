@@ -42,7 +42,7 @@ public class FermeView extends BorderPane {
         stage.show();
         stage.setMinHeight(stage.getHeight());
         stage.setMinWidth(stage.getWidth());
-
+        menuView.buttons.setOnMouseClicked(e -> requestFocus());
     }
     private void configMainComponents(Stage stage){
         stage.titleProperty().bind(fermeViewModel.titleProperty());
@@ -63,8 +63,7 @@ public class FermeView extends BorderPane {
         createTerrain();
         fermeViewModel.isFermeStartedProperty().addListener(
                 (obs, oldval, newval) -> configTerrainPane(newval));
-        this.setOnMouseClicked(e -> this.requestFocus());
-
+        this.requestFocus();
     }
 
     private void configTerrainPane(Boolean gameStarted) {

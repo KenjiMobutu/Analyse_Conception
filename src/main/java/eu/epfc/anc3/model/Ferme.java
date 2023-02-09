@@ -29,23 +29,23 @@ public class Ferme {
 
         }
 
-        if (terrain.play(line, col, getCurrentFarmerValue())) {
-            //derniere position du farmer
-            System.out.println(posFarmer.getPosX() + " : "+ posFarmer.getPosY());
-
-            System.out.println(parcelle.getValue());
-            //update nouvelle pos du farmer
-            posFarmer.setPos(line,col);
-            System.out.println(parcelle.getValue());
-            //updateStatusAfterMove();
-            //verification parcelle cliqué
-            System.out.println(line+" / "+col);
-
-            //verification update
-            System.out.println(posFarmer.getPosX() + " : "+ posFarmer.getPosY());
-            // terrain.getValue(line, col);
-
-        }
+//        if (terrain.play(line, col, getCurrentFarmerValue())) {
+//            //derniere position du farmer
+//            System.out.println(posFarmer.getPosX() + " : "+ posFarmer.getPosY());
+//
+//            System.out.println(parcelle.getValue());
+//            //update nouvelle pos du farmer
+//            posFarmer.setPos(line,col);
+//            System.out.println(parcelle.getValue());
+//            //updateStatusAfterMove();
+//            //verification parcelle cliqué
+//            System.out.println(line+" / "+col);
+//
+//            //verification update
+//            System.out.println(posFarmer.getPosX() + " : "+ posFarmer.getPosY());
+//            // terrain.getValue(line, col);
+//
+//        }
         /**
          * ajout de la fonction d'action du joueur (Terrain.play)
          */
