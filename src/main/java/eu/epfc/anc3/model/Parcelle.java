@@ -24,11 +24,13 @@ public class Parcelle {
         this.value.setValue(value); //met grass;.
         return true;
     }*/
-    boolean setValue(ParcelleValue value){
-        if (this.value.get() != ParcelleValue.EMPTY) return false;
+    void setValue(ParcelleValue value){
         this.value.setValue(value);
-        return true;
     }
+
+//    void setValuE(ParcelleValue value){
+//        this.value.setValue(value);
+//    }
 
     ReadOnlyObjectProperty<ParcelleValue> valueProperty() {
         return value;
