@@ -6,7 +6,7 @@ public class Terrain {
     //grid
 
     static final int GRID_HEIGHT = 15;
-    static final int GRID_WIDTH = 15;
+    static final int GRID_WIDTH = 25;
 
     private final Parcelle[][] matrix;
 

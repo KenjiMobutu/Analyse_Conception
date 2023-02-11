@@ -16,7 +16,7 @@ public class Ferme {
     void start(){
         terrain = new Terrain();
         fermeStatus.set(FermeStatus.STARTED);
-        newGame();
+        //newGame();
     }
 
     private FermeStatus status(){return this.fermeStatus.get();}
@@ -28,7 +28,6 @@ public class Ferme {
             case DEPLANT_GRASS: return ParcelleValue.EMPTY; // a vérifier s'il faudrait pas faire une value deplant grass
 
         }
-
         if (terrain.play(line, col, getCurrentFarmerValue())) {
             //derniere position du farmer
             System.out.println(posFarmer.getPosX() + " : "+ posFarmer.getPosY());
