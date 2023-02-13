@@ -9,7 +9,8 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 public class FermeView extends BorderPane {
@@ -21,7 +22,7 @@ public class FermeView extends BorderPane {
     static final int FERME_WIDTH = 15;
 
     // Contrainte de mise en page
-    private final DoubleProperty gridWidthProperty = new SimpleDoubleProperty(250);
+    private final DoubleProperty gridWidthProperty = new SimpleDoubleProperty(350);
     private final FermeViewModel fermeViewModel = new FermeViewModel();
     // Composants principaux
     private TerrainView terrainView;
@@ -42,23 +43,18 @@ public class FermeView extends BorderPane {
         stage.show();
         stage.setMinHeight(stage.getHeight());
         stage.setMinWidth(stage.getWidth());
-        menuView.buttons.setOnMouseClicked(e -> requestFocus());
+        setOnMouseClicked(e -> requestFocus());
     }
     private void configMainComponents(Stage stage){
         stage.titleProperty().bind(fermeViewModel.titleProperty());
         setPadding(new Insets(PADDING));
-
         // Mise en place des composants du menu
         configMenu();
-
         //Mise en place du Field du jeu
         configTerrainView();
 
     }
 
-    /**
-     * ====================== ici la llaaaa =======
-     */
     private void configTerrainView() {
         createTerrain();
         fermeViewModel.isFermeStartedProperty().addListener(
@@ -87,13 +83,7 @@ public class FermeView extends BorderPane {
     private void createTerrain() {
         terrainView = new TerrainView(fermeViewModel.getTerrainViewModel(), gridWidthProperty);
         System.out.println(terrainView);
-        // Grille carrée
-        terrainView.minHeightProperty().bind(gridWidthProperty);
-        terrainView.minWidthProperty().bind(gridWidthProperty);
-        terrainView.maxHeightProperty().bind(gridWidthProperty);
-        terrainView.maxWidthProperty().bind(gridWidthProperty);
         gridWidthProperty.bind(Bindings.min(widthProperty().subtract(MENU_WIDTH + 2 * PADDING), heightProperty()));
-
         setCenter(terrainView);
     }
 
