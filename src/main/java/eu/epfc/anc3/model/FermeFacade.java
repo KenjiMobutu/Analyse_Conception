@@ -6,10 +6,13 @@ import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Pos;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import static eu.epfc.anc3.model.Terrain.GRID_WIDTH;
 import static eu.epfc.anc3.model.Terrain.GRID_HEIGHT;
 public class FermeFacade {
+    private static final ImageView grass = new ImageView("grass.png");
 
     private final Farmer farmer = new Farmer();
 
@@ -159,7 +162,7 @@ public class FermeFacade {
     }
     private void dropGrass() {
         Position currentPos = farmer.getPosFarmer();
-        ferme.setGrass(currentPos.getPosX(), currentPos.getPosY(), true);
+        ferme.setGrassInFarm(farmer);
     }
 
     private void displayTerrain(Position pos){
