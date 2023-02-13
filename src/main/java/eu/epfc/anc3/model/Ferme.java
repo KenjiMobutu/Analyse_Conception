@@ -4,8 +4,13 @@ import eu.epfc.anc3.view.ParcelleView;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
+import static eu.epfc.anc3.model.ParcelleValue.GRASS;
 
 public class Ferme {
+    private static final Image GRASS = new Image("grass.png");
     private Position posFarmer = new Position();
     private Terrain terrain= new Terrain();
     private Parcelle parcelle = new Parcelle();
@@ -24,7 +29,7 @@ public class Ferme {
 
         switch (status()){
             case STARTED:
-            case PLANT_GRASS: return ParcelleValue.GRASS;
+            //case PLANT_GRASS: return GRASS;
             case DEPLANT_GRASS: return ParcelleValue.EMPTY; // a vérifier s'il faudrait pas faire une value deplant grass
 
         }
@@ -45,29 +50,6 @@ public class Ferme {
             // terrain.getValue(line, col);
 
         }
-
-
-//        if (terrain.play(line, col, getCurrentFarmerValue())) {
-//            //derniere position du farmer
-//            System.out.println(posFarmer.getPosX() + " : "+ posFarmer.getPosY());
-//
-//            System.out.println(parcelle.getValue());
-//            //update nouvelle pos du farmer
-//            posFarmer.setPos(line,col);
-//            System.out.println(parcelle.getValue());
-//            //updateStatusAfterMove();
-//            //verification parcelle cliqué
-//            System.out.println(line+" / "+col);
-//
-//            //verification update
-//            System.out.println(posFarmer.getPosX() + " : "+ posFarmer.getPosY());
-//            // terrain.getValue(line, col);
-//
-//        }
-
-        /**
-         * ajout de la fonction d'action du joueur (Terrain.play)
-         */
         return ParcelleValue.EMPTY;
     }
 
@@ -87,10 +69,6 @@ public class Ferme {
         return status() ==  FermeStatus.STARTED ? ParcelleValue.FARMER : ParcelleValue.EMPTY;
     }
 
-    /*private ParcelleValue getCurrentFarmerValue() {
-        //return STARTED;
-    }*/
-
     ReadOnlyObjectProperty<ParcelleValue> valueProperty(int line, int col) {
         return terrain.valueProperty(line, col);
     }
@@ -103,14 +81,13 @@ public class Ferme {
         fermeStatus.set(FermeStatus.STARTED);
     }
 
-//    public void setPosFarmerInGame(Farmer farmer){
-//        terrain.setValueOnFarm(farmer.getPosFarmer().getPosX(),farmer.getPosFarmer().getPosY(), ParcelleValue.FARMER);
-//    }
-
     public void farmerInFarm(Farmer farmer) {
         System.out.println("Farmer");
         terrain.setValueOnFarm(farmer.getPosFarmer().getPosX(),farmer.getPosFarmer().getPosY(),ParcelleValue.FARMER);
 
+    }
+    public void setGrassInFarm(Farmer farmer){
+        terrain.setValueOnFarm(farmer.getPosFarmer().getPosX(),farmer.getPosFarmer().getPosY(),ParcelleValue.GRASS);
     }
 
     public Terrain getTerrain(){
@@ -118,6 +95,10 @@ public class Ferme {
     }
 
     public void setGrass(int posX, int posY, boolean b) {
-        setGrass(posX,posY,b);
+        System.out.println("X :" + posX+" - "+" Y :"+posY + " ICI de L'herbe");
+        //imageView.setImage(GRASS);
+
+
+
     }
 }
