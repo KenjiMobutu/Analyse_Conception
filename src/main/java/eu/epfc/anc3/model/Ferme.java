@@ -101,8 +101,5 @@ public class Ferme {
     public void setGrass(int posX, int posY, boolean b) {
         System.out.println("X :" + posX+" - "+" Y :"+posY + " ICI de L'herbe");
         //imageView.setImage(GRASS);
-
-
-
     }
 }

@@ -40,13 +40,16 @@ public class MenuView extends VBox {
 
     private void manageStartButton() {
         startButton.setOnAction(e -> menuViewModel.start());
-
     }
 
     private void configMenu() {
         setPadding(new Insets(PADDING));
         setMinWidth(MENU_WIDTH);
         getChildren().addAll(nbHerb,buttons);
+        startButton.setFocusTraversable(false);
+        nbHerb.setFocusTraversable(false);
+        plantButton.setFocusTraversable(false);
+        unPlantButton.setFocusTraversable(false);
         nbHerb.setDisable(true);
         startButton.setDisable(false);
 //        if(startButton.){

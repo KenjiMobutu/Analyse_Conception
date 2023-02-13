@@ -7,9 +7,11 @@ import eu.epfc.anc3.vm.FermeViewModel;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
@@ -43,6 +45,10 @@ public class FermeView extends BorderPane {
         stage.show();
         stage.setMinHeight(stage.getHeight());
         stage.setMinWidth(stage.getWidth());
+        setOnMouseClicked(e -> requestFocus());
+    }
+
+    private void setFocus(){
         setOnMouseClicked(e -> requestFocus());
     }
     private void configMainComponents(Stage stage){
@@ -89,7 +95,11 @@ public class FermeView extends BorderPane {
 
     private void configMenu() {
         menuView = new MenuView(fermeViewModel.getMenuViewModel());
+        EventHandler<MouseEvent> onclick = e->{
+            setFocus();
+        };
         setTop(menuView.nbHerb);
+
         setBottom(menuView.buttons);
 
     }
