@@ -50,6 +50,7 @@ public class MenuView extends VBox {
         nbHerb.setFocusTraversable(false);
         plantButton.setFocusTraversable(false);
         unPlantButton.setFocusTraversable(false);
+
         nbHerb.setDisable(true);
         startButton.setDisable(false);
 //        if(startButton.){

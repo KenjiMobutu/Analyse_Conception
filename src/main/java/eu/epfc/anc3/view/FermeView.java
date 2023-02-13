@@ -45,7 +45,6 @@ public class FermeView extends BorderPane {
         stage.show();
         stage.setMinHeight(stage.getHeight());
         stage.setMinWidth(stage.getWidth());
-        setOnMouseClicked(e -> requestFocus());
     }
 
     private void setFocus(){
@@ -65,8 +64,6 @@ public class FermeView extends BorderPane {
         createTerrain();
         fermeViewModel.isFermeStartedProperty().addListener(
                 (obs, oldval, newval) -> configTerrainPane(newval));
-        this.setOnMouseClicked(e -> this.requestFocus());
-        this.requestFocus();
 
     }
 
@@ -95,11 +92,7 @@ public class FermeView extends BorderPane {
 
     private void configMenu() {
         menuView = new MenuView(fermeViewModel.getMenuViewModel());
-        EventHandler<MouseEvent> onclick = e->{
-            setFocus();
-        };
         setTop(menuView.nbHerb);
-
         setBottom(menuView.buttons);
 
     }
