@@ -7,7 +7,7 @@ import javafx.beans.property.ReadOnlyObjectProperty;
 import eu.epfc.anc3.vm.TerrainViewModel;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 
 public class ParcelleView extends StackPane {
 private static final Image FARMER = new Image("farmer.png");
@@ -21,37 +21,23 @@ private final ImageView imageView = new ImageView();
     public ParcelleView(ParcelleViewModel parcelleViewModel, DoubleBinding parcelleWidthProperty) {
         imageView.setPreserveRatio(true); // permet de garder son aspect meme en étant redimensionnée
         imageView.fitWidthProperty().bind(parcelleWidthProperty);
-
-//        imageView.setImage(setFermeImg(parcelleViewModel.valueProperty().get()));
+        Image img = new Image("dirt.png");
+        BackgroundImage backgroundImage = new BackgroundImage(
+                img,
+                BackgroundRepeat.SPACE,
+                BackgroundRepeat.SPACE,
+                BackgroundPosition.CENTER,
+                //BackgroundSize.DEFAULT);
+                new BackgroundSize(100, 100, true, true, true, true));
+        Background background = new Background(backgroundImage);
+        this.setBackground(background);
         getChildren().add(imageView);
         imageView.setImage(DIRT);
-//        setFermeImage(imageView,parcelleViewModel.valueProperty().getValue());
         ReadOnlyObjectProperty<ParcelleValue> valueProp = parcelleViewModel.valueProperty();
         valueProp.addListener((obs, old, newVal) ->imageView.setImage(setFermeImg(newVal)));
 
         this.setOnMouseClicked(e -> parcelleViewModel.play());
     }
-
-
-//    private Image setImage(ParcelleValue parcelleValue) {
-//        switch (parcelleValue) {
-//            case EMPTY:
-//                // imageView prend tout l'espace disponible et garde ses proportions
-//                // Utilise des bindings (que nous verrons plus tard) : prenez ce code tel quel sans
-//                // nécessairement le comprendre.
-//                imageView.setPreserveRatio(true);
-//                imageView.fitWidthProperty().bind(parcelleWidthProperty);
-//                getChildren().add(imageView);
-//
-//                setFermeImage(imageView, parcelleViewModel.valueProperty().getValue());
-//                ReadOnlyObjectProperty<ParcelleValue> valueProp = parcelleViewModel.valueProperty();
-//                valueProp.addListener((obs, old, newVal) -> imageView.setImage(setFermeImg(newVal)));
-//
-//                this.setOnMouseClicked(e -> parcelleViewModel.play());
-//
-//        }
-//        return parcelleValue;
-//    }
 
     private Image setFermeImage (ImageView imageView, ParcelleValue parcelleValue){
         imageView.setImage(parcelleValue == ParcelleValue.EMPTY
@@ -69,7 +55,7 @@ private final ImageView imageView = new ImageView();
             case FARMER:
                 return FARMER;
             default:
-                return null; //pas sûr de celui la
+                return null;
 
         }
     }
