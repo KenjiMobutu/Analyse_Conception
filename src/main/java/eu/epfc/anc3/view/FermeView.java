@@ -1,19 +1,22 @@
 package eu.epfc.anc3.view;
 
-import eu.epfc.anc3.model.Controls;
-import eu.epfc.anc3.model.FermeFacade;
-import eu.epfc.anc3.model.Move;
+import eu.epfc.anc3.model.*;
 import eu.epfc.anc3.vm.FermeViewModel;
+import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
 
 public class FermeView extends BorderPane {
     static final int PADDING = 20;
@@ -47,9 +50,6 @@ public class FermeView extends BorderPane {
         stage.setMinWidth(stage.getWidth());
     }
 
-    private void setFocus(){
-        setOnMouseClicked(e -> requestFocus());
-    }
     private void configMainComponents(Stage stage){
         stage.titleProperty().bind(fermeViewModel.titleProperty());
         setPadding(new Insets(PADDING));
@@ -86,9 +86,23 @@ public class FermeView extends BorderPane {
     private void createTerrain() {
         terrainView = new TerrainView(fermeViewModel.getTerrainViewModel(), gridWidthProperty);
         System.out.println(terrainView);
+
         gridWidthProperty.bind(Bindings.min(widthProperty().subtract(MENU_WIDTH + 2 * PADDING), heightProperty()));
         setCenter(terrainView);
     }
+
+//    private void updateTerrain(){
+//        ObservableList<Node> childs = this.terrainView.getChildren();
+//        if (childs.size()>0){
+//            Node topeNode = childs.get(childs.size()-1);
+//            System.out.println(topeNode);
+//            if (fermeViewModel.getGrass().size() > 0){
+//                ArrayList<Grass> e = fermeViewModel.getGrass();
+//                //faut partir de parcelle
+//
+//            }
+//        }
+//    }
 
     private void configMenu() {
         menuView = new MenuView(fermeViewModel.getMenuViewModel());

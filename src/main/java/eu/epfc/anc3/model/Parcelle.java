@@ -24,8 +24,9 @@ public class Parcelle {
         this.value.setValue(value); //met grass;.
         return true;
     }*/
-    void setValue(ParcelleValue value){
+    boolean setValue(ParcelleValue value){
         this.value.setValue(value);
+        return true;
     }
 
 //    void setValuE(ParcelleValue value){

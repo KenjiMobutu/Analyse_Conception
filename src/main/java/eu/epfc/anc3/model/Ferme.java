@@ -4,8 +4,14 @@ import eu.epfc.anc3.view.ParcelleView;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+
+import java.util.ArrayList;
 
 import static eu.epfc.anc3.model.ParcelleValue.GRASS;
 
@@ -14,7 +20,7 @@ public class Ferme {
     private Position posFarmer = new Position();
     private Terrain terrain= new Terrain();
     private Parcelle parcelle = new Parcelle();
-    private Grass plantedGrass;
+    private ArrayList<Grass> plantedGrass = new ArrayList<>();
     private Farmer farmer ;
     private final ObjectProperty<FermeStatus> fermeStatus = new SimpleObjectProperty<>(FermeStatus.START);
 
@@ -26,12 +32,10 @@ public class Ferme {
 
     private FermeStatus status(){return this.fermeStatus.get();}
     ParcelleValue play(int line, int col){
-
         switch (status()){
             case STARTED:
             //case PLANT_GRASS: return GRASS;
             case DEPLANT_GRASS: return ParcelleValue.EMPTY; // a vérifier s'il faudrait pas faire une value deplant grass
-
         }
         if (terrain.play(line, col, getCurrentFarmerValue())) {
             //derniere position du farmer
@@ -41,7 +45,7 @@ public class Ferme {
             //update nouvelle pos du farmer
             posFarmer.setPos(line,col);
             System.out.println(parcelle.getValue());
-            //updateStatusAfterMove();
+            updateStatusAfterMove();
             //verification parcelle cliqué
             System.out.println(line+" / "+col);
 
@@ -91,13 +95,32 @@ public class Ferme {
 
     }
     public void setGrassInFarm(Farmer farmer){
+        //trouver la parcelle où se trouve le fermier --> parcelle
+        //parcelle.addGrass();
+        Grass grass = new Grass(farmer.getPosFarmer().getPosX(),farmer.getPosFarmer().getPosY());
+        plantedGrass.add(grass);
+        ImageView grassImage = new ImageView("grass.png");
+        grassImage.setPreserveRatio(true);
+        grassImage.setImage(GRASS);
+        parcelle.setValue(ParcelleValue.GRASS);
+
+        for (Grass e : plantedGrass){
+            System.out.println(e.getX()+ "   "+ e.getY());
+
+//            parcelle.addChildren(grassImage);
+//        test.setPreserveRatio(true);
+//        test.setImage(FARMER);
+//        getChildren().add(test);
+        }
         terrain.setValueOnFarm(farmer.getPosFarmer().getPosX(),farmer.getPosFarmer().getPosY(),ParcelleValue.GRASS);
     }
-
     public Terrain getTerrain(){
         return terrain;
     }
 
+    public ArrayList<Grass> getPlantedGrass(){
+        return plantedGrass;
+    }
     public void setGrass(int posX, int posY, boolean b) {
         System.out.println("X :" + posX+" - "+" Y :"+posY + " ICI de L'herbe");
         //imageView.setImage(GRASS);

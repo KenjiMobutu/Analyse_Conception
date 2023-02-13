@@ -37,8 +37,7 @@ public class Terrain {
         return matrix[line][col].setValue(playerValue);
     }*/
     boolean play(int line, int col, ParcelleValue playerValue) {
-       matrix[line][col].setValue(playerValue);
-        return false;
+      return matrix[line][col].setValue(playerValue);
     }
 
     private ParcelleValue checkCell(int line, int column){

@@ -2,12 +2,15 @@ package eu.epfc.anc3.vm;
 
 import eu.epfc.anc3.model.Controls;
 import eu.epfc.anc3.model.FermeFacade;
+import eu.epfc.anc3.model.Grass;
 import eu.epfc.anc3.model.Move;
 import eu.epfc.anc3.view.TerrainView;
 import javafx.beans.Observable;
 import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.beans.property.SimpleStringProperty;
+
+import java.util.ArrayList;
 
 public class FermeViewModel {
     private final MenuViewModel menuViewModel;
@@ -32,6 +35,10 @@ public class FermeViewModel {
     public FermeViewModel(){
         menuViewModel = new MenuViewModel(ferme);
         terrainViewModel = new TerrainViewModel(ferme);
+    }
+
+    public ArrayList<Grass> getGrass(){
+        return ferme.getListGrass();
     }
 
     public void action(Controls control){

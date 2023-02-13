@@ -18,6 +18,8 @@ private final ImageView imageView = new ImageView();
 // pourra ajouter plant etc
 
 
+
+
     public ParcelleView(ParcelleViewModel parcelleViewModel, DoubleBinding parcelleWidthProperty) {
         imageView.setPreserveRatio(true); // permet de garder son aspect meme en étant redimensionnée
         imageView.fitWidthProperty().bind(parcelleWidthProperty);
@@ -33,9 +35,20 @@ private final ImageView imageView = new ImageView();
         this.setBackground(background);
         getChildren().add(imageView);
         imageView.setImage(DIRT);
+
+//        ImageView test = new ImageView();
+//        test.fitWidthProperty().bind(parcelleWidthProperty);
+//        test.setPreserveRatio(true);
+//        test.setImage(FARMER);
+//        getChildren().add(test);
+//
+//        test = new ImageView();
+//        test.fitWidthProperty().bind(parcelleWidthProperty);
+//        test.setPreserveRatio(true);
+//        test.setImage(GRASS);
+//        getChildren().add(test);
         ReadOnlyObjectProperty<ParcelleValue> valueProp = parcelleViewModel.valueProperty();
         valueProp.addListener((obs, old, newVal) ->imageView.setImage(setFermeImg(newVal)));
-
         this.setOnMouseClicked(e -> parcelleViewModel.play());
     }
 
@@ -56,7 +69,6 @@ private final ImageView imageView = new ImageView();
                 return FARMER;
             default:
                 return null;
-
         }
     }
 

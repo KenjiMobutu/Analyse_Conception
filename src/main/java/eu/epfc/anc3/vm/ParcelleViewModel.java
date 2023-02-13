@@ -20,6 +20,7 @@ public class ParcelleViewModel {
 
 
     public void play() {
+        System.out.println(line +" ----- "+ col);
         ferme.play(line, col);
     }
 

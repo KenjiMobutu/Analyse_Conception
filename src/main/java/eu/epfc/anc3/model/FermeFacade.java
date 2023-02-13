@@ -9,6 +9,8 @@ import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.util.ArrayList;
+
 import static eu.epfc.anc3.model.Terrain.GRID_WIDTH;
 import static eu.epfc.anc3.model.Terrain.GRID_HEIGHT;
 public class FermeFacade {
@@ -163,6 +165,10 @@ public class FermeFacade {
     private void dropGrass() {
         Position currentPos = farmer.getPosFarmer();
         ferme.setGrassInFarm(farmer);
+    }
+
+    public ArrayList<Grass> getListGrass(){
+        return ferme.getPlantedGrass();
     }
 
     private void displayTerrain(Position pos){
