@@ -40,5 +40,6 @@ public class FermeViewModel {
 
     public void keyPressed(Move move) {
         ferme.moveFarmer(move);
+
     }
 }

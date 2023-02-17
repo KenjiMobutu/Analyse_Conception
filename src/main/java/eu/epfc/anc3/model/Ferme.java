@@ -15,7 +15,7 @@ public class Ferme {
     private Terrain terrain= new Terrain();
     private Parcelle parcelle = new Parcelle();
     private Grass plantedGrass;
-    private Farmer farmer ;
+    private Farmer farmer= new Farmer() ;
     private final ObjectProperty<FermeStatus> fermeStatus = new SimpleObjectProperty<>(FermeStatus.START);
 
     void start(){
@@ -26,6 +26,10 @@ public class Ferme {
 
     private FermeStatus status(){return this.fermeStatus.get();}
     ParcelleValue play(int line, int col){
+        //Farmer farmer = new Farmer();
+        farmer.setPosFarmer(line,col);
+        posFarmer.setPos(line,col);
+        this.farmerInFarm(farmer);
 
         switch (status()){
             case STARTED:
@@ -34,12 +38,14 @@ public class Ferme {
 
         }
         if (terrain.play(line, col, getCurrentFarmerValue())) {
+            System.out.println("CLICK LEVEL 2");
             //derniere position du farmer
             System.out.println(posFarmer.getPosX() + " : "+ posFarmer.getPosY());
 
             System.out.println(parcelle.getValue());
             //update nouvelle pos du farmer
             posFarmer.setPos(line,col);
+            this.farmerInFarm(farmer);
             System.out.println(parcelle.getValue());
             //updateStatusAfterMove();
             //verification parcelle cliqué
@@ -88,6 +94,7 @@ public class Ferme {
     }
     public void setGrassInFarm(Farmer farmer){
         terrain.setValueOnFarm(farmer.getPosFarmer().getPosX(),farmer.getPosFarmer().getPosY(),ParcelleValue.GRASS);
+
     }
 
     public Terrain getTerrain(){

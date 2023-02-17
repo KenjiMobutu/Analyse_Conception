@@ -3,6 +3,7 @@ package eu.epfc.anc3.view;
 import eu.epfc.anc3.model.Controls;
 import eu.epfc.anc3.model.FermeFacade;
 import eu.epfc.anc3.model.Move;
+import eu.epfc.anc3.model.Parcelle;
 import eu.epfc.anc3.vm.FermeViewModel;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
@@ -44,9 +45,12 @@ public class FermeView extends BorderPane {
         stage.setMinHeight(stage.getHeight());
         stage.setMinWidth(stage.getWidth());
         setOnMouseClicked(e -> requestFocus());
+
     }
     private void configMainComponents(Stage stage){
         stage.titleProperty().bind(fermeViewModel.titleProperty());
+        Image icon = new Image("farmer.png");
+        stage.getIcons().add(icon);
         setPadding(new Insets(PADDING));
         // Mise en place des composants du menu
         configMenu();

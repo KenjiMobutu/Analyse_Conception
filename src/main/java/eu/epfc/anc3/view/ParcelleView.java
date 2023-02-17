@@ -5,6 +5,8 @@ import eu.epfc.anc3.vm.ParcelleViewModel;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import eu.epfc.anc3.vm.TerrainViewModel;
+import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -22,7 +24,7 @@ private final ImageView imageView = new ImageView();
         imageView.setPreserveRatio(true); // permet de garder son aspect meme en étant redimensionnée
         imageView.fitWidthProperty().bind(parcelleWidthProperty);
         Image img = new Image("dirt.png");
-        BackgroundImage backgroundImage = new BackgroundImage(
+        /*BackgroundImage backgroundImage = new BackgroundImage(
                 img,
                 BackgroundRepeat.SPACE,
                 BackgroundRepeat.SPACE,
@@ -30,9 +32,9 @@ private final ImageView imageView = new ImageView();
                 //BackgroundSize.DEFAULT);
                 new BackgroundSize(100, 100, true, true, true, true));
         Background background = new Background(backgroundImage);
-        this.setBackground(background);
+        this.setBackground(background);*/
         getChildren().add(imageView);
-        imageView.setImage(DIRT);
+        imageView.setImage(img);
         ReadOnlyObjectProperty<ParcelleValue> valueProp = parcelleViewModel.valueProperty();
         valueProp.addListener((obs, old, newVal) ->imageView.setImage(setFermeImg(newVal)));
 
@@ -44,6 +46,15 @@ private final ImageView imageView = new ImageView();
                 ? DIRT
                 : GRASS);
         return null;
+    }
+    private void changeTop() {
+        ObservableList<Node> childs = this.getChildren();
+
+        if (childs.size() > 1) {
+            //
+            Node topNode = childs.get(childs.size()-1);
+            topNode.toBack();
+        }
     }
 
     private Image setFermeImg (ParcelleValue parcelleValue){

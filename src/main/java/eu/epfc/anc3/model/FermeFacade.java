@@ -5,9 +5,12 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 
 import static eu.epfc.anc3.model.Terrain.GRID_WIDTH;
 import static eu.epfc.anc3.model.Terrain.GRID_HEIGHT;
@@ -72,6 +75,7 @@ public class FermeFacade {
 
 
     public ParcelleValue play(int line, int col) {
+        System.out.println("CLICK" + line+col);
         return ferme.play(line,col);
     }
 
@@ -108,7 +112,6 @@ public class FermeFacade {
                 goRight();
                 break;
             case SPACE:
-                //action
                 dropGrass();
                 break;
         }
@@ -163,6 +166,7 @@ public class FermeFacade {
     private void dropGrass() {
         Position currentPos = farmer.getPosFarmer();
         ferme.setGrassInFarm(farmer);
+
     }
 
     private void displayTerrain(Position pos){
