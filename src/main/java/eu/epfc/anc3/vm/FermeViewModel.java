@@ -34,9 +34,7 @@ public class FermeViewModel {
         terrainViewModel = new TerrainViewModel(ferme);
     }
 
-    public void action(Controls control){
-        ferme.moveFarmer(control);
-    }
+
 
     public void keyPressed(Move move) {
         ferme.moveFarmer(move);
