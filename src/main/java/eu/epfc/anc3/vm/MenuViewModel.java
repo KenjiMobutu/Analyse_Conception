@@ -3,6 +3,7 @@ package eu.epfc.anc3.vm;
 import eu.epfc.anc3.model.FermeFacade;
 import javafx.beans.Observable;
 import javafx.beans.property.ReadOnlyBooleanProperty;
+import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -34,6 +35,8 @@ public class MenuViewModel {
     public void start() {
         fermeFacade.start();
     }
+    public ReadOnlyIntegerProperty nbGrass(){return fermeFacade.getNbGrass();}
+
     public void newGame() {
         //ferme.start();
         fermeFacade.newGame();

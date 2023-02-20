@@ -2,10 +2,7 @@ package eu.epfc.anc3.model;
 
 import eu.epfc.anc3.view.FermeView;
 import eu.epfc.anc3.view.ParcelleView;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.ReadOnlyBooleanProperty;
-import javafx.beans.property.ReadOnlyObjectProperty;
-import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.*;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -75,6 +72,9 @@ public class FermeFacade {
 
     }
 
+    public ReadOnlyIntegerProperty getNbGrass(){
+        return ferme.nbGrassPlant();
+    }
 
 
     public ParcelleValue play(int line, int col) {
@@ -188,13 +188,15 @@ public class FermeFacade {
     }
     private void dropGrass() {
         setIsDroppringGrass(true);
-        displayGrass(farmer.getPosFarmer());
+        Position grassPosition = new Position(farmer.getPosFarmer().getPosX(), farmer.getPosFarmer().getPosY());
+        ferme.setGrassInFarm(grassPosition);
+        displayGrass(grassPosition);
         farmerInFarm();
-//        Position grassPosition = new Position(farmer.getPosFarmer().getPosX(), farmer.getPosFarmer().getPosY());
-//        ferme.setGrassInFarm(grassPosition);
     }
 
     private void displayGrass(Position pos) {
+//        ferme.setGrassInFarm(farmer.getPosFarmer());
+
         ferme.getTerrain().setValueOnFarm(pos.getPosX(), pos.getPosY(), ParcelleValue.GRASS);
     }
 

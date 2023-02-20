@@ -1,9 +1,8 @@
 package eu.epfc.anc3.model;
 
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.ReadOnlyObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.*;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -124,10 +123,10 @@ public class Ferme {
     public void plantGrass(Position position){
         System.out.println("PG -> : "+ "X :"+position.getPosX()+ " Y :"+position.getPosY());
         //terrain.setGrassOnFarm(grassPos.getPosX(),grassPos.getPosY(),ParcelleValue.GRASS);
-        terrain.setGrassOnFarm(position.getPosX(),position.getPosY(),ParcelleValue.GRASS);
+//        terrain.setGrassOnFarm(position.getPosX(),position.getPosY(),ParcelleValue.GRASS);
 
         //je rajoute chacune des grass dans la liste
-        farmer.listOfPlantedGrass.add(new Grass(position));
+        Farmer.listOfPlantedGrass.add(new Grass(position));
 
         System.out.println(farmer.listOfPlantedGrass);
 
@@ -143,7 +142,7 @@ public class Ferme {
     public Terrain getTerrain(){
         return terrain;
     }
-
+    public ReadOnlyIntegerProperty nbGrassPlant(){return farmer.nbgrass();}
 
     public void setGrass(int posX, int posY, boolean b) {
         System.out.println("X :" + posX+" - "+" Y :"+posY + " ICI de L'herbe");

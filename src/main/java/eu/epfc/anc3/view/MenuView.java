@@ -43,6 +43,10 @@ public class MenuView extends VBox {
         startButton.setOnAction(e -> menuViewModel.start());
     }
 
+    public void manageNbHerb(){
+        System.out.println(menuViewModel.nbGrass().toString());
+        nbGrass.textProperty().bind(menuViewModel.nbGrass().asString());
+    }
     private void configMenu() {
         setPadding(new Insets(PADDING));
         setMinWidth(MENU_WIDTH);
@@ -54,6 +58,8 @@ public class MenuView extends VBox {
 
         nbHerb.setDisable(true);
         startButton.setDisable(false);
+        manageNbHerb();
+
 //        if(startButton.){
 //
 //        }

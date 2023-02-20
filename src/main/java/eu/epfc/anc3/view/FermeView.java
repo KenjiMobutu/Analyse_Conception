@@ -55,6 +55,8 @@ public class FermeView extends BorderPane {
         stage.setMinWidth(stage.getWidth());
 
         setOnMouseClicked(e -> requestFocus());
+        menuView.manageNbHerb();
+
 
     }
 
@@ -106,6 +108,7 @@ public class FermeView extends BorderPane {
         setTop(menuView.nbHerb);
         setBottom(menuView.buttons);
 
+
     }
     public void configKeyPressed(Scene scene){
         //doit focus la scene
@@ -114,22 +117,32 @@ public class FermeView extends BorderPane {
                 case RIGHT:
                     System.out.println(keyEvent.getCode());
                     fermeViewModel.keyPressed(Move.RIGHT);
+                    menuView.manageNbHerb();
+
                     break;
                 case LEFT:
                     System.out.println(keyEvent.getCode());
                     fermeViewModel.keyPressed(Move.LEFT);
+                    menuView.manageNbHerb();
+
                     break;
                 case UP:
                     System.out.println(keyEvent.getCode());
                     fermeViewModel.keyPressed(Move.UP);
+                    menuView.manageNbHerb();
+
                     break;
                 case DOWN:
                     System.out.println(keyEvent.getCode());
                     fermeViewModel.keyPressed(Move.DOWN);
+                    menuView.manageNbHerb();
+
                     break;
                 case SPACE:
                     System.out.println(keyEvent.getCode());
                     fermeViewModel.keyPressed(Move.SPACE);
+                    menuView.manageNbHerb();
+
                     break;
             }
         });

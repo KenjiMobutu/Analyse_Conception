@@ -1,6 +1,8 @@
 package eu.epfc.anc3.model;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.Observable;
+import javafx.beans.property.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import java.util.ArrayList;
@@ -10,7 +12,13 @@ public class Farmer {
 
     private final Position posFarmer;
     public static Grass plantedGrass;
-    public static final List<Grass> listOfPlantedGrass = new ArrayList<>();
+
+//    public final List<Grass> listOfPlantedGrass1 = new ArrayList<>();
+
+    public static final SimpleListProperty<Grass> listOfPlantedGrass = new SimpleListProperty<>(FXCollections.observableArrayList());
+
+    //doit etre observable ou listProperty (SimpleListProperty)
+    //listProperty a une sizeProperty
 
     private final StringProperty fermier = new SimpleStringProperty("");
     public Farmer() {
@@ -28,6 +36,7 @@ public class Farmer {
             return plantedGrass;
         }
 
+    public ReadOnlyIntegerProperty nbgrass(){return listOfPlantedGrass.sizeProperty();}
     @Override
     public String toString() {
         return "Farmer{" +
@@ -40,6 +49,7 @@ public class Farmer {
     public void plantGrass() {
         listOfPlantedGrass.add(new Grass(posFarmer));
     }
+
 
     public boolean hasPlantedGrass() {
         return !listOfPlantedGrass.isEmpty();
