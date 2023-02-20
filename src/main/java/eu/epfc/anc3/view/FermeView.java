@@ -101,19 +101,6 @@ public class FermeView extends BorderPane {
         setCenter(terrainView);
     }
 
-//    private void updateTerrain(){
-//        ObservableList<Node> childs = this.terrainView.getChildren();
-//        if (childs.size()>0){
-//            Node topeNode = childs.get(childs.size()-1);
-//            System.out.println(topeNode);
-//            if (fermeViewModel.getGrass().size() > 0){
-//                ArrayList<Grass> e = fermeViewModel.getGrass();
-//                //faut partir de parcelle
-//
-//            }
-//        }
-//    }
-
     private void configMenu() {
         menuView = new MenuView(fermeViewModel.getMenuViewModel());
         setTop(menuView.nbHerb);

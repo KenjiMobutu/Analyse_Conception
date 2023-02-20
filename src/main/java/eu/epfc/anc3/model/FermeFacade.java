@@ -102,15 +102,19 @@ public class FermeFacade {
         switch (move){
             case UP:
                 goUp();
+                displayTerrain(farmer.getPosFarmer());
                 break;
             case DOWN:
                 goDown();
+                displayTerrain(farmer.getPosFarmer());
                 break;
             case LEFT:
                 goLeft();
+                displayTerrain(farmer.getPosFarmer());
                 break;
             case RIGHT:
                 goRight();
+                displayTerrain(farmer.getPosFarmer());
                 break;
             case SPACE:
                 dropGrass();
@@ -124,7 +128,6 @@ public class FermeFacade {
         //si l'action est faisable dans la matrice?
         if (up.getPosX() >= 0){
             System.out.println("x : " + up.getPosX() + "  y :" + up.getPosY());
-            displayTerrain(farmer.getPosFarmer());
 
             farmer.setPosFarmer(up.getPosX(),up.getPosY());
             ferme.farmerInFarm(farmer);
@@ -136,7 +139,6 @@ public class FermeFacade {
         //action ?
         if (down.getPosX() < GRID_HEIGHT){
             System.out.println("x : " + down.getPosX() + "  y :" + down.getPosY());
-            displayTerrain(farmer.getPosFarmer());
 
             farmer.setPosFarmer(down.getPosX(),down.getPosY());
             ferme.farmerInFarm(farmer);
@@ -149,7 +151,6 @@ public class FermeFacade {
         //action ?
         if (right.getPosY() < GRID_WIDTH){
             System.out.println("x : " + right.getPosX() + "  y :" + right.getPosY());
-            displayTerrain(farmer.getPosFarmer());
             farmer.setPosFarmer(right.getPosX(),right.getPosY());
             ferme.farmerInFarm(farmer);
         }
@@ -159,14 +160,14 @@ public class FermeFacade {
         //action ?
         if (left.getPosY() >= 0){
             System.out.println("x : " + left.getPosX() + "  y :" + left.getPosY());
-            displayTerrain(farmer.getPosFarmer());
             farmer.setPosFarmer(left.getPosX(),left.getPosY());
             ferme.farmerInFarm(farmer);
         }
     }
     private void dropGrass() {
-        Position grassPosition = new Position(farmer.getPosFarmer().getPosX(), farmer.getPosFarmer().getPosY());
-        ferme.setGrassInFarm(grassPosition);
+         displayGrass(farmer.getPosFarmer());
+//        Position grassPosition = new Position(farmer.getPosFarmer().getPosX(), farmer.getPosFarmer().getPosY());
+//        ferme.setGrassInFarm(grassPosition);
     }
 
     private void displayGrass(Position pos) {
