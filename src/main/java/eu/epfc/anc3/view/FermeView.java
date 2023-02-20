@@ -1,6 +1,11 @@
 package eu.epfc.anc3.view;
 
 import eu.epfc.anc3.model.*;
+
+import eu.epfc.anc3.model.Controls;
+import eu.epfc.anc3.model.FermeFacade;
+import eu.epfc.anc3.model.Move;
+import eu.epfc.anc3.model.Parcelle;
 import eu.epfc.anc3.vm.FermeViewModel;
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
@@ -20,10 +25,10 @@ import java.util.ArrayList;
 
 public class FermeView extends BorderPane {
     static final int PADDING = 20;
-    static final int MENU_WIDTH = 160;
+    static final int MENU_WIDTH = 150;
     private static final int SCENE_MIN_WIDTH = 600;
     private static final int SCENE_MIN_HEIGHT = 500;
-    static final int GRID_WIDTH = FermeFacade.gridWidth();
+
     static final int FERME_WIDTH = 15;
 
     // Contrainte de mise en page
@@ -48,10 +53,15 @@ public class FermeView extends BorderPane {
         stage.show();
         stage.setMinHeight(stage.getHeight());
         stage.setMinWidth(stage.getWidth());
+
+        setOnMouseClicked(e -> requestFocus());
+
     }
 
     private void configMainComponents(Stage stage){
         stage.titleProperty().bind(fermeViewModel.titleProperty());
+        Image icon = new Image("farmer.png");
+        stage.getIcons().add(icon);
         setPadding(new Insets(PADDING));
         // Mise en place des composants du menu
         configMenu();

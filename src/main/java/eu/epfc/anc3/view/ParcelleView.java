@@ -1,10 +1,13 @@
 package eu.epfc.anc3.view;
 
+import eu.epfc.anc3.model.Grass;
 import eu.epfc.anc3.model.ParcelleValue;
 import eu.epfc.anc3.vm.ParcelleViewModel;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import eu.epfc.anc3.vm.TerrainViewModel;
+import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -21,21 +24,21 @@ private final ImageView imageView = new ImageView();
 
 
     public ParcelleView(ParcelleViewModel parcelleViewModel, DoubleBinding parcelleWidthProperty) {
-        imageView.setPreserveRatio(true); // permet de garder son aspect meme en étant redimensionnée
-        imageView.fitWidthProperty().bind(parcelleWidthProperty);
-        Image img = new Image("dirt.png");
+        imageView.setPreserveRatio(false); // permet de garder son aspect meme en étant redimensionnée
+        imageView.fitWidthProperty().bind(parcelleWidthProperty);//resize image to cellWidthpropery
+        imageView.fitHeightProperty().bind(parcelleWidthProperty);
+        getChildren().add(imageView);
+        setParcelleImage(imageView,parcelleViewModel.valueProperty().getValue());
+        Image img =new Image("dirt.png");
         BackgroundImage backgroundImage = new BackgroundImage(
                 img,
                 BackgroundRepeat.SPACE,
                 BackgroundRepeat.SPACE,
                 BackgroundPosition.CENTER,
-                //BackgroundSize.DEFAULT);
-                new BackgroundSize(100, 100, true, true, true, true));
+                new BackgroundSize(100,100,true,true,true,true)
+        );
         Background background = new Background(backgroundImage);
         this.setBackground(background);
-        getChildren().add(imageView);
-        imageView.setImage(DIRT);
-
 //        ImageView test = new ImageView();
 //        test.fitWidthProperty().bind(parcelleWidthProperty);
 //        test.setPreserveRatio(true);
@@ -48,27 +51,25 @@ private final ImageView imageView = new ImageView();
 //        test.setImage(GRASS);
 //        getChildren().add(test);
         ReadOnlyObjectProperty<ParcelleValue> valueProp = parcelleViewModel.valueProperty();
-        valueProp.addListener((obs, old, newVal) ->imageView.setImage(setFermeImg(newVal)));
+        valueProp.addListener((obs, old, newVal) -> setParcelleImage(imageView,newVal));
+
         this.setOnMouseClicked(e -> parcelleViewModel.play());
     }
 
-    private Image setFermeImage (ImageView imageView, ParcelleValue parcelleValue){
-        imageView.setImage(parcelleValue == ParcelleValue.EMPTY
-                ? DIRT
-                : GRASS);
-        return null;
-    }
-
-    private Image setFermeImg (ParcelleValue parcelleValue){
-        switch (parcelleValue) {
+    private void setParcelleImage(ImageView imageView, ParcelleValue parcelleValue){
+        switch (parcelleValue){
             case DIRT:
-                return DIRT;
+                imageView.setImage(DIRT);
+                break;
+            case EMPTY:
+                imageView.setImage(DIRT);
+                break;
             case GRASS:
-                return GRASS;
+                imageView.setImage(GRASS);
+                break;
             case FARMER:
-                return FARMER;
-            default:
-                return null;
+                imageView.setImage(FARMER);
+                break;
         }
     }
 

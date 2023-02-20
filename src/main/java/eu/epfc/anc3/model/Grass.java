@@ -1,20 +1,20 @@
 package eu.epfc.anc3.model;
 
 public class Grass {
-    private int x;
-    private int y;
 
-    public Grass (int x, int y){
-        this.x = x;
-        this.y = y;
+    private final Position position;
+
+    public Grass(Position position) {
+        this.position = position;
     }
 
-
-    public int getX() {
-        return x;
+    public Position getPosition() {
+        return position;
     }
 
-    public int getY() {
-        return y;
+    @Override
+    public String toString() {
+        return "Grass at " + "X:"+position.getPosX() +
+                "  Y:"+position.getPosY() ;
     }
 }

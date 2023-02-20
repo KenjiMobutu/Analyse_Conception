@@ -37,15 +37,14 @@ public class FermeViewModel {
         terrainViewModel = new TerrainViewModel(ferme);
     }
 
-    public ArrayList<Grass> getGrass(){
-        return ferme.getListGrass();
-    }
 
     public void action(Controls control){
         ferme.moveFarmer(control);
     }
 
+
     public void keyPressed(Move move) {
         ferme.moveFarmer(move);
+
     }
 }

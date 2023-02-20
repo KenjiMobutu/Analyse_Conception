@@ -34,7 +34,7 @@ public class TerrainView extends GridPane {
         // Remplissage de la grille
         for (int i = 0; i < FERME_WIDTH; ++i) {
             for (int j = 0; j < FERME_WIDTH; ++j) {
-                ParcelleView parcelleView = new ParcelleView(terrainViewModel.getParcelleViewModel(i, j), cellWidthProperty);
+                ParcelleView parcelleView = new  ParcelleView(terrainViewModel.getParcelleViewModel(i, j), cellWidthProperty);
                 add(parcelleView, j, i); // lignes/colonnes inversées dans gridpane
             }
         }

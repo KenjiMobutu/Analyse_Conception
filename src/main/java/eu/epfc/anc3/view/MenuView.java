@@ -34,6 +34,7 @@ public class MenuView extends VBox {
         configMenu();
         // Gestion du click sur le bouton "Start"
         manageStartButton();
+        //managePLantButton();
 
     }
 
