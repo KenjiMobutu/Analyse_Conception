@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class FermeViewModel {
     private final MenuViewModel menuViewModel;
     private final TerrainViewModel terrainViewModel;
-    private final FermeFacade ferme = new FermeFacade();
+    private final FermeFacade fermeFacade = new FermeFacade();
 
     public MenuViewModel getMenuViewModel() {
         return menuViewModel;
@@ -29,22 +29,21 @@ public class FermeViewModel {
     }
 
     public ReadOnlyBooleanProperty isFermeStartedProperty() {
-        return ferme.isStartedProperty();
+        return fermeFacade.isStartedProperty();
     }
 
     public FermeViewModel(){
-        menuViewModel = new MenuViewModel(ferme);
-        terrainViewModel = new TerrainViewModel(ferme);
+        menuViewModel = new MenuViewModel(fermeFacade);
+        terrainViewModel = new TerrainViewModel(fermeFacade);
     }
 
 
     public void action(Controls control){
-        ferme.moveFarmer(control);
+        fermeFacade.moveFarmer(control);
     }
 
 
     public void keyPressed(Move move) {
-        ferme.moveFarmer(move);
-
+        fermeFacade.moveFarmer(move);
     }
 }

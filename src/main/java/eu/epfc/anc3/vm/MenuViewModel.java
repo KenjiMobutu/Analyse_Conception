@@ -8,10 +8,10 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 
 public class MenuViewModel {
-    private final FermeFacade ferme;
+    private final FermeFacade fermeFacade;
 
     public MenuViewModel(FermeFacade ferme){
-        this.ferme = ferme;
+        this.fermeFacade = ferme;
         configNameHandlers();
         //configLogicStatus();
     }
@@ -32,18 +32,17 @@ public class MenuViewModel {
     }
 
     public void start() {
-        ferme.start();
-
+        fermeFacade.start();
     }
     public void newGame() {
         //ferme.start();
-        ferme.newGame();
+        fermeFacade.newGame();
     }
     public ReadOnlyBooleanProperty isFermeStartableProperty() {
-        return ferme.isStartableProperty();
+        return fermeFacade.isStartableProperty();
     }
     public ReadOnlyBooleanProperty isFermeInProgressProperty() {
-        return ferme.isInProgressProperty();
+        return fermeFacade.isInProgressProperty();
     }
 
 
