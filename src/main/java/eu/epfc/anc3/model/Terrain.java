@@ -1,6 +1,7 @@
 package eu.epfc.anc3.model;
 
 import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.scene.image.ImageView;
 
 public class Terrain {
     //grid
@@ -26,16 +27,6 @@ public class Terrain {
     ParcelleValue getValue(int line, int col) {
         return matrix[line][col].getValue();
     }
-
-//    boolean play(int line, int col, ParcelleValue playerValue) {
-//        return matrix[line][col].setValue(playerValue);
-//    }
-//    public void setValueOnTerrain(int x, int y, ParcelleValue parcelleValue) {
-//        matrix[x][y].setValue(parcelleValue);
-//    }
-    /*boolean play(int line, int col, ParcelleValue playerValue) {
-        return matrix[line][col].setValue(playerValue);
-    }*/
     boolean play(int line, int col, ParcelleValue playerValue) {
        matrix[line][col].setValue(playerValue);
         return false;
@@ -59,5 +50,10 @@ public class Terrain {
 
     public void setValueOnFarm(int x, int y, ParcelleValue value) {
        matrix[x][y].setValue(value);
+    }
+
+
+    public void setGrassOnFarm(int x, int y, ParcelleValue value) {
+        matrix[x][y].setValue(value);
     }
 }
