@@ -189,6 +189,7 @@ public class FermeFacade {
     private void dropGrass() {
         setIsDroppringGrass(true);
         displayGrass(farmer.getPosFarmer());
+        farmerInFarm();
 //        Position grassPosition = new Position(farmer.getPosFarmer().getPosX(), farmer.getPosFarmer().getPosY());
 //        ferme.setGrassInFarm(grassPosition);
     }
