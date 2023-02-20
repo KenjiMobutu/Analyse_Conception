@@ -1,6 +1,7 @@
 package eu.epfc.anc3.model;
 
 import eu.epfc.anc3.view.FermeView;
+import eu.epfc.anc3.view.ParcelleView;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
@@ -62,20 +63,18 @@ public class FermeFacade {
 
 
     public void moveFarmer(Controls controls){
-        switch (controls){
-            case UP :
             //ajouter validation si demandé ultérieurement
             ferme.start();
             farmerInFarm();
             System.out.println("START");
 
-        }
+
     }
 
 
 
     public ParcelleValue play(int line, int col) {
-        System.out.println("CLICK" + line+col);
+        System.out.println("CLICK" + line+ "<--> "+col);
         return ferme.play(line,col);
     }
 
@@ -164,9 +163,12 @@ public class FermeFacade {
         }
     }
     private void dropGrass() {
-        Position currentPos = farmer.getPosFarmer();
-        ferme.setGrassInFarm(farmer);
+        Position grassPosition = new Position(farmer.getPosFarmer().getPosX(), farmer.getPosFarmer().getPosY());
+        ferme.setGrassInFarm(grassPosition);
+    }
 
+    private void displayGrass(Position pos) {
+        ferme.getTerrain().setValueOnFarm(pos.getPosX(), pos.getPosY(), ParcelleValue.GRASS);
     }
 
     private void displayTerrain(Position pos){
