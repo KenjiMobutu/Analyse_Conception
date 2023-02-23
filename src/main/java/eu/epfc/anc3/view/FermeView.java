@@ -54,7 +54,7 @@ public class FermeView extends BorderPane {
         setPadding(new Insets(PADDING));
         // Mise en place des composants du menu
         configMenu();
-        //Mise en place du Field du jeu
+        //Mise en place du GRID du jeu
         configTerrainView();
 
     }

@@ -7,8 +7,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class Ferme {
-    private static final Image GRASS = new Image("grass.png");
-    private final ImageView imageView = new ImageView();
     private Position posFarmer = new Position() ;
     private Terrain terrain= new Terrain();
     private Parcelle parcelle = new Parcelle();
@@ -78,45 +76,31 @@ public class Ferme {
     }
 
     public void farmerInFarm(Farmer farmer) {
-        System.out.println("Farmer");
         terrain.setValueOnFarm(farmer.getPosFarmer().getPosX(),farmer.getPosFarmer().getPosY(),ParcelleValue.FARMER);
-
     }
 
     public void setGrassInFarm(Position position){
-        System.out.println("Grass here");
         plantGrass(position);
-       // int x = position.getPosX();
-       // int y = position.getPosY();
-        //farmerInFarm(farmer);
-        //farmer.hasPlantedGrass();
     }
     public void plantGrass(Position position){
         System.out.println("PG -> : "+ "X :"+position.getPosX()+ " Y :"+position.getPosY());
-        //terrain.setGrassOnFarm(grassPos.getPosX(),grassPos.getPosY(),ParcelleValue.GRASS);
-        terrain.setGrassOnFarm(position.getPosX(),position.getPosY(),ParcelleValue.GRASS);
-
         //je rajoute chacune des grass dans la liste
         farmer.listOfPlantedGrass.add(new Grass(position));
-
         System.out.println(farmer.listOfPlantedGrass);
-
-        for(int i = 0; i < farmer.listOfPlantedGrass.size(); ++i ){
-            //
-            terrain.setGrassOnFarm(farmer.listOfPlantedGrass.get(i).getPosition().getPosX(),farmer.listOfPlantedGrass.get(i).getPosition().getPosY(),ParcelleValue.GRASS);
-            System.out.println("Nb Grass :" + i);
-        }
-        //farmerInFarm(farmer);
+        System.out.println("Nb Grass :" + farmer.listOfPlantedGrass.size() );
         farmer.hasPlantedGrass();
-
+        listPlantedGrass();
     }
-
+    public void listPlantedGrass(){
+        for(int i = 0; i < farmer.listOfPlantedGrass.size(); ++i ){
+            terrain.setGrassOnFarm(farmer.listOfPlantedGrass.get(i).getPosition().getPosX(),farmer.listOfPlantedGrass.get(i).getPosition().getPosY(),ParcelleValue.GRASS);
+        }
+    }
     public Terrain getTerrain(){
         return terrain;
     }
 
     public void setGrass(int posX, int posY, boolean b) {
         System.out.println("X :" + posX+" - "+" Y :"+posY + " ICI de L'herbe");
-
     }
 }

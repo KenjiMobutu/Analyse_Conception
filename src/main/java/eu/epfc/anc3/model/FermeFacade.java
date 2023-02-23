@@ -143,7 +143,6 @@ public class FermeFacade {
     }
     private void goRight(){
         Position right = new Position(farmer.getPosFarmer().getPosX(), farmer.getPosFarmer().getPosY()+1);
-
         //action ?
         if (right.getPosY() < GRID_WIDTH){
             System.out.println("x : " + right.getPosX() + "  y :" + right.getPosY());

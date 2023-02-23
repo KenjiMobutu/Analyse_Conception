@@ -11,7 +11,6 @@ public class Farmer {
     private final Position posFarmer;
     public static Grass plantedGrass;
     public static final List<Grass> listOfPlantedGrass = new ArrayList<>();
-
     private final StringProperty fermier = new SimpleStringProperty("");
     public Farmer() {
         posFarmer = new Position(0, 0);
@@ -23,11 +22,9 @@ public class Farmer {
     public Position getPosFarmer () {
         return posFarmer;
     }
-
-        public static Grass getPlantedGrass () {
+    public static Grass getPlantedGrass () {
             return plantedGrass;
         }
-
     @Override
     public String toString() {
         return "Farmer{" +

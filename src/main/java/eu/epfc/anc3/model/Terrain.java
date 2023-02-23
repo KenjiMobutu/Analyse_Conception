@@ -55,5 +55,6 @@ public class Terrain {
 
     public void setGrassOnFarm(int x, int y, ParcelleValue value) {
         matrix[x][y].setValue(value);
+
     }
 }
