@@ -48,8 +48,8 @@ public class ParcelleView extends StackPane {
                 ImageView emptyCase = new ImageView(DIRT);
                 emptyCase.autosize();
                 emptyCase.setPreserveRatio(false);
-                emptyCase.setFitHeight(80);
-                emptyCase.setFitWidth(80);
+                emptyCase.setFitHeight(8);
+                emptyCase.setFitWidth(8);
                 if (!getChildren().contains(emptyCase))
                    getChildren().add(0,emptyCase);
                 break;
@@ -58,8 +58,8 @@ public class ParcelleView extends StackPane {
                     imageView.setImage(DIRT);
                     imageView = new ImageView(DIRT);
                     imageView.setPreserveRatio(false);
-                    imageView.setFitHeight(85);
-                    imageView.setFitWidth(85);
+                    imageView.setFitHeight(20);
+                    imageView.setFitWidth(20);
                 }
                 children.add(imageView);
 
@@ -77,21 +77,21 @@ public class ParcelleView extends StackPane {
             case FARMER:
                 ImageView farmer = new ImageView(FARMER);
                 farmer.setPreserveRatio(false);
-                farmer.setFitHeight(60);
-                farmer.setFitWidth(60);
+                farmer.setFitHeight(20);
+                farmer.setFitWidth(20);
                 System.out.println(imageView.getImage() + " <-- IMAAAAAAAAAAAAAAAAAAAAAAAAAGE");
                 if (imageView.getImage() != GRASS){
                     ImageView dirt = new ImageView(DIRT);
                     dirt.setPreserveRatio(false);
-                    dirt.setFitHeight(80);
-                    dirt.setFitWidth(80);
+                    dirt.setFitHeight(25);
+                    dirt.setFitWidth(25);
                     children.addAll(dirt, farmer);
                     break;
                 }else{
                     ImageView grass = new ImageView(GRASS);
                     grass.setPreserveRatio(false);
-                    grass.setFitHeight(80);
-                    grass.setFitWidth(80);
+                    grass.setFitHeight(20);
+                    grass.setFitWidth(20);
                     children.addAll(grass, farmer);
                     break;
                 }
