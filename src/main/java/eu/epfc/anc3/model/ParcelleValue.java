@@ -1,5 +1,5 @@
 package eu.epfc.anc3.model;
 
-public enum ParcelleValue {
-    GRASS, EMPTY,FARMER,DIRT
+public enum ParcelleValue implements Element{
+    GRASS,EMPTY,FARMER,DIRT
 }
