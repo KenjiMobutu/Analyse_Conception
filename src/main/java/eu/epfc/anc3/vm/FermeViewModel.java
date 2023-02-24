@@ -1,6 +1,5 @@
 package eu.epfc.anc3.vm;
 
-import eu.epfc.anc3.model.Controls;
 import eu.epfc.anc3.model.FermeFacade;
 import eu.epfc.anc3.model.Grass;
 import eu.epfc.anc3.model.Move;
@@ -32,6 +31,9 @@ public class FermeViewModel {
     public ReadOnlyBooleanProperty isFermeStartedProperty() {
         return fermeFacade.isStartedProperty();
     }
+    public ReadOnlyBooleanProperty isSpacePressed() {
+        return fermeFacade.isSpacePressed();
+    }
 
     public FermeViewModel(){
         menuViewModel = new MenuViewModel(fermeFacade);
@@ -39,12 +41,8 @@ public class FermeViewModel {
     }
 
 
-    public void action(Controls control){
-        fermeFacade.moveFarmer(control);
-    }
-
-
     public void keyPressed(Move move) {
+        System.out.println("jrentre ici");
         fermeFacade.moveFarmer(move);
     }
 }
