@@ -22,21 +22,6 @@ public class ParcelleView extends StackPane {
 
     private final ImageView imageView = new ImageView();
 
-//    private final List<Node> children = getChildren().stream()
-//            .sorted(Comparator.comparing(child -> {
-//                if (child instanceof ImageView) {
-//                    Image image = ((ImageView) child).getImage();
-//                    if (image.equals(DIRT)) {
-//                        return ParcelleValue.DIRT;
-//                    } else if (image.equals(GRASS)) {
-//                        return ParcelleValue.GRASS;
-//                    } else if (image.equals(FARMER)) {
-//                        return ParcelleValue.FARMER;
-//                    }
-//                }
-//                return ParcelleValue.EMPTY;
-//            }))
-//            .collect(Collectors.toList());
 
     public ParcelleView(ParcelleViewModel parcelleViewModel, DoubleBinding parcelleWidthProperty) {
         imageView.setPreserveRatio(false); // permet de garder son aspect meme en étant redimensionnée
@@ -44,34 +29,15 @@ public class ParcelleView extends StackPane {
         imageView.fitHeightProperty().bind(parcelleWidthProperty);
         getChildren().add(imageView);
         setParcelleImage(imageView,parcelleViewModel.valueProperty().getValue());
-//        Image img =new Image("dirt.png");
-//        BackgroundImage backgroundImage = new BackgroundImage(
-//                img,
-//                BackgroundRepeat.SPACE,
-//                BackgroundRepeat.SPACE,
-//                BackgroundPosition.CENTER,
-//                new BackgroundSize(100,100,true,true,true,true)
-//        );
-//        Background background = new Background(backgroundImage);
-//        this.setBackground(background);
-//        ImageView test1 = new ImageView();
-//        test1 = new ImageView();
-//        test1.fitWidthProperty().bind(parcelleWidthProperty);
-//        test1.setPreserveRatio(true);
-//        test1.setImage(GRASS);
-//        getChildren().add(test1);
-//
-//        ImageView test = new ImageView();
-//        test.fitWidthProperty().bind(parcelleWidthProperty);
-//        test.setPreserveRatio(true);
-//        test.setImage(FARMER);
-//        getChildren().add(test);
+
 
         imageView.autosize();
         ReadOnlyObjectProperty<ParcelleValue> valueProp = parcelleViewModel.valueProperty();
         valueProp.addListener((obs, old, newVal) -> setParcelleImage(imageView,newVal));
+        if ((parcelleViewModel.isStarted().getValue() || parcelleViewModel.isInProgress().getValue() )){
+            this.setOnMouseClicked(e -> parcelleViewModel.play());
+        }
 
-        this.setOnMouseClicked(e -> parcelleViewModel.play());
     }
 
     private void setParcelleImage(ImageView imageView, ParcelleValue parcelleValue){

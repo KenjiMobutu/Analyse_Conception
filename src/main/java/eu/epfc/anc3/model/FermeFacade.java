@@ -1,6 +1,7 @@
 package eu.epfc.anc3.model;
 
 import eu.epfc.anc3.vm.ParcelleViewModel;
+import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -36,6 +37,7 @@ public class FermeFacade {
 
         isStarted.bind(ferme.fermeStatusProperty().isNotEqualTo(FermeStatus.START));
 
+
         isStopped.bind(ferme.fermeStatusProperty().isEqualTo(FermeStatus.STOP));
 
         plantGrass.bind(fermeStatusProperty().isEqualTo(FermeStatus.PLANT_GRASS));
@@ -45,6 +47,7 @@ public class FermeFacade {
     }
     public ReadOnlyBooleanProperty isStartedProperty() {return isStarted;}
     public ReadOnlyBooleanProperty isInProgressProperty() {return isInProgress;}
+    public ReadOnlyBooleanProperty isStoppedProperty() {return isStopped;}
     public ReadOnlyBooleanProperty isSpacePressed() {return isInProgress;}
     public ReadOnlyBooleanProperty isStartableProperty() {return spacePressed;}
     public ReadOnlyBooleanProperty isPlantProperty() {return plantGrass;}
@@ -63,7 +66,7 @@ public class FermeFacade {
         }
     }
     public void stop(){
-        if (isStarted.getValue()){
+        if (isStarted.getValue() ||isInProgress.getValue()){
             ferme.stop();
             System.out.println("jeu arrêté");
         }
