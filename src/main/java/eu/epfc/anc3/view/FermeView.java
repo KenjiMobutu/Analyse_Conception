@@ -1,8 +1,8 @@
 package eu.epfc.anc3.view;
 
+
 import eu.epfc.anc3.model.*;
 
-import eu.epfc.anc3.model.Controls;
 import eu.epfc.anc3.model.FermeFacade;
 import eu.epfc.anc3.model.Move;
 import eu.epfc.anc3.model.Parcelle;
@@ -29,8 +29,8 @@ public class FermeView extends BorderPane {
     private static final int SCENE_MIN_WIDTH = 600;
     private static final int SCENE_MIN_HEIGHT = 500;
 
-    static final int FERME_WIDTH = 15;
-
+    static final int FERME_WIDTH = 25;
+    static final int FERME_HEIGHT = 15;
     // Contrainte de mise en page
     private final DoubleProperty gridWidthProperty = new SimpleDoubleProperty(350);
     private final FermeViewModel fermeViewModel = new FermeViewModel();
@@ -45,7 +45,6 @@ public class FermeView extends BorderPane {
     public void start(Stage stage) {
         // Mise en place des composants principaux
         configMainComponents(stage);
-
         // Mise en place de la scène et affichage de la fenêtre
         Scene scene = new Scene(this,SCENE_MIN_WIDTH,SCENE_MIN_HEIGHT);
         configKeyPressed(scene);
@@ -53,11 +52,11 @@ public class FermeView extends BorderPane {
         stage.show();
         stage.setMinHeight(stage.getHeight());
         stage.setMinWidth(stage.getWidth());
-
-        setOnMouseClicked(e -> requestFocus());
+//        setOnMouseClicked(e -> requestFocus());
+        menuView.manageStartButton();
         menuView.manageNbHerb();
-
-
+        menuView.managePlantButton();
+        menuView.manageUnPlantButton();
     }
 
     private void configMainComponents(Stage stage){
@@ -69,16 +68,13 @@ public class FermeView extends BorderPane {
         configMenu();
         //Mise en place du Field du jeu
         configTerrainView();
-
     }
-
     private void configTerrainView() {
         createTerrain();
         fermeViewModel.isFermeStartedProperty().addListener(
                 (obs, oldval, newval) -> configTerrainPane(newval));
 
     }
-
     private void configTerrainPane(Boolean gameStarted) {
         if (gameStarted) {
             createTerrain();
@@ -91,7 +87,7 @@ public class FermeView extends BorderPane {
     }
 
     private void removeTerrain() {
-       getChildren().remove(terrainView);
+        getChildren().remove(terrainView);
         terrainView  = null;
     }
 
@@ -107,8 +103,6 @@ public class FermeView extends BorderPane {
         menuView = new MenuView(fermeViewModel.getMenuViewModel());
         setTop(menuView.nbHerb);
         setBottom(menuView.buttons);
-
-
     }
     public void configKeyPressed(Scene scene){
         //doit focus la scene
@@ -118,34 +112,28 @@ public class FermeView extends BorderPane {
                     System.out.println(keyEvent.getCode());
                     fermeViewModel.keyPressed(Move.RIGHT);
                     menuView.manageNbHerb();
-
                     break;
                 case LEFT:
                     System.out.println(keyEvent.getCode());
                     fermeViewModel.keyPressed(Move.LEFT);
                     menuView.manageNbHerb();
-
                     break;
                 case UP:
                     System.out.println(keyEvent.getCode());
                     fermeViewModel.keyPressed(Move.UP);
                     menuView.manageNbHerb();
-
                     break;
                 case DOWN:
                     System.out.println(keyEvent.getCode());
                     fermeViewModel.keyPressed(Move.DOWN);
                     menuView.manageNbHerb();
-
                     break;
                 case SPACE:
                     System.out.println(keyEvent.getCode());
                     fermeViewModel.keyPressed(Move.SPACE);
                     menuView.manageNbHerb();
-
                     break;
             }
         });
     }
-
 }
