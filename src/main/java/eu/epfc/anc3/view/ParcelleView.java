@@ -1,27 +1,42 @@
 package eu.epfc.anc3.view;
-
-import eu.epfc.anc3.model.Grass;
+import eu.epfc.anc3.model.Element;
+import eu.epfc.anc3.model.FermeStatus;
 import eu.epfc.anc3.model.ParcelleValue;
 import eu.epfc.anc3.vm.ParcelleViewModel;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.ReadOnlyObjectProperty;
-import eu.epfc.anc3.vm.TerrainViewModel;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 
+import java.util.Comparator;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 public class ParcelleView extends StackPane {
-private static final Image FARMER = new Image("farmer.png");
-private static final Image DIRT = new Image("dirt.png");
-private static final Image GRASS = new Image("grass.png");
-private final ImageView imageView = new ImageView();
-//cell
-// pourra ajouter plant etc
+    private static final Image FARMER = new Image("farmer.png");
+    private static final Image DIRT = new Image("dirt.png");
+    private static final Image GRASS = new Image("grass.png");
 
+    private final ImageView imageView = new ImageView();
 
-
+//    private final List<Node> children = getChildren().stream()
+//            .sorted(Comparator.comparing(child -> {
+//                if (child instanceof ImageView) {
+//                    Image image = ((ImageView) child).getImage();
+//                    if (image.equals(DIRT)) {
+//                        return ParcelleValue.DIRT;
+//                    } else if (image.equals(GRASS)) {
+//                        return ParcelleValue.GRASS;
+//                    } else if (image.equals(FARMER)) {
+//                        return ParcelleValue.FARMER;
+//                    }
+//                }
+//                return ParcelleValue.EMPTY;
+//            }))
+//            .collect(Collectors.toList());
 
     public ParcelleView(ParcelleViewModel parcelleViewModel, DoubleBinding parcelleWidthProperty) {
         imageView.setPreserveRatio(false); // permet de garder son aspect meme en étant redimensionnée
@@ -29,27 +44,30 @@ private final ImageView imageView = new ImageView();
         imageView.fitHeightProperty().bind(parcelleWidthProperty);
         getChildren().add(imageView);
         setParcelleImage(imageView,parcelleViewModel.valueProperty().getValue());
-        Image img =new Image("dirt.png");
-        BackgroundImage backgroundImage = new BackgroundImage(
-                img,
-                BackgroundRepeat.SPACE,
-                BackgroundRepeat.SPACE,
-                BackgroundPosition.CENTER,
-                new BackgroundSize(100,100,true,true,true,true)
-        );
-        Background background = new Background(backgroundImage);
-        this.setBackground(background);
+//        Image img =new Image("dirt.png");
+//        BackgroundImage backgroundImage = new BackgroundImage(
+//                img,
+//                BackgroundRepeat.SPACE,
+//                BackgroundRepeat.SPACE,
+//                BackgroundPosition.CENTER,
+//                new BackgroundSize(100,100,true,true,true,true)
+//        );
+//        Background background = new Background(backgroundImage);
+//        this.setBackground(background);
+//        ImageView test1 = new ImageView();
+//        test1 = new ImageView();
+//        test1.fitWidthProperty().bind(parcelleWidthProperty);
+//        test1.setPreserveRatio(true);
+//        test1.setImage(GRASS);
+//        getChildren().add(test1);
+//
 //        ImageView test = new ImageView();
 //        test.fitWidthProperty().bind(parcelleWidthProperty);
 //        test.setPreserveRatio(true);
 //        test.setImage(FARMER);
 //        getChildren().add(test);
-//
-//        test = new ImageView();
-//        test.fitWidthProperty().bind(parcelleWidthProperty);
-//        test.setPreserveRatio(true);
-//        test.setImage(GRASS);
-//        getChildren().add(test);
+
+        imageView.autosize();
         ReadOnlyObjectProperty<ParcelleValue> valueProp = parcelleViewModel.valueProperty();
         valueProp.addListener((obs, old, newVal) -> setParcelleImage(imageView,newVal));
 
@@ -57,21 +75,99 @@ private final ImageView imageView = new ImageView();
     }
 
     private void setParcelleImage(ImageView imageView, ParcelleValue parcelleValue){
+        ObservableList<Node> children = getChildren();
+        children.clear();
         switch (parcelleValue){
-            case DIRT:
-                imageView.setImage(DIRT);
-                break;
             case EMPTY:
-                imageView.setImage(DIRT);
+                ImageView emptyCase = new ImageView(DIRT);
+                emptyCase.autosize();
+                emptyCase.setPreserveRatio(false);
+                emptyCase.setFitHeight(80);
+                emptyCase.setFitWidth(80);
+                if (!getChildren().contains(emptyCase))
+                   getChildren().add(0,emptyCase);
+                break;
+            case DIRT:
+                if (imageView.getImage() == null || imageView.getImage() == GRASS){
+                    imageView.setImage(DIRT);
+                    imageView = new ImageView(DIRT);
+                    imageView.setPreserveRatio(false);
+                    imageView.setFitHeight(85);
+                    imageView.setFitWidth(85);
+                }
+                children.add(imageView);
+
                 break;
             case GRASS:
-                imageView.setImage(GRASS);
+                if (imageView.getImage() == null || imageView.getImage() == DIRT){
+                    imageView.setImage(GRASS);
+//                    imageView = new ImageView(GRASS);
+                    imageView.setPreserveRatio(false);
+//                    imageView.setFitHeight(50);
+//                    imageView.setFitWidth(50);
+                }
+                children.add(imageView);
                 break;
             case FARMER:
-                imageView.setImage(FARMER);
-                break;
+                ImageView farmer = new ImageView(FARMER);
+                farmer.setPreserveRatio(false);
+                farmer.setFitHeight(60);
+                farmer.setFitWidth(60);
+                System.out.println(imageView.getImage() + " <-- IMAAAAAAAAAAAAAAAAAAAAAAAAAGE");
+                if (imageView.getImage() != GRASS){
+                    ImageView dirt = new ImageView(DIRT);
+                    dirt.setPreserveRatio(false);
+                    dirt.setFitHeight(80);
+                    dirt.setFitWidth(80);
+                    children.addAll(dirt, farmer);
+                    break;
+                }else{
+                    ImageView grass = new ImageView(GRASS);
+                    grass.setPreserveRatio(false);
+                    grass.setFitHeight(80);
+                    grass.setFitWidth(80);
+                    children.addAll(grass, farmer);
+                    break;
+                }
         }
     }
+        /**
+         * ANCIEN VER
+         * private void setParcelleImage(ImageView imageView, ParcelleValue parcelleValue){
+         *         getChildren().setAll(children);
+         *         System.out.println(getChildren().toString() + "HELQSMLKDF");
+         *         switch (parcelleValue){
+         *             case EMPTY :
+         *             case DIRT:
+         *                 ImageView emptyCase = new ImageView(DIRT);
+         *                 emptyCase.setPreserveRatio(false);
+         *                 emptyCase.setFitHeight(50);
+         *                 emptyCase.setFitWidth(50);
+         *                 if (!getChildren().contains(emptyCase))
+         *                     getChildren().add(0,emptyCase);
+         *                 break;
+         *             case GRASS:
+         *                 ImageView grassCase = new ImageView(GRASS);
+         *                 grassCase.setPreserveRatio(false);
+         *                 grassCase.setFitHeight(50);
+         *                 grassCase.setFitWidth(50);
+         *                 if (!getChildren().contains(grassCase))
+         *                     getChildren().add(0,grassCase);
+         *                 break;
+         *             case FARMER:
+         *                 imageView = new ImageView(FARMER);
+         *                 imageView.setPreserveRatio(false);
+         *                 imageView.setFitHeight(50);
+         *                 imageView.setFitWidth(50);
+         *                 if (!getChildren().contains(imageView))
+         *                     getChildren().add(0,imageView);
+         *                 break;
+         *         }
+         *     }
+         * }
+         */
+
+
+
 
 }
-
