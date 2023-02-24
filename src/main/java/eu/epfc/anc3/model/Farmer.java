@@ -1,58 +1,58 @@
 package eu.epfc.anc3.model;
-import javafx.beans.Observable;
-import javafx.beans.property.*;
+
+import javafx.beans.property.ReadOnlyIntegerProperty;
+import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import java.util.ArrayList;
-import java.util.List;
+import javafx.geometry.Pos;
 
 public class Farmer {
 
     private final Position posFarmer;
-    public static Grass plantedGrass;
-
-//    public final List<Grass> listOfPlantedGrass1 = new ArrayList<>();
-
     public static final SimpleListProperty<Grass> listOfPlantedGrass = new SimpleListProperty<>(FXCollections.observableArrayList());
 
-    //doit etre observable ou listProperty (SimpleListProperty)
-    //listProperty a une sizeProperty
+    public Farmer(){
+        this.posFarmer = new Position(0,0);
+    }
 
-    private final StringProperty fermier = new SimpleStringProperty("");
-    public Farmer() {
-        posFarmer = new Position(0, 0);
-    }
-    public void setPosFarmer(int x, int y){
-        posFarmer.setPosX(x);
-        posFarmer.setPosY(y);
-    }
-    public Position getPosFarmer () {
+    public Position getPosFarmer() {
         return posFarmer;
     }
 
-        public static Grass getPlantedGrass () {
-            return plantedGrass;
-        }
-
-    public ReadOnlyIntegerProperty nbgrass(){return listOfPlantedGrass.sizeProperty();}
-    @Override
-    public String toString() {
-        return "Farmer{" +
-                "posFarmer=" + posFarmer +
-                ", listOfPlantedGrass=" + listOfPlantedGrass +
-                ", fermier=" + fermier +
-                '}';
-    }
-
-    public void plantGrass() {
-        listOfPlantedGrass.add(new Grass(posFarmer));
+    public void setPosFarmer(int x, int y){
+        posFarmer.setPosX(x); posFarmer.setPosY(y);
     }
 
 
-    public boolean hasPlantedGrass() {
+    public boolean hasPlantedGrass(){
         return !listOfPlantedGrass.isEmpty();
     }
-}
 
+    public void plantGrass(Position p ){
+        listOfPlantedGrass.add(new Grass(p));
+    }
+    public void resetGrass(){
+        listOfPlantedGrass.clear();
+    }
+
+    public void removeGrassAtPos(Position p ){
+        if (hasPlantedGrass())
+            listOfPlantedGrass.remove(listOfPlantedGrass.get(listOfPlantedGrass.getSize()-1));
+    }
+
+
+    public ReadOnlyIntegerProperty nbgrass(){return listOfPlantedGrass.sizeProperty();}
+
+    public boolean grassPlantedHere(){
+        for (Grass g : listOfPlantedGrass){
+            if (g.toString().equals(getPosFarmer().toString()))
+                return true;
+        }
+        return false;
+    }
+
+
+    @Override
+    public String toString() {return "Farmer Position : " + getPosFarmer()  + "nb d'herbes : "+nbgrass();}
+
+
+}
