@@ -1,4 +1,4 @@
 package eu.epfc.anc3.model;
 
-public class Plant {
+public interface Element {
 }

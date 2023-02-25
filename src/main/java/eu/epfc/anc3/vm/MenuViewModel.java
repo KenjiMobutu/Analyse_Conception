@@ -1,19 +1,16 @@
 package eu.epfc.anc3.vm;
 
 import eu.epfc.anc3.model.FermeFacade;
-import javafx.beans.Observable;
-import javafx.beans.property.ReadOnlyBooleanProperty;
-import javafx.beans.property.ReadOnlyStringProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
+import javafx.beans.property.*;
 
 public class MenuViewModel {
-    private final FermeFacade ferme;
+    private final FermeFacade fermeFacade;
 
     public MenuViewModel(FermeFacade ferme){
-        this.ferme = ferme;
+        this.fermeFacade = ferme;
         configNameHandlers();
         //configLogicStatus();
+
     }
 
     private void configNameHandlers() {
@@ -23,7 +20,7 @@ public class MenuViewModel {
     public ReadOnlyStringProperty startLabelProperty() {
         return new SimpleStringProperty("Démarrer");
     }
-
+    public ReadOnlyStringProperty stopLabelProperty() {return new SimpleStringProperty("Stop");}
     public ReadOnlyStringProperty plantLabelProperty() {
         return new SimpleStringProperty("Planter du gazon");
     }
@@ -31,20 +28,27 @@ public class MenuViewModel {
         return new SimpleStringProperty("Tondre du gazon");
     }
 
-    public void start() {
-        ferme.start();
+    public void start() {fermeFacade.start();}
+    public void stop() {fermeFacade.stop();}
+    public void plantMode(){fermeFacade.plantMode();}
+    public void unplantMode(){fermeFacade.unplantMode();}
+    public ReadOnlyIntegerProperty nbGrass(){return fermeFacade.getNbGrass();}
 
-    }
     public void newGame() {
-        //ferme.start();
-        ferme.newGame();
-    }
-    public ReadOnlyBooleanProperty isFermeStartableProperty() {
-        return ferme.isStartableProperty();
-    }
-    public ReadOnlyBooleanProperty isFermeInProgressProperty() {
-        return ferme.isInProgressProperty();
+        //fermeFacade.start();
+        fermeFacade.newGame();
     }
 
+//    public ReadOnlyBooleanProperty isFermeStartableProperty() {
+//        return fermeFacade.isStartableProperty();
+//    }
+//    public ReadOnlyBooleanProperty canBeStopProperty() {return fermeFacade.isStartedProperty();}
+//    public ReadOnlyBooleanProperty isFermeInProgressProperty() {
+//        return fermeFacade.isInProgressProperty();
+//    }
+//    public ReadOnlyBooleanProperty isPlantedGrassPossibleProperty() {return fermeFacade.isPlantProperty();}
+//    public void setPlantGrass(boolean b) {fermeFacade.setPlantGrass(b);}
+//    public ReadOnlyBooleanProperty isUnplantedGrassPossibleProperty() {return fermeFacade.isDeplantProperty();}
+//    public void setUnplantGrass(boolean b) {fermeFacade.setDeplantGrass(b);}
 
 }
