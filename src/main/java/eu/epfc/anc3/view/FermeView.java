@@ -18,6 +18,8 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
@@ -31,6 +33,7 @@ public class FermeView extends BorderPane {
     private static final int SCENE_MIN_HEIGHT = 500;
     static final int FERME_WIDTH = 25;
     static final int FERME_HEIGHT = 15;
+    private boolean spacePressed = false;
     // Contrainte de mise en page
     private final DoubleProperty gridWidthProperty = new SimpleDoubleProperty(350);
     private final FermeViewModel fermeViewModel = new FermeViewModel();
@@ -129,5 +132,11 @@ public class FermeView extends BorderPane {
                     break;
             }
         });
+        // Ajout de l'écouteur d'événements pour capturer les événements clavier
+        scene.setOnKeyReleased(keyEvent -> handleKeyReleased());
+    }
+
+    private void handleKeyReleased() {
+       fermeViewModel.keyReleased();
     }
 }
