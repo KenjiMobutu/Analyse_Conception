@@ -16,109 +16,128 @@ import static eu.epfc.anc3.view.FermeView.PADDING;
 
 public class MenuView extends VBox {
     // Composants du "menu"
-    private final Label nbGrassTxt = new Label("Nombre de parcelles de gazon : ");
-    private final TextField nbGrass= new TextField();
-    private  Button startButton = new Button();
+    private final Label nbGrassLabel = new Label("Nombre de parcelles de gazon : ");
+    private final TextField nbGrassTextField = new TextField();
+    private final Button startButton = new Button();
     private final Button stopButton = new Button();
     private final Button plantButton = new Button();
     private final Button unPlantButton = new Button();
 
-    HBox nbHerb = new HBox(nbGrassTxt,nbGrass);
-    HBox buttons = new HBox(plantButton,unPlantButton,startButton);
-
     private final MenuViewModel menuViewModel;
 
-    private FermeView fermeView;
+    private final HBox nbGrassHBox;
+    HBox buttonsHBox = new HBox(startButton,plantButton,unPlantButton) ;
+
+    HBox buttons = new HBox(startButton,plantButton,unPlantButton);
+
 
     public MenuView(MenuViewModel menuViewModel) {
         this.menuViewModel = menuViewModel;
-        configMenu();
-        // Gestion du click sur le bouton "Start"
-        manageStartButton();
-        // Gestion du click sur le bouton "plant"
-
-        managePlantButton();
-        // Gestion du click sur le bouton "unplant"
-
-        manageUnPlantButton();
-
-        //gestion click bouton "stop"
-        manageStopButton();
-
+        this.nbGrassHBox = createNbGrassHBox();
+        this.buttonsHBox = buttons;
+        configureMenu();
+        bindLabelsToViewModel();
+        setUpButtonStart();
+        setUpButtonPlant();
+        setUpButtonUnplant();
+        setUpButtonStop();
     }
 
-    private void configMenu(){
-        setPadding(new Insets(PADDING));
-        setMinWidth(MENU_WIDTH);
-        getChildren().addAll(nbHerb,buttons);
+    private void configureMenu(){
+        setPadding(new Insets(FermeView.PADDING));
+        setMinWidth(FermeView.MENU_WIDTH);
+        getChildren().addAll(nbGrassHBox, buttonsHBox);
+
+        // Make sure the user can't change the number of grass parcels manually
+        nbGrassTextField.setEditable(false);
+
+        // Disable the plant and unplant buttons initially
+        plantButton.setDisable(true);
+        unPlantButton.setDisable(true);
+
+        // Enable the start button initially
+        startButton.setDisable(false);
+
+        // Bind the number of grass parcels to the view model
+        nbGrassTextField.textProperty().bind(menuViewModel.nbGrass().asString());
+
         startButton.setFocusTraversable(false);
         stopButton.setFocusTraversable(false);
-        nbHerb.setFocusTraversable(false);
+        nbGrassHBox.setFocusTraversable(false);
         plantButton.setFocusTraversable(false);
         unPlantButton.setFocusTraversable(false);
 
-        nbHerb.setDisable(true);
+        nbGrassTextField.setDisable(true);
         plantButton.setDisable(true);
         unPlantButton.setDisable(true);
         startButton.setDisable(false);
         manageNbHerb();
-        configLabels();
-
+        bindLabelsToViewModel();
     }
-    private void configLabels() {
-//        nbGrass.textProperty().bind(); doit etre bind avec son compteur
+
+    private void bindLabelsToViewModel() {
         startButton.textProperty().bind(menuViewModel.startLabelProperty());
         stopButton.textProperty().bind(menuViewModel.stopLabelProperty());
         plantButton.textProperty().bind(menuViewModel.plantLabelProperty());
         unPlantButton.textProperty().bind(menuViewModel.unPlantLabelProperty());
     }
 
-    public void manageStartButton() {
-        startButton.setOnAction(e -> {
-                buttons.getChildren().remove(startButton);
-                buttons.getChildren().add(stopButton);
-                plantButton.setDisable(false);
-                unPlantButton.setDisable(false);
-                // Si le texte du bouton est "Start", on le change en "Stop"
-                menuViewModel.start();
-                
-            });
+    HBox createNbGrassHBox() {
+        return new HBox(nbGrassLabel, nbGrassTextField);
     }
-    public void manageStopButton(){
-        stopButton.setOnAction(e -> {
-            buttons.getChildren().remove(stopButton);
-            plantButton.setDisable(true);
-            unPlantButton.setDisable(true);
-            menuViewModel.stop();
-            manageNewGameButton();
-        });
-//        stopButton.setOnAction(event -> menuViewModel.stop());
-
+    public void setUpButtonStart() {
+        startButton.setOnAction(e -> handleStartButtonAction());
     }
-    public void managePlantButton(){
-        plantButton.setOnAction(e -> menuViewModel.plantMode());
+    private void setUpButtonStop() {
+        stopButton.setOnAction(e -> handleStopButtonAction());
     }
-    public void manageUnPlantButton() {
-        unPlantButton.setOnAction(e -> menuViewModel.unplantMode());
+    private void setUpButtonPlant() {
+        plantButton.setOnAction(e -> handlePlantButtonAction());
+    }
+    private void setUpButtonUnplant() {
+        unPlantButton.setOnAction(e -> handleUnPlantButtonAction());
     }
 
+
+     public void handleStartButtonAction() {
+         System.out.println("Handelleelel Start");
+        buttons.getChildren().remove(startButton);
+         System.out.println("Retire start");
+        buttons.getChildren().add(0, stopButton);
+        plantButton.setDisable(false);
+        unPlantButton.setDisable(false);
+        menuViewModel.start();
+    }
+
+    private void handleStopButtonAction() {
+        buttonsHBox.getChildren().remove(stopButton);
+        plantButton.setDisable(true);
+        unPlantButton.setDisable(true);
+        menuViewModel.stop();
+        manageNewGameButton();
+    }
+
+    private void handlePlantButtonAction() {
+        menuViewModel.plantMode();
+    }
+
+    private void handleUnPlantButtonAction() {
+        menuViewModel.unplantMode();
+    }
     public void manageNbHerb(){
         System.out.println(menuViewModel.nbGrass().toString());
-        nbGrass.textProperty().bind(menuViewModel.nbGrass().asString());
+        nbGrassTextField.textProperty().bind(menuViewModel.nbGrass().asString());
     }
 
     private void manageNewGameButton() {
-        buttons.getChildren().add(startButton);
+        buttonsHBox.getChildren().add(0, startButton);
         startButton.setOnAction(e -> {
-            buttons.getChildren().remove(startButton);
-            buttons.getChildren().add(stopButton);
+            buttonsHBox.getChildren().remove(startButton);
+            buttonsHBox.getChildren().add(0, stopButton);
             plantButton.setDisable(false);
             unPlantButton.setDisable(false);
-
             menuViewModel.newGame();
         });
     }
-
-
 
 }
