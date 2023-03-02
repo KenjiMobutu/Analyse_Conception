@@ -14,9 +14,7 @@ public class Farmer {
 
     private final Position posFarmer;
     public static Grass plantedGrass;
-    //public static final List<Grass> listOfPlantedGrass = new ArrayList<>();
     private final StringProperty fermier = new SimpleStringProperty("");
-
     public static final SimpleListProperty<Grass> listOfPlantedGrass = new SimpleListProperty<>(FXCollections.observableArrayList());
 
     public Farmer(){
@@ -38,12 +36,9 @@ public class Farmer {
                 '}';
     }
 
-
     public void setPosFarmer(int x, int y){
         posFarmer.setPosX(x); posFarmer.setPosY(y);
     }
-
-
     public boolean hasPlantedGrass(){
         return !listOfPlantedGrass.isEmpty();
     }
@@ -59,17 +54,6 @@ public class Farmer {
         if (hasPlantedGrass())
             listOfPlantedGrass.remove(listOfPlantedGrass.get(listOfPlantedGrass.getSize()-1));
     }
-
     public ReadOnlyIntegerProperty nbgrass(){return listOfPlantedGrass.sizeProperty();}
-
-    public boolean grassPlantedHere(){
-        for (Grass g : listOfPlantedGrass){
-            if (g.toString().equals(getPosFarmer().toString()))
-                return true;
-        }
-        return false;
-    }
-    //@Override
-    //public String toString() {return "Farmer Position : " + getPosFarmer()  + "nb d'herbes : "+nbgrass();}
 
 }
