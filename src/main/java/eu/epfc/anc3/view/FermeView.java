@@ -7,6 +7,7 @@ import eu.epfc.anc3.model.FermeFacade;
 import eu.epfc.anc3.model.Move;
 import eu.epfc.anc3.model.Parcelle;
 import eu.epfc.anc3.vm.FermeViewModel;
+import eu.epfc.anc3.vm.MenuViewModel;
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
@@ -26,9 +27,8 @@ import java.util.ArrayList;
 public class FermeView extends BorderPane {
     static final int PADDING = 20;
     static final int MENU_WIDTH = 150;
-    private static final int SCENE_MIN_WIDTH = 600;
+    private static final int SCENE_MIN_WIDTH = 700;
     private static final int SCENE_MIN_HEIGHT = 500;
-
     static final int FERME_WIDTH = 25;
     static final int FERME_HEIGHT = 15;
     // Contrainte de mise en page
@@ -45,6 +45,7 @@ public class FermeView extends BorderPane {
     public void start(Stage stage) {
         // Mise en place des composants principaux
         configMainComponents(stage);
+
         // Mise en place de la scène et affichage de la fenêtre
         Scene scene = new Scene(this,SCENE_MIN_WIDTH,SCENE_MIN_HEIGHT);
         configKeyPressed(scene);
@@ -52,25 +53,22 @@ public class FermeView extends BorderPane {
         stage.show();
         stage.setMinHeight(stage.getHeight());
         stage.setMinWidth(stage.getWidth());
-//        setOnMouseClicked(e -> requestFocus());
-        menuView.manageStartButton();
-        menuView.manageNbHerb();
-        menuView.managePlantButton();
-        menuView.manageUnPlantButton();
     }
 
     private void configMainComponents(Stage stage){
+        // Configuration de la fenêtre
         stage.titleProperty().bind(fermeViewModel.titleProperty());
-        Image icon = new Image("farmer.png");
-        stage.getIcons().add(icon);
+        stage.getIcons().add(new Image("farmer.png"));
         setPadding(new Insets(PADDING));
-        // Mise en place des composants du menu
+
+        // Configuration du menu
         configMenu();
-        //Mise en place du GRID du jeu
+
+        // Configuration de la vue de la ferme
         configTerrainView();
     }
+
     private void configTerrainView() {
-        createTerrain();
         fermeViewModel.isFermeStartedProperty().addListener(
                 (obs, oldval, newval) -> configTerrainPane(newval));
 
@@ -87,21 +85,22 @@ public class FermeView extends BorderPane {
     }
 
     private void removeTerrain() {
-        getChildren().remove(terrainView);
-        terrainView  = null;
+        if (terrainView != null) {
+            getChildren().remove(terrainView);
+            terrainView = null;
+        }
     }
 
     private void createTerrain() {
         terrainView = new TerrainView(fermeViewModel.getTerrainViewModel(), gridWidthProperty);
-        System.out.println(terrainView);
-
-        gridWidthProperty.bind(Bindings.min(widthProperty().subtract(MENU_WIDTH + 2 * PADDING), heightProperty()));
+        System.out.println("Terrain :"+terrainView);
         setCenter(terrainView);
     }
 
     private void configMenu() {
-        menuView = new MenuView(fermeViewModel.getMenuViewModel());
-        setTop(menuView.nbHerb);
+        MenuViewModel menuViewModel = fermeViewModel.getMenuViewModel();
+        MenuView menuView = new MenuView(menuViewModel);
+        setTop(menuView.createNbGrassHBox());
         setBottom(menuView.buttons);
     }
     public void configKeyPressed(Scene scene){
@@ -111,27 +110,22 @@ public class FermeView extends BorderPane {
                 case RIGHT:
                     System.out.println(keyEvent.getCode());
                     fermeViewModel.keyPressed(Move.RIGHT);
-                    menuView.manageNbHerb();
                     break;
                 case LEFT:
                     System.out.println(keyEvent.getCode());
                     fermeViewModel.keyPressed(Move.LEFT);
-                    menuView.manageNbHerb();
                     break;
                 case UP:
                     System.out.println(keyEvent.getCode());
                     fermeViewModel.keyPressed(Move.UP);
-                    menuView.manageNbHerb();
                     break;
                 case DOWN:
                     System.out.println(keyEvent.getCode());
                     fermeViewModel.keyPressed(Move.DOWN);
-                    menuView.manageNbHerb();
                     break;
                 case SPACE:
                     System.out.println(keyEvent.getCode());
                     fermeViewModel.keyPressed(Move.SPACE);
-                    menuView.manageNbHerb();
                     break;
             }
         });
