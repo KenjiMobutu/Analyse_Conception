@@ -8,13 +8,6 @@ public class MenuViewModel {
 
     public MenuViewModel(FermeFacade ferme){
         this.fermeFacade = ferme;
-        configNameHandlers();
-        //configLogicStatus();
-
-    }
-
-    private void configNameHandlers() {
-
     }
 
     public ReadOnlyStringProperty startLabelProperty() {
@@ -27,28 +20,13 @@ public class MenuViewModel {
     public ReadOnlyStringProperty unPlantLabelProperty() {
         return new SimpleStringProperty("Tondre du gazon");
     }
-
     public void start() {fermeFacade.start();}
     public void stop() {fermeFacade.stop();}
     public void plantMode(){fermeFacade.plantMode();}
     public void unplantMode(){fermeFacade.unplantMode();}
     public ReadOnlyIntegerProperty nbGrass(){return fermeFacade.getNbGrass();}
-
     public void newGame() {
-        //fermeFacade.start();
         fermeFacade.newGame();
     }
-
-//    public ReadOnlyBooleanProperty isFermeStartableProperty() {
-//        return fermeFacade.isStartableProperty();
-//    }
-//    public ReadOnlyBooleanProperty canBeStopProperty() {return fermeFacade.isStartedProperty();}
-//    public ReadOnlyBooleanProperty isFermeInProgressProperty() {
-//        return fermeFacade.isInProgressProperty();
-//    }
-//    public ReadOnlyBooleanProperty isPlantedGrassPossibleProperty() {return fermeFacade.isPlantProperty();}
-//    public void setPlantGrass(boolean b) {fermeFacade.setPlantGrass(b);}
-//    public ReadOnlyBooleanProperty isUnplantedGrassPossibleProperty() {return fermeFacade.isDeplantProperty();}
-//    public void setUnplantGrass(boolean b) {fermeFacade.setDeplantGrass(b);}
 
 }

@@ -8,7 +8,6 @@ public class TerrainViewModel {
 
     public TerrainViewModel(FermeFacade ferme){
         this.ferme = ferme;
-
     }
     public ParcelleViewModel getParcelleViewModel(int line, int col) {
         return new ParcelleViewModel(line, col, ferme);

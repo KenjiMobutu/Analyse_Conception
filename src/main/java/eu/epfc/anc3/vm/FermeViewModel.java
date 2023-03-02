@@ -40,9 +40,7 @@ public class FermeViewModel {
         terrainViewModel = new TerrainViewModel(fermeFacade);
     }
 
-
     public void keyPressed(Move move) {
-        System.out.println("jrentre ici");
         fermeFacade.moveFarmer(move);
     }
 }
