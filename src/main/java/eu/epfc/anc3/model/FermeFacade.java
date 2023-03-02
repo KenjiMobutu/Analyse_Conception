@@ -161,6 +161,16 @@ public class FermeFacade {
             }
         }
     }
+    public void handleKeyReleased() {
+        if (isInProgress.getValue()) {
+            //boolean spacePress = false; // la barre d'espace a été relâchée
+            if (plantGrass.getValue()) {
+                dropGrass();
+            } else if (deplantGrass.getValue()) {
+                removeGrass();
+            }
+        }
+    }
 
     private void goUp(){
         Position up = new Position(farmer.getPosFarmer().getPosX()-1, farmer.getPosFarmer().getPosY());
@@ -226,7 +236,7 @@ public class FermeFacade {
         }
     }
 
-    private void dropGrass(){
+    public void dropGrass(){
         addValuePropertyToSet(farmer.getPosFarmer().getPosX(), farmer.getPosFarmer().getPosY(),ParcelleValue.GRASS);
         //addValuePropertyToSet(farmer.getPosFarmer().getPosX(), farmer.getPosFarmer().getPosY(),ParcelleValue.FARMER);
         System.out.println(valuePropertyFromSet(farmer.getPosFarmer().getPosX(),farmer.getPosFarmer().getPosY()) + " sdq213fs2df1sd231f");
