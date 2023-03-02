@@ -27,10 +27,8 @@ public class Parcelle {
     //était boolean
     void setValue(ParcelleValue value){
         this.value.setValue(value);
-        cellValue.add(value);
+        //cellValue.add(value);
     }
-
-
 
     ReadOnlyObjectProperty<ParcelleValue> valueProperty() {
         return value;
