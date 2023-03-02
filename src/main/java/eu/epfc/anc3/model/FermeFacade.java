@@ -92,7 +92,8 @@ public class FermeFacade {
             putFarmerInFarm();
             System.out.println("RESTARTED");
             System.out.println("le jeu est lancé (fonction RESTARTED) ");
-        }    }
+        }
+    }
 
     public ReadOnlyObjectProperty<ParcelleValue> valueProperty(int line, int col) {
         return ferme.valueProperty(line, col);
@@ -125,9 +126,7 @@ public class FermeFacade {
             displayTerrain(farmer.getPosFarmer());
         }
         farmer.setPosFarmer(tpPlayer.getPosX(),tpPlayer.getPosY());
-
         ferme.farmerInFarm(farmer);
-        //return ferme.play(line,col);
     }
 
     public void moveFarmer(Move move) {
@@ -145,12 +144,10 @@ public class FermeFacade {
                 case LEFT:
                     goLeft();
                     System.out.println("here farmer pos : -->" + farmer.getPosFarmer());
-
                     break;
                 case RIGHT:
                     goRight();
                     System.out.println("here farmer pos : -->" + farmer.getPosFarmer());
-
                     break;
                 case SPACE:
                     System.out.println("plant grass val " + plantGrass.getValue());
@@ -168,7 +165,6 @@ public class FermeFacade {
     private void goUp(){
         Position up = new Position(farmer.getPosFarmer().getPosX()-1, farmer.getPosFarmer().getPosY());
         System.out.println(valuePropertyFromSet(up.getPosX(),up.getPosY()) + " go UP");
-
 
         if (up.getPosX() >= 0){
             System.out.println("x : " + up.getPosX() + "  y :" + up.getPosY());
@@ -263,5 +259,4 @@ public class FermeFacade {
     private void displayTerrain(Position pos){
         displayDirt(pos);
     }
-
 }
