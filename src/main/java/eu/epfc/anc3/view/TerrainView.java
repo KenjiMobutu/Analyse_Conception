@@ -17,7 +17,6 @@ import static eu.epfc.anc3.view.FermeView.*;
 public class TerrainView extends GridPane {
     //grid
     public TerrainView (TerrainViewModel terrainViewModel, DoubleProperty fermeWidthProperty){
-        setGridLinesVisible(true);
         setPadding(new Insets(10));
         // Cellules de même taille
         RowConstraints rowConstraints = new RowConstraints();
@@ -26,16 +25,11 @@ public class TerrainView extends GridPane {
         columnConstraints.setPercentWidth(100 / FERME_WIDTH);
         DoubleBinding cellWidthProperty = fermeWidthProperty.subtract(PADDING * 2).divide(FERME_WIDTH);
 
-        for (int i = 0; i < FERME_HEIGHT; ++i) {
-            getRowConstraints().add(rowConstraints);
-        }
-        for (int j = 0; j < FERME_WIDTH; ++j) {
-            getColumnConstraints().add(columnConstraints);
-        }
-
         // Remplissage de la grille
         for (int i = 0; i < FERME_HEIGHT; ++i) {
+            getRowConstraints().add(rowConstraints);
             for (int j = 0; j < FERME_WIDTH; ++j) {
+                getColumnConstraints().add(columnConstraints);
                 ParcelleView parcelleView = new ParcelleView(terrainViewModel.getParcelleViewModel(i, j), cellWidthProperty);
                 add(parcelleView, j, i);
             }
