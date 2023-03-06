@@ -4,9 +4,7 @@ package eu.epfc.anc3.view;
 import eu.epfc.anc3.vm.MenuViewModel;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -18,10 +16,12 @@ public class MenuView extends VBox {
     // Composants du "menu"
     private final Label nbGrassLabel = new Label("Nombre de parcelles de gazon : ");
     private final TextField nbGrassTextField = new TextField();
-    private final Button startButton = new Button();
-    private final Button stopButton = new Button();
-    private final Button plantButton = new Button();
-    private final Button unPlantButton = new Button();
+    private final ToggleButton startButton = new ToggleButton();
+    private final ToggleButton stopButton = new ToggleButton();
+    private final ToggleButton plantButton = new ToggleButton();
+    private final ToggleButton unPlantButton = new ToggleButton();
+
+    private final ToggleGroup toggleGroup = new ToggleGroup();
 
     private final MenuViewModel menuViewModel;
 
@@ -72,7 +72,14 @@ public class MenuView extends VBox {
         unPlantButton.setDisable(true);
         startButton.setDisable(false);
         manageNbHerb();
+        addToToggleGroup();
         bindLabelsToViewModel();
+    }
+
+    private void addToToggleGroup(){
+
+        plantButton.setToggleGroup(toggleGroup);
+        unPlantButton.setToggleGroup(toggleGroup);
     }
 
     private void bindLabelsToViewModel() {
