@@ -265,13 +265,15 @@ public class FermeFacade {
     }
 
     public void dropGrass(){
-        addValuePropertyToSet(farmer.getPosFarmer().getPosX(), farmer.getPosFarmer().getPosY(),ParcelleValue.GRASS);
         //addValuePropertyToSet(farmer.getPosFarmer().getPosX(), farmer.getPosFarmer().getPosY(),ParcelleValue.FARMER);
         System.out.println(valuePropertyFromSet(farmer.getPosFarmer().getPosX(),farmer.getPosFarmer().getPosY()));
         if (plantGrass.getValue()){
             Position posGrass = new Position(farmer.getPosFarmer().getPosX(),farmer.getPosFarmer().getPosY());
-            farmer.plantGrass(posGrass);
-            displayGrass(posGrass);
+            if (!valuePropertyFromSet(farmer.getPosFarmer().getPosX(), farmer.getPosFarmer().getPosY()).contains(ParcelleValue.GRASS)) {
+                addValuePropertyToSet(farmer.getPosFarmer().getPosX(), farmer.getPosFarmer().getPosY(),ParcelleValue.GRASS);
+                farmer.plantGrass(posGrass);
+                displayGrass(posGrass);
+            }
         }
         putFarmerInFarm();
 
