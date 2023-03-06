@@ -55,8 +55,7 @@ public class Farmer {
 
     public void removeGrassAtPos(Position p) {
         //K:retire l'herbe en prenant compte de la pos
-        listOfPlantedGrass.remove(listOfPlantedGrass.p)
-        listOfPlantedGrass.removeIf(grass -> grass.getPos().equals(p));
+        listOfPlantedGrass.remove(listOfPlantedGrass.getSize()-1);
     }
 
 }
