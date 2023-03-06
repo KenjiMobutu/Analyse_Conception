@@ -12,6 +12,8 @@ public class Farmer {
     private final Position posFarmer;
     public static Grass plantedGrass;
     private final StringProperty fermier = new SimpleStringProperty("");
+
+    // soit mettre la liste comme dans la branche Master, soit mettre en IntegerProperty
     public static final SimpleSetProperty<Grass> listOfPlantedGrass = new SimpleSetProperty<>(FXCollections.observableSet());
 
     public Farmer(){
