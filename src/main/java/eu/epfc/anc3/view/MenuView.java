@@ -17,24 +17,29 @@ public class MenuView extends VBox {
     private final Label nbGrassLabel = new Label("Nombre de parcelles de gazon : ");
     private final TextField nbGrassTextField = new TextField();
     private final ToggleButton startButton = new ToggleButton();
+    private final ToggleButton sleepButton = new ToggleButton();
     private final ToggleButton stopButton = new ToggleButton();
-    private final ToggleButton plantButton = new ToggleButton();
+    private final ToggleButton plantButtonGrass = new ToggleButton();
     private final ToggleButton unPlantButton = new ToggleButton();
 
     private final ToggleGroup toggleGroup = new ToggleGroup();
-
+    private final ToggleButton plantCarotteButton = new ToggleButton();
+    private final ToggleButton plantCabbageButton = new ToggleButton();
+    private final ToggleButton plantFertilizerButton = new ToggleButton();
     private final MenuViewModel menuViewModel;
 
     private final HBox nbGrassHBox;
-    HBox buttonsHBox = new HBox(startButton,plantButton,unPlantButton) ;
+    HBox buttonsHBox = new HBox(startButton,sleepButton) ;
 
-    HBox buttons = new HBox(startButton,plantButton,unPlantButton);
+    VBox actionVbox = new VBox(plantButtonGrass,unPlantButton,plantCarotteButton, plantCabbageButton);
+    HBox buttons = new HBox(startButton,sleepButton);
 
 
     public MenuView(MenuViewModel menuViewModel) {
         this.menuViewModel = menuViewModel;
         this.nbGrassHBox = createNbGrassHBox();
         this.buttonsHBox = buttons;
+       // this.actionVbox = actionVbox;
         configureMenu();
         bindLabelsToViewModel();
         setUpButtonStart();
@@ -52,7 +57,7 @@ public class MenuView extends VBox {
         nbGrassTextField.setEditable(false);
 
         // Disable the plant and unplant buttons initially
-        plantButton.setDisable(true);
+        plantButtonGrass.setDisable(true);
         unPlantButton.setDisable(true);
 
         // Enable the start button initially
@@ -64,11 +69,11 @@ public class MenuView extends VBox {
         startButton.setFocusTraversable(false);
         stopButton.setFocusTraversable(false);
         nbGrassHBox.setFocusTraversable(false);
-        plantButton.setFocusTraversable(false);
+        plantButtonGrass.setFocusTraversable(false);
         unPlantButton.setFocusTraversable(false);
 
         nbGrassTextField.setDisable(true);
-        plantButton.setDisable(true);
+        plantButtonGrass.setDisable(true);
         unPlantButton.setDisable(true);
         startButton.setDisable(false);
         manageNbHerb();
@@ -78,15 +83,19 @@ public class MenuView extends VBox {
 
     private void addToToggleGroup(){
 
-        plantButton.setToggleGroup(toggleGroup);
+        plantButtonGrass.setToggleGroup(toggleGroup);
+        plantCabbageButton.setToggleGroup(toggleGroup);
+        plantCarotteButton.setToggleGroup(toggleGroup);
+        plantFertilizerButton.setToggleGroup(toggleGroup);
         unPlantButton.setToggleGroup(toggleGroup);
     }
 
     private void bindLabelsToViewModel() {
         startButton.textProperty().bind(menuViewModel.startLabelProperty());
         stopButton.textProperty().bind(menuViewModel.stopLabelProperty());
-        plantButton.textProperty().bind(menuViewModel.plantLabelProperty());
+        plantButtonGrass.textProperty().bind(menuViewModel.plantLabelProperty());
         unPlantButton.textProperty().bind(menuViewModel.unPlantLabelProperty());
+        //ajouter les textProperty des autres boutons.
     }
 
     HBox createNbGrassHBox() {
@@ -99,26 +108,27 @@ public class MenuView extends VBox {
         stopButton.setOnAction(e -> handleStopButtonAction());
     }
     private void setUpButtonPlant() {
-        plantButton.setOnAction(e -> handlePlantButtonAction());
+        plantButtonGrass.setOnAction(e -> handlePlantButtonAction());
     }
     private void setUpButtonUnplant() {
         unPlantButton.setOnAction(e -> handleUnPlantButtonAction());
     }
 
+    //Ajouter les setUp des autres boutons.
 
      public void handleStartButtonAction() {
          System.out.println("Handelleelel Start");
         buttons.getChildren().remove(startButton);
          System.out.println("Retire start");
         buttons.getChildren().add(0, stopButton);
-        plantButton.setDisable(false);
+        plantButtonGrass.setDisable(false);
         unPlantButton.setDisable(false);
         menuViewModel.start();
     }
 
     private void handleStopButtonAction() {
         buttonsHBox.getChildren().remove(stopButton);
-        plantButton.setDisable(true);
+        plantButtonGrass.setDisable(true);
         unPlantButton.setDisable(true);
         menuViewModel.stop();
         manageNewGameButton();
@@ -141,7 +151,7 @@ public class MenuView extends VBox {
         startButton.setOnAction(e -> {
             buttonsHBox.getChildren().remove(startButton);
             buttonsHBox.getChildren().add(0, stopButton);
-            plantButton.setDisable(false);
+            plantButtonGrass.setDisable(false);
             unPlantButton.setDisable(false);
             menuViewModel.newGame();
         });

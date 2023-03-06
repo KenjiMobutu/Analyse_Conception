@@ -105,6 +105,7 @@ public class FermeView extends BorderPane {
         MenuView menuView = new MenuView(menuViewModel);
         setTop(menuView.createNbGrassHBox());
         setBottom(menuView.buttons);
+        setLeft(menuView.actionVbox);
     }
     public void configKeyPressed(Scene scene){
         //doit focus la scene
