@@ -7,6 +7,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 
+import java.util.List;
 import java.util.Set;
 
 import static eu.epfc.anc3.model.Terrain.GRID_WIDTH;
@@ -15,6 +16,8 @@ public class FermeFacade {
 
     private final Ferme ferme = new Ferme();
     private final Farmer farmer = new Farmer();
+    Terrain field = new Terrain();
+    private boolean spacePress = false;
 
     //jeu démarrable
     private final BooleanProperty isStartable = new SimpleBooleanProperty(false);
@@ -130,7 +133,7 @@ public class FermeFacade {
     }
 
     public void moveFarmer(Move move) {
-        System.out.println(getStatus());;
+        System.out.println(getStatus());
         if (isInProgress.getValue()){
             switch (move){
                 case UP:
@@ -150,24 +153,49 @@ public class FermeFacade {
                     System.out.println("here farmer pos : -->" + farmer.getPosFarmer());
                     break;
                 case SPACE:
-                    System.out.println("plant grass val " + plantGrass.getValue());
-                    System.out.println("unplant grass val" + deplantGrass.getValue());
-                    if (plantGrass.getValue())
-                        dropGrass();
-                    else if(deplantGrass.getValue())
-                        removeGrass();
-                    System.out.println("here farmer pos : -->" + farmer.getPosFarmer());
+                    System.out.println("plant grass val :" + plantGrass.getValue());
+                    System.out.println("unplant grass val :" + deplantGrass.getValue());
+                    if (spacePress) {
+                        return; // la barre d'espace est toujours enfoncée, on ne fait rien
+                    }
+                    spacePress = true; // la barre d'espace est enfoncée
                     break;
+
+                   /* if (spacePress) {
+                        // La barre d'espace est toujours enfoncée, on plante de l'herbe si possible
+                        Position farmerPos = farmer.getPosFarmer();
+                        List<Position> grassPositions = Terrain.getInstance().getGrassPositions();
+                        boolean grassPlanted = false;
+                        for (Position grassPos : grassPositions) {
+                            if (!grassPos.equals(farmerPos)) {
+                                // On plante de l'herbe sur une parcelle différente de celle où se trouve le farmer
+                                if (Terrain.getInstance().plantGrass(grassPos)) {
+                                    grassPlanted = true;
+                                    break;
+                                }
+                            }
+                        }
+                        if (grassPlanted) {
+                            System.out.println("Grass planted!");
+                        } else {
+                            System.out.println("No grass to plant!");
+                        }
+                    }
+                    spacePress = true; // La barre d'espace est enfoncée
+                    break;*/
             }
         }
     }
-    public void handleKeyReleased() {
+
+    public void handleKeyReleased(KeyEvent event) {
         if (isInProgress.getValue()) {
-            //boolean spacePress = false; // la barre d'espace a été relâchée
-            if (plantGrass.getValue()) {
-                dropGrass();
-            } else if (deplantGrass.getValue()) {
-                removeGrass();
+            if (event.getCode() == KeyCode.SPACE) {
+                spacePress = false; // la barre d'espace a été relâchée
+                if (plantGrass.getValue()) {
+                    dropGrass();
+                } else if (deplantGrass.getValue()) {
+                    removeGrass();
+                }
             }
         }
     }
@@ -239,7 +267,7 @@ public class FermeFacade {
     public void dropGrass(){
         addValuePropertyToSet(farmer.getPosFarmer().getPosX(), farmer.getPosFarmer().getPosY(),ParcelleValue.GRASS);
         //addValuePropertyToSet(farmer.getPosFarmer().getPosX(), farmer.getPosFarmer().getPosY(),ParcelleValue.FARMER);
-        System.out.println(valuePropertyFromSet(farmer.getPosFarmer().getPosX(),farmer.getPosFarmer().getPosY()) + " sdq213fs2df1sd231f");
+        System.out.println(valuePropertyFromSet(farmer.getPosFarmer().getPosX(),farmer.getPosFarmer().getPosY()));
         if (plantGrass.getValue()){
             Position posGrass = new Position(farmer.getPosFarmer().getPosX(),farmer.getPosFarmer().getPosY());
             farmer.plantGrass(posGrass);

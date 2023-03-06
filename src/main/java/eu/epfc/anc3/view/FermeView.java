@@ -128,15 +128,16 @@ public class FermeView extends BorderPane {
                     break;
                 case SPACE:
                     System.out.println(keyEvent.getCode());
+                    //scene.setOnKeyReleased(e -> handleKeyReleased());
                     fermeViewModel.keyPressed(Move.SPACE);
                     break;
             }
         });
         // Ajout de l'écouteur d'événements pour capturer les événements clavier
-        scene.setOnKeyReleased(keyEvent -> handleKeyReleased());
+        scene.setOnKeyReleased(this::handleKeyReleased);
     }
 
-    private void handleKeyReleased() {
-       fermeViewModel.keyReleased();
+    private void handleKeyReleased(KeyEvent event) {
+       fermeViewModel.keyReleased(event);
     }
 }

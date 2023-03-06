@@ -9,6 +9,7 @@ import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.scene.input.KeyEvent;
 
 import java.util.ArrayList;
 
@@ -44,7 +45,7 @@ public class FermeViewModel {
         fermeFacade.moveFarmer(move);
     }
 
-    public void keyReleased() {
-        fermeFacade.handleKeyReleased();
+    public void keyReleased(KeyEvent event) {
+        fermeFacade.handleKeyReleased(event);
     }
 }

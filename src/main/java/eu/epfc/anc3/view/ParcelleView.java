@@ -1,8 +1,5 @@
 package eu.epfc.anc3.view;
-import eu.epfc.anc3.model.Parcelle;
-import eu.epfc.anc3.model.Element;
-import eu.epfc.anc3.model.FermeStatus;
-import eu.epfc.anc3.model.ParcelleValue;
+import eu.epfc.anc3.model.*;
 import eu.epfc.anc3.vm.ParcelleViewModel;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.ReadOnlyObjectProperty;
@@ -13,6 +10,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
@@ -47,22 +46,22 @@ public class ParcelleView extends StackPane {
                 BackgroundRepeat.SPACE,
                 BackgroundRepeat.SPACE,
                 BackgroundPosition.CENTER,
-                new BackgroundSize(100,100,true,true,true,true)
+                new BackgroundSize(100, 100, true, true, true, true)
         );
         Background background = new Background(backgroundImage);
         this.setBackground(background);
 
-        setParcelleImage1(imageView,parcelleViewModel.valueProperty().getValue());
+        setParcelleImage1(imageView, parcelleViewModel.valueProperty().getValue());
 
         ReadOnlyObjectProperty<ParcelleValue> valueProp = parcelleViewModel.valueProperty();
-        valueProp.addListener((obs, old, newVal) -> setParcelleImage1(imageView,newVal));
+        valueProp.addListener((obs, old, newVal) -> setParcelleImage1(imageView, newVal));
 
         this.setOnMouseClicked(e -> parcelleViewModel.play());
     }
 
     private void setParcelleImage1(ImageView imageView, ParcelleValue parcelleValue) {
-        ObservableList<Node> children = getChildren();
-        children.clear();
+        ObservableList<Node> observableList = getChildren();
+        observableList.clear();
         switch (parcelleValue) {
             case EMPTY:
                 setEmpty();
@@ -83,17 +82,19 @@ public class ParcelleView extends StackPane {
                 throw new IllegalArgumentException("Unknown parcelle value: " + parcelleValue);
         }
     }
+
     private void setFarmerGrassImage() {
         backgroundImageView.setImage(new Image(GRASS_IMAGE));
         foregroundImageView.setImage(new Image(FARMER_IMAGE));
-        ObservableList<Node> children = this.getChildren();
-        if (!children.contains(backgroundImageView)) {
-            children.add(backgroundImageView);
+        ObservableList<Node> observableList = this.getChildren();
+        if (!observableList.contains(backgroundImageView)) {
+            observableList.add(backgroundImageView);
         }
-        if (!children.contains(foregroundImageView)) {
-            children.add(foregroundImageView);
+        if (!observableList.contains(foregroundImageView)) {
+            observableList.add(foregroundImageView);
         }
     }
+
     private void setEmpty() {
         ImageView emptyCase = new ImageView(DIRT);
         emptyCase.autosize();
@@ -101,10 +102,11 @@ public class ParcelleView extends StackPane {
         emptyCase.setFitHeight(8);
         emptyCase.setFitWidth(8);
         if (!getChildren().contains(emptyCase))
-            getChildren().add(0,emptyCase);
+            getChildren().add(0, emptyCase);
     }
+
     private void setDirt(ImageView imageView) {
-        if (imageView.getImage() == null || imageView.getImage() == GRASS){
+        if (imageView.getImage() == null || imageView.getImage() == GRASS) {
             imageView.setImage(DIRT);
             imageView = new ImageView(DIRT);
             imageView.setPreserveRatio(false);
@@ -112,18 +114,22 @@ public class ParcelleView extends StackPane {
             imageView.setFitWidth(20);
         }
     }
+
     private void setGrass(ImageView imageView, Image image) {
         ImageView grass = new ImageView(GRASS);
-        ObservableList<Node> children = this.getChildren();
+        ObservableList<Node> observableList = this.getChildren();
         imageView.setImage(image);
         grass.setPreserveRatio(false);
         grass.setFitHeight(25);
         grass.setFitWidth(25);
 
-        if (!children.contains(imageView)) {
-            children.add(0,grass);
+        if (!observableList.contains(imageView)) {
+            observableList.add(0, grass);
+
         }
+        System.out.println(Farmer.listOfPlantedGrass);
     }
+
     private void setFarmerImage(ImageView imageView) {
         ImageView farmer = new ImageView(FARMER_IMAGE);
         farmer.setPreserveRatio(false);
@@ -140,15 +146,15 @@ public class ParcelleView extends StackPane {
         foreground.setFitHeight(20);
         foreground.setFitWidth(20);
 
-        ObservableList<Node> children = this.getChildren();
-        if (!children.contains(background)) {
-            children.add(background);
+        ObservableList<Node> observableList = this.getChildren();
+        if (!observableList.contains(background)) {
+            observableList.add(background);
         }
-        if (!children.contains(farmer)) {
-            children.add(farmer);
+        if (!observableList.contains(farmer)) {
+            observableList.add(farmer);
         }
-        if (!children.contains(foreground)) {
-            children.add(foreground);
+        if (!observableList.contains(foreground)) {
+            observableList.add(foreground);
         }
 
         if (imageView.getImage() == GRASS) {
@@ -157,6 +163,5 @@ public class ParcelleView extends StackPane {
             background.setVisible(false);
         }
     }
-
 
 }

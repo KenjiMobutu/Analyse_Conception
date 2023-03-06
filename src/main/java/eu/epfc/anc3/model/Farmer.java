@@ -1,9 +1,6 @@
 package eu.epfc.anc3.model;
 
-import javafx.beans.property.ReadOnlyIntegerProperty;
-import javafx.beans.property.SimpleListProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.geometry.Pos;
 
@@ -15,7 +12,7 @@ public class Farmer {
     private final Position posFarmer;
     public static Grass plantedGrass;
     private final StringProperty fermier = new SimpleStringProperty("");
-    public static final SimpleListProperty<Grass> listOfPlantedGrass = new SimpleListProperty<>(FXCollections.observableArrayList());
+    public static final SimpleSetProperty<Grass> listOfPlantedGrass = new SimpleSetProperty<>(FXCollections.observableSet());
 
     public Farmer(){
         this.posFarmer = new Position(0,0);
@@ -50,10 +47,15 @@ public class Farmer {
         listOfPlantedGrass.clear();
     }
 
-    public void removeGrassAtPos(Position p ){
+    /*public void removeGrassAtPos(Position p ){
         if (hasPlantedGrass())
-            listOfPlantedGrass.remove(listOfPlantedGrass.get(listOfPlantedGrass.getSize()-1));
-    }
+            listOfPlantedGrass.remove(listOfPlantedGrass.get());
+    }*/
     public ReadOnlyIntegerProperty nbgrass(){return listOfPlantedGrass.sizeProperty();}
+
+    public void removeGrassAtPos(Position p) {
+        //K:retire l'herbe en prenant compte de la pos
+        listOfPlantedGrass.removeIf(grass -> grass.getPos().equals(p));
+    }
 
 }
