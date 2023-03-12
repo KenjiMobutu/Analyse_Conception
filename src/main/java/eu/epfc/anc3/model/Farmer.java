@@ -14,7 +14,7 @@ public class Farmer {
     private final StringProperty fermier = new SimpleStringProperty("");
 
     // soit mettre la liste comme dans la branche Master, soit mettre en IntegerProperty
-    public static final SimpleSetProperty<Grass> listOfPlantedGrass = new SimpleSetProperty<>(FXCollections.observableSet());
+    public static final SimpleListProperty<Grass> listOfPlantedGrass = new SimpleListProperty<>(FXCollections.observableArrayList());
 
     public Farmer(){
         this.posFarmer = new Position(0,0);
@@ -55,9 +55,9 @@ public class Farmer {
     }*/
     public ReadOnlyIntegerProperty nbgrass(){return listOfPlantedGrass.sizeProperty();}
 
-    public void removeGrassAtPos(Position p) {
-        //K:retire l'herbe en prenant compte de la pos
-        listOfPlantedGrass.remove(listOfPlantedGrass.getSize()-1);
+    public void removeGrassAtPos(Position p ){
+        if (hasPlantedGrass())
+            listOfPlantedGrass.remove(listOfPlantedGrass.get(listOfPlantedGrass.getSize()-1));
     }
 
 }
