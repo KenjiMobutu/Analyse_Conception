@@ -20,6 +20,14 @@ import java.util.stream.Collectors;
 public class ParcelleView extends StackPane {
     private static final Image DIRT = new Image("dirt.png");
     private static final Image GRASS = new Image("grass.png");
+    //private static final Image CARROTLVL1 = new Image("assets/carrot1.png");
+    private static final Image CARROTLVL2 = new Image("grass.png");
+    private static final Image CARROTLVL3 = new Image("grass.png");
+    private static final Image ROTTENCARROT = new Image("grass.png");
+    private static final Image CABBAGELVL1 = new Image("grass.png");
+    private static final Image CABBAGELVL2 = new Image("grass.png");
+    private static final Image CABBAGELVL3 = new Image("grass.png");
+    private static final Image ROTTENCABBAGE = new Image("grass.png");
     private ImageView imageView = new ImageView();
 
     // constantes pour stocker les noms des fichiers d'image

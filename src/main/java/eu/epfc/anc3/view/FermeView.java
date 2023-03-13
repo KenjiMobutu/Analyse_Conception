@@ -51,7 +51,8 @@ public class FermeView extends BorderPane {
 
         // Mise en place de la scène et affichage de la fenêtre
         Scene scene = new Scene(this,SCENE_MIN_WIDTH,SCENE_MIN_HEIGHT);
-        configKeyPressed(scene);configKeyRealeased(scene);
+        configKeyPressed(scene);
+        configKeyRealeased(scene);
         stage.setScene(scene);
         stage.show();
         stage.setMinHeight(stage.getHeight());
@@ -74,7 +75,6 @@ public class FermeView extends BorderPane {
     private void configTerrainView() {
         fermeViewModel.isFermeStartedProperty().addListener(
                 (obs, oldval, newval) -> configTerrainPane(newval));
-
     }
     private void configTerrainPane(Boolean gameStarted) {
         if (gameStarted) {
@@ -103,7 +103,7 @@ public class FermeView extends BorderPane {
     private void configMenu() {
         MenuViewModel menuViewModel = fermeViewModel.getMenuViewModel();
         MenuView menuView = new MenuView(menuViewModel);
-        setTop(menuView.createNbGrassHBox());
+        setTop(menuView.createNewHobx());
         setBottom(menuView.buttons);
         setLeft(menuView.actionVbox);
     }

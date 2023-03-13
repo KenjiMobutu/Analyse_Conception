@@ -16,19 +16,25 @@ public class MenuView extends VBox {
     // Composants du "menu"
     private final Label nbGrassLabel = new Label("Nombre de parcelles de gazon : ");
     private final TextField nbGrassTextField = new TextField();
-    private final ToggleButton startButton = new ToggleButton();
-    private final ToggleButton sleepButton = new ToggleButton();
-    private final ToggleButton stopButton = new ToggleButton();
+
+    private final Label scoreLabel = new Label("Score : ");
+    private final TextField nbScore = new TextField(); //<------------- a binder
+    private final Label jourLabel = new Label("Jour : ");
+    private final TextField nbJour = new TextField(); // <------------- a binder
+
+    private final Button startButton = new Button();
+    private final Button sleepButton = new Button("sleep");
+    private final Button stopButton = new Button();
     private final ToggleButton plantButtonGrass = new ToggleButton();
     private final ToggleButton unPlantButton = new ToggleButton();
 
     private final ToggleGroup toggleGroup = new ToggleGroup();
-    private final ToggleButton plantCarotteButton = new ToggleButton();
-    private final ToggleButton plantCabbageButton = new ToggleButton();
-    private final ToggleButton plantFertilizerButton = new ToggleButton();
+    private final ToggleButton plantCarotteButton = new ToggleButton("plant carrot");
+    private final ToggleButton plantCabbageButton = new ToggleButton("plant cabbage");
+    private final ToggleButton plantFertilizerButton = new ToggleButton("fertilizer");
     private final MenuViewModel menuViewModel;
 
-    private final HBox nbGrassHBox;
+    private final HBox nbHbox;
     HBox buttonsHBox = new HBox(startButton,sleepButton) ;
 
     VBox actionVbox = new VBox(plantButtonGrass,unPlantButton,plantCarotteButton, plantCabbageButton);
@@ -37,7 +43,7 @@ public class MenuView extends VBox {
 
     public MenuView(MenuViewModel menuViewModel) {
         this.menuViewModel = menuViewModel;
-        this.nbGrassHBox = createNbGrassHBox();
+        this.nbHbox = createNewHobx();
         this.buttonsHBox = buttons;
        // this.actionVbox = actionVbox;
         configureMenu();
@@ -51,7 +57,7 @@ public class MenuView extends VBox {
     private void configureMenu(){
         setPadding(new Insets(FermeView.PADDING));
         setMinWidth(FermeView.MENU_WIDTH);
-        getChildren().addAll(nbGrassHBox, buttonsHBox);
+        getChildren().addAll(nbHbox, buttonsHBox);
 
         // Make sure the user can't change the number of grass parcels manually
         nbGrassTextField.setEditable(false);
@@ -68,13 +74,20 @@ public class MenuView extends VBox {
 
         startButton.setFocusTraversable(false);
         stopButton.setFocusTraversable(false);
-        nbGrassHBox.setFocusTraversable(false);
+        nbHbox.setFocusTraversable(false);
         plantButtonGrass.setFocusTraversable(false);
         unPlantButton.setFocusTraversable(false);
+        plantCabbageButton.setFocusTraversable(false);
+        plantCarotteButton.setFocusTraversable(false);
+        sleepButton.setFocusTraversable(false);
 
         nbGrassTextField.setDisable(true);
+        nbJour.setDisable(true);
+        nbScore.setDisable(true);
         plantButtonGrass.setDisable(true);
         unPlantButton.setDisable(true);
+        plantCabbageButton.setDisable(true);
+        plantCarotteButton.setDisable(true);
         startButton.setDisable(false);
         manageNbHerb();
         addToToggleGroup();
@@ -82,7 +95,6 @@ public class MenuView extends VBox {
     }
 
     private void addToToggleGroup(){
-
         plantButtonGrass.setToggleGroup(toggleGroup);
         plantCabbageButton.setToggleGroup(toggleGroup);
         plantCarotteButton.setToggleGroup(toggleGroup);
@@ -98,8 +110,8 @@ public class MenuView extends VBox {
         //ajouter les textProperty des autres boutons.
     }
 
-    HBox createNbGrassHBox() {
-        return new HBox(nbGrassLabel, nbGrassTextField);
+    HBox createNewHobx() {
+        return new HBox(scoreLabel,nbScore ,jourLabel,nbJour);
     }
     public void setUpButtonStart() {
         startButton.setOnAction(e -> handleStartButtonAction());
@@ -123,6 +135,8 @@ public class MenuView extends VBox {
         buttons.getChildren().add(0, stopButton);
         plantButtonGrass.setDisable(false);
         unPlantButton.setDisable(false);
+        plantCarotteButton.setDisable(false);
+        plantCabbageButton.setDisable(false);
         menuViewModel.start();
     }
 

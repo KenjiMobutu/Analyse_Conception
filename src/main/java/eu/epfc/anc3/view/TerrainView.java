@@ -1,9 +1,6 @@
 package eu.epfc.anc3.view;
 
 
-import eu.epfc.anc3.model.FermeFacade;
-import eu.epfc.anc3.model.Parcelle;
-import eu.epfc.anc3.vm.ParcelleViewModel;
 import eu.epfc.anc3.vm.TerrainViewModel;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.DoubleProperty;
@@ -22,7 +19,7 @@ public class TerrainView extends GridPane {
         RowConstraints rowConstraints = new RowConstraints();
         rowConstraints.setPercentHeight(100.0 / FERME_HEIGHT);
         ColumnConstraints columnConstraints = new ColumnConstraints();
-        columnConstraints.setPercentWidth(100 / FERME_WIDTH);
+        columnConstraints.setPercentWidth(100.0 / FERME_WIDTH);
         DoubleBinding cellWidthProperty = fermeWidthProperty.subtract(PADDING * 2).divide(FERME_WIDTH);
 
         // Remplissage de la grille
