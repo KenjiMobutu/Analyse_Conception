@@ -29,7 +29,7 @@ import java.util.ArrayList;
 public class FermeView extends BorderPane {
     static final int PADDING = 20;
     static final int MENU_WIDTH = 150;
-    private static final int SCENE_MIN_WIDTH = 700;
+    private static final int SCENE_MIN_WIDTH = 800;
     private static final int SCENE_MIN_HEIGHT = 500;
     static final int FERME_WIDTH = 25;
     static final int FERME_HEIGHT = 15;
@@ -51,7 +51,7 @@ public class FermeView extends BorderPane {
 
         // Mise en place de la scène et affichage de la fenêtre
         Scene scene = new Scene(this,SCENE_MIN_WIDTH,SCENE_MIN_HEIGHT);
-        configKeyPressed(scene);
+        configKeyPressed(scene);configKeyRealeased(scene);
         stage.setScene(scene);
         stage.show();
         stage.setMinHeight(stage.getHeight());
@@ -107,6 +107,15 @@ public class FermeView extends BorderPane {
         setBottom(menuView.buttons);
         setLeft(menuView.actionVbox);
     }
+    void configKeyRealeased(Scene scene){
+        scene.setOnKeyReleased(keyEvent -> {
+            switch (keyEvent.getCode()){
+                case SPACE :
+                    System.out.println(keyEvent.getCode() + " test key released");
+                    spacePressed(false);
+            }
+        });
+    }
     public void configKeyPressed(Scene scene){
         //doit focus la scene
         scene.setOnKeyPressed(keyEvent -> {
@@ -128,16 +137,17 @@ public class FermeView extends BorderPane {
                     fermeViewModel.keyPressed(Move.DOWN);
                     break;
                 case SPACE:
-                    System.out.println(keyEvent.getCode());
+                    System.out.println(keyEvent.getCode()+ " est pressé -----------------");
                     //scene.setOnKeyReleased(e -> handleKeyReleased());
+                    spacePressed(true);
                     fermeViewModel.keyPressed(Move.SPACE);
                     break;
             }
         });
         // Ajout de l'écouteur d'événements pour capturer les événements clavier
-        scene.setOnKeyReleased(this::handleKeyReleased);
     }
 
+    private void spacePressed(boolean b) { fermeViewModel.setSpacePressed(b);}
     private void handleKeyReleased(KeyEvent event) {
        fermeViewModel.keyReleased(event);
     }

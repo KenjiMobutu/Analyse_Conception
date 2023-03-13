@@ -36,6 +36,7 @@ public class FermeViewModel {
         return fermeFacade.isSpacePressed();
     }
 
+    public void setSpacePressed(boolean b){fermeFacade.setSpacePressedProperty(b);}
     public FermeViewModel(){
         menuViewModel = new MenuViewModel(fermeFacade);
         terrainViewModel = new TerrainViewModel(fermeFacade);

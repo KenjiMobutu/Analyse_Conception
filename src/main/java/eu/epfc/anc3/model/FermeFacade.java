@@ -17,7 +17,6 @@ public class FermeFacade {
     private final Ferme ferme = new Ferme();
     private final Farmer farmer = new Farmer();
     Terrain field = new Terrain();
-    private boolean spacePress = false;
 
     //jeu démarrable
     private final BooleanProperty isStartable = new SimpleBooleanProperty(false);
@@ -30,7 +29,7 @@ public class FermeFacade {
     //faire boolean pour les actions ?
     private final BooleanProperty plantGrass = new SimpleBooleanProperty(false);
     private final BooleanProperty deplantGrass = new SimpleBooleanProperty(false);
-    private final BooleanProperty spacePressed = new SimpleBooleanProperty(false);
+    private boolean spacePressed = false;
 
     public FermeFacade(){
         isStartable.bind(fermeStatusProperty().isEqualTo(FermeStatus.START));
@@ -46,16 +45,18 @@ public class FermeFacade {
         plantGrass.bind(fermeStatusProperty().isEqualTo(FermeStatus.PLANT_GRASS));
         deplantGrass.bind(fermeStatusProperty().isEqualTo(FermeStatus.DEPLANT_GRASS));
 
-        spacePressed.bind(fermeStatusProperty().isEqualTo(KeyCode.SPACE));
     }
     public ReadOnlyBooleanProperty isStartedProperty() {return isStarted;}
     public ReadOnlyBooleanProperty isInProgressProperty() {return isInProgress;}
     public ReadOnlyBooleanProperty isStoppedProperty() {return isStopped;}
     public ReadOnlyBooleanProperty isSpacePressed() {return isInProgress;}
-    public ReadOnlyBooleanProperty isStartableProperty() {return spacePressed;}
+    //public ReadOnlyBooleanProperty isStartableProperty() {return spacePressed;}
     public ReadOnlyBooleanProperty isPlantProperty() {return plantGrass;}
     public ReadOnlyBooleanProperty isDeplantProperty() {return deplantGrass;}
 
+     public void setSpacePressedProperty(boolean b){spacePressed = b;}
+    private boolean isPressed(){
+        System.out.println(spacePressed + " est en train de press space");return spacePressed;}
 
     private void putFarmerInFarm(){ferme.farmerInFarm(farmer);}
 
@@ -133,64 +134,52 @@ public class FermeFacade {
     }
 
     public void moveFarmer(Move move) {
-        System.out.println(getStatus());
+        System.out.println(getStatus() );
         if (isInProgress.getValue()){
             switch (move){
                 case UP:
                     goUp();
+                    if (isPressed())
+                        handleAction();
                     System.out.println("here farmer pos : -->" + farmer.getPosFarmer());
                     break;
                 case DOWN:
                     goDown();
+                    if (isPressed())
+                        handleAction();
                     System.out.println("here farmer pos : -->" + farmer.getPosFarmer());
                     break;
                 case LEFT:
                     goLeft();
+                    if (isPressed())
+                        handleAction();
                     System.out.println("here farmer pos : -->" + farmer.getPosFarmer());
                     break;
                 case RIGHT:
                     goRight();
+                    if (isPressed())
+                        handleAction();
                     System.out.println("here farmer pos : -->" + farmer.getPosFarmer());
                     break;
                 case SPACE:
                     System.out.println("plant grass val :" + plantGrass.getValue());
                     System.out.println("unplant grass val :" + deplantGrass.getValue());
-                    if (spacePress) {
-                        return; // la barre d'espace est toujours enfoncée, on ne fait rien
-                    }
-                    spacePress = true; // la barre d'espace est enfoncée
-                    break;
-
-                   /* if (spacePress) {
-                        // La barre d'espace est toujours enfoncée, on plante de l'herbe si possible
-                        Position farmerPos = farmer.getPosFarmer();
-                        List<Position> grassPositions = Terrain.getInstance().getGrassPositions();
-                        boolean grassPlanted = false;
-                        for (Position grassPos : grassPositions) {
-                            if (!grassPos.equals(farmerPos)) {
-                                // On plante de l'herbe sur une parcelle différente de celle où se trouve le farmer
-                                if (Terrain.getInstance().plantGrass(grassPos)) {
-                                    grassPlanted = true;
-                                    break;
-                                }
-                            }
-                        }
-                        if (grassPlanted) {
-                            System.out.println("Grass planted!");
-                        } else {
-                            System.out.println("No grass to plant!");
-                        }
-                    }
-                    spacePress = true; // La barre d'espace est enfoncée
-                    break;*/
+                    if (isPressed())
+                          handleAction();
             }
         }
     }
 
+    private void handleAction(){
+        if (plantGrass.getValue()){
+            dropGrass();
+        }else if (deplantGrass.getValue())
+            removeGrass();
+    }
     public void handleKeyReleased(KeyEvent event) {
         if (isInProgress.getValue()) {
             if (event.getCode() == KeyCode.SPACE) {
-                spacePress = false; // la barre d'espace a été relâchée
+                spacePressed = false; // la barre d'espace a été relâchée
                 if (plantGrass.getValue()) {
                     dropGrass();
                 } else if (deplantGrass.getValue()) {
