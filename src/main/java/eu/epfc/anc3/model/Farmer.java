@@ -47,15 +47,15 @@ public class Farmer {
         listOfPlantedGrass.clear();
     }
 
-    /*public void removeGrassAtPos(Position p ){
+    public void removeGrassAtPos(Position p ){
         if (hasPlantedGrass())
-            listOfPlantedGrass.remove(listOfPlantedGrass.get());
-    }*/
+            listOfPlantedGrass.remove(listOfPlantedGrass.getSize()-1);
+    }
     public ReadOnlyIntegerProperty nbgrass(){return listOfPlantedGrass.sizeProperty();}
 
-    public void removeGrassAtPos(Position p) {
+    /*public void removeGrassAtPos(Position p) {
         //K:retire l'herbe en prenant compte de la pos
         listOfPlantedGrass.removeIf(grass -> grass.getPos().equals(p));
-    }
+    }*/
 
 }
