@@ -7,6 +7,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -18,10 +19,16 @@ public class MenuView extends VBox {
     // Composants du "menu"
     private final Label nbGrassLabel = new Label("Nombre de parcelles de gazon : ");
     private final TextField nbGrassTextField = new TextField();
-    private final Button startButton = new Button();
-    private final Button stopButton = new Button();
-    private final Button plantButton = new Button();
-    private final Button unPlantButton = new Button();
+    private final ToggleButton startButton = new ToggleButton();
+    private final ToggleButton stopButton = new ToggleButton();
+    private final ToggleButton plantButton = new ToggleButton();
+    private final ToggleButton unPlantButton = new ToggleButton();
+    private final ToggleButton plantCarottButton = new ToggleButton();
+    private final ToggleButton plantCabbageButton = new ToggleButton();
+    private final ToggleButton fertilizeButton = new ToggleButton();
+    private final ToggleButton recoltButton = new ToggleButton();
+
+
 
     private final MenuViewModel menuViewModel;
 

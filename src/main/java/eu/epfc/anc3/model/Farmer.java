@@ -12,7 +12,7 @@ public class Farmer {
     private final Position posFarmer;
     public static Grass plantedGrass;
     private final StringProperty fermier = new SimpleStringProperty("");
-    public static final SimpleSetProperty<Grass> listOfPlantedGrass = new SimpleSetProperty<>(FXCollections.observableSet());
+    public static final SimpleListProperty<Grass> listOfPlantedGrass = new SimpleListProperty<>(FXCollections.observableArrayList());
 
     public Farmer(){
         this.posFarmer = new Position(0,0);
@@ -47,15 +47,15 @@ public class Farmer {
         listOfPlantedGrass.clear();
     }
 
-    /*public void removeGrassAtPos(Position p ){
+    public void removeGrassAtPos(Position p ){
         if (hasPlantedGrass())
-            listOfPlantedGrass.remove(listOfPlantedGrass.get());
-    }*/
+            listOfPlantedGrass.remove(listOfPlantedGrass.getSize()-1);
+    }
     public ReadOnlyIntegerProperty nbgrass(){return listOfPlantedGrass.sizeProperty();}
 
-    public void removeGrassAtPos(Position p) {
+    /*public void removeGrassAtPos(Position p) {
         //K:retire l'herbe en prenant compte de la pos
         listOfPlantedGrass.removeIf(grass -> grass.getPos().equals(p));
-    }
+    }*/
 
 }
