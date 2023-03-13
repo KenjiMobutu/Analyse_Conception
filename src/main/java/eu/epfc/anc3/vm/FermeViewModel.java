@@ -44,7 +44,5 @@ public class FermeViewModel {
         fermeFacade.moveFarmer(move);
     }
 
-    public void keyPressed(KeyEvent event) {
-        fermeFacade.handleKeyPressed(event);
-    }
+
 }

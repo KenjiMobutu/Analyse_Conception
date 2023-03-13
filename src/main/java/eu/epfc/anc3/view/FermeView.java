@@ -71,6 +71,7 @@ public class FermeView extends BorderPane {
         configTerrainView();
     }
 
+
     private void configTerrainView() {
         fermeViewModel.isFermeStartedProperty().addListener(
                 (obs, oldval, newval) -> configTerrainPane(newval));
@@ -133,11 +134,7 @@ public class FermeView extends BorderPane {
                     break;
             }
         });
-        // Ajout de l'écouteur d'événements pour capturer les événements clavier
-        scene.setOnKeyPressed(this::handleKeyPressed);
+
     }
 
-    private void handleKeyPressed(KeyEvent event) {
-       fermeViewModel.keyPressed(event);
-    }
 }
