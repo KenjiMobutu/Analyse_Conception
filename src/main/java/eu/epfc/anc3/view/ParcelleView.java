@@ -127,7 +127,7 @@ public class ParcelleView extends StackPane {
             observableList.add(0, grass);
 
         }
-        System.out.println(Farmer.listOfPlantedGrass);
+        //System.out.println(Ferme.listOfPlantedGrass);
     }
 
     private void setFarmerImage(ImageView imageView) {

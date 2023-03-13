@@ -2,7 +2,7 @@ package eu.epfc.anc3.model;
 
 import java.util.Objects;
 
-public class Grass {
+class Grass {
     private Position pos;
 
     public Grass(Position p){

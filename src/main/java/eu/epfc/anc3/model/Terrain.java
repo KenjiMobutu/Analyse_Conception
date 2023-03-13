@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class Terrain {
+class Terrain {
     //grid
 
     static final int GRID_HEIGHT = 15;

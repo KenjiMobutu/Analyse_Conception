@@ -134,10 +134,10 @@ public class FermeView extends BorderPane {
             }
         });
         // Ajout de l'écouteur d'événements pour capturer les événements clavier
-        scene.setOnKeyReleased(this::handleKeyReleased);
+        scene.setOnKeyPressed(this::handleKeyPressed);
     }
 
-    private void handleKeyReleased(KeyEvent event) {
-       fermeViewModel.keyReleased(event);
+    private void handleKeyPressed(KeyEvent event) {
+       fermeViewModel.keyPressed(event);
     }
 }

@@ -89,7 +89,7 @@ public class FermeFacade {
     public void newGame() {
         System.out.println(isStopped.get() +"LE JEU EST STOP");
         if (isStopped.getValue()){
-            farmer.resetGrass();
+            ferme.resetGrass();
             ferme.newGame();
             farmer.setPosFarmer(0,0);
             putFarmerInFarm();
@@ -159,6 +159,8 @@ public class FermeFacade {
                         return; // la barre d'espace est toujours enfoncée, on ne fait rien
                     }
                     spacePress = true; // la barre d'espace est enfoncée
+                    if(spacePress == true)
+
                     break;
 
                    /* if (spacePress) {
@@ -187,7 +189,7 @@ public class FermeFacade {
         }
     }
 
-    public void handleKeyReleased(KeyEvent event) {
+    public void handleKeyPressed(KeyEvent event) {
         if (isInProgress.getValue()) {
             if (event.getCode() == KeyCode.SPACE) {
                 spacePress = false; // la barre d'espace a été relâchée
@@ -271,7 +273,7 @@ public class FermeFacade {
             Position posGrass = new Position(farmer.getPosFarmer().getPosX(),farmer.getPosFarmer().getPosY());
             if (!valuePropertyFromSet(farmer.getPosFarmer().getPosX(), farmer.getPosFarmer().getPosY()).contains(ParcelleValue.GRASS)) {
                 addValuePropertyToSet(farmer.getPosFarmer().getPosX(), farmer.getPosFarmer().getPosY(),ParcelleValue.GRASS);
-                farmer.plantGrass(posGrass);
+                ferme.plantGrass(posGrass);
                 displayGrass(posGrass);
             }
         }
@@ -289,7 +291,7 @@ public class FermeFacade {
         System.out.println(valuePropertyFromSet(farmer.getPosFarmer().getPosX(),farmer.getPosFarmer().getPosY()) + " avant REMOVE GRASS");
 
         if (valuePropertyFromSet(farmer.getPosFarmer().getPosX(),farmer.getPosFarmer().getPosY()).contains(ParcelleValue.GRASS)){
-            farmer.removeGrassAtPos(farmer.getPosFarmer());
+            ferme.removeGrassAtPos(farmer.getPosFarmer());
             removeElemFromSet(farmer.getPosFarmer().getPosX(),farmer.getPosFarmer().getPosY(), ParcelleValue.GRASS);
         }
         System.out.println(valuePropertyFromSet(farmer.getPosFarmer().getPosX(),farmer.getPosFarmer().getPosY()) + " APRES REMOVE GRASS");

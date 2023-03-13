@@ -1,7 +1,6 @@
 package eu.epfc.anc3.vm;
 
 import eu.epfc.anc3.model.FermeFacade;
-import eu.epfc.anc3.model.Grass;
 import eu.epfc.anc3.model.Move;
 import eu.epfc.anc3.view.TerrainView;
 import javafx.beans.Observable;
@@ -45,7 +44,7 @@ public class FermeViewModel {
         fermeFacade.moveFarmer(move);
     }
 
-    public void keyReleased(KeyEvent event) {
-        fermeFacade.handleKeyReleased(event);
+    public void keyPressed(KeyEvent event) {
+        fermeFacade.handleKeyPressed(event);
     }
 }

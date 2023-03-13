@@ -1,16 +1,15 @@
 package eu.epfc.anc3.model;
 
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.ReadOnlyIntegerProperty;
-import javafx.beans.property.ReadOnlyObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.*;
+import javafx.collections.FXCollections;
 
 import java.util.Set;
 
-public class Ferme {
+class Ferme {
     private Terrain terrain = new Terrain();
     private final Farmer farmer= new Farmer() ;
     private final ObjectProperty<FermeStatus> fermeStatus = new SimpleObjectProperty<>(FermeStatus.START);
+    public static final SimpleListProperty<Grass> listOfPlantedGrass = new SimpleListProperty<>(FXCollections.observableArrayList());
     public Ferme(){}
 
     void start(){
@@ -50,10 +49,27 @@ public class Ferme {
     public void farmerInFarm(Farmer farmer) {
         terrain.setValueOnFarm(farmer.getPosFarmer().getPosX(),farmer.getPosFarmer().getPosY(),ParcelleValue.FARMER);
     }
-    public ReadOnlyIntegerProperty nbGrassPlant(){return farmer.nbgrass();}
+    public ReadOnlyIntegerProperty nbGrassPlant(){ return listOfPlantedGrass.sizeProperty();}
 
     public Terrain getTerrain(){
         return terrain;
     }
+
+    public boolean hasPlantedGrass(){
+        return !listOfPlantedGrass.isEmpty();
+    }
+
+    public void plantGrass(Position p ){
+        listOfPlantedGrass.add(new Grass(p));
+    }
+    public void resetGrass(){
+        listOfPlantedGrass.clear();
+    }
+
+    public void removeGrassAtPos(Position p ){
+        if (hasPlantedGrass())
+            listOfPlantedGrass.remove(listOfPlantedGrass.getSize()-1);
+    }
+    public ReadOnlyIntegerProperty nbgrass(){return listOfPlantedGrass.sizeProperty();}
 
 }
