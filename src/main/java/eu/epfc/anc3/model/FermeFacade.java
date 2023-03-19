@@ -1,35 +1,39 @@
 package eu.epfc.anc3.model;
 
-import eu.epfc.anc3.vm.ParcelleViewModel;
-import javafx.beans.binding.BooleanBinding;
-import javafx.beans.property.*;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ReadOnlyBooleanProperty;
+import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
-
-import java.util.List;
-import java.util.Set;
-
-import static eu.epfc.anc3.model.Terrain.GRID_WIDTH;
 import static eu.epfc.anc3.model.Terrain.GRID_HEIGHT;
+import static eu.epfc.anc3.model.Terrain.GRID_WIDTH;
+
 public class FermeFacade {
 
     private final Ferme ferme = new Ferme();
     private final Farmer farmer = new Farmer();
     Terrain field = new Terrain();
 
-    //jeu démarrable
+    private boolean isPressingSpace = false;
+
+    //check si jeu est démarrable :
     private final BooleanProperty isStartable = new SimpleBooleanProperty(false);
-    //jeu démarré
+    //check si le jeu est démarré :
     private final BooleanProperty isStarted = new SimpleBooleanProperty(false);
-    //jeu en cours
+    //check si le jeu est en cours :
     private final BooleanProperty isInProgress = new SimpleBooleanProperty(false);
+    //check si le jeu est arrêté :
     private final BooleanProperty isStopped = new SimpleBooleanProperty(false);
 
-    //faire boolean pour les actions ?
+    // les actions possible :
     private final BooleanProperty plantGrass = new SimpleBooleanProperty(false);
     private final BooleanProperty deplantGrass = new SimpleBooleanProperty(false);
-    private boolean spacePressed = false;
+    private final BooleanProperty plantCarrot = new SimpleBooleanProperty(false);
+    private final BooleanProperty plantCabbage = new SimpleBooleanProperty(false);
+    private final BooleanProperty useFertilizer = new SimpleBooleanProperty(false);
+    private final BooleanProperty spacePressed = new SimpleBooleanProperty(false);
 
     public FermeFacade(){
         isStartable.bind(fermeStatusProperty().isEqualTo(FermeStatus.START));
@@ -45,141 +49,126 @@ public class FermeFacade {
         plantGrass.bind(fermeStatusProperty().isEqualTo(FermeStatus.PLANT_GRASS));
         deplantGrass.bind(fermeStatusProperty().isEqualTo(FermeStatus.DEPLANT_GRASS));
 
+        spacePressed.bind(fermeStatusProperty().isEqualTo(KeyCode.SPACE));
     }
-    public ReadOnlyBooleanProperty isStartedProperty() {return isStarted;}
-    public ReadOnlyBooleanProperty isInProgressProperty() {return isInProgress;}
-    public ReadOnlyBooleanProperty isStoppedProperty() {return isStopped;}
-    public ReadOnlyBooleanProperty isSpacePressed() {return isInProgress;}
-    //public ReadOnlyBooleanProperty isStartableProperty() {return spacePressed;}
-    public ReadOnlyBooleanProperty isPlantProperty() {return plantGrass;}
-    public ReadOnlyBooleanProperty isDeplantProperty() {return deplantGrass;}
 
-     public void setSpacePressedProperty(boolean b){spacePressed = b;}
-    private boolean isPressed(){
-        System.out.println(spacePressed + " est en train de press space");return spacePressed;}
+    ReadOnlyBooleanProperty isSpacePressed() {return spacePressed;}
 
-    private void putFarmerInFarm(){ferme.farmerInFarm(farmer);}
+    void putFarmerInFarm(){ferme.setFarmerInFarm(farmer);}
 
-    public void start(){
-        System.out.println(isStartable.get());
+    void start(){
         if (isStartable.get()){
+            System.out.println(" -> lancement du jeu :) ");
             ferme.start();
             putFarmerInFarm();
-            System.out.println("START");
-            System.out.println("le jeu est lancé (fonction start) ");
         }
     }
-    public void stop(){
+
+    void stop(){
         if (isStarted.getValue() ||isInProgress.getValue()){
+            System.out.println(" -> arrêt du jeu :) ");
             ferme.stop();
-            System.out.println("jeu arrêté");
         }
     }
-    public void plantMode(){
+    void plantActivation(){
         if (isStarted.getValue()){
+            System.out.println("  -> Planter de l'herbe est possible :) ");
             ferme.plantMode();
-            System.out.println("Peut Plant Grass normalement.");
         }
     }
-    public void unplantMode(){
+    void unplantMode(){
         if (isStarted.getValue()){
+            System.out.println("  -> Déplanter de l'herbe est possible :) ");
             ferme.unplantMode();
-            System.out.println("Peut unPlant Grass normalement.");
         }
     }
-    public void newGame() {
-        System.out.println(isStopped.get() +"LE JEU EST STOP");
+    void newGame() {
+        System.out.println("Le joueur souhaite rejouer : ");
         if (isStopped.getValue()){
-            farmer.resetGrass();
             ferme.newGame();
             farmer.setPosFarmer(0,0);
             putFarmerInFarm();
-            System.out.println("RESTARTED");
-            System.out.println("le jeu est lancé (fonction RESTARTED) ");
+            System.out.println("le jeu est relancé :D ");
         }
     }
 
-    public ReadOnlyObjectProperty<ParcelleValue> valueProperty(int line, int col) {
+    ReadOnlyObjectProperty<ParcelleValue> valueProperty(int line, int col) {
         return ferme.valueProperty(line, col);
     }
-    public Set<Element> valuePropertyFromSet(int line, int col) {
-        return ferme.valuePropertyFromSet(line, col);
-    }
-    public void addValuePropertyToSet(int line, int col, ParcelleValue parcelleValue) {
-        ferme.addValuePropertyToCell(parcelleValue,line, col);
-    }
-    public void removeElemFromSet(int line, int col, ParcelleValue p){
-        ferme.removeValueFromPropertyCell(line,col,p);
+    void addElementToCell(int line, int col, ParcelleValue parcelleValue) {
+        ferme.addElementToCell(parcelleValue,line, col);
     }
 
-    public ReadOnlyObjectProperty<FermeStatus> fermeStatusProperty(){
+    boolean containsElement(Element e,int line, int col){
+        return ferme.cellContainsElement(e,line,col);
+    }
+
+    void removeElemFromCell(int line, int col, ParcelleValue p){
+        ferme.removeElementFromCell(p,line,col);
+    }
+    ReadOnlyObjectProperty<FermeStatus> fermeStatusProperty(){
         return ferme.fermeStatusProperty();
     }
+    FermeStatus getStatus(){return fermeStatusProperty().get();}
 
-    public ReadOnlyIntegerProperty getNbGrass(){return ferme.nbGrassPlant();}
 
-
-    public FermeStatus getStatus(){return fermeStatusProperty().get();}
-
-    public void play(int line, int col) {
+    void play(int line, int col) {
         System.out.println("CLICK" + line+ "<--> "+col);
-        Position tpPlayer = new Position(line,col);
-        if (valuePropertyFromSet(farmer.getPosFarmer().getPosX(),farmer.getPosFarmer().getPosY()).contains(ParcelleValue.GRASS))
+        Position newPosFarmer = new Position(line,col);
+        if (containsElement(ParcelleValue.GRASS,farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY()))
             displayGrass(farmer.getPosFarmer());
         else {
             displayTerrain(farmer.getPosFarmer());
         }
-        farmer.setPosFarmer(tpPlayer.getPosX(),tpPlayer.getPosY());
-        ferme.farmerInFarm(farmer);
+        farmer.setPosFarmer(newPosFarmer.getX(),newPosFarmer.getY());
+        ferme.setFarmerInFarm(farmer);
     }
-
-    public void moveFarmer(Move move) {
+    void moveFarmer(Move move) {
         System.out.println(getStatus() );
         if (isInProgress.getValue()){
             switch (move){
                 case UP:
                     goUp();
-                    if (isPressed())
+                    if (isSpacePressed().getValue())
                         handleAction();
                     System.out.println("here farmer pos : -->" + farmer.getPosFarmer());
                     break;
                 case DOWN:
                     goDown();
-                    if (isPressed())
+                    if (isSpacePressed().getValue())
                         handleAction();
                     System.out.println("here farmer pos : -->" + farmer.getPosFarmer());
                     break;
                 case LEFT:
                     goLeft();
-                    if (isPressed())
+                    if (isSpacePressed().getValue())
                         handleAction();
                     System.out.println("here farmer pos : -->" + farmer.getPosFarmer());
                     break;
                 case RIGHT:
                     goRight();
-                    if (isPressed())
+                    if (isSpacePressed().getValue())
                         handleAction();
                     System.out.println("here farmer pos : -->" + farmer.getPosFarmer());
                     break;
                 case SPACE:
                     System.out.println("plant grass val :" + plantGrass.getValue());
-                    System.out.println("unplant grass val :" + deplantGrass.getValue());
-                    if (isPressed())
-                          handleAction();
+                    System.out.println("un plant grass val :" + deplantGrass.getValue());
+                    if (isSpacePressed().getValue())
+                        handleAction();
             }
         }
     }
-
-    private void handleAction(){
+    void handleAction(){
         if (plantGrass.getValue()){
             dropGrass();
         }else if (deplantGrass.getValue())
             removeGrass();
     }
-    public void handleKeyReleased(KeyEvent event) {
+    void handleKeyReleased(KeyEvent event) {
         if (isInProgress.getValue()) {
             if (event.getCode() == KeyCode.SPACE) {
-                spacePressed = false; // la barre d'espace a été relâchée
+                spacePressed.set(false); // la barre d'espace a été relâchée
                 if (plantGrass.getValue()) {
                     dropGrass();
                 } else if (deplantGrass.getValue()) {
@@ -188,104 +177,92 @@ public class FermeFacade {
             }
         }
     }
+    void goUp(){
+        Position up = new Position(farmer.getPosFarmer().getX()-1, farmer.getPosFarmer().getY());
 
-    private void goUp(){
-        Position up = new Position(farmer.getPosFarmer().getPosX()-1, farmer.getPosFarmer().getPosY());
-        System.out.println(valuePropertyFromSet(up.getPosX(),up.getPosY()) + " go UP");
-
-        if (up.getPosX() >= 0){
-            System.out.println("x : " + up.getPosX() + "  y :" + up.getPosY());
-            if (valuePropertyFromSet(farmer.getPosFarmer().getPosX(),farmer.getPosFarmer().getPosY()).contains(ParcelleValue.GRASS))
+        if (up.getX() >= 0){
+            System.out.println("x : " + up.getX() + "  y :" + up.getY());
+            if (containsElement(ParcelleValue.GRASS,farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY()))
                 displayGrass(farmer.getPosFarmer());
             else{
                 displayTerrain(farmer.getPosFarmer());
             }
-            farmer.setPosFarmer(up.getPosX(),up.getPosY());
-            ferme.farmerInFarm(farmer);
+            farmer.setPosFarmer(up.getX(),up.getY());
+            ferme.setFarmerInFarm(farmer);
         }
     }
+    void goDown(){
 
-    private void goDown(){
-
-        Position down = new Position(farmer.getPosFarmer().getPosX()+1, farmer.getPosFarmer().getPosY());
-        System.out.println(valuePropertyFromSet(down.getPosX(),down.getPosY()) + " go DOWN");
-
-        //action ?
-        if (down.getPosX() < GRID_HEIGHT){
-            System.out.println("x : " + down.getPosX() + "  y :" + down.getPosY());
-            if (valuePropertyFromSet(farmer.getPosFarmer().getPosX(),farmer.getPosFarmer().getPosY()).contains(ParcelleValue.GRASS))
+        Position down = new Position(farmer.getPosFarmer().getX()+1, farmer.getPosFarmer().getY());
+        if (down.getX() < GRID_HEIGHT){
+            System.out.println("x : " + down.getX() + "  y :" + down.getY());
+            if (containsElement(ParcelleValue.GRASS,farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY()))
                 displayGrass(farmer.getPosFarmer());
             else{
                 displayTerrain(farmer.getPosFarmer());
             }
-            farmer.setPosFarmer(down.getPosX(),down.getPosY());
-            ferme.farmerInFarm(farmer);
+            farmer.setPosFarmer(down.getX(),down.getY());
+            ferme.setFarmerInFarm(farmer);
         }
 
     }
-    private void goRight(){
-        Position right = new Position(farmer.getPosFarmer().getPosX(), farmer.getPosFarmer().getPosY()+1);
-        System.out.println(valuePropertyFromSet(right.getPosX(),right.getPosY()) + " GO RIGHT");
-        if (right.getPosY() < GRID_WIDTH){
-            System.out.println("x : " + right.getPosX() + "  y :" + right.getPosY());
-            if (valuePropertyFromSet(farmer.getPosFarmer().getPosX(),farmer.getPosFarmer().getPosY()).contains(ParcelleValue.GRASS))
+
+    void goRight(){
+        Position right = new Position(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()+1);
+        if (right.getY() < GRID_WIDTH){
+            System.out.println("x : " + right.getX() + "  y :" + right.getY());
+            if (containsElement(ParcelleValue.GRASS,farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY()))
                 displayGrass(farmer.getPosFarmer());
             else{
                 displayTerrain(farmer.getPosFarmer());
             }
-            farmer.setPosFarmer(right.getPosX(),right.getPosY());
-            ferme.farmerInFarm(farmer);
+            farmer.setPosFarmer(right.getX(),right.getY());
+            ferme.setFarmerInFarm(farmer);
         }
     }
-    private void goLeft(){
+    void goLeft(){
 
-        Position left = new Position(farmer.getPosFarmer().getPosX(), farmer.getPosFarmer().getPosY()-1);
-        System.out.println(valuePropertyFromSet(left.getPosX(),left.getPosY()) + " GO LEFT ");
-        if (left.getPosY() >= 0){
-            System.out.println("x : " + left.getPosX() + "  y :" + left.getPosY());
-            if (valuePropertyFromSet(farmer.getPosFarmer().getPosX(),farmer.getPosFarmer().getPosY()).contains(ParcelleValue.GRASS))
+        Position left = new Position(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()-1);
+        if (left.getY() >= 0){
+            System.out.println("x : " + left.getX() + "  y :" + left.getY());
+            if (containsElement(ParcelleValue.GRASS,farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY()))
                 displayGrass(farmer.getPosFarmer());
             else{
                 displayTerrain(farmer.getPosFarmer());
             }
-            farmer.setPosFarmer(left.getPosX(),left.getPosY());
-            ferme.farmerInFarm(farmer);
+            farmer.setPosFarmer(left.getX(),left.getY());
+            ferme.setFarmerInFarm(farmer);
         }
     }
 
-    public void dropGrass(){
+    void dropGrass(){
         //addValuePropertyToSet(farmer.getPosFarmer().getPosX(), farmer.getPosFarmer().getPosY(),ParcelleValue.FARMER);
-        System.out.println(valuePropertyFromSet(farmer.getPosFarmer().getPosX(),farmer.getPosFarmer().getPosY()));
+        System.out.println(valueProperty(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY()));
         if (plantGrass.getValue()){
-            Position posGrass = new Position(farmer.getPosFarmer().getPosX(),farmer.getPosFarmer().getPosY());
-            if (!valuePropertyFromSet(farmer.getPosFarmer().getPosX(), farmer.getPosFarmer().getPosY()).contains(ParcelleValue.GRASS)) {
-                addValuePropertyToSet(farmer.getPosFarmer().getPosX(), farmer.getPosFarmer().getPosY(),ParcelleValue.GRASS);
-                farmer.plantGrass(posGrass);
+            Position posGrass = new Position(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
+            if (!containsElement(ParcelleValue.GRASS,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY())) {
+                addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(),ParcelleValue.GRASS);
                 displayGrass(posGrass);
             }
         }
         putFarmerInFarm();
-
     }
-    private void displayGrass(Position pos) {
-        ferme.getTerrain().setValueOnFarm(pos.getPosX(), pos.getPosY(), ParcelleValue.GRASS);
+    void displayGrass(Position pos) {
+        ferme.getTerrain().setValueOnFarm(pos.getX(), pos.getY(), ParcelleValue.GRASS);
     }
-
-    private void displayDirt(Position pos){
-        ferme.getTerrain().setValueOnFarm(pos.getPosX(), pos.getPosY(), ParcelleValue.DIRT);
+    void displayDirt(Position pos){
+        ferme.getTerrain().setValueOnFarm(pos.getX(), pos.getY(), ParcelleValue.DIRT);
     }
-    private void removeGrass(){
-        System.out.println(valuePropertyFromSet(farmer.getPosFarmer().getPosX(),farmer.getPosFarmer().getPosY()) + " avant REMOVE GRASS");
+    void removeGrass(){
 
-        if (valuePropertyFromSet(farmer.getPosFarmer().getPosX(),farmer.getPosFarmer().getPosY()).contains(ParcelleValue.GRASS)){
-            farmer.removeGrassAtPos(farmer.getPosFarmer());
-            removeElemFromSet(farmer.getPosFarmer().getPosX(),farmer.getPosFarmer().getPosY(), ParcelleValue.GRASS);
+        if (containsElement(ParcelleValue.GRASS, farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY())){
+            removeElemFromCell(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY(), ParcelleValue.GRASS);
         }
-        System.out.println(valuePropertyFromSet(farmer.getPosFarmer().getPosX(),farmer.getPosFarmer().getPosY()) + " APRES REMOVE GRASS");
         displayTerrain(farmer.getPosFarmer());
         putFarmerInFarm();
     }
-    private void displayTerrain(Position pos){
+    void displayTerrain(Position pos){
         displayDirt(pos);
     }
+
 }

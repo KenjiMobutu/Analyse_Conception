@@ -1,20 +1,13 @@
 package eu.epfc.anc3.model;
 
-import javafx.beans.property.*;
+import javafx.beans.property.ReadOnlyIntegerProperty;
+import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.geometry.Pos;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Farmer {
 
     private final Position posFarmer;
-    public static Grass plantedGrass;
-    private final StringProperty fermier = new SimpleStringProperty("");
-
-    // soit mettre la liste comme dans la branche Master, soit mettre en IntegerProperty
-    public static final SimpleListProperty<Grass> listOfPlantedGrass = new SimpleListProperty<>(FXCollections.observableArrayList());
 
     public Farmer(){
         this.posFarmer = new Position(0,0);
@@ -23,41 +16,13 @@ public class Farmer {
     public Position getPosFarmer() {
         return posFarmer;
     }
-    public static Grass getPlantedGrass () {
-            return plantedGrass;
-    }
-    @Override
-    public String toString() {
-        return "Farmer{" +
-                "posFarmer=" + posFarmer +
-                ", listOfPlantedGrass=" + listOfPlantedGrass +
-                ", fermier=" + fermier +
-                '}';
-    }
 
     public void setPosFarmer(int x, int y){
-        posFarmer.setPosX(x); posFarmer.setPosY(y);
-    }
-    public boolean hasPlantedGrass(){
-        return !listOfPlantedGrass.isEmpty();
+        posFarmer.setX(x); posFarmer.setY(y);
     }
 
-    public void plantGrass(Position p ){
-        listOfPlantedGrass.add(new Grass(p));
-    }
-    public void resetGrass(){
-        listOfPlantedGrass.clear();
-    }
+    @Override
+    public String toString() {return "Farmer Position : " + getPosFarmer();}
 
-    /*public void removeGrassAtPos(Position p ){
-        if (hasPlantedGrass())
-            listOfPlantedGrass.remove(listOfPlantedGrass.get());
-    }*/
-    public ReadOnlyIntegerProperty nbgrass(){return listOfPlantedGrass.sizeProperty();}
-
-    public void removeGrassAtPos(Position p ){
-        if (hasPlantedGrass())
-            listOfPlantedGrass.remove(listOfPlantedGrass.get(listOfPlantedGrass.getSize()-1));
-    }
 
 }

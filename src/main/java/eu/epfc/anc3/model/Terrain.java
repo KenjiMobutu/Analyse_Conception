@@ -15,17 +15,13 @@ public class Terrain {
 
     private final Parcelle[][] matrix;
 
-    private final Set<Element>[][] elementsInCell;
 
     Terrain() {
         matrix = new Parcelle[GRID_HEIGHT][];
-        elementsInCell = new TreeSet[GRID_HEIGHT][];
         for (int i = 0; i < GRID_HEIGHT; ++i) {
             matrix[i] = new Parcelle[GRID_WIDTH];
-            elementsInCell[i] = new TreeSet[GRID_WIDTH];
             for (int j = 0; j < GRID_WIDTH; ++j) {
                 matrix[i][j] = new Parcelle();
-                elementsInCell[i][j] = new TreeSet<>();
             }
         }
     }
@@ -34,7 +30,6 @@ public class Terrain {
         for (int i = 0; i < GRID_HEIGHT; ++i) {
             for (int j = 0; j < GRID_WIDTH; ++j) {
                 matrix[i][j].setValue(ParcelleValue.DIRT);
-                elementsInCell[i][j].clear();
             }
         }
     }
@@ -46,19 +41,17 @@ public class Terrain {
     }
 
 
-    Set<Element> getAllElementsInCellFromSet(int line, int col) {
-        return elementsInCell[line][col];
-    }
 
     void addElementToCell(Element e, int line, int col) {
-        if (!elementsInCell[line][col].contains(e))
-            elementsInCell[line][col].add(e);
+        matrix[line][col].addElement(e);
+    }
+    void removeElement(Element e , int line, int col){
+        matrix[line][col].removeElement(e);
+    }
+    boolean containsElement(Element e,int line, int col){
+        return  matrix[line][col].getElements().contains(e);
     }
 
-    void removeElemFromCell(int l, int c, Element e){
-        elementsInCell[l][c].remove(e);
-        System.out.println(elementsInCell[l][c]);
-    }
 
     ParcelleValue getValue(int line, int col) {
         return matrix[line][col].getValue();
@@ -90,8 +83,4 @@ public class Terrain {
     }
 
 
-    public void setGrassOnFarm(int x, int y, ParcelleValue value) {
-        matrix[x][y].setValue(value);
-
-    }
 }

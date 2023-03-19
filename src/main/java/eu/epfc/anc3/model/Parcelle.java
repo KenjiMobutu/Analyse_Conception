@@ -1,36 +1,24 @@
 package eu.epfc.anc3.model;
 
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.ReadOnlyListProperty;
-import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.scene.image.ImageView;
-
-import java.util.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableSet;
 
 public class Parcelle {
     //cellule
     private final ObjectProperty<ParcelleValue> value = new SimpleObjectProperty<>(ParcelleValue.EMPTY);
-
-    private final Set<ParcelleValue> cellValue = new TreeSet<>();
-
-    public Parcelle(){}
+    private final ObservableSet<Element> elements = FXCollections.observableSet();
 
     ParcelleValue getValue() {
         return value.getValue();
     }
 
-    public Set<ParcelleValue> getCellValue() {
-        return cellValue;
-    }
-
-    //était boolean
     void setValue(ParcelleValue value){
         this.value.setValue(value);
-        //cellValue.add(value);
     }
 
-    ReadOnlyObjectProperty<ParcelleValue> valueProperty() {
+    ObjectProperty<ParcelleValue> valueProperty() {
         return value;
     }
 
@@ -38,4 +26,17 @@ public class Parcelle {
         return value.get() == ParcelleValue.EMPTY;
     }
 
+    ObservableSet<Element> getElements() {
+        return elements;
+    }
+
+    void addElement(Element e) {
+        elements.add(e);
+    }
+
+    void removeElement(Element e) {
+        elements.remove(e);
+    }
+
+    void clear(){elements.clear();}
 }

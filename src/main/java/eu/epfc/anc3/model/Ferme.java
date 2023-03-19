@@ -1,15 +1,13 @@
 package eu.epfc.anc3.model;
 
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 
-import java.util.Set;
-
 public class Ferme {
+
     private Terrain terrain = new Terrain();
-    private final Farmer farmer= new Farmer() ;
+    private final Farmer farmer = new Farmer();
     private final ObjectProperty<FermeStatus> fermeStatus = new SimpleObjectProperty<>(FermeStatus.START);
     public Ferme(){}
 
@@ -17,11 +15,10 @@ public class Ferme {
         terrain = new Terrain();
         fermeStatus.set(FermeStatus.STARTED);
     }
-    public void newGame() {
+    void newGame() {
         terrain.resetTerrain();
         fermeStatus.set(FermeStatus.STARTED);
     }
-
     void stop(){
         fermeStatus.setValue(FermeStatus.STOP);
     }
@@ -32,28 +29,32 @@ public class Ferme {
         fermeStatus.set(FermeStatus.DEPLANT_GRASS);
     }
 
+
+    //return les valeurs d'une cellule
     ReadOnlyObjectProperty<ParcelleValue> valueProperty(int line, int col){
         return terrain.valueProperty(line,col);
     }
-    Set<Element> valuePropertyFromSet(int line, int col){
-        return terrain.getAllElementsInCellFromSet(line,col);
+    boolean cellContainsElement(Element e, int line, int col){
+        return terrain.containsElement(e,line,col);
     }
-    void addValuePropertyToCell(ParcelleValue p, int line, int col){
+
+
+    //ajout un element a une cellule
+    void addElementToCell(ParcelleValue p, int line, int col){
         terrain.addElementToCell(p, line,col);
     }
-    void removeValueFromPropertyCell(int l, int c, Element e){
-        terrain.removeElemFromCell(l,c,e);
-    }
-    ReadOnlyObjectProperty<FermeStatus> fermeStatusProperty() {
-        return fermeStatus;
-    }
-    public void farmerInFarm(Farmer farmer) {
-        terrain.setValueOnFarm(farmer.getPosFarmer().getPosX(),farmer.getPosFarmer().getPosY(),ParcelleValue.FARMER);
-    }
-    public ReadOnlyIntegerProperty nbGrassPlant(){return farmer.nbgrass();}
 
-    public Terrain getTerrain(){
+    //supprime un element
+    void removeElementFromCell(ParcelleValue p, int line, int col){terrain.removeElement(p,line,col);}
+
+    //retourne le status du jeu
+    ReadOnlyObjectProperty<FermeStatus> fermeStatusProperty(){return fermeStatus;}
+
+    //permet de déplacer le joueur dans le grid
+    void setFarmerInFarm(Farmer farmer){
+        terrain.setValueOnFarm(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY(),ParcelleValue.FARMER);
+    }
+    Terrain getTerrain(){
         return terrain;
     }
-
 }
