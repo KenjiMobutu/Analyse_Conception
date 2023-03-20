@@ -1,21 +1,12 @@
 package eu.epfc.anc3.view;
 
-
 import eu.epfc.anc3.vm.MenuViewModel;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-
-import static eu.epfc.anc3.view.FermeView.MENU_WIDTH;
-import static eu.epfc.anc3.view.FermeView.PADDING;
 
 public class MenuView extends VBox {
-    // Composants du "menu"
-    private final Label nbGrassLabel = new Label("Nombre de parcelles de gazon : ");
-    private final TextField nbGrassTextField = new TextField();
 
     private final Label scoreLabel = new Label("Score : ");
     private final TextField nbScore = new TextField(); //<------------- a binder
@@ -45,7 +36,7 @@ public class MenuView extends VBox {
         this.menuViewModel = menuViewModel;
         this.nbHbox = createNewHobx();
         this.buttonsHBox = buttons;
-       // this.actionVbox = actionVbox;
+        // this.actionVbox = actionVbox;
         configureMenu();
         bindLabelsToViewModel();
         setUpButtonStart();
@@ -59,18 +50,12 @@ public class MenuView extends VBox {
         setMinWidth(FermeView.MENU_WIDTH);
         getChildren().addAll(nbHbox, buttonsHBox);
 
-        // Make sure the user can't change the number of grass parcels manually
-        nbGrassTextField.setEditable(false);
-
         // Disable the plant and unplant buttons initially
         plantButtonGrass.setDisable(true);
         unPlantButton.setDisable(true);
 
         // Enable the start button initially
         startButton.setDisable(false);
-
-        // Bind the number of grass parcels to the view model
-        nbGrassTextField.textProperty().bind(menuViewModel.nbGrass().asString());
 
         startButton.setFocusTraversable(false);
         stopButton.setFocusTraversable(false);
@@ -81,7 +66,7 @@ public class MenuView extends VBox {
         plantCarotteButton.setFocusTraversable(false);
         sleepButton.setFocusTraversable(false);
 
-        nbGrassTextField.setDisable(true);
+       // nbGrassTextField.setDisable(true);
         nbJour.setDisable(true);
         nbScore.setDisable(true);
         plantButtonGrass.setDisable(true);
@@ -89,11 +74,9 @@ public class MenuView extends VBox {
         plantCabbageButton.setDisable(true);
         plantCarotteButton.setDisable(true);
         startButton.setDisable(false);
-        manageNbHerb();
         addToToggleGroup();
         bindLabelsToViewModel();
     }
-
     private void addToToggleGroup(){
         plantButtonGrass.setToggleGroup(toggleGroup);
         plantCabbageButton.setToggleGroup(toggleGroup);
@@ -128,10 +111,10 @@ public class MenuView extends VBox {
 
     //Ajouter les setUp des autres boutons.
 
-     public void handleStartButtonAction() {
-         System.out.println("Handelleelel Start");
+    public void handleStartButtonAction() {
+        System.out.println("-> Handle Start");
         buttons.getChildren().remove(startButton);
-         System.out.println("Retire start");
+        System.out.println("Retire start");
         buttons.getChildren().add(0, stopButton);
         plantButtonGrass.setDisable(false);
         unPlantButton.setDisable(false);
@@ -154,10 +137,6 @@ public class MenuView extends VBox {
 
     private void handleUnPlantButtonAction() {
         menuViewModel.unplantMode();
-    }
-    public void manageNbHerb(){
-        System.out.println(menuViewModel.nbGrass().toString());
-        nbGrassTextField.textProperty().bind(menuViewModel.nbGrass().asString());
     }
 
     private void manageNewGameButton() {
