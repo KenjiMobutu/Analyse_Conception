@@ -7,8 +7,9 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableSet;
 
 import java.util.List;
+import java.util.Set;
 
-public class Ferme {
+class Ferme {
 
     private Terrain terrain = new Terrain();
     private final ObjectProperty<FermeStatus> fermeStatus = new SimpleObjectProperty<>(FermeStatus.START);
@@ -53,6 +54,7 @@ public class Ferme {
 
     ObservableSet<Element> getAllElem(int line, int col){ return terrain.getElem(line, col);}
 
+    ObservableSet<ParcelleValue> getAllElemType(int line, int col){return terrain.getElemType(line,col);}
     //retourne le status du jeu
     ReadOnlyObjectProperty<FermeStatus> fermeStatusProperty(){return fermeStatus;}
 

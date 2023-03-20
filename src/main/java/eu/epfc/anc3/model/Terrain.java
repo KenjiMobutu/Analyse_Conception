@@ -11,7 +11,7 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
-public class Terrain {
+class Terrain {
     //grid
 
     static final int GRID_HEIGHT = 15;
@@ -57,6 +57,8 @@ public class Terrain {
     }
 
     ObservableSet<Element> getElem(int line, int col){return matrix[line][col].getElements();}
+
+    ObservableSet<ParcelleValue> getElemType(int line, int col){return matrix[line][col].getElementsType();}
 
     boolean containsElementType(ParcelleValue pv, int line, int col){
         return  matrix[line][col].getElements().stream().map(e -> e.getType()).anyMatch(x -> x == pv);

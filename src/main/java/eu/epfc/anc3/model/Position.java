@@ -1,6 +1,6 @@
 package eu.epfc.anc3.model;
 
-public class Position {
+class Position {
     int x, y;
 
     int getX() {

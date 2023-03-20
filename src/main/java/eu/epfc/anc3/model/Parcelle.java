@@ -5,7 +5,12 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
 
-public class Parcelle {
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+
+class Parcelle {
     //cellule
     private final ObjectProperty<ParcelleValue> value = new SimpleObjectProperty<>(ParcelleValue.EMPTY); //BV :enlever ça, c'est doublon
     private final ObservableSet<Element> elements = FXCollections.observableSet();
@@ -28,6 +33,14 @@ public class Parcelle {
 
     ObservableSet<Element> getElements() {
         return elements;
+    }
+
+    ObservableSet<ParcelleValue> getElementsType(){
+        ObservableSet<ParcelleValue> pv = FXCollections.observableSet(new TreeSet<>());
+        for (Element e : elements){
+            pv.add(e.getType());
+        }
+        return pv;
     }
 
     void addElement(Element e) {

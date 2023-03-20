@@ -132,7 +132,4 @@ public class FermeView extends BorderPane {
     }
 
     private void spacePressed(boolean b) { fermeViewModel.setSpacePressed(b);}
-    private void handleKeyReleased(KeyEvent event) {
-        fermeViewModel.keyReleased(event);
-    }
 }
