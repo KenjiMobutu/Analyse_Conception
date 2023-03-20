@@ -7,7 +7,7 @@ import javafx.collections.ObservableSet;
 
 public class Parcelle {
     //cellule
-    private final ObjectProperty<ParcelleValue> value = new SimpleObjectProperty<>(ParcelleValue.EMPTY);
+    private final ObjectProperty<ParcelleValue> value = new SimpleObjectProperty<>(ParcelleValue.EMPTY); //BV :enlever ça, c'est doublon
     private final ObservableSet<Element> elements = FXCollections.observableSet();
 
     ParcelleValue getValue() {

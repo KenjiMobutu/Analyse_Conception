@@ -16,11 +16,7 @@ public class FermeFacade {
 
     private final Ferme ferme = new Ferme();
     private final Farmer farmer = new Farmer();
-
-    private final Grass grass = new Grass();
-    Terrain field = new Terrain();
-
-    private boolean isPressingSpace = false;
+    private boolean isPressingSpace = false; //BV : à renommer : space = touche
 
     //check si jeu est démarrable :
     private final BooleanProperty isStartable = new SimpleBooleanProperty(false);
@@ -34,16 +30,16 @@ public class FermeFacade {
 
     // boolean property :
 
-    public ReadOnlyBooleanProperty isStartableProperty (){return isStartable;}
+    //public ReadOnlyBooleanProperty isStartableProperty (){return isStartable;}
     public ReadOnlyBooleanProperty isStartedProperty (){return isStarted;}
-    public ReadOnlyBooleanProperty isInProgressProperty (){return isInProgress;}
-    public ReadOnlyBooleanProperty isStoppedProperty (){return isStopped;}
-    public boolean isSpacePressed() {return isPressingSpace;}
+    //public ReadOnlyBooleanProperty isInProgressProperty (){return isInProgress;}
+    //public ReadOnlyBooleanProperty isStoppedProperty (){return isStopped;}
+    public boolean isSpacePressed() {return isPressingSpace;} //BV
 
 
     // mettre le spacePressed a true :
 
-    public void setSpacePressedProperty(boolean b){isPressingSpace = b;}
+    public void setSpacePressedProperty(boolean b){isPressingSpace = b;} //BV
     // les actions possible :
     private final BooleanProperty plantGrass = new SimpleBooleanProperty(false);
     private final BooleanProperty deplantGrass = new SimpleBooleanProperty(false);
@@ -105,7 +101,7 @@ public class FermeFacade {
         }
     }
 
-    public ReadOnlyObjectProperty<ParcelleValue> valueProperty(int line, int col) {
+    public ReadOnlyObjectProperty<ParcelleValue> valueProperty(int line, int col) { //BV : à enlever
         return ferme.valueProperty(line, col);
     }
     void addElementToCell(int line, int col, Element element) {
@@ -126,7 +122,7 @@ public class FermeFacade {
     FermeStatus getStatus(){return fermeStatusProperty().get();}
 
 
-    public void play(int line, int col) {
+    public void play(int line, int col) { //BV : à revoir, ceci ajoute le fermier en line/col, c'est la parcelle qui décidera où il doit se trouver dans la liste
         System.out.println("CLICK" + line+ "<--> "+col);
         Position newPosFarmer = new Position(line,col);
         if (containsElementType(ParcelleValue.GRASS, farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY()))
@@ -143,7 +139,7 @@ public class FermeFacade {
             switch (move){
                 case UP:
                     goUp();
-                    if (isSpacePressed())
+                    if (isSpacePressed()) //BV : rename et mettre après le switch
                         handleAction();
                     System.out.println("here farmer pos : -->" + farmer.getPosFarmer());
                     break;
@@ -179,7 +175,7 @@ public class FermeFacade {
         }else if (deplantGrass.getValue())
             removeGrass();
     }
-    public void handleKeyReleased(KeyEvent event) {
+    public void handleKeyReleased(KeyEvent event) { //BV : KeyEvent pas dans le modèle
         if (isInProgress.getValue()) {
             if (event.getCode() == KeyCode.SPACE) {
                 setSpacePressedProperty(false); // la barre d'espace a été relâchée
@@ -191,7 +187,7 @@ public class FermeFacade {
             }
         }
     }
-    void goUp(){
+    void goUp(){ //BV : voir "play" mais qui devrait se nommer "teleport"
         Position up = new Position(farmer.getPosFarmer().getX()-1, farmer.getPosFarmer().getY());
 
         if (up.getX() >= 0){
@@ -249,7 +245,7 @@ public class FermeFacade {
         }
     }
 
-    void dropGrass(){
+    void dropGrass(){ //BV : voir plus haut
         //addValuePropertyToSet(farmer.getPosFarmer().getPosX(), farmer.getPosFarmer().getPosY(),ParcelleValue.FARMER);
         System.out.println(valueProperty(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY()));
         if (plantGrass.getValue()){
