@@ -5,7 +5,7 @@ import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.geometry.Pos;
 
-public class Farmer {
+public class Farmer implements Element{
 
     private final Position posFarmer;
 
@@ -20,6 +20,8 @@ public class Farmer {
     public void setPosFarmer(int x, int y){
         posFarmer.setX(x); posFarmer.setY(y);
     }
+
+    public ParcelleValue getType(){return ParcelleValue.FARMER;}
 
     @Override
     public String toString() {return "Farmer Position : " + getPosFarmer();}

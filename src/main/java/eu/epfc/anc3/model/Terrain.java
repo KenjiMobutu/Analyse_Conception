@@ -40,16 +40,15 @@ public class Terrain {
         return matrix[line][col].valueProperty();
     }
 
-
-
     void addElementToCell(Element e, int line, int col) {
         matrix[line][col].addElement(e);
     }
-    void removeElement(Element e , int line, int col){
+    void removeElement(ParcelleValue e , int line, int col){
         matrix[line][col].removeElement(e);
     }
-    boolean containsElement(Element e,int line, int col){
-        return  matrix[line][col].getElements().contains(e);
+
+    boolean containsElementType(ParcelleValue pv, int line, int col){
+        return  matrix[line][col].getElements().stream().map(e -> e.getType()).anyMatch(x -> x == pv);
     }
 
 

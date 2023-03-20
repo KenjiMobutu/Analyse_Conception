@@ -34,7 +34,7 @@ public class Parcelle {
         elements.add(e);
     }
 
-    void removeElement(Element e) {
+    void removeElement(ParcelleValue e) {
         elements.remove(e);
     }
 

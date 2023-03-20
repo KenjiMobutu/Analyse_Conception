@@ -7,7 +7,6 @@ import javafx.beans.property.SimpleObjectProperty;
 public class Ferme {
 
     private Terrain terrain = new Terrain();
-    private final Farmer farmer = new Farmer();
     private final ObjectProperty<FermeStatus> fermeStatus = new SimpleObjectProperty<>(FermeStatus.START);
     public Ferme(){}
 
@@ -34,13 +33,12 @@ public class Ferme {
     ReadOnlyObjectProperty<ParcelleValue> valueProperty(int line, int col){
         return terrain.valueProperty(line,col);
     }
-    boolean cellContainsElement(Element e, int line, int col){
-        return terrain.containsElement(e,line,col);
+    boolean cellContainsElementType(ParcelleValue pv, int line, int col){
+        return terrain.containsElementType(pv, line, col);
     }
 
-
     //ajout un element a une cellule
-    void addElementToCell(ParcelleValue p, int line, int col){
+    void addElementToCell(Element p, int line, int col){
         terrain.addElementToCell(p, line,col);
     }
 

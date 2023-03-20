@@ -77,9 +77,6 @@ public class ParcelleView extends StackPane {
             case DIRT:
                 setDirt(imageView);
                 break;
-            case FARMER_GRASS:
-                setFarmerGrassImage();
-                break;
             case GRASS:
                 setGrass(imageView, GRASS);
                 break;
@@ -135,7 +132,6 @@ public class ParcelleView extends StackPane {
             observableList.add(0, grass);
 
         }
-        System.out.println(Farmer.listOfPlantedGrass);
     }
 
     private void setFarmerImage(ImageView imageView) {

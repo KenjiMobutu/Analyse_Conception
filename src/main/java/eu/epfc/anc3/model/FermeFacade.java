@@ -7,6 +7,8 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
+import java.util.Set;
+
 import static eu.epfc.anc3.model.Terrain.GRID_HEIGHT;
 import static eu.epfc.anc3.model.Terrain.GRID_WIDTH;
 
@@ -14,6 +16,8 @@ public class FermeFacade {
 
     private final Ferme ferme = new Ferme();
     private final Farmer farmer = new Farmer();
+
+    private final Grass grass = new Grass();
     Terrain field = new Terrain();
 
     private boolean isPressingSpace = false;
@@ -95,13 +99,14 @@ public class FermeFacade {
     ReadOnlyObjectProperty<ParcelleValue> valueProperty(int line, int col) {
         return ferme.valueProperty(line, col);
     }
-    void addElementToCell(int line, int col, ParcelleValue parcelleValue) {
-        ferme.addElementToCell(parcelleValue,line, col);
+    void addElementToCell(int line, int col, Element element) {
+        ferme.addElementToCell(element,line, col);
     }
 
-    boolean containsElement(Element e,int line, int col){
-        return ferme.cellContainsElement(e,line,col);
+    boolean containsElementType(ParcelleValue pv,int line, int col){
+        return ferme.cellContainsElementType(pv,line,col);
     }
+
 
     void removeElemFromCell(int line, int col, ParcelleValue p){
         ferme.removeElementFromCell(p,line,col);
@@ -115,7 +120,7 @@ public class FermeFacade {
     void play(int line, int col) {
         System.out.println("CLICK" + line+ "<--> "+col);
         Position newPosFarmer = new Position(line,col);
-        if (containsElement(ParcelleValue.GRASS,farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY()))
+        if (containsElementType(ParcelleValue.GRASS, farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY()))
             displayGrass(farmer.getPosFarmer());
         else {
             displayTerrain(farmer.getPosFarmer());
@@ -182,7 +187,7 @@ public class FermeFacade {
 
         if (up.getX() >= 0){
             System.out.println("x : " + up.getX() + "  y :" + up.getY());
-            if (containsElement(ParcelleValue.GRASS,farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY()))
+            if (containsElementType(ParcelleValue.GRASS, farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY()))
                 displayGrass(farmer.getPosFarmer());
             else{
                 displayTerrain(farmer.getPosFarmer());
@@ -196,7 +201,7 @@ public class FermeFacade {
         Position down = new Position(farmer.getPosFarmer().getX()+1, farmer.getPosFarmer().getY());
         if (down.getX() < GRID_HEIGHT){
             System.out.println("x : " + down.getX() + "  y :" + down.getY());
-            if (containsElement(ParcelleValue.GRASS,farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY()))
+            if (containsElementType(ParcelleValue.GRASS, farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY()))
                 displayGrass(farmer.getPosFarmer());
             else{
                 displayTerrain(farmer.getPosFarmer());
@@ -211,7 +216,7 @@ public class FermeFacade {
         Position right = new Position(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()+1);
         if (right.getY() < GRID_WIDTH){
             System.out.println("x : " + right.getX() + "  y :" + right.getY());
-            if (containsElement(ParcelleValue.GRASS,farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY()))
+            if (containsElementType(ParcelleValue.GRASS, farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY()))
                 displayGrass(farmer.getPosFarmer());
             else{
                 displayTerrain(farmer.getPosFarmer());
@@ -225,7 +230,7 @@ public class FermeFacade {
         Position left = new Position(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()-1);
         if (left.getY() >= 0){
             System.out.println("x : " + left.getX() + "  y :" + left.getY());
-            if (containsElement(ParcelleValue.GRASS,farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY()))
+            if (containsElementType(ParcelleValue.GRASS, farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY()))
                 displayGrass(farmer.getPosFarmer());
             else{
                 displayTerrain(farmer.getPosFarmer());
@@ -240,8 +245,8 @@ public class FermeFacade {
         System.out.println(valueProperty(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY()));
         if (plantGrass.getValue()){
             Position posGrass = new Position(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
-            if (!containsElement(ParcelleValue.GRASS,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY())) {
-                addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(),ParcelleValue.GRASS);
+            if (!containsElementType(ParcelleValue.GRASS,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY())) {
+                addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(),new Grass());
                 displayGrass(posGrass);
             }
         }
@@ -255,7 +260,7 @@ public class FermeFacade {
     }
     void removeGrass(){
 
-        if (containsElement(ParcelleValue.GRASS, farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY())){
+        if (containsElementType(ParcelleValue.GRASS, farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY())){
             removeElemFromCell(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY(), ParcelleValue.GRASS);
         }
         displayTerrain(farmer.getPosFarmer());
