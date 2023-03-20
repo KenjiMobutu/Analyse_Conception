@@ -1,30 +1,16 @@
 package eu.epfc.anc3.view;
 
-
-import eu.epfc.anc3.model.*;
-
-import eu.epfc.anc3.model.FermeFacade;
 import eu.epfc.anc3.model.Move;
-import eu.epfc.anc3.model.Parcelle;
 import eu.epfc.anc3.vm.FermeViewModel;
 import eu.epfc.anc3.vm.MenuViewModel;
-import javafx.beans.Observable;
-import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-
-import java.util.ArrayList;
 
 public class FermeView extends BorderPane {
     static final int PADDING = 20;
@@ -33,14 +19,12 @@ public class FermeView extends BorderPane {
     private static final int SCENE_MIN_HEIGHT = 500;
     static final int FERME_WIDTH = 25;
     static final int FERME_HEIGHT = 15;
-    private boolean spacePressed = false;
+    //private boolean spacePressed = false;
     // Contrainte de mise en page
     private final DoubleProperty gridWidthProperty = new SimpleDoubleProperty(350);
     private final FermeViewModel fermeViewModel = new FermeViewModel();
     // Composants principaux
     private TerrainView terrainView;
-    private MenuView menuView;
-
     public FermeView(Stage primaryStage ){
         start(primaryStage);
     }
@@ -149,6 +133,6 @@ public class FermeView extends BorderPane {
 
     private void spacePressed(boolean b) { fermeViewModel.setSpacePressed(b);}
     private void handleKeyReleased(KeyEvent event) {
-       fermeViewModel.keyReleased(event);
+        fermeViewModel.keyReleased(event);
     }
 }

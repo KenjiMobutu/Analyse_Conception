@@ -1,11 +1,15 @@
 package eu.epfc.anc3.model;
 
+import javafx.beans.Observable;
 import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableSet;
 import javafx.scene.image.ImageView;
 
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 public class Terrain {
     //grid
@@ -43,9 +47,16 @@ public class Terrain {
     void addElementToCell(Element e, int line, int col) {
         matrix[line][col].addElement(e);
     }
-    void removeElement(ParcelleValue e , int line, int col){
-        matrix[line][col].removeElement(e);
+    void removeElement(ParcelleValue pv , int line, int col){
+        if (containsElementType(pv, line, col))
+            matrix[line][col].getElements()
+                    .stream()
+                    .filter(e -> e.getType().equals(pv))
+                    .findFirst()
+                    .ifPresent(e -> matrix[line][col].getElements().remove(e));
     }
+
+    ObservableSet<Element> getElem(int line, int col){return matrix[line][col].getElements();}
 
     boolean containsElementType(ParcelleValue pv, int line, int col){
         return  matrix[line][col].getElements().stream().map(e -> e.getType()).anyMatch(x -> x == pv);

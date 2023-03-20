@@ -1,7 +1,9 @@
 package eu.epfc.anc3.vm;
 
 import eu.epfc.anc3.model.FermeFacade;
-import javafx.beans.property.*;
+import javafx.beans.property.ReadOnlyIntegerProperty;
+import javafx.beans.property.ReadOnlyStringProperty;
+import javafx.beans.property.SimpleStringProperty;
 
 public class MenuViewModel {
     private final FermeFacade fermeFacade;
@@ -22,11 +24,9 @@ public class MenuViewModel {
     }
     public void start() {fermeFacade.start();}
     public void stop() {fermeFacade.stop();}
-    public void plantMode(){fermeFacade.plantMode();}
+    public void plantMode(){fermeFacade.plantActivation();}
     public void unplantMode(){fermeFacade.unplantMode();}
-    public ReadOnlyIntegerProperty nbGrass(){return fermeFacade.getNbGrass();}
     public void newGame() {
         fermeFacade.newGame();
     }
-
 }

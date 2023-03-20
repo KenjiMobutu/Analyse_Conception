@@ -31,13 +31,25 @@ public class FermeFacade {
     //check si le jeu est arrêté :
     private final BooleanProperty isStopped = new SimpleBooleanProperty(false);
 
+
+    // boolean property :
+
+    public ReadOnlyBooleanProperty isStartableProperty (){return isStartable;}
+    public ReadOnlyBooleanProperty isStartedProperty (){return isStarted;}
+    public ReadOnlyBooleanProperty isInProgressProperty (){return isInProgress;}
+    public ReadOnlyBooleanProperty isStoppedProperty (){return isStopped;}
+    public boolean isSpacePressed() {return isPressingSpace;}
+
+
+    // mettre le spacePressed a true :
+
+    public void setSpacePressedProperty(boolean b){isPressingSpace = b;}
     // les actions possible :
     private final BooleanProperty plantGrass = new SimpleBooleanProperty(false);
     private final BooleanProperty deplantGrass = new SimpleBooleanProperty(false);
     private final BooleanProperty plantCarrot = new SimpleBooleanProperty(false);
     private final BooleanProperty plantCabbage = new SimpleBooleanProperty(false);
     private final BooleanProperty useFertilizer = new SimpleBooleanProperty(false);
-    private final BooleanProperty spacePressed = new SimpleBooleanProperty(false);
 
     public FermeFacade(){
         isStartable.bind(fermeStatusProperty().isEqualTo(FermeStatus.START));
@@ -53,14 +65,11 @@ public class FermeFacade {
         plantGrass.bind(fermeStatusProperty().isEqualTo(FermeStatus.PLANT_GRASS));
         deplantGrass.bind(fermeStatusProperty().isEqualTo(FermeStatus.DEPLANT_GRASS));
 
-        spacePressed.bind(fermeStatusProperty().isEqualTo(KeyCode.SPACE));
+        //isPressingSpace.bind(fermeStatusProperty().isEqualTo(KeyCode.SPACE));
     }
-
-    ReadOnlyBooleanProperty isSpacePressed() {return spacePressed;}
-
     void putFarmerInFarm(){ferme.setFarmerInFarm(farmer);}
 
-    void start(){
+    public void start(){
         if (isStartable.get()){
             System.out.println(" -> lancement du jeu :) ");
             ferme.start();
@@ -68,25 +77,25 @@ public class FermeFacade {
         }
     }
 
-    void stop(){
+    public void stop(){
         if (isStarted.getValue() ||isInProgress.getValue()){
             System.out.println(" -> arrêt du jeu :) ");
             ferme.stop();
         }
     }
-    void plantActivation(){
+    public void plantActivation(){
         if (isStarted.getValue()){
             System.out.println("  -> Planter de l'herbe est possible :) ");
             ferme.plantMode();
         }
     }
-    void unplantMode(){
+    public void unplantMode(){
         if (isStarted.getValue()){
             System.out.println("  -> Déplanter de l'herbe est possible :) ");
             ferme.unplantMode();
         }
     }
-    void newGame() {
+    public void newGame() {
         System.out.println("Le joueur souhaite rejouer : ");
         if (isStopped.getValue()){
             ferme.newGame();
@@ -96,7 +105,7 @@ public class FermeFacade {
         }
     }
 
-    ReadOnlyObjectProperty<ParcelleValue> valueProperty(int line, int col) {
+    public ReadOnlyObjectProperty<ParcelleValue> valueProperty(int line, int col) {
         return ferme.valueProperty(line, col);
     }
     void addElementToCell(int line, int col, Element element) {
@@ -117,7 +126,7 @@ public class FermeFacade {
     FermeStatus getStatus(){return fermeStatusProperty().get();}
 
 
-    void play(int line, int col) {
+    public void play(int line, int col) {
         System.out.println("CLICK" + line+ "<--> "+col);
         Position newPosFarmer = new Position(line,col);
         if (containsElementType(ParcelleValue.GRASS, farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY()))
@@ -128,38 +137,38 @@ public class FermeFacade {
         farmer.setPosFarmer(newPosFarmer.getX(),newPosFarmer.getY());
         ferme.setFarmerInFarm(farmer);
     }
-    void moveFarmer(Move move) {
+    public void moveFarmer(Move move) {
         System.out.println(getStatus() );
         if (isInProgress.getValue()){
             switch (move){
                 case UP:
                     goUp();
-                    if (isSpacePressed().getValue())
+                    if (isSpacePressed())
                         handleAction();
                     System.out.println("here farmer pos : -->" + farmer.getPosFarmer());
                     break;
                 case DOWN:
                     goDown();
-                    if (isSpacePressed().getValue())
+                    if (isSpacePressed())
                         handleAction();
                     System.out.println("here farmer pos : -->" + farmer.getPosFarmer());
                     break;
                 case LEFT:
                     goLeft();
-                    if (isSpacePressed().getValue())
+                    if (isSpacePressed())
                         handleAction();
                     System.out.println("here farmer pos : -->" + farmer.getPosFarmer());
                     break;
                 case RIGHT:
                     goRight();
-                    if (isSpacePressed().getValue())
+                    if (isSpacePressed())
                         handleAction();
                     System.out.println("here farmer pos : -->" + farmer.getPosFarmer());
                     break;
                 case SPACE:
                     System.out.println("plant grass val :" + plantGrass.getValue());
                     System.out.println("un plant grass val :" + deplantGrass.getValue());
-                    if (isSpacePressed().getValue())
+                    if (isSpacePressed())
                         handleAction();
             }
         }
@@ -170,10 +179,10 @@ public class FermeFacade {
         }else if (deplantGrass.getValue())
             removeGrass();
     }
-    void handleKeyReleased(KeyEvent event) {
+    public void handleKeyReleased(KeyEvent event) {
         if (isInProgress.getValue()) {
             if (event.getCode() == KeyCode.SPACE) {
-                spacePressed.set(false); // la barre d'espace a été relâchée
+                setSpacePressedProperty(false); // la barre d'espace a été relâchée
                 if (plantGrass.getValue()) {
                     dropGrass();
                 } else if (deplantGrass.getValue()) {
@@ -247,9 +256,12 @@ public class FermeFacade {
             Position posGrass = new Position(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
             if (!containsElementType(ParcelleValue.GRASS,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY())) {
                 addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(),new Grass());
+                addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(),farmer);
                 displayGrass(posGrass);
             }
         }
+
+        System.out.println(ferme.getAllElem(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "qsldh");
         putFarmerInFarm();
     }
     void displayGrass(Position pos) {
@@ -263,6 +275,8 @@ public class FermeFacade {
         if (containsElementType(ParcelleValue.GRASS, farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY())){
             removeElemFromCell(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY(), ParcelleValue.GRASS);
         }
+        System.out.println(ferme.getAllElem(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "   qsldh");
+
         displayTerrain(farmer.getPosFarmer());
         putFarmerInFarm();
     }

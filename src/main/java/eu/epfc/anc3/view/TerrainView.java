@@ -1,6 +1,5 @@
 package eu.epfc.anc3.view;
 
-
 import eu.epfc.anc3.vm.TerrainViewModel;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.DoubleProperty;
@@ -10,9 +9,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 
 import static eu.epfc.anc3.view.FermeView.*;
+import static eu.epfc.anc3.view.FermeView.FERME_WIDTH;
 
 public class TerrainView extends GridPane {
-    //grid
+    // grid
+
     public TerrainView (TerrainViewModel terrainViewModel, DoubleProperty fermeWidthProperty){
         setPadding(new Insets(10));
         // Cellules de même taille
@@ -32,5 +33,4 @@ public class TerrainView extends GridPane {
             }
         }
     }
-
 }

@@ -1,8 +1,12 @@
 package eu.epfc.anc3.model;
 
+import javafx.beans.Observable;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.ObservableSet;
+
+import java.util.List;
 
 public class Ferme {
 
@@ -37,6 +41,8 @@ public class Ferme {
         return terrain.containsElementType(pv, line, col);
     }
 
+
+
     //ajout un element a une cellule
     void addElementToCell(Element p, int line, int col){
         terrain.addElementToCell(p, line,col);
@@ -44,6 +50,8 @@ public class Ferme {
 
     //supprime un element
     void removeElementFromCell(ParcelleValue p, int line, int col){terrain.removeElement(p,line,col);}
+
+    ObservableSet<Element> getAllElem(int line, int col){ return terrain.getElem(line, col);}
 
     //retourne le status du jeu
     ReadOnlyObjectProperty<FermeStatus> fermeStatusProperty(){return fermeStatus;}

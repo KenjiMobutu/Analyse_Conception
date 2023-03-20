@@ -1,5 +1,7 @@
 package eu.epfc.anc3.view;
-import eu.epfc.anc3.model.*;
+
+import eu.epfc.anc3.model.Farmer;
+import eu.epfc.anc3.model.ParcelleValue;
 import eu.epfc.anc3.vm.ParcelleViewModel;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.ReadOnlyObjectProperty;
@@ -9,39 +11,31 @@ import javafx.scene.SnapshotParameters;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-//cell
 public class ParcelleView extends StackPane {
+    private static final Image FARMER = new Image("farmer.png");
     private static final Image DIRT = new Image("dirt.png");
     private static final Image GRASS = new Image("grass.png");
-    //private static final Image CARROTLVL1 = new Image("assets/carrot1.png");
-    private static final Image CARROTLVL2 = new Image("grass.png");
-    private static final Image CARROTLVL3 = new Image("grass.png");
-    private static final Image ROTTENCARROT = new Image("grass.png");
-    private static final Image CABBAGELVL1 = new Image("grass.png");
-    private static final Image CABBAGELVL2 = new Image("grass.png");
-    private static final Image CABBAGELVL3 = new Image("grass.png");
-    private static final Image ROTTENCABBAGE = new Image("grass.png");
-    private ImageView imageView = new ImageView();
+    private static final Image CARROTLVL1 = new Image("carrot1.png");
+    private static final Image CARROTLVL2 = new Image("carrot2.png");
+    private static final Image CARROTLVL3 = new Image("carrot3.png");
+    private static final Image CARROTLVL4 = new Image("carrot4.png");
+    private static final Image ROTTENCARROT = new Image("rotten_carrot.png");
+    private static final Image CABBAGELVL1 = new Image("cabbage1.png");
+    private static final Image CABBAGELVL2 = new Image("cabbage2.png");
+    private static final Image CABBAGELVL3 = new Image("cabbage3.png");
+    private static final Image CABBAGELVL4 = new Image("cabbage4.png");
+    private static final Image ROTTENCABBAGE = new Image("rotten_cabbage.png");
 
-    // constantes pour stocker les noms des fichiers d'image
-    private static final String GRASS_IMAGE = "grass.png";
-    private static final String FARMER_IMAGE = "farmer.png";
+    private ImageView imageView = new ImageView();
     private final ImageView backgroundImageView;
     private final ImageView foregroundImageView;
-    private final SnapshotParameters snapshotParameters;
+
 
     public ParcelleView(ParcelleViewModel parcelleViewModel, DoubleBinding parcelleWidthProperty) {
         backgroundImageView = new ImageView();
         foregroundImageView = new ImageView();
         imageView = new ImageView();
-        snapshotParameters = new SnapshotParameters();
 
         imageView.setPreserveRatio(false);
         imageView.fitWidthProperty().bind(parcelleWidthProperty);
@@ -67,7 +61,7 @@ public class ParcelleView extends StackPane {
         this.setOnMouseClicked(e -> parcelleViewModel.play());
     }
 
-    private void setParcelleImage1(ImageView imageView, ParcelleValue parcelleValue) {
+    void setParcelleImage1(ImageView imageView, ParcelleValue parcelleValue) {
         ObservableList<Node> observableList = getChildren();
         observableList.clear();
         switch (parcelleValue) {
@@ -87,65 +81,43 @@ public class ParcelleView extends StackPane {
                 throw new IllegalArgumentException("Unknown parcelle value: " + parcelleValue);
         }
     }
-
-    private void setFarmerGrassImage() {
-        backgroundImageView.setImage(new Image(GRASS_IMAGE));
-        foregroundImageView.setImage(new Image(FARMER_IMAGE));
-        ObservableList<Node> observableList = this.getChildren();
-        if (!observableList.contains(backgroundImageView)) {
-            observableList.add(backgroundImageView);
-        }
-        if (!observableList.contains(foregroundImageView)) {
-            observableList.add(foregroundImageView);
-        }
-    }
-
-    private void setEmpty() {
+    void setEmpty() {
         ImageView emptyCase = new ImageView(DIRT);
         emptyCase.autosize();
         emptyCase.setPreserveRatio(false);
-        emptyCase.setFitHeight(8);
-        emptyCase.setFitWidth(8);
         if (!getChildren().contains(emptyCase))
             getChildren().add(0, emptyCase);
     }
-
-    private void setDirt(ImageView imageView) {
+    void setDirt(ImageView imageView) {
         if (imageView.getImage() == null || imageView.getImage() == GRASS) {
             imageView.setImage(DIRT);
             imageView = new ImageView(DIRT);
             imageView.setPreserveRatio(false);
-            imageView.setFitHeight(20);
-            imageView.setFitWidth(20);
         }
     }
-
-    private void setGrass(ImageView imageView, Image image) {
+    void setGrass(ImageView imageView, Image image) {
         ImageView grass = new ImageView(GRASS);
         ObservableList<Node> observableList = this.getChildren();
         imageView.setImage(image);
         grass.setPreserveRatio(false);
-        grass.setFitHeight(25);
-        grass.setFitWidth(25);
-
         if (!observableList.contains(imageView)) {
             observableList.add(0, grass);
 
         }
     }
 
-    private void setFarmerImage(ImageView imageView) {
-        ImageView farmer = new ImageView(FARMER_IMAGE);
+    void setFarmerImage(ImageView imageView) {
+        ImageView farmer = new ImageView(FARMER);
         farmer.setPreserveRatio(false);
         farmer.setFitHeight(20);
         farmer.setFitWidth(20);
 
-        ImageView background = new ImageView(GRASS_IMAGE);
+        ImageView background = new ImageView(GRASS);
         background.setPreserveRatio(false);
         background.setFitHeight(25);
         background.setFitWidth(25);
 
-        ImageView foreground = new ImageView(FARMER_IMAGE);
+        ImageView foreground = new ImageView(FARMER);
         foreground.setPreserveRatio(false);
         foreground.setFitHeight(20);
         foreground.setFitWidth(20);
