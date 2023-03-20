@@ -1,9 +1,6 @@
 package eu.epfc.anc3.model;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.ReadOnlyBooleanProperty;
-import javafx.beans.property.ReadOnlyObjectProperty;
-import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
@@ -56,11 +53,11 @@ public class FermeFacade {
         spacePressed.bind(fermeStatusProperty().isEqualTo(KeyCode.SPACE));
     }
 
-    ReadOnlyBooleanProperty isSpacePressed() {return spacePressed;}
+    public ReadOnlyBooleanProperty isSpacePressed() {return spacePressed;}
 
     void putFarmerInFarm(){ferme.setFarmerInFarm(farmer);}
 
-    void start(){
+    public void start(){
         if (isStartable.get()){
             System.out.println(" -> lancement du jeu :) ");
             ferme.start();
@@ -68,25 +65,25 @@ public class FermeFacade {
         }
     }
 
-    void stop(){
+    public void stop(){
         if (isStarted.getValue() ||isInProgress.getValue()){
             System.out.println(" -> arrêt du jeu :) ");
             ferme.stop();
         }
     }
-    void plantActivation(){
+    public void plantActivation(){
         if (isStarted.getValue()){
             System.out.println("  -> Planter de l'herbe est possible :) ");
             ferme.plantMode();
         }
     }
-    void unplantMode(){
+    public void unplantMode(){
         if (isStarted.getValue()){
             System.out.println("  -> Déplanter de l'herbe est possible :) ");
             ferme.unplantMode();
         }
     }
-    void newGame() {
+    public void newGame() {
         System.out.println("Le joueur souhaite rejouer : ");
         if (isStopped.getValue()){
             ferme.newGame();
@@ -117,7 +114,7 @@ public class FermeFacade {
     FermeStatus getStatus(){return fermeStatusProperty().get();}
 
 
-    void play(int line, int col) {
+    public void play(int line, int col) {
         System.out.println("CLICK" + line+ "<--> "+col);
         Position newPosFarmer = new Position(line,col);
         if (containsElementType(ParcelleValue.GRASS, farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY()))
@@ -128,7 +125,7 @@ public class FermeFacade {
         farmer.setPosFarmer(newPosFarmer.getX(),newPosFarmer.getY());
         ferme.setFarmerInFarm(farmer);
     }
-    void moveFarmer(Move move) {
+    public void moveFarmer(Move move) {
         System.out.println(getStatus() );
         if (isInProgress.getValue()){
             switch (move){
@@ -170,7 +167,7 @@ public class FermeFacade {
         }else if (deplantGrass.getValue())
             removeGrass();
     }
-    void handleKeyReleased(KeyEvent event) {
+    public void handleKeyReleased(KeyEvent event) {
         if (isInProgress.getValue()) {
             if (event.getCode() == KeyCode.SPACE) {
                 spacePressed.set(false); // la barre d'espace a été relâchée
@@ -270,4 +267,11 @@ public class FermeFacade {
         displayDirt(pos);
     }
 
+   /* public void setSpacePressedProperty(boolean b) {
+        return spacePressed = b;
+    }*/
+
+    public ReadOnlyIntegerProperty getNbGrass() {
+        return getNbGrass();
+    }
 }

@@ -22,7 +22,7 @@ public class MenuViewModel {
     }
     public void start() {fermeFacade.start();}
     public void stop() {fermeFacade.stop();}
-    public void plantMode(){fermeFacade.plantMode();}
+    public void plantMode(){fermeFacade.plantActivation();}
     public void unplantMode(){fermeFacade.unplantMode();}
     public ReadOnlyIntegerProperty nbGrass(){return fermeFacade.getNbGrass();}
     public void newGame() {
