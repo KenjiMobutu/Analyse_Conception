@@ -5,7 +5,7 @@ import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.geometry.Pos;
 
-public class Farmer implements Element{
+class Farmer implements Element{
 
     private final Position posFarmer;
 
