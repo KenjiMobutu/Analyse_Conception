@@ -93,7 +93,7 @@ public class FermeFacade {
         }
     }
 
-    ReadOnlyObjectProperty<ParcelleValue> valueProperty(int line, int col) {
+    public ReadOnlyObjectProperty<ParcelleValue> valueProperty(int line, int col) {
         return ferme.valueProperty(line, col);
     }
     void addElementToCell(int line, int col, Element element) {
