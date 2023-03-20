@@ -18,8 +18,19 @@ import java.util.Set;
 import java.util.stream.Collectors;
 //cell
 public class ParcelleView extends StackPane {
+    Ferme ferme = new Ferme();
     private static final Image DIRT = new Image("dirt.png");
     private static final Image GRASS = new Image("grass.png");
+    private static final Image ROTTEN_CARROT = new Image("rotten_carrot.png");
+    private static final Image CARROT1 = new Image("carrot1.png");
+    private static final Image CARROT2 = new Image("carrot2.png");
+    private static final Image CARROT3 = new Image("carrot3.png");
+    private static final Image CARROT4 = new Image("carrot4.png");
+    private static final Image ROTTEN_CABBAGE = new Image("rotten_cabbage.png");
+    private static final Image CABBAGE1 = new Image("cabbage1.png");
+    private static final Image CABBAGE2 = new Image("cabbage2.png");
+    private static final Image CABBAGE3 = new Image("cabbage3.png");
+    private static final Image CABBAGE4 = new Image("cabbage4.png");
     private ImageView imageView = new ImageView();
 
     // constantes pour stocker les noms des fichiers d'image
@@ -127,7 +138,7 @@ public class ParcelleView extends StackPane {
             observableList.add(0, grass);
 
         }
-        //System.out.println(Ferme.listOfPlantedGrass);
+        System.out.println(ferme.listOfPlantedGrass);
     }
 
     private void setFarmerImage(ImageView imageView) {

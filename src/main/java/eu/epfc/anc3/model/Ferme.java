@@ -5,9 +5,8 @@ import javafx.collections.FXCollections;
 
 import java.util.Set;
 
-class Ferme {
+public class Ferme {
     private Terrain terrain = new Terrain();
-    private final Farmer farmer= new Farmer() ;
     private final ObjectProperty<FermeStatus> fermeStatus = new SimpleObjectProperty<>(FermeStatus.START);
     public static final SimpleListProperty<Grass> listOfPlantedGrass = new SimpleListProperty<>(FXCollections.observableArrayList());
     public Ferme(){}

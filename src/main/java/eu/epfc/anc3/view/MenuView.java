@@ -4,10 +4,9 @@ package eu.epfc.anc3.view;
 import eu.epfc.anc3.vm.MenuViewModel;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleButton;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -21,27 +20,55 @@ public class MenuView extends VBox {
     private final TextField nbGrassTextField = new TextField();
     private final ToggleButton startButton = new ToggleButton();
     private final ToggleButton stopButton = new ToggleButton();
-    private final ToggleButton plantButton = new ToggleButton();
+    private final ToggleButton plantGrassButton = new ToggleButton();
     private final ToggleButton unPlantButton = new ToggleButton();
-    private final ToggleButton plantCarottButton = new ToggleButton();
-    private final ToggleButton plantCabbageButton = new ToggleButton();
-    private final ToggleButton fertilizeButton = new ToggleButton();
-    private final ToggleButton recoltButton = new ToggleButton();
+    private final Label scoreLabel = new Label("Score : ");
+    private final TextField score = new TextField();
+    private final Label jourLabel = new Label("Jour : ");
+    private final TextField nbJour = new TextField();
+    private final ToggleButton plantCarottButton = new ToggleButton("plant carrot");
 
+    private final ToggleButton plantCabbageButton = new ToggleButton("plant cabbage");
+    private final ToggleButton fertilizeButton = new ToggleButton("fertilize");
+    private final ToggleButton recoltButton = new ToggleButton();
+    private final Button sleepButton = new Button("Dormir");
+
+    private final ToggleGroup toggleGroup = new ToggleGroup();
 
 
     private final MenuViewModel menuViewModel;
 
     private final HBox nbGrassHBox;
-    HBox buttonsHBox = new HBox(startButton,plantButton,unPlantButton) ;
-
-    HBox buttons = new HBox(startButton,plantButton,unPlantButton);
-
+    HBox buttonsHBox = new HBox(startButton,sleepButton) ;
+    HBox buttons = new HBox(startButton,sleepButton);
+    VBox actionVbox = new VBox(plantGrassButton,unPlantButton,plantCarottButton,plantCabbageButton);
 
     public MenuView(MenuViewModel menuViewModel) {
         this.menuViewModel = menuViewModel;
         this.nbGrassHBox = createNbGrassHBox();
         this.buttonsHBox = buttons;
+        unPlantButton.setPrefWidth(130);
+        Image img = new Image("carrot4.png");
+        ImageView carrot = new ImageView(img);
+        this.plantCarottButton.setGraphic(carrot);
+        plantCarottButton.setPrefWidth(130);
+
+        Image img2 = new Image("cabbage4.png");
+        ImageView cabbage = new ImageView(img2);
+        this.plantCabbageButton.setGraphic(cabbage);
+        plantCabbageButton.setPrefWidth(130);
+
+        Image img3 = new Image("grass.png");
+        ImageView grass = new ImageView(img3);
+        this.plantGrassButton.setGraphic(grass);
+        plantGrassButton.setPrefWidth(130);
+        score.setPrefWidth(50);
+        nbJour.setPrefWidth(50);
+
+        plantCarottButton.setTranslateY(30);
+        plantGrassButton.setTranslateY(30);
+        unPlantButton.setTranslateY(30);
+        plantCabbageButton.setTranslateY(30);
         configureMenu();
         bindLabelsToViewModel();
         setUpButtonStart();
@@ -59,7 +86,7 @@ public class MenuView extends VBox {
         nbGrassTextField.setEditable(false);
 
         // Disable the plant and unplant buttons initially
-        plantButton.setDisable(true);
+        plantGrassButton.setDisable(true);
         unPlantButton.setDisable(true);
 
         // Enable the start button initially
@@ -71,27 +98,49 @@ public class MenuView extends VBox {
         startButton.setFocusTraversable(false);
         stopButton.setFocusTraversable(false);
         nbGrassHBox.setFocusTraversable(false);
-        plantButton.setFocusTraversable(false);
+        plantGrassButton.setFocusTraversable(false);
         unPlantButton.setFocusTraversable(false);
+        plantCabbageButton.setFocusTraversable(false);
+        plantCarottButton.setFocusTraversable(false);
+        sleepButton.setFocusTraversable(false);
 
+        nbJour.setDisable(true);
+        nbJour.setTranslateX(150);
+        jourLabel.setTranslateX(150);
+        score.setTranslateX(100);
+        scoreLabel.setTranslateX(100);
+        score.setDisable(true);
         nbGrassTextField.setDisable(true);
-        plantButton.setDisable(true);
+        plantGrassButton.setDisable(true);
         unPlantButton.setDisable(true);
         startButton.setDisable(false);
         manageNbHerb();
         bindLabelsToViewModel();
+        addToToggleGroup();
+    }
+
+    private void addToToggleGroup() {
+        plantGrassButton.setToggleGroup(toggleGroup);
+        plantCabbageButton.setToggleGroup(toggleGroup);
+        plantCarottButton.setToggleGroup(toggleGroup);
+        fertilizeButton.setToggleGroup(toggleGroup);
+        unPlantButton.setToggleGroup(toggleGroup);
     }
 
     private void bindLabelsToViewModel() {
         startButton.textProperty().bind(menuViewModel.startLabelProperty());
         stopButton.textProperty().bind(menuViewModel.stopLabelProperty());
-        plantButton.textProperty().bind(menuViewModel.plantLabelProperty());
+        plantGrassButton.textProperty().bind(menuViewModel.plantLabelProperty());
         unPlantButton.textProperty().bind(menuViewModel.unPlantLabelProperty());
     }
 
     HBox createNbGrassHBox() {
-        return new HBox(nbGrassLabel, nbGrassTextField);
+        return new HBox(nbGrassLabel, nbGrassTextField,scoreLabel, score,jourLabel,nbJour);
     }
+    HBox scoreAndDay(){
+        return new HBox(scoreLabel, score,jourLabel,nbJour);
+    }
+
     public void setUpButtonStart() {
         startButton.setOnAction(e -> handleStartButtonAction());
     }
@@ -99,7 +148,7 @@ public class MenuView extends VBox {
         stopButton.setOnAction(e -> handleStopButtonAction());
     }
     private void setUpButtonPlant() {
-        plantButton.setOnAction(e -> handlePlantButtonAction());
+        plantGrassButton.setOnAction(e -> handlePlantButtonAction());
     }
     private void setUpButtonUnplant() {
         unPlantButton.setOnAction(e -> handleUnPlantButtonAction());
@@ -111,14 +160,14 @@ public class MenuView extends VBox {
         buttons.getChildren().remove(startButton);
          System.out.println("Retire start");
         buttons.getChildren().add(0, stopButton);
-        plantButton.setDisable(false);
+        plantGrassButton.setDisable(false);
         unPlantButton.setDisable(false);
         menuViewModel.start();
     }
 
     private void handleStopButtonAction() {
         buttonsHBox.getChildren().remove(stopButton);
-        plantButton.setDisable(true);
+        plantGrassButton.setDisable(true);
         unPlantButton.setDisable(true);
         menuViewModel.stop();
         manageNewGameButton();
@@ -141,7 +190,7 @@ public class MenuView extends VBox {
         startButton.setOnAction(e -> {
             buttonsHBox.getChildren().remove(startButton);
             buttonsHBox.getChildren().add(0, stopButton);
-            plantButton.setDisable(false);
+            plantGrassButton.setDisable(false);
             unPlantButton.setDisable(false);
             menuViewModel.newGame();
         });

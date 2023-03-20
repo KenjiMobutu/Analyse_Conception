@@ -38,4 +38,18 @@ public class Parcelle {
         return value.get() == ParcelleValue.EMPTY;
     }
 
+    Set<Element> getAllElementsInCellFromSet(int line, int col) {
+        return elementsInCell[line][col];
+    }
+
+    void addElementToCell(Element e, int line, int col) {
+        if (!elementsInCell[line][col].contains(e))
+            elementsInCell[line][col].add(e);
+    }
+
+    void removeElemFromCell(int l, int c, Element e){
+        elementsInCell[l][c].remove(e);
+        System.out.println(elementsInCell[l][c]);
+    }
+
 }

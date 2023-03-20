@@ -29,17 +29,15 @@ import java.util.ArrayList;
 public class FermeView extends BorderPane {
     static final int PADDING = 20;
     static final int MENU_WIDTH = 150;
-    private static final int SCENE_MIN_WIDTH = 700;
+    private static final int SCENE_MIN_WIDTH = 850;
     private static final int SCENE_MIN_HEIGHT = 500;
     static final int FERME_WIDTH = 25;
     static final int FERME_HEIGHT = 15;
-    private boolean spacePressed = false;
     // Contrainte de mise en page
     private final DoubleProperty gridWidthProperty = new SimpleDoubleProperty(350);
     private final FermeViewModel fermeViewModel = new FermeViewModel();
     // Composants principaux
     private TerrainView terrainView;
-    private MenuView menuView;
 
     public FermeView(Stage primaryStage ){
         start(primaryStage);
@@ -52,10 +50,19 @@ public class FermeView extends BorderPane {
         // Mise en place de la scène et affichage de la fenêtre
         Scene scene = new Scene(this,SCENE_MIN_WIDTH,SCENE_MIN_HEIGHT);
         configKeyPressed(scene);
+        configKeyRealeased(scene);
         stage.setScene(scene);
         stage.show();
         stage.setMinHeight(stage.getHeight());
         stage.setMinWidth(stage.getWidth());
+    }
+
+    private void configKeyRealeased(Scene scene) {
+        scene.setOnKeyReleased(keyEvent -> {
+            switch (keyEvent.getCode()){
+                case SPACE -> spacePressed(false);
+            }
+        });
     }
 
     private void configMainComponents(Stage stage){
@@ -105,7 +112,10 @@ public class FermeView extends BorderPane {
         MenuViewModel menuViewModel = fermeViewModel.getMenuViewModel();
         MenuView menuView = new MenuView(menuViewModel);
         setTop(menuView.createNbGrassHBox());
+        //setTop(menuView.scoreAndDay());
+
         setBottom(menuView.buttons);
+        setLeft(menuView.actionVbox);
     }
     public void configKeyPressed(Scene scene){
         //doit focus la scene
@@ -130,11 +140,16 @@ public class FermeView extends BorderPane {
                 case SPACE:
                     System.out.println(keyEvent.getCode());
                     //scene.setOnKeyReleased(e -> handleKeyReleased());
+                    spacePressed(true);
                     fermeViewModel.keyPressed(Move.SPACE);
                     break;
             }
         });
 
+    }
+
+    private void spacePressed(boolean b) {
+        fermeViewModel.setSpacePressed(b);
     }
 
 }

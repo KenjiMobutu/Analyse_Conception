@@ -39,8 +39,6 @@ class Terrain {
         }
     }
 
-
-
     ReadOnlyObjectProperty<ParcelleValue> valueProperty(int line, int col) {
         return matrix[line][col].valueProperty();
     }
@@ -89,9 +87,4 @@ class Terrain {
         matrix[x][y].setValue(value);
     }
 
-
-    public void setGrassOnFarm(int x, int y, ParcelleValue value) {
-        matrix[x][y].setValue(value);
-
-    }
 }

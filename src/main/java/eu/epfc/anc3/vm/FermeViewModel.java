@@ -45,4 +45,7 @@ public class FermeViewModel {
     }
 
 
+    public void setSpacePressed(boolean b) {
+        fermeFacade.setSpacePressed(b);
+    }
 }
