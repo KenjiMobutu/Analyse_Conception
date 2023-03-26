@@ -5,34 +5,28 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 class Parcelle {
     //cellule
-    private final ObjectProperty<ParcelleValue> value = new SimpleObjectProperty<>(ParcelleValue.EMPTY); //BV :enlever ça, c'est doublon
     private final ObservableSet<Element> elements = FXCollections.observableSet();
 
-    ParcelleValue getValue() {
-        return value.getValue();
-    }
-
-    void setValue(ParcelleValue value){
-        this.value.setValue(value);
-    }
-
-    ObjectProperty<ParcelleValue> valueProperty() {
-        return value;
-    }
-
-    boolean isEmpty() {
-        return value.get() == ParcelleValue.EMPTY;
-    }
 
     ObservableSet<Element> getElements() {
-        return elements;
+        List<Element> sortedElements = new ArrayList<>(elements);
+        Collections.sort(sortedElements, new Comparator<Element>() {
+            @Override
+            public int compare(Element e1, Element e2) {
+                if (e1.getType() == ParcelleValue.FARMER) {
+                    return -1; // e1 comes first
+                } else if (e2.getType() == ParcelleValue.FARMER) {
+                    return 1; // e2 comes first
+                } else {
+                    return 0; // no preference
+                }
+            }
+        });
+        return FXCollections.observableSet(new LinkedHashSet<>(sortedElements));
     }
 
     ObservableSet<ParcelleValue> getElementsType(){

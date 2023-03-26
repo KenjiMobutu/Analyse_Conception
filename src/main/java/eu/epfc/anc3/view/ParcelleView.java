@@ -19,16 +19,7 @@ public class ParcelleView extends StackPane {
     private static final Image FARMER = new Image("farmer.png");
     private static final Image DIRT = new Image("dirt.png");
     private static final Image GRASS = new Image("grass.png");
-    private static final Image CARROTLVL1 = new Image("carrot1.png");
-    private static final Image CARROTLVL2 = new Image("carrot2.png");
-    private static final Image CARROTLVL3 = new Image("carrot3.png");
-    private static final Image CARROTLVL4 = new Image("carrot4.png");
-    private static final Image ROTTENCARROT = new Image("rotten_carrot.png");
-    private static final Image CABBAGELVL1 = new Image("cabbage1.png");
-    private static final Image CABBAGELVL2 = new Image("cabbage2.png");
-    private static final Image CABBAGELVL3 = new Image("cabbage3.png");
-    private static final Image CABBAGELVL4 = new Image("cabbage4.png");
-    private static final Image ROTTENCABBAGE = new Image("rotten_cabbage.png");
+
 
     private ImageView imageView = new ImageView();
     private final ImageView backgroundImageView;
@@ -62,10 +53,18 @@ public class ParcelleView extends StackPane {
 
 
         //un listener sur l'ObservableSet<Element> et dedans parcourir ce truc en appelant getType() sur chaque element
-        ObservableSet<ParcelleValue> valueProp = parcelleViewModel.elementPropertyValue();
-        ObservableSet<Element> valuePropp = parcelleViewModel.getElementsInCell();
-        valuePropp.stream().forEach(e -> setParcelleImage1(imageView, e.getType()));
+        //ObservableSet<ParcelleValue> valueProp = parcelleViewModel.elementPropertyValue();
+        ObservableSet<Element> valueProp = parcelleViewModel.getElementsInCell();
+        //valuePropp.stream().forEach(e -> setParcelleImage1(imageView, e.getType()));
 
+        valueProp.addListener((SetChangeListener<Element>) change -> {
+            if (change.wasAdded()) {
+                setParcelleImage1(imageView, change.getElementAdded().getType());
+            } else if (change.wasRemoved()) {
+                setParcelleImage1(imageView, change.getElementRemoved().getType());
+            }
+
+        });
         //valueProp.addListener((SetChangeListener<? super ParcelleValue>) change -> setParcelleImage1(imageView, valueProp));
 
         this.setOnMouseClicked(e -> parcelleViewModel.play());
@@ -114,7 +113,6 @@ public class ParcelleView extends StackPane {
         grass.setPreserveRatio(false);
         if (!observableList.contains(imageView)) {
             observableList.add(0, grass);
-
         }
     }
 

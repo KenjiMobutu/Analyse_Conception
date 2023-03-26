@@ -33,16 +33,16 @@ class Terrain {
     void resetTerrain() {
         for (int i = 0; i < GRID_HEIGHT; ++i) {
             for (int j = 0; j < GRID_WIDTH; ++j) {
-                matrix[i][j].setValue(ParcelleValue.DIRT);
+                matrix[i][j].addElement(new Dirt());
             }
         }
     }
 
 
-
+/*
     ReadOnlyObjectProperty<ParcelleValue> valueProperty(int line, int col) {
-        return matrix[line][col].valueProperty();
-    }
+        return matrix[line][col].getElementsType();
+    }*/
 
     void addElementToCell(Element e, int line, int col) {
         matrix[line][col].addElement(e);
@@ -65,7 +65,7 @@ class Terrain {
         return  matrix[line][col].getElements().stream().map(e -> e.getType()).anyMatch(x -> x == pv);
     }
 
-
+/*
     ParcelleValue getValue(int line, int col) {
         return matrix[line][col].getValue();
     }
@@ -73,8 +73,8 @@ class Terrain {
     //etait boolean avant
     void play(int line, int col, ParcelleValue playerValue) {
         matrix[line][col].setValue(playerValue);
-    }
-
+    }*/
+/*
     private ParcelleValue checkCell(int line, int column){
         ParcelleValue res = matrix[line][column].getValue();
         if (res == ParcelleValue.EMPTY)return res;
@@ -93,7 +93,7 @@ class Terrain {
 
     public void setValueOnFarm(int x, int y, ParcelleValue value) {
         matrix[x][y].setValue(value);
-    }
+    }*/
 
 
 }

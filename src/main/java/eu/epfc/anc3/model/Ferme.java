@@ -35,9 +35,9 @@ class Ferme {
 
 
     //return les valeurs d'une cellule
-    ReadOnlyObjectProperty<ParcelleValue> valueProperty(int line, int col){
-        return terrain.valueProperty(line,col);
-    }
+//    ReadOnlyObjectProperty<ParcelleValue> valueProperty(int line, int col){
+//        return terrain.valueProperty(line,col);
+//    }
     boolean cellContainsElementType(ParcelleValue pv, int line, int col){
         return terrain.containsElementType(pv, line, col);
     }
@@ -58,10 +58,11 @@ class Ferme {
     //retourne le status du jeu
     ReadOnlyObjectProperty<FermeStatus> fermeStatusProperty(){return fermeStatus;}
 
-    //permet de déplacer le joueur dans le grid
-    void setFarmerInFarm(Farmer farmer){
-        terrain.setValueOnFarm(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY(),ParcelleValue.FARMER);
+    void spawnFarmer(Farmer farmer){
+        terrain.addElementToCell(farmer, 0, 0);
     }
+    //permet de déplacer le joueur dans le grid
+
     Terrain getTerrain(){
         return terrain;
     }

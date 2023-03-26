@@ -39,8 +39,17 @@ public class FermeView extends BorderPane {
         configKeyRealeased(scene);
         stage.setScene(scene);
         stage.show();
-        stage.setMinHeight(stage.getHeight());
-        stage.setMinWidth(stage.getWidth());
+        stage.setMinHeight(SCENE_MIN_HEIGHT);
+        stage.setMinWidth(SCENE_MIN_WIDTH);
+        scene.widthProperty().addListener((obs, oldval, newval) -> resizeTerrain(newval.doubleValue(), scene.getHeight()));
+        scene.heightProperty().addListener((obs, oldval, newval) -> resizeTerrain(scene.getWidth(), newval.doubleValue()));
+    }
+    private void resizeTerrain(double width, double height) {
+        double gridWidth = Math.min(width - MENU_WIDTH - 2 * PADDING, height - 2 * PADDING);
+        gridWidthProperty.set(gridWidth);
+        if (terrainView != null) {
+            terrainView.resize(gridWidth, height - 2 * PADDING);
+        }
     }
 
     private void configMainComponents(Stage stage){

@@ -71,13 +71,15 @@ public class FermeFacade {
 
         //isPressingSpace.bind(fermeStatusProperty().isEqualTo(KeyCode.SPACE));
     }
-    void putFarmerInFarm(){ferme.setFarmerInFarm(farmer);}
+   // void putFarmerInFarm(){ferme.setFarmerInFarm(farmer);}
 
+    void spawnFarmerInFarm(){ferme.spawnFarmer(farmer);}
     public void start(){
         if (isStartable.get()){
             System.out.println(" -> lancement du jeu :) ");
             ferme.start();
-            putFarmerInFarm();
+            //putFarmerInFarm();
+            spawnFarmerInFarm();
         }
     }
 
@@ -104,7 +106,7 @@ public class FermeFacade {
         if (isStopped.getValue()){
             ferme.newGame();
             farmer.setPosFarmer(0,0);
-            putFarmerInFarm();
+            spawnFarmerInFarm();
             System.out.println("le jeu est relancé :D ");
         }
     }
@@ -135,7 +137,8 @@ public class FermeFacade {
         removeElemFromCell(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY(), ParcelleValue.FARMER);
 
         farmer.setPosFarmer(newPosFarmer.getX(),newPosFarmer.getY());
-        ferme.setFarmerInFarm(farmer);
+        //ferme.setFarmerInFarm(farmer);
+        ferme.spawnFarmer(farmer);
     }
     public void moveFarmer(Move move) {
         System.out.println(getStatus() );
@@ -182,7 +185,7 @@ public class FermeFacade {
                 displayTerrain(farmer.getPosFarmer());
             }
             farmer.setPosFarmer(up.getX(),up.getY());
-            ferme.setFarmerInFarm(farmer);
+            ferme.spawnFarmer(farmer);
         }
     }
     void goDown(){
@@ -196,7 +199,7 @@ public class FermeFacade {
                 displayTerrain(farmer.getPosFarmer());
             }
             farmer.setPosFarmer(down.getX(),down.getY());
-            ferme.setFarmerInFarm(farmer);
+            ferme.spawnFarmer(farmer);
         }
 
     }
@@ -211,7 +214,7 @@ public class FermeFacade {
                 displayTerrain(farmer.getPosFarmer());
             }
             farmer.setPosFarmer(right.getX(),right.getY());
-            ferme.setFarmerInFarm(farmer);
+            ferme.spawnFarmer(farmer);
         }
     }
     void goLeft(){
@@ -225,7 +228,7 @@ public class FermeFacade {
                 displayTerrain(farmer.getPosFarmer());
             }
             farmer.setPosFarmer(left.getX(),left.getY());
-            ferme.setFarmerInFarm(farmer);
+            ferme.spawnFarmer(farmer);
         }
     }
 
@@ -241,13 +244,13 @@ public class FermeFacade {
         }
 
         System.out.println(ferme.getAllElem(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "qsldh");
-        putFarmerInFarm();
+        spawnFarmerInFarm();
     }
     void displayGrass(Position pos) {
-        ferme.getTerrain().setValueOnFarm(pos.getX(), pos.getY(), ParcelleValue.GRASS);
+        ferme.getTerrain().addElementToCell(new Grass() , pos.getX(), pos.getY());
     }
     void displayDirt(Position pos){
-        ferme.getTerrain().setValueOnFarm(pos.getX(), pos.getY(), ParcelleValue.DIRT);
+        ferme.getTerrain().addElementToCell(new Dirt(), pos.getX(), pos.getY());
     }
     void removeGrass(){
 
@@ -257,7 +260,7 @@ public class FermeFacade {
         System.out.println(ferme.getAllElem(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "   qsldh");
 
         displayTerrain(farmer.getPosFarmer());
-        putFarmerInFarm();
+        spawnFarmerInFarm();
     }
     void displayTerrain(Position pos){
         displayDirt(pos);
