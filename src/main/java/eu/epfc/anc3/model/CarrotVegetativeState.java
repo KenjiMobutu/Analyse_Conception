@@ -1,7 +1,7 @@
 package eu.epfc.anc3.model;
 //Level3
 // Classe concrète représentant l'état 3
-public class CarrotVegetativeState extends VegetableState{
+class CarrotVegetativeState extends VegetableState{
 
     /*méthodes:
     getCurrentState() : cette méthode permettra de récupérer l'état actuel de croissance du légume.
@@ -13,11 +13,17 @@ public class CarrotVegetativeState extends VegetableState{
     public CarrotVegetativeState(Vegetable vegetable) {
         super(vegetable);
     }
+
     @Override
-    public void next() {
+    public void nextState() {
 
     }
 
+    /*   @Override
+       public void next() {
+
+       }
+   */
     @Override
     public boolean isRipe() {
         return false;

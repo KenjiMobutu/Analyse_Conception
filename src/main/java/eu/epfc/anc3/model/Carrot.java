@@ -1,6 +1,6 @@
 package eu.epfc.anc3.model;
 
-public class Carrot extends Vegetable {
+class Carrot extends Vegetable {
     public Carrot() {
         super();
     }

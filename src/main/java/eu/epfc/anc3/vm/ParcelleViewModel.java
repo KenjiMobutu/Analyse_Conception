@@ -20,10 +20,14 @@ public class ParcelleViewModel {
         this.fermeFacade = ferme;
     }
 
+
+
+
     public ReadOnlyBooleanProperty isStarted(){return fermeFacade.isStartedProperty();}
 
     // a refaire : public ReadOnlyObjectProperty<ParcelleValue> elementInCell(){return fermeFacade.valueProperty(line,col);}
     public ObservableSet<ParcelleValue> elementPropertyValue () {return fermeFacade.getElementsType(line,col);}
+    public ObservableSet<Element> getElementsInCell(){return fermeFacade.getElements(line,col);}
     public void play() {
         System.out.println(isStarted());
         System.out.println(line +" ----- "+ col);

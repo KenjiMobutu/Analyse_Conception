@@ -53,7 +53,8 @@ class Terrain {
                     .stream()
                     .filter(e -> e.getType().equals(pv))
                     .findFirst()
-                    .ifPresent(e -> matrix[line][col].getElements().remove(e));
+                    //.ifPresent(e -> matrix[line][col].getElements().remove(e));
+                    .ifPresent(e -> matrix[line][col].removeElement(e));
     }
 
     ObservableSet<Element> getElem(int line, int col){return matrix[line][col].getElements();}

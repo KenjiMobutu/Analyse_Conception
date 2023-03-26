@@ -1,5 +1,6 @@
 package eu.epfc.anc3.view;
 
+import eu.epfc.anc3.model.Element;
 import eu.epfc.anc3.model.ParcelleValue;
 import eu.epfc.anc3.vm.ParcelleViewModel;
 import javafx.beans.binding.DoubleBinding;
@@ -55,39 +56,41 @@ public class ParcelleView extends StackPane {
         Background background = new Background(backgroundImage);
         this.setBackground(background);
 
-        Set<ParcelleValue> pv = parcelleViewModel.elementPropertyValue();
-        setParcelleImage1(imageView, pv);
+        /*Set<ParcelleValue> pv = parcelleViewModel.elementPropertyValue();
+        setParcelleImage1(imageView, pv);*/
 //faire un map pour gérer l'ordre????
 
 
         //un listener sur l'ObservableSet<Element> et dedans parcourir ce truc en appelant getType() sur chaque element
         ObservableSet<ParcelleValue> valueProp = parcelleViewModel.elementPropertyValue();
-        valueProp.addListener((SetChangeListener<? super ParcelleValue>) change -> setParcelleImage1(imageView, valueProp));
+        ObservableSet<Element> valuePropp = parcelleViewModel.getElementsInCell();
+        valuePropp.stream().forEach(e -> setParcelleImage1(imageView, e.getType()));
+
+        //valueProp.addListener((SetChangeListener<? super ParcelleValue>) change -> setParcelleImage1(imageView, valueProp));
 
         this.setOnMouseClicked(e -> parcelleViewModel.play());
     }
 
-    void setParcelleImage1(ImageView imageView, Set<ParcelleValue> pv) {
+    void setParcelleImage1(ImageView imageView, ParcelleValue pv) {
         ObservableList<Node> observableList = getChildren();
         observableList.clear();
-        for (ParcelleValue parcelleValue : pv){
-            switch (parcelleValue) {
-                case EMPTY:
-                    setEmpty();
-                    break;
-                case DIRT:
-                    setDirt(imageView);
-                    break;
-                case GRASS:
-                    setGrass(imageView, GRASS);
-                    break;
-                case FARMER:
-                    setFarmerImage(imageView);
-                    break;
-                default:
-                    throw new IllegalArgumentException("Unknown parcelle value: " + parcelleValue);
-            }
+        switch (pv) {
+            case EMPTY:
+                setEmpty();
+                break;
+            case DIRT:
+                setDirt(imageView);
+                break;
+            case GRASS:
+                setGrass(imageView, GRASS);
+                break;
+            case FARMER:
+                setFarmerImage(imageView);
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown parcelle value: " + pv);
         }
+
 
     }
     void setEmpty() {
@@ -118,8 +121,8 @@ public class ParcelleView extends StackPane {
     void setFarmerImage(ImageView imageView) {
         ImageView farmer = new ImageView(FARMER);
         farmer.setPreserveRatio(false);
-        farmer.setFitHeight(20);
-        farmer.setFitWidth(20);
+        farmer.setFitHeight(50);
+        farmer.setFitWidth(50);
 
         ImageView background = new ImageView(GRASS);
         background.setPreserveRatio(false);

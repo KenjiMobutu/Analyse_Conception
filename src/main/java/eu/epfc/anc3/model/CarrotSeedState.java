@@ -1,7 +1,7 @@
 package eu.epfc.anc3.model;
 //Level1
 // Classe concrète représentant l'état 1
-public class CarrotSeedState extends VegetableState {
+class CarrotSeedState extends VegetableState {
 
         /*méthodes:
     getCurrentState() : cette méthode permettra de récupérer l'état actuel de croissance du légume.

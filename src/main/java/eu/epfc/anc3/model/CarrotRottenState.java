@@ -1,7 +1,7 @@
 package eu.epfc.anc3.model;
 //Level5 --> Pourrie
 // Classe concrète représentant l'état pourrie
-public class CarrotRottenState extends VegetableState{
+class CarrotRottenState extends VegetableState{
         /*méthodes:
     getCurrentState() : cette méthode permettra de récupérer l'état actuel de croissance du légume.
     setNextState() : cette méthode permettra de passer au stade de croissance suivant.
@@ -19,7 +19,6 @@ public class CarrotRottenState extends VegetableState{
 
     }
 
-    @Override
     public void next() {
 
     }

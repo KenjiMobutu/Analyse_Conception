@@ -49,9 +49,11 @@ public class FermeFacade {
 
 
     // retourne les éléments d'une cellule :
-
     public ObservableSet<ParcelleValue> getElementsType(int line, int col){
         return ferme.getAllElemType(line,col);
+    }
+    public ObservableSet<Element> getElements(int line, int col){
+        return ferme.getAllElem(line,col);
     }
     public FermeFacade(){
         isStartable.bind(fermeStatusProperty().isEqualTo(FermeStatus.START));

@@ -1,11 +1,16 @@
 package eu.epfc.anc3.model;
 
-public class VegetativeState extends VegetableState{
+class VegetativeState extends VegetableState{
 
     public VegetativeState(Vegetable vegetable) {
         super(vegetable);
     }
 
+    @Override
+    public void nextState() {
+
+    }
+/*
     @Override
     public void grow() {
 
@@ -29,7 +34,7 @@ public class VegetativeState extends VegetableState{
     @Override
     public void next() {
 
-    }
+    }*/
 
     @Override
     public boolean isRipe() {
