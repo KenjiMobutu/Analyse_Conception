@@ -15,7 +15,7 @@ public class Vegetable {
     public Vegetable() {
         //this.state = new SeedlingState(this);
         this.hasGrass = false;
-        this.fertilized = false;
+        this.isFertilized= false;
     }
     public Vegetable(int growthDays, int yieldPoints, int rottenDays) {
         this.growthDays = growthDays;
@@ -26,19 +26,14 @@ public class Vegetable {
         this.isPlantedOnGrass = false;
         this.isHarvested = false;
         this.isRotten = false;
-        this.currentState = new SeedState(this);
+        this.currentState = new SeedlingState(this);
     }
     public void setState(VegetableState state) {
         this.currentState = state;
     }
+    //public void grow() {currentState.grow();}
 
-    public void grow() {
-        currentState.grow();
-    }
-
-    public void harvest() {
-        currentState.harvest();
-    }
+    //public void harvest() {currentState.harvest();}
 
     public boolean hasGrass() {
         return hasGrass;
@@ -95,8 +90,6 @@ public class Vegetable {
         isHarvested = harvested;
     }
 
-
-
     public void setRotten(boolean rotten) {
         isRotten = rotten;
     }
@@ -120,5 +113,7 @@ public class Vegetable {
     public int getRottenDays() {
         return rottenDays;
     }
+
+
 }
 

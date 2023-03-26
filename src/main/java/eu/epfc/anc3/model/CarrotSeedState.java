@@ -23,14 +23,6 @@ public class CarrotSeedState extends VegetableState {
         vegetable.setCurrentState(new CarrotSproutState(vegetable));
     }
 
-
-   /*  @Override
-   public void next() {
-        currentDay++;
-        //condition à rajouter
-        //if();
-    }*/
-
     @Override
     public boolean isRipe() {
         return false;

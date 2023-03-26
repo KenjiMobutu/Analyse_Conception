@@ -13,6 +13,12 @@ public class CarrotVegetativeState extends VegetableState{
     public CarrotVegetativeState(Vegetable vegetable) {
         super(vegetable);
     }
+
+    @Override
+    public void nextState() {
+
+    }
+
     @Override
     public void next() {
 

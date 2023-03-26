@@ -14,8 +14,10 @@ public class CarrotSproutState extends VegetableState{
     }
 
     @Override
-    public void next() {
-
+    public void nextState() {
+        vegetable.setCurrentState(new CarrotVegetativeState(vegetable));
+        vegetable.setDaysSincePlanted(0);
+        vegetable.setState(new CarrotVegetativeState(vegetable));
     }
 
     @Override
