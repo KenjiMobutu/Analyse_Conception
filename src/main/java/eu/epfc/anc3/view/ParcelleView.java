@@ -49,6 +49,8 @@ public class ParcelleView extends StackPane {
 
         /*Set<ParcelleValue> pv = parcelleViewModel.elementPropertyValue();
         setParcelleImage1(imageView, pv);*/
+
+
 //faire un map pour gérer l'ordre????
 
 
