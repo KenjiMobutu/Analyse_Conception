@@ -2,6 +2,29 @@ package eu.epfc.anc3.model;
 //Level2
 // Classe concrète représentant l'état 2
 public class CabbageSproutState extends VegetableState{
+    public CabbageSproutState(Vegetable vegetable) {
+        super(vegetable);
+    }
+
+    @Override
+    public void nextState() {
+
+    }
+
+    @Override
+    public boolean isRipe() {
+        return false;
+    }
+
+    @Override
+    public boolean isRotten() {
+        return false;
+    }
+
+    @Override
+    public int getHarvestPoints() {
+        return 0;
+    }
         /*méthodes:
     getCurrentState() : cette méthode permettra de récupérer l'état actuel de croissance du légume.
     setNextState() : cette méthode permettra de passer au stade de croissance suivant.
