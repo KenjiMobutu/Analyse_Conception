@@ -7,29 +7,11 @@ public class VegetativeState extends VegetableState{
     }
 
     @Override
-    public void grow() {
+    public void nextState() {
 
     }
 
-    @Override
-    public void harvest() {
 
-    }
-
-    @Override
-    public void grow(Vegetable vegetable) {
-
-    }
-
-    @Override
-    public void harvest(Vegetable vegetable) {
-
-    }
-
-    @Override
-    public void next() {
-
-    }
 
     @Override
     public boolean isRipe() {

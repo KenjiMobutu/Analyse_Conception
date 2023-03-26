@@ -6,6 +6,26 @@ public class SeedlingState extends VegetableState {
         super(vegetable);
     }
 
+    @Override
+    public void nextState() {
+
+    }
+
+    @Override
+    public boolean isRipe() {
+        return false;
+    }
+
+    @Override
+    public boolean isRotten() {
+        return false;
+    }
+
+    @Override
+    public int getHarvestPoints() {
+        return 0;
+    }
+
     public void grow() {
         vegetable.setState(new VegetativeState(vegetable));
     }

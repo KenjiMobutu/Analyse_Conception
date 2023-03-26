@@ -20,11 +20,6 @@ public class CarrotVegetativeState extends VegetableState{
     }
 
     @Override
-    public void next() {
-
-    }
-
-    @Override
     public boolean isRipe() {
         return false;
     }
