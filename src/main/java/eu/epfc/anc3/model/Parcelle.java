@@ -14,7 +14,7 @@ class Parcelle {
     private final Comparator<Element> elementComparator = new Comparator<>() {
         @Override
         public int compare(Element e1, Element e2) {
-            if (e1.getType() == ParcelleValue.FARMER) {
+            if (e1.getType() == ParcelleValue.FARMER && e2.getType() == ParcelleValue.GRASS) {
                 return -1; // farmer always first
             } else if (e2.getType() == ParcelleValue.FARMER) {
                 return 1; // farmer always first
