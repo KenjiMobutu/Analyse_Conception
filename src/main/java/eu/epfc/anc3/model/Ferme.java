@@ -33,16 +33,9 @@ class Ferme {
         fermeStatus.set(FermeStatus.DEPLANT_GRASS);
     }
 
-
-    //return les valeurs d'une cellule
-//    ReadOnlyObjectProperty<ParcelleValue> valueProperty(int line, int col){
-//        return terrain.valueProperty(line,col);
-//    }
     boolean cellContainsElementType(ParcelleValue pv, int line, int col){
         return terrain.containsElementType(pv, line, col);
     }
-
-
 
     //ajout un element a une cellule
     void addElementToCell(Element p, int line, int col){
@@ -58,8 +51,8 @@ class Ferme {
     //retourne le status du jeu
     ReadOnlyObjectProperty<FermeStatus> fermeStatusProperty(){return fermeStatus;}
 
-    void spawnFarmer(Farmer farmer){
-        terrain.addElementToCell(farmer, 0, 0);
+    void spawnFarmer(Farmer farmer, int line, int col){
+        terrain.addElementToCell(farmer, line, col);
     }
     //permet de déplacer le joueur dans le grid
 

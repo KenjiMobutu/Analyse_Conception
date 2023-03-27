@@ -12,7 +12,8 @@ import java.util.Set;
 
 public class ParcelleViewModel {
     //cell
-    private final int line, col;
+    public final int line, col;
+    // remettre en private quand tout sera correcte
     private final FermeFacade fermeFacade;
     public ParcelleViewModel(int line, int col, FermeFacade ferme){
         this.col = col;
