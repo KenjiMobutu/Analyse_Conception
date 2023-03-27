@@ -8,7 +8,7 @@ import javafx.collections.ObservableSet;
 
 import java.util.List;
 
-public class Ferme {
+class Ferme {
 
     private Terrain terrain = new Terrain();
     private final ObjectProperty<FermeStatus> fermeStatus = new SimpleObjectProperty<>(FermeStatus.START);

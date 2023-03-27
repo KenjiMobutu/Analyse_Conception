@@ -11,8 +11,6 @@ public class VegetativeState extends VegetableState{
 
     }
 
-
-
     @Override
     public boolean isRipe() {
         return false;

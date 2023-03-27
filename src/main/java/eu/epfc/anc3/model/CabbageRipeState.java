@@ -1,6 +1,6 @@
 package eu.epfc.anc3.model;
 //Level4
-// Classe concrète représentant l'état d'un choux
+// Classe concrète représentant l'état 4
 public class CabbageRipeState extends VegetableState{
     public CabbageRipeState(Vegetable vegetable) {
         super(vegetable);

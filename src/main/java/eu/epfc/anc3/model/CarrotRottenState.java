@@ -27,7 +27,7 @@ public class CarrotRottenState extends VegetableState{
 
     @Override
     public boolean isRotten() {
-        return false;
+        return true;
     }
 
     @Override
