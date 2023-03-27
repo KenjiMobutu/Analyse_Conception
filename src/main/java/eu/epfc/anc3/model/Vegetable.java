@@ -11,7 +11,7 @@ public class Vegetable {
     private boolean isPlantedOnGrass;
     private boolean isHarvested;
     private boolean isRotten;
-
+    private int nextDay;
     public Vegetable() {
         //this.state = new SeedlingState(this);
         this.hasGrass = false;
