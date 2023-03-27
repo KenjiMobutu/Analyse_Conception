@@ -15,7 +15,7 @@ public class TerrainView extends GridPane {
     // grid
 
     public TerrainView (TerrainViewModel terrainViewModel, DoubleProperty fermeWidthProperty){
-        setPadding(new Insets(10));
+        setPadding(new Insets(PADDING));
         // Cellules de même taille
         RowConstraints rowConstraints = new RowConstraints();
         rowConstraints.setPercentHeight(100.0 / FERME_HEIGHT);

@@ -27,9 +27,9 @@ public class FermeViewModel {
         return fermeFacade.isStartedProperty();
     }
     public boolean isSpacePressed() {
-        return fermeFacade.isSpacePressed();
+        return fermeFacade.isActionPressed();
     }
-    public void setSpacePressed(boolean b){fermeFacade.setSpacePressedProperty(b);}
+    public void setSpacePressed(boolean b){fermeFacade.setActionPressedProperty(b);}
     public FermeViewModel(){
         menuViewModel = new MenuViewModel(fermeFacade);
         terrainViewModel = new TerrainViewModel(fermeFacade);
@@ -39,7 +39,7 @@ public class FermeViewModel {
         fermeFacade.moveFarmer(move);
     }
 
-    public void keyReleased(KeyEvent event) {
+    /*public void keyReleased(KeyEvent event) {
         fermeFacade.handleKeyReleased(event);
-    }
+    }*/
 }

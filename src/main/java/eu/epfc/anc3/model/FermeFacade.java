@@ -16,7 +16,7 @@ public class FermeFacade {
 
     private final Ferme ferme = new Ferme();
     private final Farmer farmer = new Farmer();
-    private boolean isPressingSpace = false; //BV : à renommer : space = touche
+    private boolean isPressingAction = false; //BV : à renommer : space = touche - corrigé
 
     //check si jeu est démarrable :
     private final BooleanProperty isStartable = new SimpleBooleanProperty(false);
@@ -34,12 +34,12 @@ public class FermeFacade {
     public ReadOnlyBooleanProperty isStartedProperty (){return isStarted;}
     //public ReadOnlyBooleanProperty isInProgressProperty (){return isInProgress;}
     //public ReadOnlyBooleanProperty isStoppedProperty (){return isStopped;}
-    public boolean isSpacePressed() {return isPressingSpace;} //BV
+    public boolean isActionPressed() {return isPressingAction;} //BV
 
 
     // mettre le spacePressed a true :
 
-    public void setSpacePressedProperty(boolean b){isPressingSpace = b;} //BV
+    public void setActionPressedProperty(boolean b){isPressingAction = b;} //BV
     // les actions possible :
     private final BooleanProperty plantGrass = new SimpleBooleanProperty(false);
     private final BooleanProperty deplantGrass = new SimpleBooleanProperty(false);
@@ -139,34 +139,27 @@ public class FermeFacade {
             switch (move){
                 case UP:
                     goUp();
-                    if (isSpacePressed()) //BV : rename et mettre après le switch
-                        handleAction();
+                    //BV : rename et mettre après le switch
                     System.out.println("here farmer pos : -->" + farmer.getPosFarmer());
                     break;
                 case DOWN:
                     goDown();
-                    if (isSpacePressed())
-                        handleAction();
                     System.out.println("here farmer pos : -->" + farmer.getPosFarmer());
                     break;
                 case LEFT:
                     goLeft();
-                    if (isSpacePressed())
-                        handleAction();
                     System.out.println("here farmer pos : -->" + farmer.getPosFarmer());
                     break;
                 case RIGHT:
                     goRight();
-                    if (isSpacePressed())
-                        handleAction();
                     System.out.println("here farmer pos : -->" + farmer.getPosFarmer());
                     break;
                 case SPACE:
                     System.out.println("plant grass val :" + plantGrass.getValue());
                     System.out.println("un plant grass val :" + deplantGrass.getValue());
-                    if (isSpacePressed())
-                        handleAction();
             }
+            if (isActionPressed())
+                handleAction();
         }
     }
     void handleAction(){
@@ -175,7 +168,7 @@ public class FermeFacade {
         }else if (deplantGrass.getValue())
             removeGrass();
     }
-    public void handleKeyReleased(KeyEvent event) { //BV : KeyEvent pas dans le modèle
+    /*public void handleKeyReleased(KeyEvent event) { //BV : KeyEvent pas dans le modèle
         if (isInProgress.getValue()) {
             if (event.getCode() == KeyCode.SPACE) {
                 setSpacePressedProperty(false); // la barre d'espace a été relâchée
@@ -186,7 +179,7 @@ public class FermeFacade {
                 }
             }
         }
-    }
+    }*/
     void goUp(){ //BV : voir "play" mais qui devrait se nommer "teleport"
         Position up = new Position(farmer.getPosFarmer().getX()-1, farmer.getPosFarmer().getY());
 
