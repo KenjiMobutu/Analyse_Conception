@@ -77,6 +77,10 @@ public class FermeFacade {
     }
    // void putFarmerInFarm(){ferme.setFarmerInFarm(farmer);}
 
+    public static int gridWidth() {
+        return Terrain.GRID_WIDTH;
+    }
+
     void spawnFarmerInFarm(){ferme.spawnFarmer(farmer, farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY());}
 
     public void start(){

@@ -3,6 +3,7 @@ package eu.epfc.anc3.view;
 import eu.epfc.anc3.model.Move;
 import eu.epfc.anc3.vm.FermeViewModel;
 import eu.epfc.anc3.vm.MenuViewModel;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Insets;
@@ -14,14 +15,15 @@ import javafx.stage.Stage;
 
 public class FermeView extends BorderPane {
     static final int PADDING = 20;
-    static final int MENU_WIDTH = 150;
+    static final int MENU_WIDTH = 160;
     private static final int SCENE_MIN_WIDTH = 800;
-    private static final int SCENE_MIN_HEIGHT = 500;
+    private static final int SCENE_MIN_HEIGHT = 400;
     static final int FERME_WIDTH = 25;
     static final int FERME_HEIGHT = 15;
     //private boolean spacePressed = false;
     // Contrainte de mise en page
-    private final DoubleProperty gridWidthProperty = new SimpleDoubleProperty(350);
+    private final DoubleProperty gridWidthProperty = new SimpleDoubleProperty(500);
+    private final DoubleProperty gridHeightProperty = new SimpleDoubleProperty(400);
     private final FermeViewModel fermeViewModel = new FermeViewModel();
     // Composants principaux
     private TerrainView terrainView;
@@ -39,10 +41,10 @@ public class FermeView extends BorderPane {
         configKeyRealeased(scene);
         stage.setScene(scene);
         stage.show();
-        stage.setMinHeight(SCENE_MIN_HEIGHT);
-        stage.setMinWidth(SCENE_MIN_WIDTH);
-        scene.widthProperty().addListener((obs, oldval, newval) -> resizeTerrain(newval.doubleValue(), scene.getHeight()));
-        scene.heightProperty().addListener((obs, oldval, newval) -> resizeTerrain(scene.getWidth(), newval.doubleValue()));
+        stage.setMinHeight(stage.getHeight());
+        stage.setMinWidth(stage.getWidth());
+        //scene.widthProperty().addListener((obs, oldval, newval) -> resizeTerrain(newval.doubleValue(), scene.getHeight()));
+        //scene.heightProperty().addListener((obs, oldval, newval) -> resizeTerrain(scene.getWidth(), newval.doubleValue()));
     }
     private void resizeTerrain(double width, double height) {
         double gridWidth = Math.min(width - MENU_WIDTH - 2 * PADDING, height - 2 * PADDING);
@@ -90,6 +92,13 @@ public class FermeView extends BorderPane {
     private void createTerrain() {
         terrainView = new TerrainView(fermeViewModel.getTerrainViewModel(), gridWidthProperty);
         System.out.println("Terrain :"+terrainView);
+
+        terrainView.minHeightProperty().bind(gridHeightProperty);
+        terrainView.minWidthProperty().bind(gridWidthProperty);
+        terrainView.maxHeightProperty().bind(gridHeightProperty);
+        terrainView.maxWidthProperty().bind(gridWidthProperty);
+        gridWidthProperty.bind(Bindings.min(widthProperty().subtract(MENU_WIDTH + 2 * PADDING), heightProperty()));
+
         setCenter(terrainView);
     }
 
@@ -98,7 +107,7 @@ public class FermeView extends BorderPane {
         MenuView menuView = new MenuView(menuViewModel);
         setTop(menuView.createNewHobx());
         setBottom(menuView.buttons);
-        setLeft(menuView.actionVbox);
+        setRight(menuView.actionVbox);
     }
     void configKeyRealeased(Scene scene){
         scene.setOnKeyReleased(keyEvent -> {

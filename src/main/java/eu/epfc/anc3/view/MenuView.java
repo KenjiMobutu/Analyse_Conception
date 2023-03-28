@@ -3,6 +3,8 @@ package eu.epfc.anc3.view;
 import eu.epfc.anc3.vm.MenuViewModel;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -51,7 +53,11 @@ public class MenuView extends VBox {
         getChildren().addAll(nbHbox, buttonsHBox);
 
         // Disable the plant and unplant buttons initially
+        Image img = new Image("grass.png");
+        ImageView view = new ImageView(img);
         plantButtonGrass.setDisable(true);
+        plantButtonGrass.setGraphic(view);
+
         unPlantButton.setDisable(true);
 
         // Enable the start button initially
@@ -62,8 +68,17 @@ public class MenuView extends VBox {
         nbHbox.setFocusTraversable(false);
         plantButtonGrass.setFocusTraversable(false);
         unPlantButton.setFocusTraversable(false);
+
+        Image img1 = new Image("cabbage4.png");
+        ImageView view1 = new ImageView(img1);
+        plantCabbageButton.setGraphic(view1);
         plantCabbageButton.setFocusTraversable(false);
+
+        Image img2 = new Image("carrot4.png");
+        ImageView view2 = new ImageView(img2);
+        plantCarotteButton.setGraphic(view2);
         plantCarotteButton.setFocusTraversable(false);
+
         sleepButton.setFocusTraversable(false);
 
        // nbGrassTextField.setDisable(true);

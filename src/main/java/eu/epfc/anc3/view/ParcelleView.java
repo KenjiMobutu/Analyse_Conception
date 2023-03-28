@@ -26,9 +26,9 @@ public class ParcelleView extends StackPane {
 
 
     public ParcelleView(ParcelleViewModel parcelleViewModel, DoubleBinding parcelleWidthProperty) {
-        imageView = new ImageView();
+        //imageView = new ImageView();
 
-        imageView.setPreserveRatio(false);
+        imageView.setPreserveRatio(true);
         imageView.fitWidthProperty().bind(parcelleWidthProperty);
         imageView.fitHeightProperty().bind(parcelleWidthProperty);
         imageView.setImage(DIRT);
