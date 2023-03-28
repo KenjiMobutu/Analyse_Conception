@@ -44,7 +44,7 @@ public class MenuView extends VBox {
         configureMenu();
         bindLabelsToViewModel();
         setUpButtonStart();
-        setUpButtonPlant();
+        setUpButtonPlantGrass();
         setUpButtonPlantCabbage();
         setUpButtonPlantCarott();
         setUpButtonFertilizer();
@@ -124,8 +124,8 @@ public class MenuView extends VBox {
     private void setUpButtonStop() {
         stopButton.setOnAction(e -> handleStopButtonAction());
     }
-    private void setUpButtonPlant() {
-        plantButtonGrass.setOnAction(e -> handlePlantButtonAction());
+    private void setUpButtonPlantGrass() {
+        plantButtonGrass.setOnAction(e -> handlePlantGrassButtonAction());
     }
     private void setUpButtonUnplant() {
         unPlantButton.setOnAction(e -> handleUnPlantButtonAction());
@@ -166,8 +166,8 @@ public class MenuView extends VBox {
         manageNewGameButton();
     }
 
-    private void handlePlantButtonAction() {
-        menuViewModel.plantMode();
+    private void handlePlantGrassButtonAction() {
+        menuViewModel.plantGrassMode();
     }
     private void handlePlantCabbageButtonAction() {
         menuViewModel.plantCabbageMode();

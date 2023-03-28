@@ -19,6 +19,9 @@ public class ParcelleView extends StackPane {
     private static final Image FARMER = new Image("farmer.png");
     private static final Image DIRT = new Image("dirt.png");
     private static final Image GRASS = new Image("grass.png");
+    private static final Image CABBAGE = new Image("cabbage1.png");
+    private static final Image CARROT = new Image("carrot1.png");
+
 
 
     private ImageView imageView = new ImageView();
@@ -69,7 +72,23 @@ public class ParcelleView extends StackPane {
             case FARMER:
                 addFarmer();
                 break;
+            case CABBAGE:
+                addCabbage();
+                break;
+            case CARROT:
+                addCarrot();
+                break;
         }
+    }
+
+    private void addCarrot() {
+        ImageView carrot = new ImageView(CARROT);
+        getChildren().add(carrot);
+    }
+
+    private void addCabbage() {
+        ImageView cabbage = new ImageView(CABBAGE);
+        getChildren().add(cabbage);
     }
 
     void addDirt(){

@@ -24,7 +24,7 @@ public class MenuViewModel {
     }
     public void start() {fermeFacade.start();}
     public void stop() {fermeFacade.stop();}
-    public void plantMode(){fermeFacade.plantActivation();}
+    public void plantGrassMode(){fermeFacade.plantGrassMode();}
     public void plantCabbageMode() {
         fermeFacade.plantCabbageMode();
     }

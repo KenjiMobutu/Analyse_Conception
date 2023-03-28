@@ -26,7 +26,7 @@ class Ferme {
     void stop(){
         fermeStatus.setValue(FermeStatus.STOP);
     }
-    void plantMode(){
+    void plantGrassMode(){
         fermeStatus.setValue(FermeStatus.PLANT_GRASS);
     }
     public void plantCabbageMode() {
