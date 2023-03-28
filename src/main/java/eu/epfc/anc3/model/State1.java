@@ -1,8 +1,7 @@
 package eu.epfc.anc3.model;
 
-// Classe concrète représentant l'état "germination"
-public class SeedlingState extends VegetableState {
-    public SeedlingState(Vegetable vegetable) {
+public class State1 extends VegetableState {
+    public State1(Vegetable vegetable) {
         super(vegetable);
     }
 
@@ -26,11 +25,8 @@ public class SeedlingState extends VegetableState {
         return 0;
     }
 
-    public void grow() {
-        vegetable.setState(new VegetativeState(vegetable));
-    }
+    @Override
+    public void nextDay() {
 
-    public void harvest() {
-        // Impossible de récolter une plante en germination
     }
 }

@@ -1,7 +1,7 @@
 package eu.epfc.anc3.model;
-
+//context
 public class Vegetable {
-    private VegetableState currentState;
+    private VegetableState vegetableState;
     private boolean hasGrass;
     private int growthDays;
     private int yieldPoints;
@@ -13,11 +13,10 @@ public class Vegetable {
     private boolean isRotten;
     private int nextDay;
     public Vegetable() {
-        //this.state = new SeedlingState(this);
-        this.hasGrass = false;
-        this.isFertilized= false;
+        //this.vegetableState = vegetableState; //new State1(this); //etat initial
     }
-    public Vegetable(int growthDays, int yieldPoints, int rottenDays) {
+
+    /*public Vegetable(int growthDays, int yieldPoints, int rottenDays) {
         this.growthDays = growthDays;
         this.yieldPoints = yieldPoints;
         this.rottenDays = rottenDays;
@@ -26,14 +25,27 @@ public class Vegetable {
         this.isPlantedOnGrass = false;
         this.isHarvested = false;
         this.isRotten = false;
-        this.currentState = new SeedlingState(this);
+        //this.currentState = new SeedlingState(this);
     }
-    public void setState(VegetableState state) {
-        this.currentState = state;
-    }
-    //public void grow() {currentState.grow();}
 
-    //public void harvest() {currentState.harvest();}
+    public Vegetable(VegetableState vegetableState, boolean hasGrass, int growthDays, int yieldPoints, int rottenDays, int daysSincePlanted, boolean isFertilized, boolean isPlantedOnGrass, boolean isHarvested, boolean isRotten, int nextDay) {
+        this.vegetableState = vegetableState;
+        this.hasGrass = hasGrass;
+        this.growthDays = growthDays;
+        this.yieldPoints = yieldPoints;
+        this.rottenDays = rottenDays;
+        this.daysSincePlanted = daysSincePlanted;
+        this.isFertilized = isFertilized;
+        this.isPlantedOnGrass = isPlantedOnGrass;
+        this.isHarvested = isHarvested;
+        this.isRotten = isRotten;
+        this.nextDay = nextDay;
+    }*/
+
+
+    public void setState(VegetableState vegetableState) {
+        this.vegetableState = vegetableState;
+    }
 
     public boolean hasGrass() {
         return hasGrass;
@@ -51,19 +63,24 @@ public class Vegetable {
     }
 
     public void nextState() {
-        currentState.nextState();
+        vegetableState.nextState();
     }
-
+    public void nextDay() {
+        daysSincePlanted++;
+        if (daysSincePlanted > growthDays) {
+            nextState();
+        }
+    }
     public boolean isRipe() {
-        return currentState.isRipe();
+        return vegetableState.isRipe();
     }
 
     public boolean isRotten() {
-        return currentState.isRotten();
+        return vegetableState.isRotten();
     }
 
     public int getHarvestPoints() {
-        return currentState.getHarvestPoints();
+        return vegetableState.getHarvestPoints();
     }
 
     public int getDaysSincePlanted() {
@@ -95,11 +112,11 @@ public class Vegetable {
     }
 
     public VegetableState getCurrentState() {
-        return currentState;
+        return vegetableState;
     }
 
-    public void setCurrentState(VegetableState currentState) {
-        this.currentState = currentState;
+    public void setCurrentState(VegetableState vegetableState) {
+        this.vegetableState = vegetableState;
     }
 
     public int getGrowthDays() {
