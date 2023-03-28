@@ -29,6 +29,21 @@ class Ferme {
     void plantMode(){
         fermeStatus.setValue(FermeStatus.PLANT_GRASS);
     }
+    public void plantCabbageMode() {
+        fermeStatus.setValue(FermeStatus.PLANT_CABBAGE);
+    }
+
+    public void plantCarrotMode() {
+        fermeStatus.setValue(FermeStatus.PLANT_CARROT);
+    }
+
+    public void fertilizerMode() {
+        fermeStatus.setValue(FermeStatus.FERTILIZER);
+    }
+
+    public void recoltMode() {
+        fermeStatus.setValue(FermeStatus.RECOLT);
+    }
     void unplantMode(){
         fermeStatus.set(FermeStatus.DEPLANT_GRASS);
     }
@@ -59,4 +74,6 @@ class Ferme {
     Terrain getTerrain(){
         return terrain;
     }
+
+
 }

@@ -104,6 +104,32 @@ public class FermeFacade {
             ferme.plantMode();
         }
     }
+    public void plantCabbageMode() {
+        if (isStarted.getValue()){
+            System.out.println("  -> Planter Cabbage est possible :) ");
+            ferme.plantCabbageMode();
+        }
+    }
+    public void plantCarrotMode() {
+        if (isStarted.getValue()){
+            System.out.println("  -> Planter Carrot est possible :) ");
+            ferme.plantCarrotMode();
+        }
+    }
+    public void fertilizerMode() {
+        if (isStarted.getValue()){
+            System.out.println("  -> Fertilizer est possible :) ");
+            ferme.fertilizerMode();
+        }
+    }
+    public void recoltMode() {
+        if (isStarted.getValue()){
+            System.out.println("  -> Recolt est possible :) ");
+            ferme.recoltMode();
+        }
+    }
+
+
     public void unplantMode(){
         if (isStarted.getValue()){
             System.out.println("  -> Déplanter de l'herbe est possible :) ");

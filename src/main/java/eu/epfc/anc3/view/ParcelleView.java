@@ -58,12 +58,17 @@ public class ParcelleView extends StackPane {
     void addParcelleImage(ParcelleValue pv){
         switch (pv){
             case EMPTY :
+                addDirt();
+                break;
             case DIRT:
-                addDirt(); break;
+                addDirt();
+                break;
             case GRASS:
-                addGrass(); break;
+                addGrass();
+                break;
             case FARMER:
-                addFarmer(); break;
+                addFarmer();
+                break;
         }
     }
 

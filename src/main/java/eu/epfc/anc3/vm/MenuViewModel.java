@@ -25,8 +25,31 @@ public class MenuViewModel {
     public void start() {fermeFacade.start();}
     public void stop() {fermeFacade.stop();}
     public void plantMode(){fermeFacade.plantActivation();}
+    public void plantCabbageMode() {
+        fermeFacade.plantCabbageMode();
+    }
+    public void plantCarottMode() {
+        fermeFacade.plantCarrotMode();
+    }
+    public void fertilizerMode() {
+        fermeFacade.fertilizerMode();
+    }
+    public void recoltMode() {
+        fermeFacade.recoltMode();
+    }
     public void unplantMode(){fermeFacade.unplantMode();}
     public void newGame() {
         fermeFacade.newGame();
     }
+
+
+
+
+
+
+
+    /*public void saveGame() {
+        fermeFacade.saveGame();
+    }*/
+
 }

@@ -14,7 +14,16 @@ class Parcelle {
     private final Comparator<Element> elementComparator = new Comparator<>() {
         @Override
         public int compare(Element e1, Element e2) {
-            if (e1.getType() == ParcelleValue.FARMER && e2.getType() == ParcelleValue.GRASS) {
+            if (e1.getType() == ParcelleValue.FARMER) {
+                return 1; // farmer always first
+            } else if (e1.getType() == ParcelleValue.GRASS && e2.getType() != ParcelleValue.FARMER) {
+                return 1; // grass before other elements, except farmer
+            } else if (e2.getType() == ParcelleValue.FARMER || (e1.getType() == ParcelleValue.GRASS && e2.getType() == ParcelleValue.GRASS)) {
+                return -1; // farmer always first, or same element type
+            } else {
+                return 0; // other elements
+            }
+            /*if (e1.getType() == ParcelleValue.FARMER && e2.getType() == ParcelleValue.GRASS) {
                 return -1; // farmer always first
             } else if (e2.getType() == ParcelleValue.FARMER) {
                 return 1; // farmer always first
@@ -26,14 +35,14 @@ class Parcelle {
                 return -1; // grass before vegetables
             } else if (e2.getType() == ParcelleValue.GRASS) {
                 return 1; // grass before vegetables
-            } /*else if (e1.getType() == ParcelleValue.VEGETABLE) {
+            }*/ /*else if (e1.getType() == ParcelleValue.VEGETABLE) {
                 return 1; // vegetables cannot be stacked, last before dirt
             } else if (e2.getType() == ParcelleValue.VEGETABLE) {
                 return -1; // vegetables cannot be stacked, last before dirt
-            }*/ else {
-                return 0; // same element type
+            }*/ //else {
+                //return 0; // same element type
             }
-        }
+
     };
 
     private final ObservableSet<Element> elements = FXCollections.observableSet(

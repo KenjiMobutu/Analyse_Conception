@@ -22,27 +22,33 @@ public class MenuView extends VBox {
     private final ToggleButton unPlantButton = new ToggleButton();
 
     private final ToggleGroup toggleGroup = new ToggleGroup();
-    private final ToggleButton plantCarotteButton = new ToggleButton("plant carrot");
-    private final ToggleButton plantCabbageButton = new ToggleButton("plant cabbage");
-    private final ToggleButton plantFertilizerButton = new ToggleButton("fertilizer");
+    private final ToggleButton plantCarotteButton = new ToggleButton("Plant Carrot");
+    private final ToggleButton plantCabbageButton = new ToggleButton("Plant Cabbage");
+    private final ToggleButton fertilizerButton = new ToggleButton("Fertilizer");
+    private final ToggleButton recoltButton = new ToggleButton("Recolt");
+
     private final MenuViewModel menuViewModel;
 
     private final HBox nbHbox;
-    HBox buttonsHBox = new HBox(startButton,sleepButton) ;
+    //HBox buttonsHBox = new HBox(startButton,sleepButton) ;
 
-    VBox actionVbox = new VBox(plantButtonGrass,unPlantButton,plantCarotteButton, plantCabbageButton);
+    VBox actionVbox = new VBox(plantButtonGrass,unPlantButton,plantCarotteButton, plantCabbageButton,fertilizerButton,recoltButton);
     HBox buttons = new HBox(startButton,sleepButton);
 
 
     public MenuView(MenuViewModel menuViewModel) {
         this.menuViewModel = menuViewModel;
         this.nbHbox = createNewHobx();
-        this.buttonsHBox = buttons;
+        //this.buttons = buttons;
         // this.actionVbox = actionVbox;
         configureMenu();
         bindLabelsToViewModel();
         setUpButtonStart();
         setUpButtonPlant();
+        setUpButtonPlantCabbage();
+        setUpButtonPlantCarott();
+        setUpButtonFertilizer();
+        setUpButtonRecolt();
         setUpButtonUnplant();
         setUpButtonStop();
     }
@@ -50,7 +56,7 @@ public class MenuView extends VBox {
     private void configureMenu(){
         setPadding(new Insets(FermeView.PADDING));
         setMinWidth(FermeView.MENU_WIDTH);
-        getChildren().addAll(nbHbox, buttonsHBox);
+        getChildren().addAll(nbHbox, buttons);
 
         // Disable the plant and unplant buttons initially
         Image img = new Image("grass.png");
@@ -96,7 +102,8 @@ public class MenuView extends VBox {
         plantButtonGrass.setToggleGroup(toggleGroup);
         plantCabbageButton.setToggleGroup(toggleGroup);
         plantCarotteButton.setToggleGroup(toggleGroup);
-        plantFertilizerButton.setToggleGroup(toggleGroup);
+        fertilizerButton.setToggleGroup(toggleGroup);
+        recoltButton.setToggleGroup(toggleGroup);
         unPlantButton.setToggleGroup(toggleGroup);
     }
 
@@ -123,6 +130,19 @@ public class MenuView extends VBox {
     private void setUpButtonUnplant() {
         unPlantButton.setOnAction(e -> handleUnPlantButtonAction());
     }
+    private void setUpButtonPlantCabbage() {
+        plantCabbageButton.setOnAction(e -> handlePlantCabbageButtonAction());
+    }
+    private void setUpButtonPlantCarott() {
+        plantCarotteButton.setOnAction(e -> handlePlantCarottButtonAction());
+    }
+
+    private void setUpButtonFertilizer() {
+        fertilizerButton.setOnAction(e -> handleFertilizerButtonAction());
+    }
+    private void setUpButtonRecolt() {
+        recoltButton.setOnAction(e -> handleRecoltButtonAction());
+    }
 
     //Ajouter les setUp des autres boutons.
 
@@ -139,7 +159,7 @@ public class MenuView extends VBox {
     }
 
     private void handleStopButtonAction() {
-        buttonsHBox.getChildren().remove(stopButton);
+        buttons.getChildren().remove(stopButton);
         plantButtonGrass.setDisable(true);
         unPlantButton.setDisable(true);
         menuViewModel.stop();
@@ -149,16 +169,28 @@ public class MenuView extends VBox {
     private void handlePlantButtonAction() {
         menuViewModel.plantMode();
     }
+    private void handlePlantCabbageButtonAction() {
+        menuViewModel.plantCabbageMode();
+    }
+    private void handlePlantCarottButtonAction() {
+        menuViewModel.plantCarottMode();
+    }
+    private void handleFertilizerButtonAction() {
+        menuViewModel.fertilizerMode();
+    }
+    private void handleRecoltButtonAction() {
+        menuViewModel.recoltMode();
+    }
 
     private void handleUnPlantButtonAction() {
         menuViewModel.unplantMode();
     }
 
     private void manageNewGameButton() {
-        buttonsHBox.getChildren().add(0, startButton);
+        buttons.getChildren().add(0, startButton);
         startButton.setOnAction(e -> {
-            buttonsHBox.getChildren().remove(startButton);
-            buttonsHBox.getChildren().add(0, stopButton);
+            buttons.getChildren().remove(startButton);
+            buttons.getChildren().add(0, stopButton);
             plantButtonGrass.setDisable(false);
             unPlantButton.setDisable(false);
             menuViewModel.newGame();
