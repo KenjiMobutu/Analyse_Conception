@@ -11,7 +11,7 @@ public abstract class VegetableState {
     protected int growthDays;
     protected int yieldPoints;
     protected int rottenDays;
-    protected int currentDay;
+    protected int day;
     protected Vegetable vegetable;
 
     public VegetableState(Vegetable vegetable) {
@@ -28,6 +28,6 @@ public abstract class VegetableState {
     public abstract boolean isRipe();
     public abstract boolean isRotten();
     public abstract int getHarvestPoints();
-
+    public abstract void nextDay();
 
 }

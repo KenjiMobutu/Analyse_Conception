@@ -19,6 +19,19 @@ public class MenuViewModel {
     public ReadOnlyStringProperty plantLabelProperty() {
         return new SimpleStringProperty("Planter du gazon");
     }
+    public ReadOnlyStringProperty plantCabbageLabelProperty() {
+        return new SimpleStringProperty("Planter du chou");
+    }
+    public ReadOnlyStringProperty plantCarrotLabelProperty() {
+        return new SimpleStringProperty("Planter des carottes");
+    }
+    public ReadOnlyStringProperty fertilizerLabelProperty() {
+        return new SimpleStringProperty("Fertiliser");
+    }
+    public ReadOnlyStringProperty recoltLabelProperty() {
+        return new SimpleStringProperty("Récolter");
+    }
+
     public ReadOnlyStringProperty unPlantLabelProperty() {
         return new SimpleStringProperty("Tondre du gazon");
     }
