@@ -15,6 +15,9 @@ public class MenuView extends VBox {
     private final Label jourLabel = new Label("Jour : ");
     private final TextField nbJour = new TextField(); // <------------- a binder
 
+    private final Label nbGrassTxt = new Label("Nombre de parcelles de gazon : ");
+    private final TextField nbGrass= new TextField();
+
     private final Button startButton = new Button();
     private final Button sleepButton = new Button("sleep");
     private final Button stopButton = new Button();
@@ -74,6 +77,9 @@ public class MenuView extends VBox {
         nbHbox.setFocusTraversable(false);
         plantButtonGrass.setFocusTraversable(false);
         unPlantButton.setFocusTraversable(false);
+        nbGrass.setFocusTraversable(false);
+        nbGrassTxt.setFocusTraversable(false);
+        nbGrass.setDisable(true);
 
         Image img1 = new Image("cabbage4.png");
         ImageView view1 = new ImageView(img1);
@@ -112,7 +118,14 @@ public class MenuView extends VBox {
         startButton.setDisable(false);
         addToToggleGroup();
         bindLabelsToViewModel();
+        manageNbGrass();//K:pour DEBUG
     }
+
+    private void manageNbGrass() {//K:pour DEBUG
+        System.out.println(menuViewModel.nbGrass().toString());
+        nbGrass.textProperty().bind(menuViewModel.nbGrass().asString());
+    }
+
     private void addToToggleGroup(){
         plantButtonGrass.setToggleGroup(toggleGroup);
         plantCabbageButton.setToggleGroup(toggleGroup);
@@ -135,7 +148,7 @@ public class MenuView extends VBox {
     }
 
     HBox createNewHobx() {
-        return new HBox(scoreLabel,nbScore ,jourLabel,nbJour);
+        return new HBox(scoreLabel,nbScore ,jourLabel,nbJour, nbGrassTxt,nbGrass);//K:pour DEBUG
     }
     public void setUpButtonStart() {
         startButton.setOnAction(e -> handleStartButtonAction());

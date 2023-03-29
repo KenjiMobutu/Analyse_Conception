@@ -1,9 +1,6 @@
 package eu.epfc.anc3.model;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.ReadOnlyBooleanProperty;
-import javafx.beans.property.ReadOnlyObjectProperty;
-import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.*;
 import javafx.collections.ObservableSet;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -287,6 +284,7 @@ public class FermeFacade {
         //addValuePropertyToSet(farmer.getPosFarmer().getPosX(), farmer.getPosFarmer().getPosY(),ParcelleValue.FARMER);
         if (plantGrass.getValue()){
             Position posGrass = new Position(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
+            farmer.plantGrass(posGrass);//K:Pour DEBUG
             System.out.println(!containsElementType(ParcelleValue.GRASS,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()));
             // ce genre de if doit se trouver dans ferme
             if (!containsElementType(ParcelleValue.GRASS,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY())) {
@@ -339,6 +337,7 @@ public class FermeFacade {
     void removeGrass(){
 
         if (containsElementType(ParcelleValue.GRASS, farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY())){
+            farmer.removeGrassAtPos(farmer.getPosFarmer());//K:Pour DEBUG
             removeElemFromCell(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY(), ParcelleValue.GRASS);
         }
         System.out.println(ferme.getAllElem(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "   qsldh");
@@ -350,4 +349,5 @@ public class FermeFacade {
         showElementsInCell(pos.getX(), pos.getY());
     }
 
+    public ReadOnlyIntegerProperty getNbGrass() {return ferme.nbGrassPlant();}//K:Pour DEBUG
 }

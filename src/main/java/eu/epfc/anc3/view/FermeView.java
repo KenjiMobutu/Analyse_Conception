@@ -19,18 +19,19 @@ import javafx.stage.Stage;
 public class FermeView extends BorderPane {
     static final int PADDING = 10;
     static final int MENU_WIDTH = 20;
-    private static final int SCENE_MIN_WIDTH = 550;
-    private static final int SCENE_MIN_HEIGHT = 250;
-    static final int FERME_WIDTH = 25;
-    static final int FERME_HEIGHT = 15;
+    private static final int SCENE_MIN_WIDTH = 900;
+    private static final int SCENE_MIN_HEIGHT = 650;
+    static final int FERME_WIDTH = 25;//25
+    static final int FERME_HEIGHT = 15;//15
     //private boolean spacePressed = false;
     // Contrainte de mise en page
     private final DoubleProperty gridWidthProperty = new SimpleDoubleProperty(150);
-    private final DoubleProperty gridHeightProperty = new SimpleDoubleProperty(400);
+
     private final FermeViewModel fermeViewModel = new FermeViewModel();
     // Composants principaux
     private TerrainView terrainView;
     public FermeView(Stage primaryStage ){
+
         start(primaryStage);
     }
 
@@ -101,8 +102,10 @@ public class FermeView extends BorderPane {
         terrainView.maxHeightProperty().bind(gridWidthProperty);
         terrainView.maxWidthProperty().bind(gridWidthProperty);
         gridWidthProperty.bind(Bindings.min(widthProperty().subtract(MENU_WIDTH - 2 * PADDING), heightProperty()));
-
-        setCenter(terrainView);
+        double terrainWidth = gridWidthProperty.get();
+        double padding = (getWidth() - MENU_WIDTH - terrainWidth) / 2;
+        setMargin(terrainView, new Insets(0, padding, 0, padding));
+        setBottom(terrainView);
     }
 
     private void configMenu() {

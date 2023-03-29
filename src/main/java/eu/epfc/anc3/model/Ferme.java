@@ -2,6 +2,7 @@ package eu.epfc.anc3.model;
 
 import javafx.beans.Observable;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableSet;
@@ -76,4 +77,8 @@ class Ferme {
     }
 
 
+/*-------------------------------POUR DEBUG------------------------------------*/
+    private final Farmer farmer= new Farmer() ;
+    public ReadOnlyIntegerProperty nbGrassPlant() {return farmer.nbgrass();
+    }
 }

@@ -1,6 +1,7 @@
 package eu.epfc.anc3.vm;
 
 import eu.epfc.anc3.model.FermeFacade;
+import javafx.beans.binding.BooleanExpression;
 import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -54,6 +55,8 @@ public class MenuViewModel {
     public void newGame() {
         fermeFacade.newGame();
     }
+
+    public ReadOnlyIntegerProperty nbGrass(){return fermeFacade.getNbGrass();}//K:pour DEBUG
 
 
 
