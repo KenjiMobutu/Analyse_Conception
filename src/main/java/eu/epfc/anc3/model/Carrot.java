@@ -30,14 +30,14 @@ class Carrot extends Vegetable implements Element {
     getHarvestPoints() : cette méthode permettra de récupérer le nombre de points gagnés en récoltant le légume.
     * */
 
-        public CarrotState1(Vegetable vegetable) {
+         CarrotState1(Vegetable vegetable) {
             super(vegetable);
             growthDays = 5;
             yieldPoints = 0;
             rottenDays = 3;
-        }
+         }
 
-        public VegetableState getCurrentState() {
+        VegetableState getCurrentState() {
             return this;
         }
 
@@ -71,9 +71,9 @@ class Carrot extends Vegetable implements Element {
     }
 
     //Level2
-    public class CarrotState2 extends VegetableState{
+    class CarrotState2 extends VegetableState{
 
-        public CarrotState2(Vegetable vegetable) {
+        CarrotState2(Vegetable vegetable) {
             super(vegetable);
             System.out.println("Carrot state2 created");
         }
@@ -111,9 +111,9 @@ class Carrot extends Vegetable implements Element {
     }
 
     //Level3
-    public class CarrotState3 extends VegetableState{
+    class CarrotState3 extends VegetableState{
 
-        public CarrotState3(Vegetable vegetable) {
+        CarrotState3(Vegetable vegetable) {
             super(vegetable);
             System.out.println("Carrot state3 created");
         }
@@ -150,9 +150,9 @@ class Carrot extends Vegetable implements Element {
     }
 
     //Level4
-    public class CarrotState4 extends VegetableState{
+    class CarrotState4 extends VegetableState{
 
-        public CarrotState4(Vegetable vegetable) {
+        CarrotState4(Vegetable vegetable) {
             super(vegetable);
             System.out.println("Carrot state4 created");
         }
@@ -187,9 +187,9 @@ class Carrot extends Vegetable implements Element {
     }
 
     //Level5-->pourri
-    public class CarrotState5 extends VegetableState{
+    class CarrotState5 extends VegetableState{
 
-        public CarrotState5(Vegetable vegetable) {
+        CarrotState5(Vegetable vegetable) {
             super(vegetable);
             System.out.println("Carrot POURRIE created");
         }

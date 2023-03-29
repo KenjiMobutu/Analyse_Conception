@@ -262,9 +262,8 @@ public class FermeFacade {
 
         }
         ferme.spawnFarmer(farmer, farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY());
-
-
     }
+
     void goLeft(){
 
         Position left = new Position(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()-1);
@@ -276,7 +275,6 @@ public class FermeFacade {
             farmer.setPosFarmer(left.getX(),left.getY());
         }
         ferme.spawnFarmer(farmer, farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
-
     }
 
     void dropGrass(){ //BV : voir plus haut
@@ -290,17 +288,14 @@ public class FermeFacade {
         spawnFarmerInFarm();
     }
     void dropCabbage(){
-        Position posCabbage = new Position(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
+        //Position posCabbage = new Position(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
         System.out.println(!containsElementType(ParcelleValue.CABBAGE,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "ICI Cabbage");
         addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(),new Cabbage());
-
-
-
         System.out.println(ferme.getAllElem(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "ICI Cabbage");
         spawnFarmerInFarm();
     }
     void dropCarrot(){
-        Position posCarrot = new Position(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
+        //Position posCarrot = new Position(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
         System.out.println(!containsElementType(ParcelleValue.CARROT,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "ICI Carrot");
         addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(),new Carrot());
         System.out.println(ferme.getAllElem(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "ICI Carrot");

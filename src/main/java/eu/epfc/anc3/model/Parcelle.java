@@ -41,16 +41,10 @@ class Parcelle {
                     return 1;
                 }
             } else {
-                return 0; // same element type
+                return 0; // same element
             }
         }
     };
-
-
-
-
-
-
 
     private final ObservableSet<Element> elements = FXCollections.observableSet(
             new TreeSet<>(elementComparator)

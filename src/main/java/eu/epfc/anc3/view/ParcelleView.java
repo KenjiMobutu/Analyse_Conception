@@ -22,7 +22,15 @@ public class ParcelleView extends StackPane {
     private static final Image DIRT = new Image("dirt.png");
     private static final Image GRASS = new Image("grass.png");
     private static final Image CABBAGE = new Image("cabbage1.png");
+    private static final Image CABBAGE2 = new Image("cabbage2.png");
+    private static final Image CABBAGE3 = new Image("cabbage3.png");
+    private static final Image CABBAGE4 = new Image("cabbage4.png");
+    private static final Image CABBAGEROTTEN = new Image("rotten_cabbage.png");
     private static final Image CARROT = new Image("carrot1.png");
+    private static final Image CARROT2 = new Image("carrot2.png");
+    private static final Image CARROT3 = new Image("carrot3.png");
+    private static final Image CARROT4 = new Image("carrot4.png");
+    private static final Image CARROTROTTEN = new Image("rotten_carrot.png");
 
 
 
@@ -35,8 +43,17 @@ public class ParcelleView extends StackPane {
         images.put(ParcelleValue.GRASS, GRASS);
         images.put(ParcelleValue.FARMER, FARMER);
         images.put(ParcelleValue.CABBAGE, CABBAGE);
+        images.put(ParcelleValue.CABBAGE2, CABBAGE2);
+        images.put(ParcelleValue.CABBAGE3, CABBAGE3);
+        images.put(ParcelleValue.CABBAGE4, CABBAGE4);
+        images.put(ParcelleValue.CABBAGEROTTEN, CABBAGEROTTEN);
         images.put(ParcelleValue.CARROT, CARROT);
+        images.put(ParcelleValue.CARROT2, CARROT2);
+        images.put(ParcelleValue.CARROT3, CARROT3);
+        images.put(ParcelleValue.CARROT4, CARROT4);
+        images.put(ParcelleValue.CARROTROTTEN, CARROTROTTEN);
     }
+
 
 
     public ParcelleView(ParcelleViewModel parcelleViewModel, DoubleBinding parcelleWidthProperty) {

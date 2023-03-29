@@ -17,8 +17,8 @@ class Cabbage extends Vegetable implements Element {
     /*----------------------------------------------------------------------------------------*/
 
     //Level1
-    public class CabbageState1 extends VegetableState {
-        public CabbageState1(Vegetable vegetable) {
+    class CabbageState1 extends VegetableState {
+        CabbageState1(Vegetable vegetable) {
             super(vegetable);
         }
 
@@ -52,8 +52,8 @@ class Cabbage extends Vegetable implements Element {
     }
 
     //Level2
-    public class CabbageState2 extends VegetableState{
-        public CabbageState2(Vegetable vegetable) {
+    class CabbageState2 extends VegetableState{
+        CabbageState2(Vegetable vegetable) {
             super(vegetable);
         }
 
@@ -88,8 +88,8 @@ class Cabbage extends Vegetable implements Element {
     }
 
     //Level3
-    public class CabbageState3 extends VegetableState {
-        public CabbageState3(Vegetable vegetable) {
+    class CabbageState3 extends VegetableState {
+        CabbageState3(Vegetable vegetable) {
             super(vegetable);
         }
 
@@ -124,8 +124,8 @@ class Cabbage extends Vegetable implements Element {
     }
 
     //Level4
-    public class CabbageState4 extends VegetableState{
-        public CabbageState4(Vegetable vegetable) {
+    class CabbageState4 extends VegetableState{
+        CabbageState4(Vegetable vegetable) {
             super(vegetable);
         }
 
@@ -160,8 +160,8 @@ class Cabbage extends Vegetable implements Element {
     }
 
     //Level5 --> Pourrie
-    public class CabbageRottenState extends VegetableState {
-        public CabbageRottenState(Vegetable vegetable) {
+    class CabbageRottenState extends VegetableState {
+        CabbageRottenState(Vegetable vegetable) {
             super(vegetable);
         }
 

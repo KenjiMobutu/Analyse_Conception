@@ -56,6 +56,7 @@ public class MenuView extends VBox {
         setUpButtonStop();
     }
 
+
     private void configureMenu(){
         setPadding(new Insets(FermeView.PADDING));
         setMinWidth(FermeView.MENU_WIDTH);
@@ -69,9 +70,18 @@ public class MenuView extends VBox {
 
         unPlantButton.setDisable(true);
 
+        setUpButtonMode();
+        setUpImages();
+       // nbGrassTextField.setDisable(true);
+
+        addToToggleGroup();
+        bindLabelsToViewModel();
+        manageNbGrass();//K:pour DEBUG
+    }
+
+    private void setUpButtonMode(){
         // Enable the start button initially
         startButton.setDisable(false);
-
         startButton.setFocusTraversable(false);
         stopButton.setFocusTraversable(false);
         nbHbox.setFocusTraversable(false);
@@ -80,7 +90,18 @@ public class MenuView extends VBox {
         nbGrass.setFocusTraversable(false);
         nbGrassTxt.setFocusTraversable(false);
         nbGrass.setDisable(true);
-
+        /*---------*/
+        nbJour.setDisable(true);
+        nbScore.setDisable(true);
+        plantButtonGrass.setDisable(true);
+        unPlantButton.setDisable(true);
+        plantCabbageButton.setDisable(true);
+        plantCarotteButton.setDisable(true);
+        fertilizerButton.setDisable(true);
+        recoltButton.setDisable(true);
+        startButton.setDisable(false);
+    }
+    private void setUpImages(){
         Image img1 = new Image("cabbage4.png");
         ImageView view1 = new ImageView(img1);
         plantCabbageButton.setGraphic(view1);
@@ -105,22 +126,7 @@ public class MenuView extends VBox {
         ImageView view5 = new ImageView(img5);
         sleepButton.setGraphic(view5);
         sleepButton.setFocusTraversable(false);
-
-       // nbGrassTextField.setDisable(true);
-        nbJour.setDisable(true);
-        nbScore.setDisable(true);
-        plantButtonGrass.setDisable(true);
-        unPlantButton.setDisable(true);
-        plantCabbageButton.setDisable(true);
-        plantCarotteButton.setDisable(true);
-        fertilizerButton.setDisable(true);
-        recoltButton.setDisable(true);
-        startButton.setDisable(false);
-        addToToggleGroup();
-        bindLabelsToViewModel();
-        manageNbGrass();//K:pour DEBUG
     }
-
     private void manageNbGrass() {//K:pour DEBUG
         System.out.println(menuViewModel.nbGrass().toString());
         nbGrass.textProperty().bind(menuViewModel.nbGrass().asString());
