@@ -13,7 +13,7 @@ public class MenuView extends VBox {
     private final Label scoreLabel = new Label("Score : ");
     private final TextField nbScore = new TextField(); //<------------- a binder
     private final Label jourLabel = new Label("Jour : ");
-    private final TextField nbJour = new TextField(); // <------------- a binder
+    private final TextField nbJour = new TextField("0"); // <------------- a binder
 
     private final Label nbGrassTxt = new Label("Nombre de parcelles de gazon : ");
     private final TextField nbGrass= new TextField();
@@ -54,6 +54,8 @@ public class MenuView extends VBox {
         setUpButtonRecolt();
         setUpButtonUnplant();
         setUpButtonStop();
+        setUpSleepAction();
+
     }
 
 
@@ -150,7 +152,6 @@ public class MenuView extends VBox {
         plantCarotteButton.textProperty().bind(menuViewModel.plantCarrotLabelProperty());
         fertilizerButton.textProperty().bind(menuViewModel.fertilizerLabelProperty());
         recoltButton.textProperty().bind(menuViewModel.recoltLabelProperty());
-        //ajouter les textProperty des autres boutons.
     }
 
     HBox createNewHobx() {
@@ -178,10 +179,16 @@ public class MenuView extends VBox {
     private void setUpButtonFertilizer() {
         fertilizerButton.setOnAction(e -> handleFertilizerButtonAction());
     }
+
+    private void setUpSleepAction(){
+    sleepButton.setOnAction(event -> {
+        int nbJours = Integer.parseInt(nbJour.getText());
+        nbJour.setText(Integer.toString(nbJours + 1));
+    });
+    }
     private void setUpButtonRecolt() {
         recoltButton.setOnAction(e -> handleRecoltButtonAction());
     }
-
     //Ajouter les setUp des autres boutons.
 
     public void handleStartButtonAction() {
@@ -207,6 +214,7 @@ public class MenuView extends VBox {
         fertilizerButton.setDisable(true);
         recoltButton.setDisable(true);
         menuViewModel.stop();
+        nbJour.setText("0");
         manageNewGameButton();
     }
 
@@ -225,7 +233,9 @@ public class MenuView extends VBox {
     private void handleRecoltButtonAction() {
         menuViewModel.recoltMode();
     }
-
+//    private void updateNbDaysLabel(){
+//        nbJour.textProperty().bind(menuViewModel.getNbDay().asString());
+//    }
     private void handleUnPlantButtonAction() {
         menuViewModel.unplantMode();
     }

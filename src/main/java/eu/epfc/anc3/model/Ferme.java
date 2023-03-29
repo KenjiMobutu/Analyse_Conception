@@ -30,24 +30,25 @@ class Ferme {
     void plantGrassMode(){
         fermeStatus.setValue(FermeStatus.PLANT_GRASS);
     }
-    public void plantCabbageMode() {
+    void plantCabbageMode() {
         fermeStatus.setValue(FermeStatus.PLANT_CABBAGE);
     }
 
-    public void plantCarrotMode() {
+    void plantCarrotMode() {
         fermeStatus.setValue(FermeStatus.PLANT_CARROT);
     }
 
-    public void fertilizerMode() {
+    void fertilizerMode() {
         fermeStatus.setValue(FermeStatus.FERTILIZER);
     }
 
-    public void recoltMode() {
+    void recoltMode() {
         fermeStatus.setValue(FermeStatus.RECOLT);
     }
     void unplantMode(){
         fermeStatus.set(FermeStatus.DEPLANT_GRASS);
     }
+
 
     boolean cellContainsElementType(ParcelleValue pv, int line, int col){
         return terrain.containsElementType(pv, line, col);

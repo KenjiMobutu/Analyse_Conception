@@ -38,6 +38,15 @@ public class FermeFacade {
     //public ReadOnlyBooleanProperty isStoppedProperty (){return isStopped;}
     public boolean actionPressedProperty() {return isPressingAction;} //BV mettre juste action property
 
+//    private ReadOnlyIntegerProperty nbDays = new ReadOnlyIntegerWrapper(0);
+//
+//    public void setNbDay(int value) {
+//        nbDays.set(value);
+//    }
+//
+//    public ReadOnlyIntegerProperty nbDaysProperty() {
+//        return nbDays.getReadOnlyProperty();
+//    }
 
     // mettre le spacePressed a true :
     public void setActionProperty(boolean b){isPressingAction = b;} //BV

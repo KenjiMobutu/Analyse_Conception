@@ -30,7 +30,6 @@ public class FermeView extends BorderPane {
     // Composants principaux
     private TerrainView terrainView;
     public FermeView(Stage primaryStage ){
-
         start(primaryStage);
     }
 
