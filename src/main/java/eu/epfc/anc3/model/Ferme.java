@@ -55,11 +55,17 @@ class Ferme {
 
     //ajout un element a une cellule
     void addElementToCell(Element p, int line, int col){
-        terrain.addElementToCell(p, line,col);
+        // faire un || qui check si un légume est déjà planter
+        if (!cellContainsElementType(p.getType(),line, col)){
+            terrain.addElementToCell(p, line,col);
+        }
     }
 
     //supprime un element
-    void removeElementFromCell(ParcelleValue p, int line, int col){terrain.removeElement(p,line,col);}
+    void removeElementFromCell(ParcelleValue p, int line, int col){
+        if (cellContainsElementType(p, line, col))
+            terrain.removeElement(p,line,col);
+    }
 
     ObservableSet<Element> getAllElem(int line, int col){ return terrain.getElem(line, col);}
 
