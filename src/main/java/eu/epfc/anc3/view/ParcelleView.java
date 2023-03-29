@@ -50,8 +50,8 @@ public class ParcelleView extends StackPane {
                 //creer un nouvel imageView avec cette image
                 //ajouter cette imageView aux children
             }
-            System.out.println(parcelleViewModel.line + " " + parcelleViewModel.col + " " +valueProp);
-            System.out.println(parcelleViewModel.line + " " + parcelleViewModel.col + " " +ParcelleView.this.getChildren());
+            //System.out.println(parcelleViewModel.line + " " + parcelleViewModel.col + " " +valueProp);
+            //System.out.println(parcelleViewModel.line + " " + parcelleViewModel.col + " " +ParcelleView.this.getChildren());
             //pour chaque element de valueProp, creer une imageview et l'ajouter aux childrens'
 
         });
@@ -61,8 +61,6 @@ public class ParcelleView extends StackPane {
     void addParcelleImage(ParcelleValue pv){
         switch (pv){
             case EMPTY :
-                addDirt();
-                break;
             case DIRT:
                 addDirt();
                 break;
@@ -83,25 +81,35 @@ public class ParcelleView extends StackPane {
 
     private void addCarrot() {
         ImageView carrot = new ImageView(CARROT);
+        carrot.setFitWidth(imageView.getFitWidth());
+        carrot.setFitHeight(imageView.getFitHeight());
         getChildren().add(carrot);
     }
 
     private void addCabbage() {
         ImageView cabbage = new ImageView(CABBAGE);
+        cabbage.setFitWidth(imageView.getFitWidth());
+        cabbage.setFitHeight(imageView.getFitHeight());
         getChildren().add(cabbage);
     }
 
     void addDirt(){
         ImageView dirt = new ImageView(DIRT);
+        dirt.setFitWidth(imageView.getFitWidth());
+        dirt.setFitHeight(imageView.getFitHeight());
         getChildren().add(dirt);
     }
     void addGrass(){
         ImageView grass = new ImageView(GRASS);
+        grass.setFitWidth(imageView.getFitWidth());
+        grass.setFitHeight(imageView.getFitHeight());
         getChildren().add(grass);
     }
 
     void addFarmer(){
         ImageView farmer = new ImageView(FARMER);
+        farmer.setFitWidth(imageView.getFitWidth());
+        farmer.setFitHeight(imageView.getFitHeight());
         getChildren().add(farmer);
     }
 }
