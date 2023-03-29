@@ -55,11 +55,15 @@ class Ferme {
 
     //ajout un element a une cellule
     void addElementToCell(Element p, int line, int col){
-        // faire un || qui check si un légume est déjà planter
-        if (!cellContainsElementType(p.getType(),line, col)){
-            terrain.addElementToCell(p, line,col);
+        // check si la cellule a deja un element de type vegetable
+        if (!cellContainsElementType(p.getType(),line, col) &&
+                (p.getType() != ParcelleValue.CARROT || !cellContainsElementType(ParcelleValue.CABBAGE ,line, col)) &&
+                (p.getType() != ParcelleValue.CABBAGE || !cellContainsElementType(ParcelleValue.CARROT ,line, col)))
+        {
+            terrain.addElementToCell(p, line, col);
         }
     }
+
 
     //supprime un element
     void removeElementFromCell(ParcelleValue p, int line, int col){
