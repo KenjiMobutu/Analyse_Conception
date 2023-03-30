@@ -35,10 +35,15 @@ class Cabbage extends Vegetable implements Element {
 
         @Override
         public void nextDay() {
-            day++;
+            growthDays++;
            /* if (vegetable.getDaysSincePlanted() >= growthDays) {
                 vegetable.setCurrentState(new CabbageState2(vegetable));
             }*/
+        }
+
+        @Override
+        public ParcelleValue getType() {
+            return null;
         }
     }
 
@@ -60,10 +65,15 @@ class Cabbage extends Vegetable implements Element {
 
         @Override
         public void nextDay() {
-            day++;
+            growthDays++;
             /*if (vegetable.getDaysSincePlanted() >= growthDays) {
                 vegetable.setCurrentState(new CabbageState3(vegetable));
             }*/
+        }
+
+        @Override
+        public ParcelleValue getType() {
+            return null;
         }
 
     }
@@ -86,10 +96,15 @@ class Cabbage extends Vegetable implements Element {
 
         @Override
         public void nextDay() {
-            day++;
+            growthDays++;
             /*if (vegetable.getDaysSincePlanted() >= growthDays) {
                 vegetable.setCurrentState(new CabbageState4(vegetable));
             }*/
+        }
+
+        @Override
+        public ParcelleValue getType() {
+            return null;
         }
 
     }
@@ -112,10 +127,15 @@ class Cabbage extends Vegetable implements Element {
 
         @Override
         public void nextDay() {
-            day++;
+            growthDays++;
             /*if (vegetable.getDaysSincePlanted() >= growthDays) {
                 vegetable.setCurrentState(new CabbageState5(vegetable));
             }*/
+        }
+
+        @Override
+        public ParcelleValue getType() {
+            return null;
         }
 
     }
@@ -138,7 +158,12 @@ class Cabbage extends Vegetable implements Element {
 
         @Override
         public void nextDay() {
-            day++;
+            growthDays++;
+        }
+
+        @Override
+        public ParcelleValue getType() {
+            return null;
         }
 
 
