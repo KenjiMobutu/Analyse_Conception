@@ -58,13 +58,6 @@ class Vegetable {
         currentState.nextState();
     }
 
-    public boolean isRipe() {
-        return currentState.isRipe();
-    }
-
-    public boolean isRotten() {
-        return currentState.isRotten();
-    }
 
     public int getHarvestPoints() {
         return currentState.getHarvestPoints();

@@ -19,14 +19,56 @@ public class MenuViewModel {
     public ReadOnlyStringProperty plantLabelProperty() {
         return new SimpleStringProperty("Planter du gazon");
     }
+    public ReadOnlyStringProperty plantCabbageLabelProperty() {
+        return new SimpleStringProperty("Planter du chou");
+    }
+    public ReadOnlyStringProperty plantCarrotLabelProperty() {
+        return new SimpleStringProperty("Planter des carottes");
+    }
+    public ReadOnlyStringProperty fertilizerLabelProperty() {
+        return new SimpleStringProperty("Fertiliser");
+    }
+    public ReadOnlyStringProperty recoltLabelProperty() {
+        return new SimpleStringProperty("Récolter");
+    }
+
     public ReadOnlyStringProperty unPlantLabelProperty() {
         return new SimpleStringProperty("Tondre du gazon");
     }
     public void start() {fermeFacade.start();}
     public void stop() {fermeFacade.stop();}
-    public void plantMode(){fermeFacade.plantActivation();}
+    public void plantGrassMode(){fermeFacade.plantGrassMode();}
+    public void plantCabbageMode() {
+        fermeFacade.plantCabbageMode();
+    }
+    public void plantCarottMode() {
+        fermeFacade.plantCarrotMode();
+    }
+    public void fertilizerMode() {
+        fermeFacade.fertilizerMode();
+    }
+//    public void setNbDays(int nbDays) {
+//        fermeFacade.setNbDay(nbDays);
+//    }
+//    public ReadOnlyIntegerProperty getNbDay() {
+//        return fermeFacade.nbDaysProperty();
+//    }
+    public void recoltMode() {fermeFacade.recoltMode();}
     public void unplantMode(){fermeFacade.unplantMode();}
     public void newGame() {
         fermeFacade.newGame();
     }
+
+    public ReadOnlyIntegerProperty nbGrass(){return fermeFacade.getNbGrass();}//K:pour DEBUG
+
+
+
+
+
+
+
+    /*public void saveGame() {
+        fermeFacade.saveGame();
+    }*/
+
 }

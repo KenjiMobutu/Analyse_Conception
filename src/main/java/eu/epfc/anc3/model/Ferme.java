@@ -2,6 +2,7 @@ package eu.epfc.anc3.model;
 
 import javafx.beans.Observable;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableSet;
@@ -26,12 +27,28 @@ class Ferme {
     void stop(){
         fermeStatus.setValue(FermeStatus.STOP);
     }
-    void plantMode(){
+    void plantGrassMode(){
         fermeStatus.setValue(FermeStatus.PLANT_GRASS);
+    }
+    void plantCabbageMode() {
+        fermeStatus.setValue(FermeStatus.PLANT_CABBAGE);
+    }
+
+    void plantCarrotMode() {
+        fermeStatus.setValue(FermeStatus.PLANT_CARROT);
+    }
+
+    void fertilizerMode() {
+        fermeStatus.setValue(FermeStatus.FERTILIZER);
+    }
+
+    void recoltMode() {
+        fermeStatus.setValue(FermeStatus.RECOLT);
     }
     void unplantMode(){
         fermeStatus.set(FermeStatus.DEPLANT_GRASS);
     }
+
 
     boolean cellContainsElementType(ParcelleValue pv, int line, int col){
         return terrain.containsElementType(pv, line, col);
@@ -39,11 +56,21 @@ class Ferme {
 
     //ajout un element a une cellule
     void addElementToCell(Element p, int line, int col){
-        terrain.addElementToCell(p, line,col);
+        // check si la cellule a deja un element de type vegetable
+        if (!cellContainsElementType(p.getType(),line, col) &&
+                (p.getType() != ParcelleValue.CARROT || !cellContainsElementType(ParcelleValue.CABBAGE ,line, col)) &&
+                (p.getType() != ParcelleValue.CABBAGE || !cellContainsElementType(ParcelleValue.CARROT ,line, col)))
+        {
+            terrain.addElementToCell(p, line, col);
+        }
     }
 
+
     //supprime un element
-    void removeElementFromCell(ParcelleValue p, int line, int col){terrain.removeElement(p,line,col);}
+    void removeElementFromCell(ParcelleValue p, int line, int col){
+        if (cellContainsElementType(p, line, col))
+            terrain.removeElement(p,line,col);
+    }
 
     ObservableSet<Element> getAllElem(int line, int col){ return terrain.getElem(line, col);}
 
@@ -58,5 +85,11 @@ class Ferme {
 
     Terrain getTerrain(){
         return terrain;
+    }
+
+
+/*-------------------------------POUR DEBUG------------------------------------*/
+    private final Farmer farmer= new Farmer() ;
+    public ReadOnlyIntegerProperty nbGrassPlant() {return farmer.nbgrass();
     }
 }

@@ -13,71 +13,74 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 public class ParcelleView extends StackPane {
     private static final Image FARMER = new Image("farmer.png");
     private static final Image DIRT = new Image("dirt.png");
     private static final Image GRASS = new Image("grass.png");
+    private static final Image CABBAGE = new Image("cabbage1.png");
+    private static final Image CABBAGE2 = new Image("cabbage2.png");
+    private static final Image CABBAGE3 = new Image("cabbage3.png");
+    private static final Image CABBAGE4 = new Image("cabbage4.png");
+    private static final Image CABBAGEROTTEN = new Image("rotten_cabbage.png");
+    private static final Image CARROT = new Image("carrot1.png");
+    private static final Image CARROT2 = new Image("carrot2.png");
+    private static final Image CARROT3 = new Image("carrot3.png");
+    private static final Image CARROT4 = new Image("carrot4.png");
+    private static final Image CARROTROTTEN = new Image("rotten_carrot.png");
+
 
 
     private ImageView imageView = new ImageView();
 
+    private static final Map<ParcelleValue, Image> images = new HashMap<>();
+    static {
+        images.put(ParcelleValue.EMPTY, DIRT);
+        images.put(ParcelleValue.DIRT, DIRT);
+        images.put(ParcelleValue.GRASS, GRASS);
+        images.put(ParcelleValue.FARMER, FARMER);
+        images.put(ParcelleValue.CABBAGE, CABBAGE);
+        images.put(ParcelleValue.CABBAGE2, CABBAGE2);
+        images.put(ParcelleValue.CABBAGE3, CABBAGE3);
+        images.put(ParcelleValue.CABBAGE4, CABBAGE4);
+        images.put(ParcelleValue.ROTTEN_CABBAGE, CABBAGEROTTEN);
+        images.put(ParcelleValue.CARROT, CARROT);
+        images.put(ParcelleValue.CARROT2, CARROT2);
+        images.put(ParcelleValue.CARROT3, CARROT3);
+        images.put(ParcelleValue.CARROT4, CARROT4);
+        images.put(ParcelleValue.ROTTEN_CARROT, CARROTROTTEN);
+    }
+
 
 
     public ParcelleView(ParcelleViewModel parcelleViewModel, DoubleBinding parcelleWidthProperty) {
-        imageView = new ImageView();
-
-        imageView.setPreserveRatio(false);
+        imageView.setPreserveRatio(true);
         imageView.fitWidthProperty().bind(parcelleWidthProperty);
         imageView.fitHeightProperty().bind(parcelleWidthProperty);
         imageView.setImage(DIRT);
         getChildren().add(imageView);
 
-        //un listener sur l'ObservableSet<Element> et dedans parcourir ce truc en appelant getType() sur chaque element
         ObservableSet<Element> valueProp = parcelleViewModel.getElementsInCell();
 
         valueProp.addListener((SetChangeListener<Element>) change -> {
-            //vider tous les children
             ParcelleView.this.getChildren().clear();
             addParcelleImage(ParcelleValue.EMPTY);
-            for(Element e  : valueProp){
+            for(Element e : valueProp) {
                 addParcelleImage(e.getType());
-                //retrouver l'image de l'élement
-                //creer un nouvel imageView avec cette image
-                //ajouter cette imageView aux children
             }
-            System.out.println(parcelleViewModel.line + " " + parcelleViewModel.col + " " +valueProp);
-            System.out.println(parcelleViewModel.line + " " + parcelleViewModel.col + " " +ParcelleView.this.getChildren());
-            //pour chaque element de valueProp, creer une imageview et l'ajouter aux childrens'
-
         });
+
         this.setOnMouseClicked(e -> parcelleViewModel.play());
     }
 
-    void addParcelleImage(ParcelleValue pv){
-        switch (pv){
-            case EMPTY :
-            case DIRT:
-                addDirt(); break;
-            case GRASS:
-                addGrass(); break;
-            case FARMER:
-                addFarmer(); break;
-        }
+    void addParcelleImage(ParcelleValue pv) {
+        ImageView imageView = new ImageView(images.get(pv));
+        imageView.setFitWidth(this.imageView.getFitWidth());
+        imageView.setFitHeight(this.imageView.getFitHeight());
+        getChildren().add(imageView);
     }
 
-    void addDirt(){
-        ImageView dirt = new ImageView(DIRT);
-        getChildren().add(dirt);
-    }
-    void addGrass(){
-        ImageView grass = new ImageView(GRASS);
-        getChildren().add(grass);
-    }
-
-    void addFarmer(){
-        ImageView farmer = new ImageView(FARMER);
-        getChildren().add(farmer);
-    }
 }

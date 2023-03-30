@@ -26,9 +26,6 @@ public class FermeViewModel {
     public ReadOnlyBooleanProperty isFermeStartedProperty() {
         return fermeFacade.isStartedProperty();
     }
-    public boolean isSpacePressed() {
-        return fermeFacade.actionPressedProperty();
-    }
     public void setSpacePressed(boolean b){fermeFacade.setActionProperty(b);}
     public FermeViewModel(){
         menuViewModel = new MenuViewModel(fermeFacade);

@@ -12,16 +12,15 @@ import java.util.Set;
 
 public class ParcelleViewModel {
     //cell
-    public final int line, col;
-    // remettre en private quand tout sera correcte
+    // remettre en private quand tout sera correcte (mettre en public si on veut débug les elements dans une cellule
+    //puis remettre les lignes nécessaire dans le fichier ParcelleView.
+    private final int line, col;
     private final FermeFacade fermeFacade;
     public ParcelleViewModel(int line, int col, FermeFacade ferme){
         this.col = col;
         this.line = line;
         this.fermeFacade = ferme;
     }
-
-
 
 
     public ReadOnlyBooleanProperty isStarted(){return fermeFacade.isStartedProperty();}
