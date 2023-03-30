@@ -1,7 +1,6 @@
 package eu.epfc.anc3.vm;
 
 import eu.epfc.anc3.model.FermeFacade;
-import javafx.beans.binding.BooleanExpression;
 import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -48,9 +47,13 @@ public class MenuViewModel {
     public void fertilizerMode() {
         fermeFacade.fertilizerMode();
     }
-    public void recoltMode() {
-        fermeFacade.recoltMode();
-    }
+//    public void setNbDays(int nbDays) {
+//        fermeFacade.setNbDay(nbDays);
+//    }
+//    public ReadOnlyIntegerProperty getNbDay() {
+//        return fermeFacade.nbDaysProperty();
+//    }
+    public void recoltMode() {fermeFacade.recoltMode();}
     public void unplantMode(){fermeFacade.unplantMode();}
     public void newGame() {
         fermeFacade.newGame();

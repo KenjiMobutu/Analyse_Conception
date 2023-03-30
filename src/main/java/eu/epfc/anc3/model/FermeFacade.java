@@ -34,10 +34,17 @@ public class FermeFacade {
 
     //public ReadOnlyBooleanProperty isStartableProperty (){return isStartable;}
     public ReadOnlyBooleanProperty isStartedProperty (){return isStarted;}
-    //public ReadOnlyBooleanProperty isInProgressProperty (){return isInProgress;}
-    //public ReadOnlyBooleanProperty isStoppedProperty (){return isStopped;}
     public boolean actionPressedProperty() {return isPressingAction;} //BV mettre juste action property
 
+//    private ReadOnlyIntegerProperty nbDays = new ReadOnlyIntegerWrapper(0);
+//
+//    public void setNbDay(int value) {
+//        nbDays.set(value);
+//    }
+//
+//    public ReadOnlyIntegerProperty nbDaysProperty() {
+//        return nbDays.getReadOnlyProperty();
+//    }
 
     // mettre le spacePressed a true :
     public void setActionProperty(boolean b){isPressingAction = b;} //BV
@@ -49,50 +56,44 @@ public class FermeFacade {
     private final BooleanProperty useFertilizer = new SimpleBooleanProperty(false);
     private final BooleanProperty recolt = new SimpleBooleanProperty(false);
 
-
     // retourne les éléments d'une cellule :
     public ObservableSet<ParcelleValue> getElementsType(int line, int col){ //BV : à enlevefr
         return ferme.getAllElemType(line,col);
     }
+
     public ObservableSet<Element> getElements(int line, int col){
         return ferme.getAllElem(line,col);
     }
     public FermeFacade(){
+        //si jeu peut être lancé
         isStartable.bind(fermeStatusProperty().isEqualTo(FermeStatus.START));
+        // pour vérifier tous les états que peut avoir le jeu
         isInProgress.bind(fermeStatusProperty().isEqualTo(FermeStatus.STARTED)
                 .or(ferme.fermeStatusProperty().isEqualTo(FermeStatus.PLANT_GRASS))
                 .or(ferme.fermeStatusProperty().isEqualTo(FermeStatus.DEPLANT_GRASS))
                 .or(ferme.fermeStatusProperty().isEqualTo(FermeStatus.PLANT_CABBAGE))
                 .or(ferme.fermeStatusProperty().isEqualTo(FermeStatus.PLANT_CARROT))
-                .or(ferme.fermeStatusProperty().isEqualTo(FermeStatus.FERTILIZER)));
+                .or(ferme.fermeStatusProperty().isEqualTo(FermeStatus.FERTILIZER))
+                .or(ferme.fermeStatusProperty().isEqualTo(FermeStatus.RECOLT)));
 
         isStarted.bind(ferme.fermeStatusProperty().isNotEqualTo(FermeStatus.START));
-
-
+        //check si jeu est arrêté
         isStopped.bind(ferme.fermeStatusProperty().isEqualTo(FermeStatus.STOP));
-
+        //les différentes actions possible dans le jeu
         plantGrass.bind(fermeStatusProperty().isEqualTo(FermeStatus.PLANT_GRASS));
         deplantGrass.bind(fermeStatusProperty().isEqualTo(FermeStatus.DEPLANT_GRASS));
         plantCabbage.bind(fermeStatusProperty().isEqualTo(FermeStatus.PLANT_CABBAGE));
         plantCarrot.bind(fermeStatusProperty().isEqualTo(FermeStatus.PLANT_CARROT));
         useFertilizer.bind(fermeStatusProperty().isEqualTo(FermeStatus.FERTILIZER));
-
-
-        //isPressingSpace.bind(fermeStatusProperty().isEqualTo(KeyCode.SPACE));
-    }
-   // void putFarmerInFarm(){ferme.setFarmerInFarm(farmer);}
-
-    public static int gridWidth() {
-        return Terrain.GRID_WIDTH;
     }
 
+    //permet de déplacer le fermier dans le jeu
     void spawnFarmerInFarm(){ferme.spawnFarmer(farmer, farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY());}
 
     public void start(){
         if (isStartable.get()){
             System.out.println(" -> lancement du jeu :) ");
             ferme.start();
-            //putFarmerInFarm();
             spawnFarmerInFarm();
         }
     }
@@ -103,7 +104,7 @@ public class FermeFacade {
             ferme.stop();
         }
     }
-    public void plantGrassMode(){ //a rename lui ou unplant
+    public void plantGrassMode(){
         if (isStarted.getValue()){
             System.out.println("  -> Planter de l'herbe est possible :) ");
             ferme.plantGrassMode();
@@ -238,10 +239,13 @@ public class FermeFacade {
         Position up = new Position(farmer.getPosFarmer().getX()-1, farmer.getPosFarmer().getY());
         if (up.getX() >= 0){
             System.out.println("x : " + up.getX() + "  y :" + up.getY());
-            displayElementsType(farmer.getPosFarmer());
+            removeElemFromCell(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY(), ParcelleValue.FARMER);
             farmer.setPosFarmer(up.getX(),up.getY());
-            ferme.spawnFarmer(farmer, up.getX(), up.getY());
         }
+        spawnFarmerInFarm();
+
+//        ferme.spawnFarmer(farmer, farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
+
     }
     void goDown(){
 
@@ -250,9 +254,10 @@ public class FermeFacade {
             System.out.println("x : " + down.getX() + "  y :" + down.getY());
             removeElemFromCell(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY(), ParcelleValue.FARMER);
             farmer.setPosFarmer(down.getX(),down.getY()); // a mettre dans spawnFarmer
-            ferme.spawnFarmer(farmer, down.getX(), down.getY());
         }
+        spawnFarmerInFarm();
 
+//        ferme.spawnFarmer(farmer, farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
     }
 
     void goRight(){
@@ -264,9 +269,12 @@ public class FermeFacade {
 
             farmer.setPosFarmer(right.getX(),right.getY());
 
-            ferme.spawnFarmer(farmer, right.getX(), right.getY());
         }
+        spawnFarmerInFarm();
+
+//        ferme.spawnFarmer(farmer, farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY());
     }
+
     void goLeft(){
 
         Position left = new Position(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()-1);
@@ -276,73 +284,48 @@ public class FermeFacade {
             removeElemFromCell(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY(), ParcelleValue.FARMER);
 
             farmer.setPosFarmer(left.getX(),left.getY());
-            ferme.spawnFarmer(farmer, left.getX(), left.getY());
         }
+        spawnFarmerInFarm();
+
+//        ferme.spawnFarmer(farmer, farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
     }
 
     void dropGrass(){ //BV : voir plus haut
-        //addValuePropertyToSet(farmer.getPosFarmer().getPosX(), farmer.getPosFarmer().getPosY(),ParcelleValue.FARMER);
-        if (plantGrass.getValue()){
-            Position posGrass = new Position(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
-            farmer.plantGrass(posGrass);//K:Pour DEBUG
-            System.out.println(!containsElementType(ParcelleValue.GRASS,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()));
-            // ce genre de if doit se trouver dans ferme
-            if (!containsElementType(ParcelleValue.GRASS,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY())) {
-                addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(),new Grass());
-                //displayGrass(posGrass);
-            }else
-                return;
-        }
+        Position posGrass = new Position(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
+        farmer.plantGrass(posGrass);//K:Pour DEBUG
+        System.out.println(!containsElementType(ParcelleValue.GRASS,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) );
+        //addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(),new Grass());
+        ferme.addElementToCell(new Grass(),farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
 
         System.out.println(ferme.getAllElem(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "qsldh");
         spawnFarmerInFarm();
     }
     void dropCabbage(){
-        if (plantCabbage.getValue()){
-            Position posCabbage = new Position(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
-            System.out.println(!containsElementType(ParcelleValue.CABBAGE,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "ICI Cabbage");
-            if (!containsElementType(ParcelleValue.CABBAGE,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY())) {
-                addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(),new Cabbage());
-            }else
-                return;
-        }
-
+        //Position posCabbage = new Position(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
+        System.out.println(!containsElementType(ParcelleValue.CABBAGE,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "ICI Cabbage");
+        addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(),new Cabbage());
         System.out.println(ferme.getAllElem(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "ICI Cabbage");
         spawnFarmerInFarm();
     }
     void dropCarrot(){
-        if (plantCarrot.getValue()){
-            Position posCarrot = new Position(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
-            System.out.println(!containsElementType(ParcelleValue.CARROT,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "ICI Carrot");
-            if (!containsElementType(ParcelleValue.CARROT,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY())) {
-                addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(),new Carrot());
-            }else
-                return;
-        }
-
+        //Position posCarrot = new Position(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
+        System.out.println(!containsElementType(ParcelleValue.CARROT,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "ICI Carrot");
+        addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(),new Carrot());
         System.out.println(ferme.getAllElem(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "ICI Carrot");
         spawnFarmerInFarm();
     }
 
 
-    void displayElementsType(Position pos){getElementsType(pos.getX(),pos.getY());}
-
-    void displayGrass(Position pos) {
-        showElementsInCell(pos.getX(), pos.getY());
-    }
-    void displayDirt(Position pos){
-        ferme.getTerrain().addElementToCell(new Dirt(), pos.getX(), pos.getY());
-    }
 
     void removeGrass(){
+        farmer.removeGrassAtPos(farmer.getPosFarmer());//K:Pour DEBUG
 
-        if (containsElementType(ParcelleValue.GRASS, farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY())){
-            farmer.removeGrassAtPos(farmer.getPosFarmer());//K:Pour DEBUG
-            removeElemFromCell(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY(), ParcelleValue.GRASS);
-        }
+        removeElemFromCell(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY(), ParcelleValue.GRASS);
+
         System.out.println(ferme.getAllElem(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "   qsldh");
 
         displayTerrain(farmer.getPosFarmer());
+
         spawnFarmerInFarm();
     }
     void displayTerrain(Position pos){

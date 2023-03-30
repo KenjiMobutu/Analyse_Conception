@@ -20,10 +20,9 @@ public class FermeView extends BorderPane {
     static final int PADDING = 10;
     static final int MENU_WIDTH = 20;
     private static final int SCENE_MIN_WIDTH = 900;
-    private static final int SCENE_MIN_HEIGHT = 650;
+    private static final int SCENE_MIN_HEIGHT = 900;
     static final int FERME_WIDTH = 25;//25
     static final int FERME_HEIGHT = 15;//15
-    //private boolean spacePressed = false;
     // Contrainte de mise en page
     private final DoubleProperty gridWidthProperty = new SimpleDoubleProperty(150);
 
@@ -31,7 +30,6 @@ public class FermeView extends BorderPane {
     // Composants principaux
     private TerrainView terrainView;
     public FermeView(Stage primaryStage ){
-
         start(primaryStage);
     }
 
@@ -144,13 +142,11 @@ public class FermeView extends BorderPane {
                     break;
                 case SPACE:
                     System.out.println(keyEvent.getCode()+ " est pressé -----------------");
-                    //scene.setOnKeyReleased(e -> handleKeyReleased());
                     spacePressed(true);
                     fermeViewModel.keyPressed(Move.SPACE);
                     break;
             }
         });
-        // Ajout de l'écouteur d'événements pour capturer les événements clavier
     }
 
     private void spacePressed(boolean b) { fermeViewModel.setSpacePressed(b);}

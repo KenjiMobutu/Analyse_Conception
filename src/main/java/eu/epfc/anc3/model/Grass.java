@@ -6,7 +6,10 @@ class Grass implements Element{ //BV : pas public
 
     public ParcelleValue getType(){return ParcelleValue.GRASS;}
 
-
+    @Override
+    public String toString() {
+        return "Grass ; ";
+    }
 
     Grass(Position p){} //K:pour debug
 }

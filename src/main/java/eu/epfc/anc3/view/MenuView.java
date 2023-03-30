@@ -13,7 +13,7 @@ public class MenuView extends VBox {
     private final Label scoreLabel = new Label("Score : ");
     private final TextField nbScore = new TextField(); //<------------- a binder
     private final Label jourLabel = new Label("Jour : ");
-    private final TextField nbJour = new TextField(); // <------------- a binder
+    private final TextField nbJour = new TextField("0"); // <------------- a binder
 
     private final Label nbGrassTxt = new Label("Nombre de parcelles de gazon : ");
     private final TextField nbGrass= new TextField();
@@ -54,7 +54,10 @@ public class MenuView extends VBox {
         setUpButtonRecolt();
         setUpButtonUnplant();
         setUpButtonStop();
+        setUpSleepAction();
+
     }
+
 
     private void configureMenu(){
         setPadding(new Insets(FermeView.PADDING));
@@ -69,9 +72,18 @@ public class MenuView extends VBox {
 
         unPlantButton.setDisable(true);
 
+        setUpButtonMode();
+        setUpImages();
+       // nbGrassTextField.setDisable(true);
+
+        addToToggleGroup();
+        bindLabelsToViewModel();
+        manageNbGrass();//K:pour DEBUG
+    }
+
+    private void setUpButtonMode(){
         // Enable the start button initially
         startButton.setDisable(false);
-
         startButton.setFocusTraversable(false);
         stopButton.setFocusTraversable(false);
         nbHbox.setFocusTraversable(false);
@@ -80,7 +92,18 @@ public class MenuView extends VBox {
         nbGrass.setFocusTraversable(false);
         nbGrassTxt.setFocusTraversable(false);
         nbGrass.setDisable(true);
-
+        /*---------*/
+        nbJour.setDisable(true);
+        nbScore.setDisable(true);
+        plantButtonGrass.setDisable(true);
+        unPlantButton.setDisable(true);
+        plantCabbageButton.setDisable(true);
+        plantCarotteButton.setDisable(true);
+        fertilizerButton.setDisable(true);
+        recoltButton.setDisable(true);
+        startButton.setDisable(false);
+    }
+    private void setUpImages(){
         Image img1 = new Image("cabbage4.png");
         ImageView view1 = new ImageView(img1);
         plantCabbageButton.setGraphic(view1);
@@ -105,22 +128,7 @@ public class MenuView extends VBox {
         ImageView view5 = new ImageView(img5);
         sleepButton.setGraphic(view5);
         sleepButton.setFocusTraversable(false);
-
-       // nbGrassTextField.setDisable(true);
-        nbJour.setDisable(true);
-        nbScore.setDisable(true);
-        plantButtonGrass.setDisable(true);
-        unPlantButton.setDisable(true);
-        plantCabbageButton.setDisable(true);
-        plantCarotteButton.setDisable(true);
-        fertilizerButton.setDisable(true);
-        recoltButton.setDisable(true);
-        startButton.setDisable(false);
-        addToToggleGroup();
-        bindLabelsToViewModel();
-        manageNbGrass();//K:pour DEBUG
     }
-
     private void manageNbGrass() {//K:pour DEBUG
         System.out.println(menuViewModel.nbGrass().toString());
         nbGrass.textProperty().bind(menuViewModel.nbGrass().asString());
@@ -144,7 +152,6 @@ public class MenuView extends VBox {
         plantCarotteButton.textProperty().bind(menuViewModel.plantCarrotLabelProperty());
         fertilizerButton.textProperty().bind(menuViewModel.fertilizerLabelProperty());
         recoltButton.textProperty().bind(menuViewModel.recoltLabelProperty());
-        //ajouter les textProperty des autres boutons.
     }
 
     HBox createNewHobx() {
@@ -172,10 +179,16 @@ public class MenuView extends VBox {
     private void setUpButtonFertilizer() {
         fertilizerButton.setOnAction(e -> handleFertilizerButtonAction());
     }
+
+    private void setUpSleepAction(){
+    sleepButton.setOnAction(event -> {
+        int nbJours = Integer.parseInt(nbJour.getText());
+        nbJour.setText(Integer.toString(nbJours + 1));
+    });
+    }
     private void setUpButtonRecolt() {
         recoltButton.setOnAction(e -> handleRecoltButtonAction());
     }
-
     //Ajouter les setUp des autres boutons.
 
     public void handleStartButtonAction() {
@@ -201,6 +214,7 @@ public class MenuView extends VBox {
         fertilizerButton.setDisable(true);
         recoltButton.setDisable(true);
         menuViewModel.stop();
+        nbJour.setText("0");
         manageNewGameButton();
     }
 
@@ -219,7 +233,9 @@ public class MenuView extends VBox {
     private void handleRecoltButtonAction() {
         menuViewModel.recoltMode();
     }
-
+//    private void updateNbDaysLabel(){
+//        nbJour.textProperty().bind(menuViewModel.getNbDay().asString());
+//    }
     private void handleUnPlantButtonAction() {
         menuViewModel.unplantMode();
     }
