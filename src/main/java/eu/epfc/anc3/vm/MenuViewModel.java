@@ -62,7 +62,6 @@ public class MenuViewModel {
 
     public ReadOnlyIntegerProperty nbGrass(){return fermeFacade.getNbGrass();}//K:pour DEBUG
 
-    public ReadOnlyIntegerProperty nbJours() {return fermeFacade.getNbJour();}
 
     public void sleepMode() {
         fermeFacade.nextDay();

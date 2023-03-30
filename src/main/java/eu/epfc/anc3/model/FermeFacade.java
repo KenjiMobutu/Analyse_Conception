@@ -51,7 +51,7 @@ public class FermeFacade {
     private final BooleanProperty plantCabbage = new SimpleBooleanProperty(false);
     private final BooleanProperty useFertilizer = new SimpleBooleanProperty(false);
     private final BooleanProperty recolt = new SimpleBooleanProperty(false);
-
+    private IntegerProperty nbJours = new SimpleIntegerProperty(0);
 
     // retourne les éléments d'une cellule :
     public ObservableSet<ParcelleValue> getElementsType(int line, int col){ //BV : à enlevefr
@@ -318,7 +318,7 @@ public class FermeFacade {
         System.out.println(ferme.getAllElem(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "ICI Carrot");
         spawnFarmerInFarm();
     }
-    private IntegerProperty nbJours = new SimpleIntegerProperty(0);
+
 
 
     void removeGrass(){
@@ -351,7 +351,7 @@ public class FermeFacade {
 
     public IntegerProperty nextDayProperty() {
         nbJours.set(nbJours.get() + 1);
-        System.out.println(nbJours);
+        System.out.println(nbJours + "nbJours");
         return nbJours;
     }
 }

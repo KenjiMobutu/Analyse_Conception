@@ -137,10 +137,7 @@ public class MenuView extends VBox {
         System.out.println(menuViewModel.nbGrass().toString());
         nbGrass.textProperty().bind(menuViewModel.nbGrass().asString());
     }
-    private void manageNbJour() {//K:pour DEBUG
-        System.out.println(menuViewModel.nbJours().toString());
-        nbJour.textProperty().bind(menuViewModel.nbJours().asString());
-    }
+
 
     private void addToToggleGroup(){
         plantButtonGrass.setToggleGroup(toggleGroup);

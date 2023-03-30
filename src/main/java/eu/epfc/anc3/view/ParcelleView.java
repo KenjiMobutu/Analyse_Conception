@@ -1,5 +1,6 @@
 package eu.epfc.anc3.view;
 
+import eu.epfc.anc3.model.Carrot;
 import eu.epfc.anc3.model.Element;
 import eu.epfc.anc3.model.ParcelleValue;
 import eu.epfc.anc3.vm.ParcelleViewModel;
@@ -65,10 +66,28 @@ public class ParcelleView extends StackPane {
 
         ObservableSet<Element> valueProp = parcelleViewModel.getElementsInCell();
 
-        valueProp.addListener((SetChangeListener<Element>) change -> {
+        /*valueProp.addListener((SetChangeListener<Element>) change -> {
             ParcelleView.this.getChildren().clear();
             addParcelleImage(ParcelleValue.EMPTY);
             for(Element e : valueProp) {
+                addParcelleImage(e.getType());
+
+
+            }
+        });*/
+        // Ajouter un écouteur de changement d'état à chaque CarrotViewModel
+        parcelleViewModel.getElementsInCell().addListener((SetChangeListener<Element>) change -> {
+            ParcelleView.this.getChildren().clear();
+            addParcelleImage(ParcelleValue.EMPTY);
+            for(Element e : valueProp) {
+                if (e instanceof Carrot) {
+                    Carrot c = (Carrot) e;
+                    c.addStateListener((obs, oldState, newState) -> {
+                        ParcelleValue pv = newState.getType();
+                        ParcelleView.this.getChildren().remove(1);
+                        addParcelleImage(pv);
+                    });
+                }
                 addParcelleImage(e.getType());
             }
         });
