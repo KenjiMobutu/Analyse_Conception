@@ -1,6 +1,8 @@
 package eu.epfc.anc3.model;
 
-    /*méthodes:
+import javafx.beans.value.ChangeListener;
+
+/*méthodes:
         getCurrentState() : cette méthode permettra de récupérer l'état actuel de croissance du légume.
         setNextState() : cette méthode permettra de passer au stade de croissance suivant.
         isRipe() : cette méthode permettra de vérifier si le légume est arrivé à maturité.
@@ -8,11 +10,11 @@ package eu.epfc.anc3.model;
         getHarvestPoints() : cette méthode permettra de récupérer le nombre de points gagnés en récoltant le légume.
      */
 public class Carrot extends Vegetable implements Element {
-    private int growthDays;
     private final int maxScore = 100;
     public Carrot() {
         super();
         super.setState(new CarrotState1(this));
+        CarrotState1 getCurrentState = new CarrotState1(this);
     }
 
     @Override
@@ -22,7 +24,7 @@ public class Carrot extends Vegetable implements Element {
 
     @Override
     public String toString() {
-        return "Je Suis une Carotte";
+        return "Carotte";
     }
 
     /*----------------------------------------------------------------------------------------*/
@@ -44,6 +46,7 @@ public class Carrot extends Vegetable implements Element {
         @Override
         public void nextState() {
             vegetable.setCurrentState(new CarrotState2(vegetable));
+            System.out.println("Carrot state 1 changed to state 2");
         }
 
         public ParcelleValue getType() {
@@ -71,12 +74,12 @@ public class Carrot extends Vegetable implements Element {
         public CarrotState2(Vegetable vegetable) {
             super(vegetable);
             growthDays = 3;
-            System.out.println("Carrot state2 created");
+            System.out.println("Carrot state 2 created");
         }
 
         @Override
         public void nextState() {
-
+            System.out.println("Carrot state 2 changed to state 3");
             vegetable.setState(new CarrotState3(vegetable));
         }
 
@@ -97,6 +100,7 @@ public class Carrot extends Vegetable implements Element {
             return ParcelleValue.CARROT2;
         }
 
+
     }
 
     //Level3
@@ -105,13 +109,12 @@ public class Carrot extends Vegetable implements Element {
         public CarrotState3(Vegetable vegetable) {
             super(vegetable);
             growthDays = 6;
-            System.out.println("Carrot state3 created");
+            System.out.println("Carrot state 3 created");
         }
 
         @Override
         public void nextState() {
-            //vegetable.setCurrentState(new CarrotState4(vegetable));
-            //vegetable.setDaysSincePlanted(0);
+            System.out.println("Carrot state 3 changed to state 4");
             vegetable.setState(new CarrotState4(vegetable));
         }
 
@@ -124,6 +127,7 @@ public class Carrot extends Vegetable implements Element {
         public void nextDay() {
             growthDays++;
             if ( growthDays == daysToNextState) {
+                System.out.println("Carrot state 3 changed to state 4");
                 vegetable.setCurrentState(new CarrotState4(vegetable));
             }
         }
@@ -138,11 +142,12 @@ public class Carrot extends Vegetable implements Element {
         public CarrotState4(Vegetable vegetable) {
             super(vegetable);
             growthDays = 9;
-            System.out.println("Carrot state4 created");
+            System.out.println("Carrot state 4 created");
         }
 
         @Override
         public void nextState() {
+            System.out.println("Carrot state 4 changed to state ROTTEN");
             vegetable.setState(new CarrotState5(vegetable));
         }
 

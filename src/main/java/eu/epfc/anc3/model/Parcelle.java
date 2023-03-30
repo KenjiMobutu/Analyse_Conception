@@ -50,8 +50,6 @@ class Parcelle {
             new TreeSet<>(elementComparator)
     );
 
-
-
     ObservableSet<Element> getElements() {
         return elements;
     }

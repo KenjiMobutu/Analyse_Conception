@@ -2,10 +2,6 @@ package eu.epfc.anc3.model;
 
 import javafx.beans.property.*;
 import javafx.collections.ObservableSet;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-
-import java.util.Set;
 
 import static eu.epfc.anc3.model.Terrain.GRID_HEIGHT;
 import static eu.epfc.anc3.model.Terrain.GRID_WIDTH;
@@ -55,6 +51,7 @@ public class FermeFacade {
     private final BooleanProperty plantCabbage = new SimpleBooleanProperty(false);
     private final BooleanProperty useFertilizer = new SimpleBooleanProperty(false);
     private final BooleanProperty recolt = new SimpleBooleanProperty(false);
+
 
     // retourne les éléments d'une cellule :
     public ObservableSet<ParcelleValue> getElementsType(int line, int col){ //BV : à enlevefr
@@ -219,20 +216,16 @@ public class FermeFacade {
         }else if (deplantGrass.getValue())
             removeGrass();
         else if (plantCabbage.getValue())
-            dropCabbage();
+            plantCabbage();
         else if (plantCarrot.getValue())
-            dropCarrot();
+            PlantCarrot();
         else if (useFertilizer.getValue())
             dropFertilizer();
         else if (recolt.getValue())
             recoltVegetals();
     }
 
-    private void recoltVegetals() {
-    }
 
-    private void dropFertilizer() {
-    }
 
 
     void goUp(){ //BV : voir "play" mais qui devrait se nommer "teleport"
@@ -300,21 +293,32 @@ public class FermeFacade {
         System.out.println(ferme.getAllElem(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "qsldh");
         spawnFarmerInFarm();
     }
-    void dropCabbage(){
+    void plantCabbage(){
+        Cabbage cabbageState1 = new Cabbage();
         //Position posCabbage = new Position(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
         System.out.println(!containsElementType(ParcelleValue.CABBAGE,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "ICI Cabbage");
-        addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(),new Cabbage());
+        addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(),cabbageState1);
+        nextDayProperty().addListener((obs, oldVal, newVal) -> {
+            System.out.println("next day");
+            cabbageState1.getCurrentState().nextDay();
+        });
         System.out.println(ferme.getAllElem(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "ICI Cabbage");
         spawnFarmerInFarm();
     }
-    void dropCarrot(){
+    void PlantCarrot(){
+        Carrot carrotState1 = new Carrot();
         //Position posCarrot = new Position(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
         System.out.println(!containsElementType(ParcelleValue.CARROT,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "ICI Carrot");
-        addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(),new Carrot());
+        addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(), carrotState1);
+        nextDayProperty().addListener((obs, oldVal, newVal) -> {
+            System.out.println("next day");
+            carrotState1.getCurrentState().nextDay();
+        });
+
         System.out.println(ferme.getAllElem(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "ICI Carrot");
         spawnFarmerInFarm();
     }
-
+    private IntegerProperty nbJours = new SimpleIntegerProperty(0);
 
 
     void removeGrass(){
@@ -328,9 +332,26 @@ public class FermeFacade {
 
         spawnFarmerInFarm();
     }
+    private void recoltVegetals() {
+    }
+
+    private void dropFertilizer() {
+    }
     void displayTerrain(Position pos){
         showElementsInCell(pos.getX(), pos.getY());
     }
 
     public ReadOnlyIntegerProperty getNbGrass() {return ferme.nbGrassPlant();}//K:Pour DEBUG
+
+    public ReadOnlyIntegerProperty getNbJour() {return ferme.nbDays();
+    }
+
+    public ReadOnlyIntegerProperty nextDay() { return this.nextDayProperty();
+    }
+
+    public IntegerProperty nextDayProperty() {
+        nbJours.set(nbJours.get() + 1);
+        System.out.println(nbJours);
+        return nbJours;
+    }
 }
