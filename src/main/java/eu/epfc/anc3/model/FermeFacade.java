@@ -34,8 +34,6 @@ public class FermeFacade {
 
     //public ReadOnlyBooleanProperty isStartableProperty (){return isStartable;}
     public ReadOnlyBooleanProperty isStartedProperty (){return isStarted;}
-    //public ReadOnlyBooleanProperty isInProgressProperty (){return isInProgress;}
-    //public ReadOnlyBooleanProperty isStoppedProperty (){return isStopped;}
     public boolean actionPressedProperty() {return isPressingAction;} //BV mettre juste action property
 
 //    private ReadOnlyIntegerProperty nbDays = new ReadOnlyIntegerWrapper(0);
@@ -57,7 +55,6 @@ public class FermeFacade {
     private final BooleanProperty plantCabbage = new SimpleBooleanProperty(false);
     private final BooleanProperty useFertilizer = new SimpleBooleanProperty(false);
     private final BooleanProperty recolt = new SimpleBooleanProperty(false);
-
 
     // retourne les éléments d'une cellule :
     public ObservableSet<ParcelleValue> getElementsType(int line, int col){ //BV : à enlevefr
@@ -82,7 +79,6 @@ public class FermeFacade {
         isStarted.bind(ferme.fermeStatusProperty().isNotEqualTo(FermeStatus.START));
         //check si jeu est arrêté
         isStopped.bind(ferme.fermeStatusProperty().isEqualTo(FermeStatus.STOP));
-
         //les différentes actions possible dans le jeu
         plantGrass.bind(fermeStatusProperty().isEqualTo(FermeStatus.PLANT_GRASS));
         deplantGrass.bind(fermeStatusProperty().isEqualTo(FermeStatus.DEPLANT_GRASS));
@@ -246,7 +242,9 @@ public class FermeFacade {
             removeElemFromCell(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY(), ParcelleValue.FARMER);
             farmer.setPosFarmer(up.getX(),up.getY());
         }
-        ferme.spawnFarmer(farmer, farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
+        spawnFarmerInFarm();
+
+//        ferme.spawnFarmer(farmer, farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
 
     }
     void goDown(){
@@ -257,7 +255,9 @@ public class FermeFacade {
             removeElemFromCell(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY(), ParcelleValue.FARMER);
             farmer.setPosFarmer(down.getX(),down.getY()); // a mettre dans spawnFarmer
         }
-        ferme.spawnFarmer(farmer, farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
+        spawnFarmerInFarm();
+
+//        ferme.spawnFarmer(farmer, farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
     }
 
     void goRight(){
@@ -270,7 +270,9 @@ public class FermeFacade {
             farmer.setPosFarmer(right.getX(),right.getY());
 
         }
-        ferme.spawnFarmer(farmer, farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY());
+        spawnFarmerInFarm();
+
+//        ferme.spawnFarmer(farmer, farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY());
     }
 
     void goLeft(){
@@ -283,7 +285,9 @@ public class FermeFacade {
 
             farmer.setPosFarmer(left.getX(),left.getY());
         }
-        ferme.spawnFarmer(farmer, farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
+        spawnFarmerInFarm();
+
+//        ferme.spawnFarmer(farmer, farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
     }
 
     void dropGrass(){ //BV : voir plus haut
