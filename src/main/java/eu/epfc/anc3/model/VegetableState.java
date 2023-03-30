@@ -9,8 +9,8 @@ public abstract class VegetableState {
     *rottenDays : propriété qui contiendra le nombre de jours avant que le légume ne pourrisse.
      */
     protected int growthDays;
-    protected int yieldPoints;
-    protected int rottenDays;
+    protected int daysToNextState ;
+
     protected int day;
     protected Vegetable vegetable;
 
@@ -25,8 +25,6 @@ public abstract class VegetableState {
     getHarvestPoints() : Cette méthode permettra de récupérer le nombre de points gagnés en récoltant le légume.
     * */
     public abstract void nextState();
-    public abstract boolean isRipe();
-    public abstract boolean isRotten();
     public abstract int getHarvestPoints();
     public abstract void nextDay();
 

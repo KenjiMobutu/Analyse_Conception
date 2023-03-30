@@ -27,15 +27,6 @@ class Cabbage extends Vegetable implements Element {
             vegetable.setCurrentState(new CabbageState2(vegetable));
         }
 
-        @Override
-        public boolean isRipe() {
-            return false;
-        }
-
-        @Override
-        public boolean isRotten() {
-            return false;
-        }
 
         @Override
         public int getHarvestPoints() {
@@ -60,16 +51,6 @@ class Cabbage extends Vegetable implements Element {
         @Override
         public void nextState() {
 
-        }
-
-        @Override
-        public boolean isRipe() {
-            return false;
-        }
-
-        @Override
-        public boolean isRotten() {
-            return false;
         }
 
         @Override
@@ -99,16 +80,6 @@ class Cabbage extends Vegetable implements Element {
         }
 
         @Override
-        public boolean isRipe() {
-            return false;
-        }
-
-        @Override
-        public boolean isRotten() {
-            return false;
-        }
-
-        @Override
         public int getHarvestPoints() {
             return 0;
         }
@@ -135,16 +106,6 @@ class Cabbage extends Vegetable implements Element {
         }
 
         @Override
-        public boolean isRipe() {
-            return false;
-        }
-
-        @Override
-        public boolean isRotten() {
-            return false;
-        }
-
-        @Override
         public int getHarvestPoints() {
             return 0;
         }
@@ -168,16 +129,6 @@ class Cabbage extends Vegetable implements Element {
         @Override
         public void nextState() {
 
-        }
-
-        @Override
-        public boolean isRipe() {
-            return false;
-        }
-
-        @Override
-        public boolean isRotten() {
-            return true;
         }
 
         @Override

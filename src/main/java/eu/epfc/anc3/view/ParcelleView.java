@@ -46,12 +46,12 @@ public class ParcelleView extends StackPane {
         images.put(ParcelleValue.CABBAGE2, CABBAGE2);
         images.put(ParcelleValue.CABBAGE3, CABBAGE3);
         images.put(ParcelleValue.CABBAGE4, CABBAGE4);
-        images.put(ParcelleValue.CABBAGEROTTEN, CABBAGEROTTEN);
+        images.put(ParcelleValue.ROTTEN_CABBAGE, CABBAGEROTTEN);
         images.put(ParcelleValue.CARROT, CARROT);
         images.put(ParcelleValue.CARROT2, CARROT2);
         images.put(ParcelleValue.CARROT3, CARROT3);
         images.put(ParcelleValue.CARROT4, CARROT4);
-        images.put(ParcelleValue.CARROTROTTEN, CARROTROTTEN);
+        images.put(ParcelleValue.ROTTEN_CARROT, CARROTROTTEN);
     }
 
 
