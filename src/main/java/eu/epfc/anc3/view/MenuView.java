@@ -58,8 +58,6 @@ public class MenuView extends VBox {
         setUpButtonUnplant();
         setUpButtonStop();
         setUpSleepAction();
-
-
     }
 
 

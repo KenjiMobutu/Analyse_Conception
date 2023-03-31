@@ -16,7 +16,16 @@ class Parcelle {
         elementPriorityMap.put(ParcelleValue.DIRT, 1);
         elementPriorityMap.put(ParcelleValue.GRASS, 2);
         elementPriorityMap.put(ParcelleValue.CARROT, 3);
+        elementPriorityMap.put(ParcelleValue.CARROT2, 3);
+        elementPriorityMap.put(ParcelleValue.CARROT3, 3);
+        elementPriorityMap.put(ParcelleValue.CARROT4, 3);
+        elementPriorityMap.put(ParcelleValue.ROTTEN_CARROT, 3);
+
         elementPriorityMap.put(ParcelleValue.CABBAGE, 4);
+        elementPriorityMap.put(ParcelleValue.CABBAGE2, 4);
+        elementPriorityMap.put(ParcelleValue.CABBAGE3, 4);
+        elementPriorityMap.put(ParcelleValue.CABBAGE4, 4);
+        elementPriorityMap.put(ParcelleValue.ROTTEN_CABBAGE, 4);
         elementPriorityMap.put(ParcelleValue.FARMER, 5);
 
     }

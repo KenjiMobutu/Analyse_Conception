@@ -67,11 +67,6 @@ public class MenuViewModel {
         fermeFacade.nextDay();
     }
 
-
-
-
-
-
     /*public void saveGame() {
         fermeFacade.saveGame();
     }*/

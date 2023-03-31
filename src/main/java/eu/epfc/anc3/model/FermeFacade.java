@@ -287,6 +287,7 @@ public class FermeFacade {
         System.out.println(ferme.getAllElem(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "qsldh");
         spawnFarmerInFarm();
     }
+
     void plantCabbage(){
         Cabbage cabbageState1 = new Cabbage();
         //Position posCabbage = new Position(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
