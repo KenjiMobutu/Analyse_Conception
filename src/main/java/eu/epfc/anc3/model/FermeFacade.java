@@ -229,6 +229,7 @@ public class FermeFacade {
     }
 
     private void recoltVegetals() {
+
     }
 
     private void dropFertilizer() {
@@ -264,11 +265,8 @@ public class FermeFacade {
         Position right = new Position(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()+1);
         if (right.getY() < GRID_WIDTH){
             System.out.println("x : " + right.getX() + "  y :" + right.getY());
-
             removeElemFromCell(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY(), ParcelleValue.FARMER);
-
             farmer.setPosFarmer(right.getX(),right.getY());
-
         }
         spawnFarmerInFarm();
 

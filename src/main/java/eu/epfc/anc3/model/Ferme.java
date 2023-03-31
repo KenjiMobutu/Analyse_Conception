@@ -75,13 +75,14 @@ class Ferme {
     ObservableSet<Element> getAllElem(int line, int col){ return terrain.getElem(line, col);}
 
     ObservableSet<ParcelleValue> getAllElemType(int line, int col){return terrain.getElemType(line,col);}
+
     //retourne le status du jeu
     ReadOnlyObjectProperty<FermeStatus> fermeStatusProperty(){return fermeStatus;}
 
+    //permet de déplacer le joueur dans le grid
     void spawnFarmer(Farmer farmer, int line, int col){
         terrain.addElementToCell(farmer, line, col);
     }
-    //permet de déplacer le joueur dans le grid
 
     Terrain getTerrain(){
         return terrain;

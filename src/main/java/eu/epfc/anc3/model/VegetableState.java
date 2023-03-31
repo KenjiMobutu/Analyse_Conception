@@ -28,4 +28,13 @@ public abstract class VegetableState {
     public abstract int getHarvestPoints();
     public abstract void nextDay();
 
+    @Override
+    public String toString() {
+        return "VegetableState{" +
+                "growthDays=" + growthDays +
+                ", daysToNextState=" + daysToNextState +
+                ", day=" + day +
+                ", vegetable=" + vegetable +
+                '}';
+    }
 }
