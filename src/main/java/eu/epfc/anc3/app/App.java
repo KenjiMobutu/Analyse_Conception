@@ -40,5 +40,13 @@ public class App extends Application  {
 //        carrotState3.nextState();
 //        Carrot.CarrotState4 carrotState4 = new Carrot().new CarrotState4(new Carrot());
 //        carrotState4.nextState();
+        /*Carrot.CarrotState1 carrotState1 = new Carrot().new CarrotState1(new Carrot());
+        carrotState1.nextState();
+        Carrot.CarrotState2 carrotState2 = new Carrot().new CarrotState2(new Carrot());
+        carrotState2.nextState();
+        Carrot.CarrotState3 carrotState3 = new Carrot().new CarrotState3(new Carrot());
+        carrotState3.nextState();
+        Carrot.CarrotState4 carrotState4 = new Carrot().new CarrotState4(new Carrot());
+        carrotState4.nextState();*/
     }
 }

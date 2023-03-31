@@ -13,7 +13,7 @@ class Vegetable {
     private boolean isRotten;
 
     public Vegetable() {
-        //this.state = new SeedlingState(this);
+
         this.hasGrass = false;
         this.isFertilized = false;
     }
@@ -31,6 +31,8 @@ class Vegetable {
     public void setState(VegetableState state) {
         this.currentState = state;
     }
+
+
 
    // public void grow() {
    //     currentState.grow();}
@@ -112,5 +114,7 @@ class Vegetable {
     public int getRottenDays() {
         return rottenDays;
     }
+
+
 }
 

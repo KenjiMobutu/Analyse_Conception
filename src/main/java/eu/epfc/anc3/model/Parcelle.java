@@ -35,8 +35,6 @@ class Parcelle {
     );
 
 
-
-
     ObservableSet<Element> getElements() {
         return elements;
     }

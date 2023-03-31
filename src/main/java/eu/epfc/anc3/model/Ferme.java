@@ -30,6 +30,7 @@ class Ferme {
     void plantGrassMode(){
         fermeStatus.setValue(FermeStatus.PLANT_GRASS);
     }
+
     void plantCabbageMode() {
         fermeStatus.setValue(FermeStatus.PLANT_CABBAGE);
     }
@@ -45,6 +46,7 @@ class Ferme {
     void recoltMode() {
         fermeStatus.setValue(FermeStatus.RECOLT);
     }
+
     void unplantMode(){
         fermeStatus.set(FermeStatus.DEPLANT_GRASS);
     }
@@ -92,5 +94,7 @@ class Ferme {
 /*-------------------------------POUR DEBUG------------------------------------*/
     private final Farmer farmer= new Farmer() ;
     public ReadOnlyIntegerProperty nbGrassPlant() {return farmer.nbgrass();
+    }
+    public ReadOnlyIntegerProperty nbDays() {return farmer.nbgrass();
     }
 }
