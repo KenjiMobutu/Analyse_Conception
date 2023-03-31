@@ -12,8 +12,6 @@ import javafx.scene.layout.GridPane;
 public class Carrot extends Vegetable implements Element {
     //private IntegerProperty nbJours = new SimpleIntegerProperty(0);
     private ReadOnlyObjectWrapper<VegetableState> state = new ReadOnlyObjectWrapper<>();
-
-
     private final int maxScore = 100;
     public Carrot() {
         super();

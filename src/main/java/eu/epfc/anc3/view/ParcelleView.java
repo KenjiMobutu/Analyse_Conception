@@ -1,5 +1,6 @@
 package eu.epfc.anc3.view;
 
+import eu.epfc.anc3.model.Cabbage;
 import eu.epfc.anc3.model.Carrot;
 import eu.epfc.anc3.model.Element;
 import eu.epfc.anc3.model.ParcelleValue;
@@ -82,6 +83,20 @@ public class ParcelleView extends StackPane {
             for(Element e : valueProp) {
                 if (e instanceof Carrot) {
                     Carrot c = (Carrot) e;
+                    c.addStateListener((obs, oldState, newState) -> {
+                        ParcelleValue pv = newState.getType();
+                        Node child = ParcelleView.this.getChildren().get(1);
+                        if (((ImageView) child).getImage().equals(ParcelleValue.GRASS)) {
+                            ParcelleView.this.getChildren().remove(2);
+                        }else {
+                            ParcelleView.this.getChildren().remove(1);
+                        }
+
+                        addParcelleImage(pv);
+                    });
+                }
+                if (e instanceof Cabbage) {
+                    Cabbage c = (Cabbage) e;
                     c.addStateListener((obs, oldState, newState) -> {
                         ParcelleValue pv = newState.getType();
                         Node child = ParcelleView.this.getChildren().get(1);
