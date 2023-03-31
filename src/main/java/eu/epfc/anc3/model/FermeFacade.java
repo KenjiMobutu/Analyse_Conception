@@ -306,13 +306,13 @@ public class FermeFacade {
         spawnFarmerInFarm();
     }
     void PlantCarrot(){
-        Carrot carrotState1 = new Carrot();
+        Carrot carrot = new Carrot();
         //Position posCarrot = new Position(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
         System.out.println(!containsElementType(ParcelleValue.CARROT,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "ICI Carrot");
-        addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(), carrotState1);
+        addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(), carrot);
         nextDayProperty().addListener((obs, oldVal, newVal) -> {
-            System.out.println("next day");
-            carrotState1.getCurrentState().nextDay();
+            System.out.println("++day");
+            carrot.getCurrentState().nextDay();
         });
 
         System.out.println(ferme.getAllElem(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "ICI Carrot");

@@ -9,24 +9,15 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.layout.GridPane;
 
-/*méthodes:
-        getCurrentState() : cette méthode permettra de récupérer l'état actuel de croissance du légume.
-        setNextState() : cette méthode permettra de passer au stade de croissance suivant.
-        isRipe() : cette méthode permettra de vérifier si le légume est arrivé à maturité.
-        isRotten() : cette méthode permettra de vérifier si le légume est pourri.
-        getHarvestPoints() : cette méthode permettra de récupérer le nombre de points gagnés en récoltant le légume.
-     */
 public class Carrot extends Vegetable implements Element {
     //private IntegerProperty nbJours = new SimpleIntegerProperty(0);
     private ReadOnlyObjectWrapper<VegetableState> state = new ReadOnlyObjectWrapper<>();
-    private IntegerProperty line = new SimpleIntegerProperty();
-    private IntegerProperty col = new SimpleIntegerProperty();
+
 
     private final int maxScore = 100;
     public Carrot() {
         super();
         this.setState(new CarrotState1(this));
-        //CarrotState1 getCurrentState = new CarrotState1(this);
     }
 
     @Override
@@ -94,12 +85,10 @@ public class Carrot extends Vegetable implements Element {
 
         @Override
         public void nextDay() {
-            //growthDays++;
             nbJours++;
             System.out.println("nbJours = " + nbJours);
             if (nbJours == daysToNextState) {
                 this.nextState();
-                //setState(new CarrotState2(vegetable));
             }
         }
     }
@@ -112,7 +101,6 @@ public class Carrot extends Vegetable implements Element {
             super(vegetable);
             vegetable.setState(this);
             System.out.println(getCurrentState().toString() + " ETAT" );
-            //growthDays = 3;
             nbJours = 3;
             System.out.println("Carrot state 2 created");
         }
@@ -136,9 +124,7 @@ public class Carrot extends Vegetable implements Element {
             nbJours++;
             System.out.println("nbJours = " + nbJours);
             if (nbJours == daysToNextState) {
-                //vegetable.setCurrentState(new CarrotState3(vegetable));
                 this.nextState();
-
             }
         }
         public ParcelleValue getType() {
@@ -147,7 +133,6 @@ public class Carrot extends Vegetable implements Element {
         public VegetableState getCurrentState() {
             return getState();
         }
-
 
     }
 
@@ -182,7 +167,6 @@ public class Carrot extends Vegetable implements Element {
             System.out.println("nbJours = " + nbJours);
             if ( nbJours == daysToNextState) {
                 System.out.println("Carrot state 3 changed to state 4");
-                //vegetable.setCurrentState(new CarrotState4(vegetable));
                 this.nextState();
             }
         }
@@ -224,7 +208,6 @@ public class Carrot extends Vegetable implements Element {
             nbJours++;
             System.out.println("nbJours = " + nbJours);
             if (nbJours == daysToNextState) {
-                //vegetable.setCurrentState(new CarrotState5(vegetable));
                 this.nextState();
             }
         }

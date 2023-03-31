@@ -73,9 +73,10 @@ public class MenuView extends VBox {
         ImageView view = new ImageView(img);
         plantButtonGrass.setDisable(true);
         plantButtonGrass.setGraphic(view);
+        plantButtonGrass.setPrefSize(145, 10);
 
         unPlantButton.setDisable(true);
-
+        unPlantButton.setPrefSize(145, 10);
         setUpButtonMode();
         setUpImages();
        // nbGrassTextField.setDisable(true);
@@ -112,21 +113,25 @@ public class MenuView extends VBox {
         ImageView view1 = new ImageView(img1);
         plantCabbageButton.setGraphic(view1);
         plantCabbageButton.setFocusTraversable(false);
+        plantCabbageButton.setPrefSize(145, 10);
 
         Image img2 = new Image("carrot4.png");
         ImageView view2 = new ImageView(img2);
         plantCarotteButton.setGraphic(view2);
         plantCarotteButton.setFocusTraversable(false);
+        plantCarotteButton.setPrefSize(145, 10);
 
         Image img3 = new Image("watering_can.png");
         ImageView view3 = new ImageView(img3);
         fertilizerButton.setGraphic(view3);
         fertilizerButton.setFocusTraversable(false);
+        fertilizerButton.setPrefSize(145, 10);
 
         Image img4 = new Image("shovel.png");
         ImageView view4 = new ImageView(img4);
         recoltButton.setGraphic(view4);
         recoltButton.setFocusTraversable(false);
+        recoltButton.setPrefSize(145, 10);
 
         Image img5 = new Image("moon.png");
         ImageView view5 = new ImageView(img5);
