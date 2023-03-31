@@ -300,6 +300,9 @@ public class FermeFacade {
         addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(),cabbageState1);
         nextDayProperty().addListener((obs, oldVal, newVal) -> {
             System.out.println("next day");
+            //si contien grass next day with grass *****
+            if(containsElementType(ParcelleValue.GRASS,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()))
+                cabbageState1.getCurrentState().nextDayWithGrass();
             cabbageState1.getCurrentState().nextDay();
         });
         System.out.println(ferme.getAllElem(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "ICI Cabbage");

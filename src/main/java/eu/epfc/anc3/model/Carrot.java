@@ -9,6 +9,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.layout.GridPane;
 
+//k:trouver une solution pour retirer public de la classe
 public class Carrot extends Vegetable implements Element {
     //private IntegerProperty nbJours = new SimpleIntegerProperty(0);
     private ReadOnlyObjectWrapper<VegetableState> state = new ReadOnlyObjectWrapper<>();
@@ -76,6 +77,11 @@ public class Carrot extends Vegetable implements Element {
         }
 
         @Override
+        public void nextDayWithGrass() {
+
+        }
+
+        @Override
         public int getHarvestPoints() {
             //IntergerProperty.get() : pour récuper la valeur de la propriété sous forme d'entier.
             return maxScore / 10;
@@ -128,6 +134,12 @@ public class Carrot extends Vegetable implements Element {
         public ParcelleValue getType() {
             return ParcelleValue.CARROT2;
         }
+
+        @Override
+        public void nextDayWithGrass() {
+
+        }
+
         public VegetableState getCurrentState() {
             return getState();
         }
@@ -171,6 +183,12 @@ public class Carrot extends Vegetable implements Element {
         public ParcelleValue getType() {
             return ParcelleValue.CARROT3;
         }
+
+        @Override
+        public void nextDayWithGrass() {
+
+        }
+
         public VegetableState getCurrentState() {
             return getState();
         }
@@ -212,6 +230,12 @@ public class Carrot extends Vegetable implements Element {
         public ParcelleValue getType() {
             return ParcelleValue.CARROT4;
         }
+
+        @Override
+        public void nextDayWithGrass() {
+
+        }
+
         public VegetableState getCurrentState() {
             return getState();
         }
@@ -252,6 +276,12 @@ public class Carrot extends Vegetable implements Element {
         public ParcelleValue getType() {
             return ParcelleValue.ROTTEN_CARROT;
         }
+
+        @Override
+        public void nextDayWithGrass() {
+
+        }
+
         public VegetableState getCurrentState() {
             return getState();
         }

@@ -10,7 +10,13 @@ import java.util.*;
 class Parcelle {
     //cellule
 
-
+    private final Map<ParcelleValue, Integer> elementPriorityMap = new HashMap<>();{
+        elementPriorityMap.put(ParcelleValue.DIRT, 1);
+        elementPriorityMap.put(ParcelleValue.GRASS, 2);
+        elementPriorityMap.put(ParcelleValue.CARROT, 3);
+        elementPriorityMap.put(ParcelleValue.CABBAGE, 4);
+        elementPriorityMap.put(ParcelleValue.FARMER, 5);
+    }
     private final Comparator<Element> elementComparator = new Comparator<>() {
         @Override
         public int compare(Element e1, Element e2) {
@@ -43,6 +49,9 @@ class Parcelle {
             } else {
                 return 0; // same element
             }
+            /*int priority1 = elementPriorityMap.getOrDefault(e1.getType(), 0);
+            int priority2 = elementPriorityMap.getOrDefault(e2.getType(), 0);
+            return Integer.compare(priority1, priority2);*/
         }
     };
 

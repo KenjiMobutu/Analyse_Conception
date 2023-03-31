@@ -32,7 +32,7 @@ public class Cabbage extends Vegetable implements Element {
 
     @Override
     public String toString() {
-        return "Je suis un chou";
+        return "Chou";
     }
 
     public VegetableState getCurrentState() {
@@ -79,6 +79,15 @@ public class Cabbage extends Vegetable implements Element {
             return ParcelleValue.CABBAGE;
         }
 
+        @Override
+        public void nextDayWithGrass() {
+            nbJours++;
+            System.out.println("nbJours = " + nbJours);
+            if (nbJours == daysToNextState-1) {
+                this.nextState();
+            }
+        }
+
     }
 
     //Level2
@@ -119,6 +128,16 @@ public class Cabbage extends Vegetable implements Element {
         public ParcelleValue getType() {
             return ParcelleValue.CABBAGE2;
         }
+
+        @Override
+        public void nextDayWithGrass() {
+            nbJours++;
+            System.out.println("nbJours = " + nbJours);
+            if (nbJours == daysToNextState-1) {
+                this.nextState();
+            }
+        }
+
         public VegetableState getCurrentState() {
             return getState();
         }
@@ -164,6 +183,16 @@ public class Cabbage extends Vegetable implements Element {
         public ParcelleValue getType() {
             return ParcelleValue.CABBAGE3;
         }
+
+        @Override
+        public void nextDayWithGrass() {
+            nbJours++;
+            System.out.println("nbJours = " + nbJours);
+            if (nbJours == daysToNextState-1) {
+                this.nextState();
+            }
+        }
+
         public VegetableState getCurrentState() {
             return getState();
         }
@@ -207,6 +236,16 @@ public class Cabbage extends Vegetable implements Element {
         public ParcelleValue getType() {
             return ParcelleValue.CABBAGE4;
         }
+
+        @Override
+        public void nextDayWithGrass() {
+            nbJours++;
+            System.out.println("nbJours = " + nbJours);
+            if (nbJours == daysToNextState-1) {
+                this.nextState();
+            }
+        }
+
         public VegetableState getCurrentState() {
             return getState();
         }
@@ -240,7 +279,7 @@ public class Cabbage extends Vegetable implements Element {
             nbJours++;
             System.out.println("nbJours = " + nbJours);
             if (nbJours == maxGrowthDays) {
-                vegetable.setCurrentState(new CabbageState1(vegetable));
+                vegetable.setCurrentState(new CabbageRottenState(vegetable));
             }
         }
 
@@ -248,6 +287,16 @@ public class Cabbage extends Vegetable implements Element {
         public ParcelleValue getType() {
             return ParcelleValue.ROTTEN_CABBAGE;
         }
+
+        @Override
+        public void nextDayWithGrass() {
+            nbJours++;
+            System.out.println("nbJours = " + nbJours);
+            if (nbJours == maxGrowthDays / 2) {
+                vegetable.setCurrentState(new CabbageRottenState(vegetable));
+            }
+        }
+
         public VegetableState getCurrentState() {
             return getState();
         }
