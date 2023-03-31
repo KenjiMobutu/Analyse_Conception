@@ -6,6 +6,7 @@ public abstract class VegetableState {
     growthDays : propriété qui contiendra le nombre de jours nécessaires pour que le légume arrive à maturité.
     daysToNextState : propriété qui contiendra le nombre de jours nécessaires pour passer à l'état suivant.
      */
+    //faire un state pour chaque légume + grass
     protected int growthDays ; // Nombre de jours nécessaires pour que le légume arrive à maturité
     protected int daysToNextState; // Nombre de jours nécessaires pour passer à l'état suivant
 
@@ -41,4 +42,6 @@ public abstract class VegetableState {
     }
     // Méthode pour récupérer le type de légume associé à cet état
     public abstract ParcelleValue getType();
+
+    public abstract void nextDayWithGrass();
 }

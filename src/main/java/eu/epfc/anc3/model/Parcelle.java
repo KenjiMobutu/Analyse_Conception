@@ -39,6 +39,7 @@ class Parcelle {
         }
     };
 
+
     private final ObservableSet<Element> elements = FXCollections.observableSet(
             new TreeSet<>(elementComparator)
     );
