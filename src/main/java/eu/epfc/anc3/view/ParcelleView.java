@@ -44,12 +44,12 @@ public class ParcelleView extends StackPane {
         images.put(ParcelleValue.DIRT, DIRT);
         images.put(ParcelleValue.GRASS, GRASS);
         images.put(ParcelleValue.FARMER, FARMER);
-        images.put(ParcelleValue.CABBAGE, CABBAGE);
+        images.put(ParcelleValue.CABBAGE1, CABBAGE);
         images.put(ParcelleValue.CABBAGE2, CABBAGE2);
         images.put(ParcelleValue.CABBAGE3, CABBAGE3);
         images.put(ParcelleValue.CABBAGE4, CABBAGE4);
         images.put(ParcelleValue.ROTTEN_CABBAGE, CABBAGEROTTEN);
-        images.put(ParcelleValue.CARROT, CARROT);
+        images.put(ParcelleValue.CARROT1, CARROT);
         images.put(ParcelleValue.CARROT2, CARROT2);
         images.put(ParcelleValue.CARROT3, CARROT3);
         images.put(ParcelleValue.CARROT4, CARROT4);
@@ -86,10 +86,10 @@ public class ParcelleView extends StackPane {
                     c.addStateListener((obs, oldState, newState) -> {
                         ParcelleValue pv = newState.getType();
                         Node child = ParcelleView.this.getChildren().get(1);
-                        if (((ImageView) child).getImage().equals(ParcelleValue.GRASS)) {
-                            ParcelleView.this.getChildren().remove(2);
-                        }else {
+                        if (getParcelleValueFromImage(((ImageView) child).getImage()) != ParcelleValue.GRASS) {
                             ParcelleView.this.getChildren().remove(1);
+                        }else {
+                            ParcelleView.this.getChildren().remove(2);
                         }
 
                         addParcelleImage(pv);
@@ -99,12 +99,12 @@ public class ParcelleView extends StackPane {
                     Cabbage c = (Cabbage) e;
                     c.addStateListener((obs, oldState, newState) -> {
                         ParcelleValue pv = newState.getType();
-                        /*Node child = ParcelleView.this.getChildren().get(1);
-                        if (((ImageView) child).getImage().equals(ParcelleValue.GRASS)) {
-                            ParcelleView.this.getChildren().remove(2);
-                        }else {
+                        Node child = ParcelleView.this.getChildren().get(1);
+                        if (getParcelleValueFromImage(((ImageView) child).getImage()) != ParcelleValue.GRASS) {
                             ParcelleView.this.getChildren().remove(1);
-                        }*/
+                        }else {
+                            ParcelleView.this.getChildren().remove(2);
+                        }
 
                         addParcelleImage(pv);
                     });
@@ -121,6 +121,11 @@ public class ParcelleView extends StackPane {
         imageView.setFitWidth(this.imageView.getFitWidth());
         imageView.setFitHeight(this.imageView.getFitHeight());
         getChildren().add(imageView);
+    }
+    public static ParcelleValue getParcelleValueFromImage(Image image) {
+        String imageName = image.getUrl().substring(image.getUrl().lastIndexOf("/") + 1);
+        imageName = imageName.substring(0, imageName.indexOf("."));
+        return ParcelleValue.valueOf(imageName.toUpperCase());
     }
 
 }

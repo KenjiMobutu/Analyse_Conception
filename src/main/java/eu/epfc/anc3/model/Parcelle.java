@@ -13,8 +13,8 @@ class Parcelle {
     private final Map<ParcelleValue, Integer> elementPriorityMap = new HashMap<>();{
         elementPriorityMap.put(ParcelleValue.DIRT, 1);
         elementPriorityMap.put(ParcelleValue.GRASS, 2);
-        elementPriorityMap.put(ParcelleValue.CARROT, 3);
-        elementPriorityMap.put(ParcelleValue.CABBAGE, 4);
+        elementPriorityMap.put(ParcelleValue.CARROT1, 3);
+        elementPriorityMap.put(ParcelleValue.CABBAGE1, 4);
         elementPriorityMap.put(ParcelleValue.FARMER, 5);
     }
     private final Comparator<Element> elementComparator = new Comparator<>() {
@@ -29,18 +29,18 @@ class Parcelle {
             } else if (e2.getType() == ParcelleValue.DIRT) {
                 return -1;
             } else if (e1.getType() == ParcelleValue.GRASS) { // si dans la cellule il y a de l'herbe
-                if (e2.getType() == ParcelleValue.CARROT || e2.getType() == ParcelleValue.CABBAGE) {
+                if (e2.getType() == ParcelleValue.CARROT1 || e2.getType() == ParcelleValue.CABBAGE1) {
                     return -1; // je retourne les 'vegetables' après la grass
                 } else {
                     return 1;
                 }
             } else if (e2.getType() == ParcelleValue.GRASS) { // si on dépose de l'herbe après avoir déposer un 'vegetables' l'herbe doit se trouver derrière.
-                if (e1.getType() == ParcelleValue.CARROT || e1.getType() == ParcelleValue.CABBAGE) {
+                if (e1.getType() == ParcelleValue.CARROT1 || e1.getType() == ParcelleValue.CABBAGE1) {
                     return 1;
                 } else {
                     return -1;
                 }
-            } else if (e1.getType() == ParcelleValue.CARROT || e1.getType() == ParcelleValue.CABBAGE) { // fais en sorte que les légumes > dirt/grass
+            } else if (e1.getType() == ParcelleValue.CARROT1 || e1.getType() == ParcelleValue.CABBAGE1) { // fais en sorte que les légumes > dirt/grass
                 if (e2.getType() == ParcelleValue.GRASS) {
                     return -1;
                 } else {

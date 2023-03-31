@@ -9,7 +9,7 @@ import static eu.epfc.anc3.model.Terrain.GRID_WIDTH;
 public class FermeFacade {
 /*
         faire :
-            déplacer les if dans les fichiers plus bas (Ferme, Terrain etc)
+           déplacer les if dans les fichiers plus bas (Ferme, Terrain etc)
             renommer certaines fonction / variables
  */
     private final Ferme ferme = new Ferme();
@@ -296,7 +296,7 @@ public class FermeFacade {
     void plantCabbage(){
         Cabbage cabbageState1 = new Cabbage();
         //Position posCabbage = new Position(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
-        System.out.println(!containsElementType(ParcelleValue.CABBAGE,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "ICI Cabbage");
+        System.out.println(!containsElementType(ParcelleValue.CABBAGE1,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "ICI Cabbage");
         addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(),cabbageState1);
         nextDayProperty().addListener((obs, oldVal, newVal) -> {
             System.out.println("next day");
@@ -311,7 +311,7 @@ public class FermeFacade {
     void PlantCarrot(){
         Carrot carrot = new Carrot();
         //Position posCarrot = new Position(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
-        System.out.println(!containsElementType(ParcelleValue.CARROT,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "ICI Carrot");
+        System.out.println(!containsElementType(ParcelleValue.CARROT1,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "ICI Carrot");
         addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(), carrot);
         nextDayProperty().addListener((obs, oldVal, newVal) -> {
             System.out.println("++day");
