@@ -77,21 +77,16 @@ public class ParcelleView extends StackPane {
             }
         });*/
         // Ajouter un écouteur de changement d'état à chaque CarrotViewModel
-        parcelleViewModel.getElementsInCell().addListener((SetChangeListener<Element>) change -> {
+       valueProp.addListener((SetChangeListener<Element>) change -> {
             ParcelleView.this.getChildren().clear();
             addParcelleImage(ParcelleValue.EMPTY);
             for(Element e : valueProp) {
+                if (e.getType() != ParcelleValue.CABBAGE || e.getType() != ParcelleValue.CARROT)
+                    addParcelleImage(e.getType());
                 if (e instanceof Carrot) {
                     Carrot c = (Carrot) e;
                     c.addStateListener((obs, oldState, newState) -> {
                         ParcelleValue pv = newState.getType();
-                        Node child = ParcelleView.this.getChildren().get(1);
-                        if (((ImageView) child).getImage().equals(ParcelleValue.GRASS)) {
-                            ParcelleView.this.getChildren().remove(2);
-                        }else {
-                            ParcelleView.this.getChildren().remove(1);
-                        }
-
                         addParcelleImage(pv);
                     });
                 }
