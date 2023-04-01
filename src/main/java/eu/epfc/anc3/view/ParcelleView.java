@@ -81,7 +81,7 @@ public class ParcelleView extends StackPane {
             ParcelleView.this.getChildren().clear();
             addParcelleImage(ParcelleValue.EMPTY);
             for(Element e : valueProp) {
-                if (e.getType() != ParcelleValue.CABBAGE || e.getType() != ParcelleValue.CARROT)
+                if (e.getType() != ParcelleValue.CABBAGE  && e.getType() != ParcelleValue.CARROT)
                     addParcelleImage(e.getType());
                 if (e instanceof Carrot) {
                     Carrot c = (Carrot) e;
@@ -100,7 +100,6 @@ public class ParcelleView extends StackPane {
                         }else {
                             ParcelleView.this.getChildren().remove(1);
                         }*/
-
                         addParcelleImage(pv);
                     });
                 }

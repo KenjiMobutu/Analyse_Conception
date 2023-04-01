@@ -78,14 +78,14 @@ class Ferme {
                 Carrot currentCarrot = (Carrot) e;
                 addPoint(currentCarrot.getCurrentState().getHarvestPoints());
                 System.out.println("state cabbage : " + currentCarrot.getCurrentState() + " point a avoir : " + currentCarrot.getCurrentState().getHarvestPoints());
-                terrain.removeVegetables(currentCarrot, line, col);
-                currentCarrot = null;
+                terrain.removeVegetables(e, line, col);
+                e = null;
             }else if (e instanceof Cabbage){
                 Cabbage currentCabbage = (Cabbage) e;
                 addPoint(currentCabbage.getCurrentState().getHarvestPoints());
                 System.out.println("state cabbage : " + currentCabbage.getCurrentState() + " point a avoir : " + currentCabbage.getCurrentState().getHarvestPoints());
-                terrain.removeVegetables(currentCabbage, line, col);
-                currentCabbage = null;
+                terrain.removeVegetables(e, line, col);
+                e = null;
             }
         }
     }

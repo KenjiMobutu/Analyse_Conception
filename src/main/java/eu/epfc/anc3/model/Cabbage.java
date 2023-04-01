@@ -271,7 +271,8 @@ public class Cabbage extends Vegetable implements Element {
 
         @Override
         public int getHarvestPoints() {
-            return 0;
+
+            return (int) ((1.0 / 10.0) * maxScore * (growthDays - nbJours - 12));
         }
 
         @Override

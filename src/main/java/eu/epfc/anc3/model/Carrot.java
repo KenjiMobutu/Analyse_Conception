@@ -18,7 +18,6 @@ public class Carrot extends Vegetable implements Element {
         super();
         this.setState(new CarrotState1(this));
     }
-
     @Override
     public ParcelleValue getType() {
         return ParcelleValue.CARROT;
@@ -262,7 +261,7 @@ public class Carrot extends Vegetable implements Element {
         public int getHarvestPoints() {
             //points_perdus = 1/10 * rendement_maximal * (jour de la récolte - premier jour du stade Pourri)
 
-            return 1/10 * maxScore * (growthDays - 12);
+            return (int) ((1.0 / 10.0) * maxScore * (growthDays - nbJours - 12));
         }
 
         @Override
