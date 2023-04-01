@@ -52,6 +52,7 @@ public class FermeFacade {
     private final BooleanProperty useFertilizer = new SimpleBooleanProperty(false);
     private final BooleanProperty recolt = new SimpleBooleanProperty(false);
     private IntegerProperty nbJours = new SimpleIntegerProperty(0);
+    private IntegerProperty score = new SimpleIntegerProperty (  0);
 
     // retourne les éléments d'une cellule :
     public ObservableSet<ParcelleValue> getElementsType(int line, int col){ //BV : à enlevefr
@@ -298,13 +299,18 @@ public class FermeFacade {
         //Position posCabbage = new Position(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
         System.out.println(!containsElementType(ParcelleValue.CABBAGE1,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "ICI Cabbage");
         addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(),cabbageState1);
-        nextDayProperty().addListener((obs, oldVal, newVal) -> {
-            System.out.println("next day");
-            //si contien grass next day with grass *****
-            if(containsElementType(ParcelleValue.GRASS,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()))
+        if(containsElementType(ParcelleValue.GRASS,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY())) {
+            nbJours.addListener((obs, oldVal, newVal) -> {
+                System.out.println("next day");
+                //si contien grass next day with grass *****
                 cabbageState1.getCurrentState().nextDayWithGrass();
-            cabbageState1.getCurrentState().nextDay();
-        });
+            });
+        }else{
+            nbJours.addListener((obs, oldVal, newVal) -> {
+                System.out.println("next day");
+                cabbageState1.getCurrentState().nextDay();
+            });
+        }
         System.out.println(ferme.getAllElem(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "ICI Cabbage");
         spawnFarmerInFarm();
     }
@@ -313,7 +319,7 @@ public class FermeFacade {
         //Position posCarrot = new Position(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
         System.out.println(!containsElementType(ParcelleValue.CARROT1,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "ICI Carrot");
         addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(), carrot);
-        nextDayProperty().addListener((obs, oldVal, newVal) -> {
+        nbJours.addListener((obs, oldVal, newVal) -> {
             System.out.println("++day");
             carrot.getCurrentState().nextDay();
         });
