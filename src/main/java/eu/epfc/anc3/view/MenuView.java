@@ -79,6 +79,7 @@ public class MenuView extends VBox {
         setUpImages();
        // nbGrassTextField.setDisable(true);
 
+        manageScore();
         addToToggleGroup();
         bindLabelsToViewModel();
         manageNbGrass();//K:pour DEBUG
@@ -139,6 +140,10 @@ public class MenuView extends VBox {
     private void manageNbGrass() {//K:pour DEBUG
         System.out.println(menuViewModel.nbGrass().toString());
         nbGrass.textProperty().bind(menuViewModel.nbGrass().asString());
+    }
+
+    private void manageScore(){
+        nbScore.textProperty().bind(menuViewModel.score().asString());
     }
 
 
