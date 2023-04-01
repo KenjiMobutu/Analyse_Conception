@@ -59,6 +59,7 @@ public class MenuViewModel {
     public void newGame() {
         fermeFacade.newGame();
     }
+    public ReadOnlyIntegerProperty score(){return fermeFacade.scoreProperty();}
 
     public ReadOnlyIntegerProperty nbGrass(){return fermeFacade.getNbGrass();}//K:pour DEBUG
 
@@ -66,11 +67,6 @@ public class MenuViewModel {
     public void sleepMode() {
         fermeFacade.nextDay();
     }
-
-
-
-
-
 
     /*public void saveGame() {
         fermeFacade.saveGame();

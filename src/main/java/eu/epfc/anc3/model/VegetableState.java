@@ -11,7 +11,6 @@ public abstract class VegetableState {
     protected int daysToNextState; // Nombre de jours nécessaires pour passer à l'état suivant
 
     protected Vegetable vegetable; // Légume auquel cet état est associé
-
     // Constructeur
     public VegetableState(Vegetable vegetable, int growthDays, int daysToNextState) {
         this.vegetable = vegetable;
@@ -31,8 +30,19 @@ public abstract class VegetableState {
     // Méthode abstraite pour faire avancer la croissance du légume
     public abstract void nextDay();
 
+    @Override
+    public String toString() {
+        return "VegetableState{" +
+                "growthDays=" + growthDays +
+                ", daysToNextState=" + daysToNextState +
+               // ", day=" + day +
+                ", vegetable=" + vegetable +
+                '}';
+    }
     // Méthode pour récupérer le type de légume associé à cet état
     public abstract ParcelleValue getType();
 
     public abstract void nextDayWithGrass();
+
+    public abstract int stateProperty();
 }
