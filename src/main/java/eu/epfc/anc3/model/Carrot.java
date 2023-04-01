@@ -53,9 +53,7 @@ public class Carrot extends Vegetable implements Element {
 
         public CarrotState1(Vegetable vegetable) {
             super(vegetable);
-            //this.setState(new CarrotState1(this));
             nbJours = 0;
-            //growthDays = 0;
             System.out.println("Carrot State 1 created");
         }
 

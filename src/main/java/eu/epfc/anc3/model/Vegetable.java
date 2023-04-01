@@ -31,9 +31,6 @@ class Vegetable {
     public void setState(VegetableState state) {
         this.currentState = state;
     }
-
-
-
    // public void grow() {
    //     currentState.grow();}
 

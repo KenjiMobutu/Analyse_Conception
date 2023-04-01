@@ -27,7 +27,6 @@ class Parcelle {
         elementPriorityMap.put(ParcelleValue.CABBAGE4, 4);
         elementPriorityMap.put(ParcelleValue.ROTTEN_CABBAGE, 4);
         elementPriorityMap.put(ParcelleValue.FARMER, 5);
-
     }
 
     private final Comparator<Element> elementComparator = new Comparator<>() {
