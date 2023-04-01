@@ -10,8 +10,8 @@
 
 ### Liste des bugs connus
 
-  * bug 1 : on peut enlever une carrotte mais l'objet carrotte en lui-même existe toujours.
-  * bug 2 : un chou même après avoir été enlevé continue de pousser jusque être pourri.
+  * bug 1 : on peut récolté une carrotte mais l'objet carrotte en lui-même existe toujours. (ça créer une erreur car parcelleView essaie de la supprimer. (pareil pour cabbage))
+  * bug 2 : un chou même après avoir été récolté continue de pousser jusque être pourri.
   * bug 3 : 
   * bug 4 : 
   * bug 5 : 
