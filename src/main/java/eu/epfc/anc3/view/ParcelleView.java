@@ -67,15 +67,6 @@ public class ParcelleView extends StackPane {
 
         ObservableSet<Element> valueProp = parcelleViewModel.getElementsInCell();
 
-        /*valueProp.addListener((SetChangeListener<Element>) change -> {
-            ParcelleView.this.getChildren().clear();
-            addParcelleImage(ParcelleValue.EMPTY);
-            for(Element e : valueProp) {
-                addParcelleImage(e.getType());
-
-
-            }
-        });*/
         // Ajouter un écouteur de changement d'état à chaque CarrotViewModel
        valueProp.addListener((SetChangeListener<Element>) change -> {
             ParcelleView.this.getChildren().clear();
@@ -106,14 +97,12 @@ public class ParcelleView extends StackPane {
                         }else {
                             ParcelleView.this.getChildren().remove(2);
                         }
-
                         addParcelleImage(pv);
                     });
                 }
                 addParcelleImage(e.getType());
             }
         });
-
         this.setOnMouseClicked(e -> parcelleViewModel.play());
     }
 
