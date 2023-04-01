@@ -56,8 +56,8 @@ class Ferme {
     void addElementToCell(Element p, int line, int col){
         // check si la cellule a deja un element de type vegetable
         if (!cellContainsElementType(p.getType(),line, col) &&
-                (p.getType() != ParcelleValue.CARROT || !cellContainsElementType(ParcelleValue.CABBAGE ,line, col)) &&
-                (p.getType() != ParcelleValue.CABBAGE || !cellContainsElementType(ParcelleValue.CARROT ,line, col)))
+                (p.getType() != ParcelleValue.CARROT1 || !cellContainsElementType(ParcelleValue.CABBAGE1 ,line, col)) &&
+                (p.getType() != ParcelleValue.CABBAGE1 || !cellContainsElementType(ParcelleValue.CARROT1 ,line, col)))
         {
             terrain.addElementToCell(p, line, col);
         }
@@ -78,14 +78,27 @@ class Ferme {
                 Carrot currentCarrot = (Carrot) e;
                 addPoint(currentCarrot.getCurrentState().getHarvestPoints());
                 System.out.println("state cabbage : " + currentCarrot.getCurrentState() + " point a avoir : " + currentCarrot.getCurrentState().getHarvestPoints());
-                terrain.removeVegetables(currentCarrot, line, col);
-                currentCarrot = null;
+                terrain.removeVegetables(e, line, col);
+
             }else if (e instanceof Cabbage){
                 Cabbage currentCabbage = (Cabbage) e;
                 addPoint(currentCabbage.getCurrentState().getHarvestPoints());
                 System.out.println("state cabbage : " + currentCabbage.getCurrentState() + " point a avoir : " + currentCabbage.getCurrentState().getHarvestPoints());
-                terrain.removeVegetables(currentCabbage, line, col);
-                currentCabbage = null;
+                terrain.removeVegetables(e, line, col);
+            }
+        }
+    }
+    void fetilize(int line, int col){
+        ObservableSet<Element> elem = getAllElem(line,col);
+        for (Element e : elem) {
+            if (e instanceof Grass){
+                continue;
+            }else if (e instanceof Carrot c){
+                if (c.getCurrentState().stateProperty() < 3 ){
+                    while (c.getCurrentState().stateProperty() != 3){
+                        c.getCurrentState().nextState();
+                    }
+                }
             }
         }
     }

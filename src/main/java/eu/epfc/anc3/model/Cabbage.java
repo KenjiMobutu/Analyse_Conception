@@ -15,7 +15,7 @@ public class Cabbage extends Vegetable implements Element {
         System.out.println("Cabbage created");
     }
     @Override
-    public ParcelleValue getType(){return ParcelleValue.CABBAGE;}
+    public ParcelleValue getType(){return ParcelleValue.CABBAGE1;}
     public void addStateListener(ChangeListener<VegetableState> listener) {
         stateProperty().addListener(listener);
     }
@@ -76,7 +76,7 @@ public class Cabbage extends Vegetable implements Element {
         }
         @Override
         public ParcelleValue getType() {
-            return ParcelleValue.CABBAGE;
+            return ParcelleValue.CABBAGE1;
         }
 
         @Override
@@ -86,6 +86,11 @@ public class Cabbage extends Vegetable implements Element {
             if (nbJours == daysToNextState-1) {
                 this.nextState();
             }
+        }
+
+        @Override
+        public int stateProperty() {
+            return 1;
         }
 
     }
@@ -136,6 +141,11 @@ public class Cabbage extends Vegetable implements Element {
             if (nbJours == daysToNextState-1) {
                 this.nextState();
             }
+        }
+
+        @Override
+        public int stateProperty() {
+            return 2;
         }
 
         public VegetableState getCurrentState() {
@@ -193,6 +203,11 @@ public class Cabbage extends Vegetable implements Element {
             }
         }
 
+        @Override
+        public int stateProperty() {
+            return 3;
+        }
+
         public VegetableState getCurrentState() {
             return getState();
         }
@@ -246,6 +261,11 @@ public class Cabbage extends Vegetable implements Element {
             }
         }
 
+        @Override
+        public int stateProperty() {
+            return 4;
+        }
+
         public VegetableState getCurrentState() {
             return getState();
         }
@@ -271,7 +291,8 @@ public class Cabbage extends Vegetable implements Element {
 
         @Override
         public int getHarvestPoints() {
-            return 0;
+
+            return (int) ((1.0 / 10.0) * maxScore * (growthDays - nbJours - 12));
         }
 
         @Override
@@ -295,6 +316,11 @@ public class Cabbage extends Vegetable implements Element {
             if (nbJours == maxGrowthDays / 2) {
                 vegetable.setCurrentState(new CabbageRottenState(vegetable));
             }
+        }
+
+        @Override
+        public int stateProperty() {
+            return 5;
         }
 
         public VegetableState getCurrentState() {
