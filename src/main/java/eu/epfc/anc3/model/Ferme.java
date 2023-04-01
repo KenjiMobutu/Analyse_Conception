@@ -1,18 +1,14 @@
 package eu.epfc.anc3.model;
 
-import javafx.beans.Observable;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.ReadOnlyIntegerProperty;
-import javafx.beans.property.ReadOnlyObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.*;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableSet;
-
-import java.util.List;
-import java.util.Set;
 
 class Ferme {
 
     private Terrain terrain = new Terrain();
+    private IntegerProperty score = new SimpleIntegerProperty(0);
+
     private final ObjectProperty<FermeStatus> fermeStatus = new SimpleObjectProperty<>(FermeStatus.START);
     public Ferme(){}
 
@@ -72,6 +68,35 @@ class Ferme {
     void removeElementFromCell(ParcelleValue p, int line, int col){
         if (cellContainsElementType(p, line, col))
             terrain.removeElement(p,line,col);
+    }
+    void removeVegetables( int line, int col){
+        ObservableSet<Element> elem = getAllElem(line,col);
+        for (Element e : elem) {
+            if (e instanceof Grass){
+                continue;
+            }else if (e instanceof Carrot){
+                Carrot currentCarrot = (Carrot) e;
+                addPoint(currentCarrot.getCurrentState().getHarvestPoints());
+                System.out.println("state cabbage : " + currentCarrot.getCurrentState() + " point a avoir : " + currentCarrot.getCurrentState().getHarvestPoints());
+                terrain.removeVegetables(currentCarrot, line, col);
+                currentCarrot = null;
+            }else if (e instanceof Cabbage){
+                Cabbage currentCabbage = (Cabbage) e;
+                addPoint(currentCabbage.getCurrentState().getHarvestPoints());
+                System.out.println("state cabbage : " + currentCabbage.getCurrentState() + " point a avoir : " + currentCabbage.getCurrentState().getHarvestPoints());
+                terrain.removeVegetables(currentCabbage, line, col);
+                currentCabbage = null;
+            }
+        }
+    }
+
+    IntegerProperty getPoint(){
+        return score;
+    }
+
+    void addPoint(int point){
+        score.set(score.get() + point);
+        //récupérer de removeVegetables les harvestPoint pour ensuite renvoyer les points dans la ferme
     }
 
     ObservableSet<Element> getAllElem(int line, int col){ return terrain.getElem(line, col);}
