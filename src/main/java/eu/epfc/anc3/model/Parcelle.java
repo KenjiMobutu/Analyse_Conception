@@ -15,17 +15,18 @@ class Parcelle {
     {
         elementPriorityMap.put(ParcelleValue.DIRT, 1);
         elementPriorityMap.put(ParcelleValue.GRASS, 2);
-        elementPriorityMap.put(ParcelleValue.CARROT, 3);
+        elementPriorityMap.put(ParcelleValue.CARROT1, 3);
         elementPriorityMap.put(ParcelleValue.CARROT2, 3);
         elementPriorityMap.put(ParcelleValue.CARROT3, 3);
         elementPriorityMap.put(ParcelleValue.CARROT4, 3);
         elementPriorityMap.put(ParcelleValue.ROTTEN_CARROT, 3);
 
-        elementPriorityMap.put(ParcelleValue.CABBAGE, 4);
+        elementPriorityMap.put(ParcelleValue.CABBAGE1, 4);
         elementPriorityMap.put(ParcelleValue.CABBAGE2, 4);
         elementPriorityMap.put(ParcelleValue.CABBAGE3, 4);
         elementPriorityMap.put(ParcelleValue.CABBAGE4, 4);
         elementPriorityMap.put(ParcelleValue.ROTTEN_CABBAGE, 4);
+        elementPriorityMap.put(ParcelleValue.CABBAGE1, 4);
         elementPriorityMap.put(ParcelleValue.FARMER, 5);
 
     }
@@ -33,6 +34,8 @@ class Parcelle {
     private final Comparator<Element> elementComparator = new Comparator<>() {
         @Override
         public int compare(Element e1, Element e2) {
+
+
             int priority1 = elementPriorityMap.getOrDefault(e1.getType(), 0);
             int priority2 = elementPriorityMap.getOrDefault(e2.getType(), 0);
             return Integer.compare(priority1, priority2);

@@ -20,7 +20,7 @@ public class Carrot extends Vegetable implements Element {
     }
     @Override
     public ParcelleValue getType() {
-        return ParcelleValue.CARROT;
+        return ParcelleValue.CARROT1;
     }
     public void addStateListener(ChangeListener<VegetableState> listener) {
         stateProperty().addListener(listener);
@@ -72,7 +72,7 @@ public class Carrot extends Vegetable implements Element {
         }
 
         public ParcelleValue getType() {
-            return ParcelleValue.CARROT;
+            return ParcelleValue.CARROT1;
         }
 
         @Override

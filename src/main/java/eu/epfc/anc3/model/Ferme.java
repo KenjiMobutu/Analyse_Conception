@@ -56,8 +56,8 @@ class Ferme {
     void addElementToCell(Element p, int line, int col){
         // check si la cellule a deja un element de type vegetable
         if (!cellContainsElementType(p.getType(),line, col) &&
-                (p.getType() != ParcelleValue.CARROT || !cellContainsElementType(ParcelleValue.CABBAGE ,line, col)) &&
-                (p.getType() != ParcelleValue.CABBAGE || !cellContainsElementType(ParcelleValue.CARROT ,line, col)))
+                (p.getType() != ParcelleValue.CARROT1 || !cellContainsElementType(ParcelleValue.CABBAGE1 ,line, col)) &&
+                (p.getType() != ParcelleValue.CABBAGE1 || !cellContainsElementType(ParcelleValue.CARROT1 ,line, col)))
         {
             terrain.addElementToCell(p, line, col);
         }

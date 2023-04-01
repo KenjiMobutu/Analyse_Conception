@@ -15,7 +15,7 @@ public class Cabbage extends Vegetable implements Element {
         System.out.println("Cabbage created");
     }
     @Override
-    public ParcelleValue getType(){return ParcelleValue.CABBAGE;}
+    public ParcelleValue getType(){return ParcelleValue.CABBAGE1;}
     public void addStateListener(ChangeListener<VegetableState> listener) {
         stateProperty().addListener(listener);
     }
@@ -76,7 +76,7 @@ public class Cabbage extends Vegetable implements Element {
         }
         @Override
         public ParcelleValue getType() {
-            return ParcelleValue.CABBAGE;
+            return ParcelleValue.CABBAGE1;
         }
 
         @Override
