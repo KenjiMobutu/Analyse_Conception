@@ -6,8 +6,6 @@ import eu.epfc.anc3.model.Element;
 import eu.epfc.anc3.model.ParcelleValue;
 import eu.epfc.anc3.vm.ParcelleViewModel;
 import javafx.beans.binding.DoubleBinding;
-import javafx.beans.property.ReadOnlyObjectProperty;
-import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
 import javafx.collections.SetChangeListener;
 import javafx.scene.Node;
@@ -17,7 +15,6 @@ import javafx.scene.layout.*;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 public class ParcelleView extends StackPane {
     private static final Image FARMER = new Image("farmer.png");

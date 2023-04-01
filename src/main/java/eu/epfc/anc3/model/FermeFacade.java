@@ -146,6 +146,7 @@ public class FermeFacade {
             ferme.newGame();
             farmer.setPosFarmer(0,0);
             spawnFarmerInFarm();
+            ferme.setPoint(0);
             System.out.println("le jeu est relancé :D ");
         }
     }

@@ -107,6 +107,9 @@ class Ferme {
         return score;
     }
 
+    void setPoint(int point){
+        score.set(point);
+    }
     void addPoint(int point){
         score.set(score.get() + point);
         //récupérer de removeVegetables les harvestPoint pour ensuite renvoyer les points dans la ferme
