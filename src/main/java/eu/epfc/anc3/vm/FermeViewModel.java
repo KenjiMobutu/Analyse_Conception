@@ -1,22 +1,17 @@
 package eu.epfc.anc3.vm;
 
 import eu.epfc.anc3.model.FermeFacade;
-import eu.epfc.anc3.model.Grass;
 import eu.epfc.anc3.model.Move;
-import eu.epfc.anc3.view.TerrainView;
-import javafx.beans.Observable;
 import javafx.beans.property.ReadOnlyBooleanProperty;
-import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.beans.property.SimpleStringProperty;
-
-import java.util.ArrayList;
+import javafx.scene.input.KeyEvent;
 
 public class FermeViewModel {
+
     private final MenuViewModel menuViewModel;
     private final TerrainViewModel terrainViewModel;
     private final FermeFacade fermeFacade = new FermeFacade();
-
     public MenuViewModel getMenuViewModel() {
         return menuViewModel;
     }
@@ -31,18 +26,14 @@ public class FermeViewModel {
     public ReadOnlyBooleanProperty isFermeStartedProperty() {
         return fermeFacade.isStartedProperty();
     }
-    public ReadOnlyBooleanProperty isSpacePressed() {
-        return fermeFacade.isSpacePressed();
-    }
-
+    public void setSpacePressed(boolean b){fermeFacade.setActionProperty(b);}
     public FermeViewModel(){
         menuViewModel = new MenuViewModel(fermeFacade);
         terrainViewModel = new TerrainViewModel(fermeFacade);
     }
 
-
     public void keyPressed(Move move) {
-        System.out.println("jrentre ici");
         fermeFacade.moveFarmer(move);
     }
+
 }

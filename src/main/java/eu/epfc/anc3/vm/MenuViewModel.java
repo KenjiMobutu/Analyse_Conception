@@ -1,6 +1,8 @@
 package eu.epfc.anc3.vm;
 
 import eu.epfc.anc3.model.FermeFacade;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.IntegerBinding;
 import javafx.beans.property.*;
 
 public class MenuViewModel {
@@ -8,12 +10,6 @@ public class MenuViewModel {
 
     public MenuViewModel(FermeFacade ferme){
         this.fermeFacade = ferme;
-        configNameHandlers();
-        //configLogicStatus();
-
-    }
-
-    private void configNameHandlers() {
 
     }
 
@@ -24,31 +20,56 @@ public class MenuViewModel {
     public ReadOnlyStringProperty plantLabelProperty() {
         return new SimpleStringProperty("Planter du gazon");
     }
+    public ReadOnlyStringProperty plantCabbageLabelProperty() {
+        return new SimpleStringProperty("Planter du chou");
+    }
+    public ReadOnlyStringProperty plantCarrotLabelProperty() {
+        return new SimpleStringProperty("Planter des carottes");
+    }
+    public ReadOnlyStringProperty fertilizerLabelProperty() {
+        return new SimpleStringProperty("Fertiliser");
+    }
+    public ReadOnlyStringProperty recoltLabelProperty() {
+        return new SimpleStringProperty("Récolter");
+    }
+
     public ReadOnlyStringProperty unPlantLabelProperty() {
         return new SimpleStringProperty("Tondre du gazon");
     }
-
     public void start() {fermeFacade.start();}
     public void stop() {fermeFacade.stop();}
-    public void plantMode(){fermeFacade.plantMode();}
+    public void plantGrassMode(){fermeFacade.plantGrassMode();}
+    public void plantCabbageMode() {
+        fermeFacade.plantCabbageMode();
+    }
+    public void plantCarottMode() {
+        fermeFacade.plantCarrotMode();
+    }
+    public void fertilizerMode() {
+        fermeFacade.fertilizerMode();
+    }
+//    public void setNbDays(int nbDays) {
+//        fermeFacade.setNbDay(nbDays);
+//    }
+//    public ReadOnlyIntegerProperty getNbDay() {
+//        return fermeFacade.nbDaysProperty();
+//    }
+    public void recoltMode() {fermeFacade.recoltMode();}
     public void unplantMode(){fermeFacade.unplantMode();}
-    public ReadOnlyIntegerProperty nbGrass(){return fermeFacade.getNbGrass();}
-
     public void newGame() {
-        //fermeFacade.start();
         fermeFacade.newGame();
     }
+    public ReadOnlyIntegerProperty score(){return fermeFacade.scoreProperty();}
 
-//    public ReadOnlyBooleanProperty isFermeStartableProperty() {
-//        return fermeFacade.isStartableProperty();
-//    }
-//    public ReadOnlyBooleanProperty canBeStopProperty() {return fermeFacade.isStartedProperty();}
-//    public ReadOnlyBooleanProperty isFermeInProgressProperty() {
-//        return fermeFacade.isInProgressProperty();
-//    }
-//    public ReadOnlyBooleanProperty isPlantedGrassPossibleProperty() {return fermeFacade.isPlantProperty();}
-//    public void setPlantGrass(boolean b) {fermeFacade.setPlantGrass(b);}
-//    public ReadOnlyBooleanProperty isUnplantedGrassPossibleProperty() {return fermeFacade.isDeplantProperty();}
-//    public void setUnplantGrass(boolean b) {fermeFacade.setDeplantGrass(b);}
+    public ReadOnlyIntegerProperty nbGrass(){return fermeFacade.getNbGrass();}//K:pour DEBUG
+
+
+    public void sleepMode() {
+        fermeFacade.nextDay();
+    }
+
+    /*public void saveGame() {
+        fermeFacade.saveGame();
+    }*/
 
 }

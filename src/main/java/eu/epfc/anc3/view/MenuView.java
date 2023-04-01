@@ -1,124 +1,277 @@
 package eu.epfc.anc3.view;
 
-
 import eu.epfc.anc3.vm.MenuViewModel;
-import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-
-import static eu.epfc.anc3.view.FermeView.MENU_WIDTH;
-import static eu.epfc.anc3.view.FermeView.PADDING;
 
 public class MenuView extends VBox {
-    // Composants du "menu"
+
+    private final Label scoreLabel = new Label("Score : ");
+    private final TextField nbScore = new TextField("0");
+    private final Label jourLabel = new Label("Jour : ");
+    private final TextField nbJour = new TextField("0");
+
     private final Label nbGrassTxt = new Label("Nombre de parcelles de gazon : ");
     private final TextField nbGrass= new TextField();
-    private  Button startButton = new Button();
-    private final Button stopButton = new Button();
-    private final Button plantButton = new Button();
-    private final Button unPlantButton = new Button();
 
-    HBox nbHerb = new HBox(nbGrassTxt,nbGrass);
-    HBox buttons = new HBox(plantButton,unPlantButton,startButton);
+    private final Button startButton = new Button();
+    private final Button sleepButton = new Button("sleep");
+    private final Button stopButton = new Button();
+    private final ToggleButton plantButtonGrass = new ToggleButton();
+    private final ToggleButton unPlantButton = new ToggleButton();
+
+    private final ToggleGroup toggleGroup = new ToggleGroup();
+    private final ToggleButton plantCarotteButton = new ToggleButton();
+    private final ToggleButton plantCabbageButton = new ToggleButton();
+    private final ToggleButton fertilizerButton = new ToggleButton();
+    private final ToggleButton recoltButton = new ToggleButton();
 
     private final MenuViewModel menuViewModel;
 
-    private FermeView fermeView;
+    private final HBox nbHbox;
+    //HBox buttonsHBox = new HBox(startButton,sleepButton) ;
 
+    VBox actionVbox = new VBox(plantButtonGrass,unPlantButton,plantCarotteButton, plantCabbageButton,fertilizerButton,recoltButton);
+    HBox buttons = new HBox(startButton,sleepButton);
+    public void bindNbJours(IntegerProperty nbJoursProperty) {
+        nbJour.textProperty().bind(nbJoursProperty.asString());
+    }
     public MenuView(MenuViewModel menuViewModel) {
         this.menuViewModel = menuViewModel;
-        configMenu();
-        // Gestion du click sur le bouton "Start"
-        manageStartButton();
-        // Gestion du click sur le bouton "plant"
-
-        managePlantButton();
-        // Gestion du click sur le bouton "unplant"
-
-        manageUnPlantButton();
-
-        //gestion click bouton "stop"
-        manageStopButton();
-
+        this.nbHbox = createNewHobx();
+        //this.buttons = buttons;
+        // this.actionVbox = actionVbox;
+        configureMenu();
+        bindLabelsToViewModel();
+        setUpButtonStart();
+        setUpButtonPlantGrass();
+        setUpButtonPlantCabbage();
+        setUpButtonPlantCarott();
+        setUpButtonFertilizer();
+        setUpButtonRecolt();
+        setUpButtonUnplant();
+        setUpButtonStop();
+        setUpSleepAction();
     }
 
-    private void configMenu(){
-        setPadding(new Insets(PADDING));
-        setMinWidth(MENU_WIDTH);
-        getChildren().addAll(nbHerb,buttons);
+
+    private void configureMenu(){
+        setPadding(new Insets(FermeView.PADDING));
+        setMinWidth(FermeView.MENU_WIDTH);
+        getChildren().addAll(nbHbox, buttons);
+
+        // Disable the plant and unplant buttons initially
+        Image img = new Image("grass.png");
+        ImageView view = new ImageView(img);
+        plantButtonGrass.setDisable(true);
+        plantButtonGrass.setGraphic(view);
+        plantButtonGrass.setPrefSize(145, 10);
+
+        unPlantButton.setDisable(true);
+        unPlantButton.setPrefSize(145, 10);
+        setUpButtonMode();
+        setUpImages();
+       // nbGrassTextField.setDisable(true);
+
+        manageScore();
+        addToToggleGroup();
+        bindLabelsToViewModel();
+        manageNbGrass();//K:pour DEBUG
+    }
+
+    private void setUpButtonMode(){
+        // Enable the start button initially
+        startButton.setDisable(false);
         startButton.setFocusTraversable(false);
         stopButton.setFocusTraversable(false);
-        nbHerb.setFocusTraversable(false);
-        plantButton.setFocusTraversable(false);
+        nbHbox.setFocusTraversable(false);
+        plantButtonGrass.setFocusTraversable(false);
         unPlantButton.setFocusTraversable(false);
-
-        nbHerb.setDisable(true);
-        plantButton.setDisable(true);
+        nbGrass.setFocusTraversable(false);
+        nbGrassTxt.setFocusTraversable(false);
+        nbGrass.setDisable(true);
+        /*---------*/
+        nbJour.setDisable(true);
+        nbScore.setDisable(true);
+        plantButtonGrass.setDisable(true);
         unPlantButton.setDisable(true);
+        plantCabbageButton.setDisable(true);
+        plantCarotteButton.setDisable(true);
+        fertilizerButton.setDisable(true);
+        recoltButton.setDisable(true);
         startButton.setDisable(false);
-        manageNbHerb();
-        configLabels();
+    }
+    private void setUpImages(){
+        Image img1 = new Image("cabbage4.png");
+        ImageView view1 = new ImageView(img1);
+        plantCabbageButton.setGraphic(view1);
+        plantCabbageButton.setFocusTraversable(false);
+        plantCabbageButton.setPrefSize(145, 10);
 
-    }
-    private void configLabels() {
-//        nbGrass.textProperty().bind(); doit etre bind avec son compteur
-        startButton.textProperty().bind(menuViewModel.startLabelProperty());
-        stopButton.textProperty().bind(menuViewModel.stopLabelProperty());
-        plantButton.textProperty().bind(menuViewModel.plantLabelProperty());
-        unPlantButton.textProperty().bind(menuViewModel.unPlantLabelProperty());
-    }
+        Image img2 = new Image("carrot4.png");
+        ImageView view2 = new ImageView(img2);
+        plantCarotteButton.setGraphic(view2);
+        plantCarotteButton.setFocusTraversable(false);
+        plantCarotteButton.setPrefSize(145, 10);
 
-    public void manageStartButton() {
-        startButton.setOnAction(e -> {
-                buttons.getChildren().remove(startButton);
-                buttons.getChildren().add(stopButton);
-                plantButton.setDisable(false);
-                unPlantButton.setDisable(false);
-                // Si le texte du bouton est "Start", on le change en "Stop"
-                menuViewModel.start();
-                
-            });
-    }
-    public void manageStopButton(){
-        stopButton.setOnAction(e -> {
-            buttons.getChildren().remove(stopButton);
-            plantButton.setDisable(true);
-            unPlantButton.setDisable(true);
-            menuViewModel.stop();
-            manageNewGameButton();
-        });
-//        stopButton.setOnAction(event -> menuViewModel.stop());
+        Image img3 = new Image("watering_can.png");
+        ImageView view3 = new ImageView(img3);
+        fertilizerButton.setGraphic(view3);
+        fertilizerButton.setFocusTraversable(false);
+        fertilizerButton.setPrefSize(145, 10);
 
-    }
-    public void managePlantButton(){
-        plantButton.setOnAction(e -> menuViewModel.plantMode());
-    }
-    public void manageUnPlantButton() {
-        unPlantButton.setOnAction(e -> menuViewModel.unplantMode());
-    }
+        Image img4 = new Image("shovel.png");
+        ImageView view4 = new ImageView(img4);
+        recoltButton.setGraphic(view4);
+        recoltButton.setFocusTraversable(false);
+        recoltButton.setPrefSize(145, 10);
 
-    public void manageNbHerb(){
+        Image img5 = new Image("moon.png");
+        ImageView view5 = new ImageView(img5);
+        sleepButton.setGraphic(view5);
+        sleepButton.setFocusTraversable(false);
+    }
+    private void manageNbGrass() {//K:pour DEBUG
         System.out.println(menuViewModel.nbGrass().toString());
         nbGrass.textProperty().bind(menuViewModel.nbGrass().asString());
     }
 
-    private void manageNewGameButton() {
-        buttons.getChildren().add(startButton);
-        startButton.setOnAction(e -> {
-            buttons.getChildren().remove(startButton);
-            buttons.getChildren().add(stopButton);
-            plantButton.setDisable(false);
-            unPlantButton.setDisable(false);
+    private void manageScore(){
+        nbScore.textProperty().bind(menuViewModel.score().asString());
+    }
 
-            menuViewModel.newGame();
+
+    private void addToToggleGroup(){
+        plantButtonGrass.setToggleGroup(toggleGroup);
+        plantCabbageButton.setToggleGroup(toggleGroup);
+        plantCarotteButton.setToggleGroup(toggleGroup);
+        fertilizerButton.setToggleGroup(toggleGroup);
+        recoltButton.setToggleGroup(toggleGroup);
+        unPlantButton.setToggleGroup(toggleGroup);
+    }
+
+    private void bindLabelsToViewModel() {
+        startButton.textProperty().bind(menuViewModel.startLabelProperty());
+        stopButton.textProperty().bind(menuViewModel.stopLabelProperty());
+        plantButtonGrass.textProperty().bind(menuViewModel.plantLabelProperty());
+        unPlantButton.textProperty().bind(menuViewModel.unPlantLabelProperty());
+        plantCabbageButton.textProperty().bind(menuViewModel.plantCabbageLabelProperty());
+        plantCarotteButton.textProperty().bind(menuViewModel.plantCarrotLabelProperty());
+        fertilizerButton.textProperty().bind(menuViewModel.fertilizerLabelProperty());
+        recoltButton.textProperty().bind(menuViewModel.recoltLabelProperty());
+    }
+
+    HBox createNewHobx() {
+        return new HBox(scoreLabel,nbScore ,jourLabel,nbJour, nbGrassTxt,nbGrass);//K:pour DEBUG
+    }
+    public void setUpButtonStart() {
+        startButton.setOnAction(e -> handleStartButtonAction());
+    }
+    private void setUpButtonStop() {
+        stopButton.setOnAction(e -> handleStopButtonAction());
+    }
+    private void setUpButtonPlantGrass() {
+        plantButtonGrass.setOnAction(e -> handlePlantGrassButtonAction());
+    }
+    private void setUpButtonUnplant() {
+        unPlantButton.setOnAction(e -> handleUnPlantButtonAction());
+    }
+    private void setUpButtonPlantCabbage() {
+        plantCabbageButton.setOnAction(e -> handlePlantCabbageButtonAction());
+    }
+    private void setUpButtonPlantCarott() {
+        plantCarotteButton.setOnAction(e -> handlePlantCarottButtonAction());
+    }
+
+    private void setUpButtonFertilizer() {
+        fertilizerButton.setOnAction(e -> handleFertilizerButtonAction());
+    }
+
+    private void setUpSleepAction(){
+        sleepButton.setOnAction(event -> {
+            int nbJours = Integer.parseInt(nbJour.getText());
+            nbJour.setText(Integer.toString(nbJours + 1));
+            handleSleepButtonAction();
         });
     }
 
+
+    private void setUpButtonRecolt() {
+        recoltButton.setOnAction(e -> handleRecoltButtonAction());
+    }
+    //Ajouter les setUp des autres boutons.
+
+    public void handleStartButtonAction() {
+        System.out.println("-> Handle Start");
+        buttons.getChildren().remove(startButton);
+        System.out.println("Retire start");
+        buttons.getChildren().add(0, stopButton);
+        plantButtonGrass.setDisable(false);
+        unPlantButton.setDisable(false);
+        plantCarotteButton.setDisable(false);
+        plantCabbageButton.setDisable(false);
+        fertilizerButton.setDisable(false);
+        recoltButton.setDisable(false);
+        menuViewModel.start();
+    }
+
+    private void handleStopButtonAction() {
+        buttons.getChildren().remove(stopButton);
+        plantButtonGrass.setDisable(true);
+        unPlantButton.setDisable(true);
+        plantCabbageButton.setDisable(true);
+        plantCarotteButton.setDisable(true);
+        fertilizerButton.setDisable(true);
+        recoltButton.setDisable(true);
+        menuViewModel.stop();
+        nbJour.setText("0");
+        manageNewGameButton();
+    }
+
+    private void handlePlantGrassButtonAction() {
+        menuViewModel.plantGrassMode();
+    }
+    private void handlePlantCabbageButtonAction() {
+        menuViewModel.plantCabbageMode();
+    }
+    private void handlePlantCarottButtonAction() {
+        menuViewModel.plantCarottMode();
+    }
+    private void handleFertilizerButtonAction() {
+        menuViewModel.fertilizerMode();
+    }
+    private void handleRecoltButtonAction() {
+        menuViewModel.recoltMode();
+    }
+//    private void updateNbDaysLabel(){
+//        nbJour.textProperty().bind(menuViewModel.getNbDay().asString());
+//    }
+    private void handleUnPlantButtonAction() {
+        menuViewModel.unplantMode();
+    }
+    private void handleSleepButtonAction() { menuViewModel.sleepMode();
+    }
+
+    private void manageNewGameButton() {
+        buttons.getChildren().add(0, startButton);
+        startButton.setOnAction(e -> {
+            buttons.getChildren().remove(startButton);
+            buttons.getChildren().add(0, stopButton);
+            plantButtonGrass.setDisable(false);
+            unPlantButton.setDisable(false);
+            plantCabbageButton.setDisable(false);
+            plantCarotteButton.setDisable(false);
+            fertilizerButton.setDisable(false);
+            recoltButton.setDisable(false);
+            menuViewModel.newGame();
+        });
+    }
 
 
 }

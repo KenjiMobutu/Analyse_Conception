@@ -1,29 +1,15 @@
 package eu.epfc.anc3.model;
 
-import java.util.Objects;
+class Grass implements Element{ //BV : pas public
+    // ajouter method auto recolt après 12 jours
+    Grass(){} //BV : rien de public mis à part getType
 
-public class Grass {
-    private Position pos;
-
-    public Grass(Position p){
-        this.pos = p;
-    }
+    public ParcelleValue getType(){return ParcelleValue.GRASS;}
 
     @Override
     public String toString() {
-        return this.pos.toString();
+        return "Grass ; ";
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Grass grass = (Grass) o;
-        return Objects.equals(pos, grass.pos);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(pos);
-    }
+    Grass(Position p){} //K:pour debug
 }

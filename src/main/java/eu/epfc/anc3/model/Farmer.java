@@ -5,10 +5,9 @@ import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.geometry.Pos;
 
-public class Farmer {
+class Farmer implements Element{
 
     private final Position posFarmer;
-    public static final SimpleListProperty<Grass> listOfPlantedGrass = new SimpleListProperty<>(FXCollections.observableArrayList());
 
     public Farmer(){
         this.posFarmer = new Position(0,0);
@@ -19,40 +18,28 @@ public class Farmer {
     }
 
     public void setPosFarmer(int x, int y){
-        posFarmer.setPosX(x); posFarmer.setPosY(y);
+        posFarmer.setX(x); posFarmer.setY(y);
     }
 
+    public ParcelleValue getType(){return ParcelleValue.FARMER;}
 
-    public boolean hasPlantedGrass(){
-        return !listOfPlantedGrass.isEmpty();
+    @Override
+    public String toString() {return "Farmer Position : " + getPosFarmer();}
+
+    /*-----------------POUR DEBUG-----------------------------------------------*/
+    public static final SimpleListProperty<Grass> listOfPlantedGrass = new SimpleListProperty<>(FXCollections.observableArrayList());
+    public ReadOnlyIntegerProperty nbgrass() {return listOfPlantedGrass.sizeProperty();
     }
-
-    public void plantGrass(Position p ){
+    public void plantGrass(Position p ){//K:pour debug
         listOfPlantedGrass.add(new Grass(p));
     }
-    public void resetGrass(){
-        listOfPlantedGrass.clear();
-    }
 
-    public void removeGrassAtPos(Position p ){
+    public void removeGrassAtPos(Position posFarmer) {//K:pour debug
         if (hasPlantedGrass())
             listOfPlantedGrass.remove(listOfPlantedGrass.get(listOfPlantedGrass.getSize()-1));
     }
 
-
-    public ReadOnlyIntegerProperty nbgrass(){return listOfPlantedGrass.sizeProperty();}
-
-    public boolean grassPlantedHere(){
-        for (Grass g : listOfPlantedGrass){
-            if (g.toString().equals(getPosFarmer().toString()))
-                return true;
-        }
-        return false;
+    private boolean hasPlantedGrass() {
+        return !listOfPlantedGrass.isEmpty();
     }
-
-
-    @Override
-    public String toString() {return "Farmer Position : " + getPosFarmer()  + "nb d'herbes : "+nbgrass();}
-
-
 }

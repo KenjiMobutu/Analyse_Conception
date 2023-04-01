@@ -1,38 +1,39 @@
 package eu.epfc.anc3.model;
 
-public class Position {
+class Position {
+    int x, y;
 
-    private int posX, posY;
-
-    public Position(){
-
+    int getX() {
+        return x;
     }
 
-    public Position(int x, int y){
-        this.posX =x;
-        this.posY =y;
+    void setX(int x) {
+        this.x = x;
     }
 
-    public int getPosX() {
-        return posX;
+    int getY() {
+        return y;
     }
 
-    public void setPosX(int posX) {
-        this.posX = posX;
+    void setY(int y) {
+        this.y = y;
     }
 
-    public int getPosY() {
-        return posY;
+    void setPos(int x, int y){
+        this.setX(x); this.setY(y);
     }
 
-    public void setPosY(int posY) {
-        this.posY = posY;
+    void getPos(){
+        this.toString();
     }
 
-    public void getPos(){this.toString();}
+    Position(int x, int y){
+        this.x = x;
+        this.y = y;
+    }
 
     @Override
     public String toString() {
-        return  "X : " + getPosX() + " Y : " + getPosY();
+        return "current pos :  x :  " + x + ",  y : "+y;
     }
 }
