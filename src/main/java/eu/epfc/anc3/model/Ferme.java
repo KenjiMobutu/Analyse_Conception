@@ -89,6 +89,20 @@ class Ferme {
             }
         }
     }
+    void fetilize(int line, int col){
+        ObservableSet<Element> elem = getAllElem(line,col);
+        for (Element e : elem) {
+            if (e instanceof Grass){
+                continue;
+            }else if (e instanceof Carrot c){
+                if (c.getCurrentState().stateProperty() < 3 ){
+                    while (c.getCurrentState().stateProperty() != 3){
+                        c.getCurrentState().nextState();
+                    }
+                }
+            }
+        }
+    }
 
     IntegerProperty getPoint(){
         return score;

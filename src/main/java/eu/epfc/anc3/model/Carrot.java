@@ -62,6 +62,9 @@ public class Carrot extends Vegetable implements Element {
         public VegetableState getCurrentState() {
             return getState();
         }
+        public int stateProperty(){
+            return 1;
+        }
 
         @Override
         public void nextState() {
@@ -106,6 +109,10 @@ public class Carrot extends Vegetable implements Element {
             System.out.println(getCurrentState().toString() + " ETAT" );
             nbJours = 3;
             System.out.println("Carrot state 2 created");
+        }
+
+        public int stateProperty(){
+            return 2;
         }
 
         @Override
@@ -156,7 +163,9 @@ public class Carrot extends Vegetable implements Element {
             nbJours = 6;
             System.out.println("Carrot state 3 created");
         }
-
+        public int stateProperty(){
+            return 3;
+        }
         @Override
         public void nextState() {
             System.out.println("Carrot state 3 changed to state 4");
@@ -204,7 +213,9 @@ public class Carrot extends Vegetable implements Element {
             nbJours = 9;
             System.out.println("Carrot state 4 created");
         }
-
+        public int stateProperty(){
+            return 4;
+        }
         @Override
         public void nextState() {
             System.out.println("Carrot state 4 changed to state ROTTEN");
@@ -256,7 +267,9 @@ public class Carrot extends Vegetable implements Element {
         public void nextState() {
 
         }
-
+        public int stateProperty(){
+            return 5;
+        }
         @Override
         public int getHarvestPoints() {
             //points_perdus = 1/10 * rendement_maximal * (jour de la récolte - premier jour du stade Pourri)

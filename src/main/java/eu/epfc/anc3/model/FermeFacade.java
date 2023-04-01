@@ -350,6 +350,7 @@ public class FermeFacade {
     }
 
     private void dropFertilizer() {
+        ferme.fetilize(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
     }
     void displayTerrain(Position pos){
         showElementsInCell(pos.getX(), pos.getY());

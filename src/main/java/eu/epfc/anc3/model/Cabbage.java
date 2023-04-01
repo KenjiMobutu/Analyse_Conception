@@ -88,6 +88,11 @@ public class Cabbage extends Vegetable implements Element {
             }
         }
 
+        @Override
+        public int stateProperty() {
+            return 1;
+        }
+
     }
 
     //Level2
@@ -136,6 +141,11 @@ public class Cabbage extends Vegetable implements Element {
             if (nbJours == daysToNextState-1) {
                 this.nextState();
             }
+        }
+
+        @Override
+        public int stateProperty() {
+            return 2;
         }
 
         public VegetableState getCurrentState() {
@@ -193,6 +203,11 @@ public class Cabbage extends Vegetable implements Element {
             }
         }
 
+        @Override
+        public int stateProperty() {
+            return 3;
+        }
+
         public VegetableState getCurrentState() {
             return getState();
         }
@@ -246,6 +261,11 @@ public class Cabbage extends Vegetable implements Element {
             }
         }
 
+        @Override
+        public int stateProperty() {
+            return 4;
+        }
+
         public VegetableState getCurrentState() {
             return getState();
         }
@@ -296,6 +316,11 @@ public class Cabbage extends Vegetable implements Element {
             if (nbJours == maxGrowthDays / 2) {
                 vegetable.setCurrentState(new CabbageRottenState(vegetable));
             }
+        }
+
+        @Override
+        public int stateProperty() {
+            return 5;
         }
 
         public VegetableState getCurrentState() {
