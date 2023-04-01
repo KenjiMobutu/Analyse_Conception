@@ -10,8 +10,11 @@
 
 ### Liste des bugs connus
 
-  * bug 1 : on peut plant a l'infini sur une seule case
-  * bug 2 : on peut tp le farmer même si le jeu est arrêté
+  * bug 1 : on peut enlever une carrotte mais l'objet carrotte en lui-même existe toujours.
+  * bug 2 : un chou même après avoir été enlevé continue de pousser jusque être pourri.
+  * bug 3 : 
+  * bug 4 : 
+  * bug 5 : 
   * ...
 
 ### Liste des fonctionnalités supplémentaires
