@@ -44,6 +44,9 @@ class Terrain {
     void removeElement(ParcelleValue pv , int line, int col){
          matrix[line][col].getElements().removeIf(e -> e.getType() == pv);
     }
+    void removeVegetables(Element e, int line, int col){
+        matrix[line][col].getElements().remove(e);
+    }
 
     ObservableSet<Element> getElem(int line, int col){return matrix[line][col].getElements();}
 
