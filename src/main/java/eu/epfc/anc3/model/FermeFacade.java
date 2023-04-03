@@ -310,10 +310,11 @@ public class FermeFacade {
     }
 
     void plantCabbage(){
-        Cabbage cabbageState1 = new Cabbage();
+        Cabbage cabbageState1 = new Cabbage(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY());
         //Position posCabbage = new Position(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
         System.out.println(!containsElementType(ParcelleValue.CABBAGE1,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "ICI Cabbage");
         addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(),cabbageState1);
+        //      <------------ mettre ça dans Cabbage ------------>
         if(containsElementType(ParcelleValue.GRASS,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY())) {
             nbJours.addListener((obs, oldVal, newVal) -> {
                 System.out.println("next day");
@@ -329,20 +330,15 @@ public class FermeFacade {
         System.out.println(ferme.getAllElem(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "ICI Cabbage");
     }
     void PlantCarrot(){
-        Carrot carrot = new Carrot();
+        Carrot carrot = new Carrot(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY());
         //Position posCarrot = new Position(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
         System.out.println(!containsElementType(ParcelleValue.CARROT1,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "ICI Carrot");
         addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(), carrot);
-
+        // mettre ça dans cabbage
         nbJours.addListener((obs, oldVal, newVal) -> {
             System.out.println("++day");
             carrot.getCurrentState().nextDay();
         });
-//        nextDayProperty().addListener((obs, oldVal, newVal) -> {
-//            System.out.println("++day");
-//            carrot.getCurrentState().nextDay();
-//        });
-
         System.out.println(ferme.getAllElem(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "ICI Carrot");
     }
 

@@ -98,20 +98,16 @@ class Ferme {
     void removeVegetables( int line, int col){
         ObservableSet<Element> elem = getAllElem(line,col);
         for (Element e : elem) {
-            if (e instanceof Grass){
-                continue;
-            }else if (e instanceof Carrot){
+             if (e.getType().toString().contains("CARROT")){
                 Carrot currentCarrot = (Carrot) e;
                 addPoint(currentCarrot.getCurrentState().getHarvestPoints());
                 System.out.println("state cabbage : " + currentCarrot.getCurrentState() + " point a avoir : " + currentCarrot.getCurrentState().getHarvestPoints());
-                terrain.removeVegetables(e, line, col);
-
-            }else if (e instanceof Cabbage){
+            }else if (e.getType().toString().contains("CABBAGE")){
                 Cabbage currentCabbage = (Cabbage) e;
                 addPoint(currentCabbage.getCurrentState().getHarvestPoints());
                 System.out.println("state cabbage : " + currentCabbage.getCurrentState() + " point a avoir : " + currentCabbage.getCurrentState().getHarvestPoints());
-                terrain.removeVegetables(e, line, col);
             }
+            terrain.removeVegetables(e, line, col);
         }
     }
     void fetilize(int line, int col){

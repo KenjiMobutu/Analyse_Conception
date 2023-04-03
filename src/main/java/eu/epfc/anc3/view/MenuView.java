@@ -280,9 +280,7 @@ public class MenuView extends VBox {
     private void handleRecoltButtonAction() {
         menuViewModel.recoltMode();
     }
-//    private void updateNbDaysLabel(){
-//        nbJour.textProperty().bind(menuViewModel.getNbDay().asString());
-//    }
+
     private void handleUnPlantButtonAction() {
         menuViewModel.unplantMode();
     }

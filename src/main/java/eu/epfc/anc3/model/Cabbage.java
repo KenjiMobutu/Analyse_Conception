@@ -6,16 +6,18 @@ import javafx.beans.value.ObservableValue;
 
 //k:trouver une solution pour retirer public de la classe
 public class Cabbage extends Vegetable implements Element {
+    private int line,col;
     private ReadOnlyObjectWrapper<VegetableState> state = new ReadOnlyObjectWrapper<>();
     private final int maxScore = 200;
 
-    public Cabbage() {
+    public Cabbage(int line, int col) {
         super();
+        this.line = line;this.col = col;
         this.setState(new CabbageState1(this));
         System.out.println("Cabbage created");
     }
     @Override
-    public ParcelleValue getType(){return ParcelleValue.CABBAGE1;}
+    public ParcelleValue getType(){return state.get().getType();}
     public void addStateListener(ChangeListener<VegetableState> listener) {
         stateProperty().addListener(listener);
     }

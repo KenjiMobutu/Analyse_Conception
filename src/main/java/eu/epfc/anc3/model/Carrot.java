@@ -12,15 +12,18 @@ import javafx.scene.layout.GridPane;
 //k:trouver une solution pour retirer public de la classe
 public class Carrot extends Vegetable implements Element {
     //private IntegerProperty nbJours = new SimpleIntegerProperty(0);
+    private int line,col;
+
     private ReadOnlyObjectWrapper<VegetableState> state = new ReadOnlyObjectWrapper<>();
     private final int maxScore = 100;
-    public Carrot() {
+    public Carrot(int line, int col) {
         super();
+        this.line = line; this.col = col;
         this.setState(new CarrotState1(this));
     }
     @Override
     public ParcelleValue getType() {
-        return ParcelleValue.CARROT1;
+        return state.get().getType();
     }
     public void addStateListener(ChangeListener<VegetableState> listener) {
         stateProperty().addListener(listener);
