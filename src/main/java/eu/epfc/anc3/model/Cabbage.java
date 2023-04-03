@@ -4,6 +4,7 @@ import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 
+// faire boolean quand on creer un legume et quand c'est true tu mets a jour avec un booleanProperty -> bind a sa cellule
 //k:trouver une solution pour retirer public de la classe
 public class Cabbage extends Vegetable implements Element {
     private int line,col;
