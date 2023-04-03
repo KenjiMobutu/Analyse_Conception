@@ -23,6 +23,8 @@ public class MenuView extends VBox {
     private final Button startButton = new Button();
     private final Button sleepButton = new Button("sleep");
     private final Button stopButton = new Button();
+    private final Button saveButton = new Button("Sauvegarder");
+    private final Button loadButton = new Button("Restaurer");
     private final ToggleButton plantButtonGrass = new ToggleButton();
     private final ToggleButton unPlantButton = new ToggleButton();
 
@@ -38,7 +40,7 @@ public class MenuView extends VBox {
     //HBox buttonsHBox = new HBox(startButton,sleepButton) ;
 
     VBox actionVbox = new VBox(plantButtonGrass,unPlantButton,plantCarotteButton, plantCabbageButton,fertilizerButton,recoltButton);
-    HBox buttons = new HBox(startButton,sleepButton);
+    HBox buttons = new HBox(startButton,sleepButton, saveButton, loadButton);
     public void bindNbJours(IntegerProperty nbJoursProperty) {
         nbJour.textProperty().bind(nbJoursProperty.asString());
     }
@@ -58,6 +60,9 @@ public class MenuView extends VBox {
         setUpButtonUnplant();
         setUpButtonStop();
         setUpSleepAction();
+
+        setUpSaveAction();
+        setUpLoadAction();
     }
 
 
@@ -90,6 +95,9 @@ public class MenuView extends VBox {
         startButton.setDisable(false);
         startButton.setFocusTraversable(false);
         stopButton.setFocusTraversable(false);
+        saveButton.setFocusTraversable(false);
+        loadButton.setFocusTraversable(false);
+
         nbHbox.setFocusTraversable(false);
         plantButtonGrass.setFocusTraversable(false);
         unPlantButton.setFocusTraversable(false);
@@ -106,6 +114,11 @@ public class MenuView extends VBox {
         fertilizerButton.setDisable(true);
         recoltButton.setDisable(true);
         startButton.setDisable(false);
+        saveButton.setDisable(false);
+        loadButton.setDisable(false);
+        sleepButton.setDisable(true);
+        saveButton.setDisable(true);
+        loadButton.setDisable(true);
     }
     private void setUpImages(){
         Image img1 = new Image("cabbage4.png");
@@ -189,6 +202,14 @@ public class MenuView extends VBox {
         plantCarotteButton.setOnAction(e -> handlePlantCarottButtonAction());
     }
 
+
+    private void  setUpSaveAction() {
+        saveButton.setOnAction(e -> handleSaveButton());
+    }
+    private void setUpLoadAction() {
+        loadButton.setOnAction(e -> handleLoadButton());
+    }
+
     private void setUpButtonFertilizer() {
         fertilizerButton.setOnAction(e -> handleFertilizerButtonAction());
     }
@@ -218,6 +239,9 @@ public class MenuView extends VBox {
         plantCabbageButton.setDisable(false);
         fertilizerButton.setDisable(false);
         recoltButton.setDisable(false);
+        sleepButton.setDisable(false);
+        loadButton.setDisable(false);
+        saveButton.setDisable(false);
         menuViewModel.start();
     }
 
@@ -232,6 +256,13 @@ public class MenuView extends VBox {
         menuViewModel.stop();
         nbJour.setText("0");
         manageNewGameButton();
+    }
+    private void handleSaveButton(){
+        menuViewModel.save();
+    }
+
+    private void handleLoadButton(){
+        menuViewModel.load();
     }
 
     private void handlePlantGrassButtonAction() {
@@ -255,7 +286,7 @@ public class MenuView extends VBox {
     private void handleUnPlantButtonAction() {
         menuViewModel.unplantMode();
     }
-    private void handleSleepButtonAction() { menuViewModel.sleepMode();
+    private void handleSleepButtonAction() { menuViewModel.load();
     }
 
     private void manageNewGameButton() {

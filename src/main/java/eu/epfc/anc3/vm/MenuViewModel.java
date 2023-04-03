@@ -48,6 +48,12 @@ public class MenuViewModel {
     public void fertilizerMode() {
         fermeFacade.fertilizerMode();
     }
+    public void save(){
+        fermeFacade.saveGame();
+    }
+    public void load(){
+        fermeFacade.loadGame();
+    }
 //    public void setNbDays(int nbDays) {
 //        fermeFacade.setNbDay(nbDays);
 //    }

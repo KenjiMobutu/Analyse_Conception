@@ -134,6 +134,22 @@ public class FermeFacade {
         }
     }
 
+    public void saveGame(){
+        System.out.println("sauvegarde du jeu ");
+        ferme.saveGame(nbJours.get());
+    }
+    public void loadGame(){
+        if (ferme.saveGameDidWell()) { // check if there is a saved game to load
+            System.out.println("Loading game...");
+            ferme.loadGame(); // load the game data
+            nbJours.set(ferme.MementoNbDayProperty()); // update the number of days played
+            //score.set(ferme.getMementoScoreProperty()); // update the score
+
+        } else {
+            System.out.println("No saved game to load.");
+        }
+    }
+
     public void unplantMode(){
         if (isStarted.getValue()){
             System.out.println("  -> Déplanter de l'herbe est possible :) ");

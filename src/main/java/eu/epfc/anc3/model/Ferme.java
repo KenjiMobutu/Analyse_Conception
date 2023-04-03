@@ -1,24 +1,50 @@
 package eu.epfc.anc3.model;
 
 import javafx.beans.property.*;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableSet;
 
 class Ferme {
 
     private Terrain terrain = new Terrain();
+    private Memento saveGame = new Memento();
+    private boolean isSaved = false;
+
     private IntegerProperty score = new SimpleIntegerProperty(0);
 
     private final ObjectProperty<FermeStatus> fermeStatus = new SimpleObjectProperty<>(FermeStatus.START);
     public Ferme(){}
 
     void start(){
-        terrain = new Terrain();
-        fermeStatus.set(FermeStatus.STARTED);
+        if (isSaved){
+            terrain = saveGame.getFerme().getTerrain();
+            fermeStatus.set(FermeStatus.STARTED);
+        }else{
+            terrain = new Terrain();
+            fermeStatus.set(FermeStatus.STARTED);
+        }
+
     }
     void newGame() {
         terrain.resetTerrain();
         fermeStatus.set(FermeStatus.STARTED);
+    }
+    Memento saveGame(int nbJour){
+        saveGame = new Memento(this, score.getValue(), nbJour);
+        isSaved = true;
+        return saveGame;
+    }
+    boolean saveGameDidWell(){
+        return isSaved;
+    }
+    void loadGame(){
+        if (isSaved)
+            start();
+    }
+    int MementoNbDayProperty(){
+        return saveGame.getJour();
+    }
+    int MementoScoreProperty(){
+        return saveGame.getScore();
     }
     void stop(){
         fermeStatus.setValue(FermeStatus.STOP);
@@ -107,8 +133,9 @@ class Ferme {
         return score;
     }
 
-    void setPoint(int point){
+    int setPoint(int point){
         score.set(point);
+        return point;
     }
     void addPoint(int point){
         score.set(score.get() + point);
