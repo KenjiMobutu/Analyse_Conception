@@ -113,9 +113,10 @@ class Ferme {
     void fetilize(int line, int col){
         ObservableSet<Element> elem = getAllElem(line,col);
         for (Element e : elem) {
-            if (e instanceof Grass){
+            if (e.getType().toString().contains("GRASS")){
                 continue;
-            }else if (e instanceof Carrot c){
+            }else if (e.getType().toString().contains("CARROT")){
+                Carrot c = (Carrot) e ;
                 if (c.getCurrentState().stateProperty() < 3 ){
                     while (c.getCurrentState().stateProperty() != 3){
                         c.getCurrentState().nextState();

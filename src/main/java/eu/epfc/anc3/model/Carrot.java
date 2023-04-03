@@ -70,6 +70,14 @@ public class Carrot extends Vegetable implements Element {
         }
 
         @Override
+        public void fertiliser() {
+            if (stateProperty() < 3){
+                while (state.get().stateProperty() != 3)
+                    this.nextState();
+            }
+        }
+
+        @Override
         public void nextState() {
             vegetable.setCurrentState(new CarrotState2(vegetable));
             System.out.println("Carrot state 1 changed to state 2");
@@ -116,6 +124,14 @@ public class Carrot extends Vegetable implements Element {
 
         public int stateProperty(){
             return 2;
+        }
+
+        @Override
+        public void fertiliser() {
+            if (stateProperty() < 3){
+                while (state.get().stateProperty() != 3)
+                    this.nextState();
+            }
         }
 
         @Override
@@ -169,6 +185,12 @@ public class Carrot extends Vegetable implements Element {
         public int stateProperty(){
             return 3;
         }
+
+        @Override
+        public void fertiliser() {
+
+        }
+
         @Override
         public void nextState() {
             System.out.println("Carrot state 3 changed to state 4");
@@ -219,6 +241,12 @@ public class Carrot extends Vegetable implements Element {
         public int stateProperty(){
             return 4;
         }
+
+        @Override
+        public void fertiliser() {
+
+        }
+
         @Override
         public void nextState() {
             System.out.println("Carrot state 4 changed to state ROTTEN");
@@ -273,6 +301,12 @@ public class Carrot extends Vegetable implements Element {
         public int stateProperty(){
             return 5;
         }
+
+        @Override
+        public void fertiliser() {
+
+        }
+
         @Override
         public int getHarvestPoints() {
             //points_perdus = 1/10 * rendement_maximal * (jour de la récolte - premier jour du stade Pourri)

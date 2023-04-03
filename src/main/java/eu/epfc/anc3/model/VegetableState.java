@@ -45,4 +45,6 @@ public abstract class VegetableState {
     public abstract void nextDayWithGrass();
 
     public abstract int stateProperty();
+
+    public abstract void fertiliser();
 }

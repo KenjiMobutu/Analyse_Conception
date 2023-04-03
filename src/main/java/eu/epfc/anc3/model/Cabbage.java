@@ -95,6 +95,11 @@ public class Cabbage extends Vegetable implements Element {
             return 1;
         }
 
+        @Override
+        public void fertiliser() {
+
+        }
+
     }
 
     //Level2
@@ -148,6 +153,11 @@ public class Cabbage extends Vegetable implements Element {
         @Override
         public int stateProperty() {
             return 2;
+        }
+
+        @Override
+        public void fertiliser() {
+
         }
 
         public VegetableState getCurrentState() {
@@ -210,6 +220,11 @@ public class Cabbage extends Vegetable implements Element {
             return 3;
         }
 
+        @Override
+        public void fertiliser() {
+
+        }
+
         public VegetableState getCurrentState() {
             return getState();
         }
@@ -268,6 +283,11 @@ public class Cabbage extends Vegetable implements Element {
             return 4;
         }
 
+        @Override
+        public void fertiliser() {
+
+        }
+
         public VegetableState getCurrentState() {
             return getState();
         }
@@ -323,6 +343,11 @@ public class Cabbage extends Vegetable implements Element {
         @Override
         public int stateProperty() {
             return 5;
+        }
+
+        @Override
+        public void fertiliser() {
+
         }
 
         public VegetableState getCurrentState() {
