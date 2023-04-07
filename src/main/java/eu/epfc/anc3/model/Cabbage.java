@@ -1,6 +1,8 @@
 package eu.epfc.anc3.model;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 
@@ -8,17 +10,20 @@ import javafx.beans.value.ObservableValue;
 //k:trouver une solution pour retirer public de la classe
 public class Cabbage extends Vegetable implements Element {
     private int line,col;
+    private BooleanProperty updateCabbage;
     private ReadOnlyObjectWrapper<VegetableState> state = new ReadOnlyObjectWrapper<>();
     private final int maxScore = 200;
 
     public Cabbage(int line, int col) {
         super();
         this.line = line;this.col = col;
+        updateCabbage = new SimpleBooleanProperty(false);
         this.setState(new CabbageState1(this));
         System.out.println("Cabbage created");
     }
     @Override
     public ParcelleValue getType(){return state.get().getType();}
+
     public void addStateListener(ChangeListener<VegetableState> listener) {
         stateProperty().addListener(listener);
     }
@@ -55,6 +60,9 @@ public class Cabbage extends Vegetable implements Element {
 
         @Override
         public void nextState() {
+            if (nbJours == daysToNextState){
+                updateCabbage.set(true);
+            }
             vegetable.setCurrentState(new CabbageState2(vegetable));
             System.out.println("Cabbage state 1 changed to state 2");
             Cabbage.this.getType();

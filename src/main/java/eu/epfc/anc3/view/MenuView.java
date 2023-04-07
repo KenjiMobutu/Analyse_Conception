@@ -284,7 +284,7 @@ public class MenuView extends VBox {
     private void handleUnPlantButtonAction() {
         menuViewModel.unplantMode();
     }
-    private void handleSleepButtonAction() { menuViewModel.load();
+    private void handleSleepButtonAction() { menuViewModel.sleepMode();
     }
 
     private void manageNewGameButton() {

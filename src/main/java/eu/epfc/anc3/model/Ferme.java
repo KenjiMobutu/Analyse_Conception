@@ -97,25 +97,26 @@ class Ferme {
     }
     void removeVegetables( int line, int col){
         ObservableSet<Element> elem = getAllElem(line,col);
-        for (Element e : elem) {
-             if (e.getType().toString().contains("CARROT")){
-                Carrot currentCarrot = (Carrot) e;
+        Element lastElement = elem.stream().reduce((a, b) -> b).orElse(null);
+
+        if (lastElement != null){
+            if (lastElement.getType().toString().contains("CARROT")){
+                Carrot currentCarrot = (Carrot) lastElement;
                 addPoint(currentCarrot.getCurrentState().getHarvestPoints());
                 System.out.println("state cabbage : " + currentCarrot.getCurrentState() + " point a avoir : " + currentCarrot.getCurrentState().getHarvestPoints());
-            }else if (e.getType().toString().contains("CABBAGE")){
-                Cabbage currentCabbage = (Cabbage) e;
+            }else if(lastElement.getType().toString().contains("CABBAGE")) {
+                Cabbage currentCabbage = (Cabbage)lastElement;
                 addPoint(currentCabbage.getCurrentState().getHarvestPoints());
                 System.out.println("state cabbage : " + currentCabbage.getCurrentState() + " point a avoir : " + currentCabbage.getCurrentState().getHarvestPoints());
             }
-            terrain.removeVegetables(e, line, col);
+
+            terrain.removeVegetables(lastElement, line, col);
         }
     }
     void fetilize(int line, int col){
         ObservableSet<Element> elem = getAllElem(line,col);
         for (Element e : elem) {
-            if (e.getType().toString().contains("GRASS")){
-                continue;
-            }else if (e.getType().toString().contains("CARROT")){
+            if (e.getType().toString().contains("CARROT")){
                 Carrot c = (Carrot) e ;
                 if (c.getCurrentState().stateProperty() < 3 ){
                     while (c.getCurrentState().stateProperty() != 3){
