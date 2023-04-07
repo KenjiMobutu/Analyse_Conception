@@ -109,7 +109,6 @@ class Ferme {
                 addPoint(currentCabbage.getCurrentState().getHarvestPoints());
                 System.out.println("state cabbage : " + currentCabbage.getCurrentState() + " point a avoir : " + currentCabbage.getCurrentState().getHarvestPoints());
             }
-
             terrain.removeVegetables(lastElement, line, col);
         }
     }
