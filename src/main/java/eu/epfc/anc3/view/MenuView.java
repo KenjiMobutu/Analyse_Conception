@@ -299,6 +299,7 @@ public class MenuView extends VBox {
             fertilizerButton.setDisable(false);
             recoltButton.setDisable(false);
             menuViewModel.newGame();
+            toggleGroup.getSelectedToggle().setSelected(false);
         });
     }
 
