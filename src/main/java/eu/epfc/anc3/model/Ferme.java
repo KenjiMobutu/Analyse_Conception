@@ -5,6 +5,11 @@ import javafx.collections.ObservableSet;
 
 class Ferme {
 
+    /**
+     *
+     *              ---------------> SUPPRIMER LE COMPTEUR DE GRASS AVANT LA REMISE </--------------->
+     */
+
     private Terrain terrain = new Terrain();
     private Memento saveGame = new Memento();
     private boolean isSaved = false;
@@ -80,13 +85,21 @@ class Ferme {
 
     //ajout un element a une cellule
     void addElementToCell(Element p, int line, int col){
-        // check si la cellule a deja un element de type vegetable
+        // check if the cell already contains a vegetable of the same type
         if (!cellContainsElementType(p.getType(),line, col) &&
-                (p.getType() != ParcelleValue.CARROT1 || !cellContainsElementType(ParcelleValue.CABBAGE1 ,line, col)) &&
-                (p.getType() != ParcelleValue.CABBAGE1 || !cellContainsElementType(ParcelleValue.CARROT1 ,line, col)))
-        {
+                !cellContainsCarrotOrCabbage(line, col)) {
             terrain.addElementToCell(p, line, col);
         }
+    }
+
+    private boolean cellContainsCarrotOrCabbage(int line, int col) {
+        for (ParcelleValue pv : ParcelleValue.values()) {
+            if ((pv.toString().contains("CARROT") || pv.toString().contains("CABBAGE")) &&
+                    cellContainsElementType(pv, line, col)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 
