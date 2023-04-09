@@ -12,6 +12,12 @@ import javafx.scene.layout.VBox;
 
 public class MenuView extends VBox {
 
+
+    /**
+     *
+     *              ---------------> SUPPRIMER LE COMPTEUR DE GRASS AVANT LA REMISE </--------------->
+     */
+
     private final Label scoreLabel = new Label("Score : ");
     private final TextField nbScore = new TextField("0");
     private final Label jourLabel = new Label("Jour : ");
@@ -299,7 +305,9 @@ public class MenuView extends VBox {
             fertilizerButton.setDisable(false);
             recoltButton.setDisable(false);
             menuViewModel.newGame();
-            toggleGroup.getSelectedToggle().setSelected(false);
+            if (toggleGroup.getSelectedToggle() != null) {
+                toggleGroup.getSelectedToggle().setSelected(false);
+            }
         });
     }
 
