@@ -8,20 +8,35 @@ class Ferme {
     /**
      *
      *              ---------------> SUPPRIMER LE COMPTEUR DE GRASS AVANT LA REMISE </--------------->
+     *
      */
+
+    //dans chaque cell mettre bool et
+    // mettre a vrai quand un etat d'un legume change et
+    // si la vue est binder dessus elle sera notifié quand un elem de la liste change d'état
+
 
     private Terrain terrain = new Terrain();
     private Memento saveGame = new Memento();
     private boolean isSaved = false;
 
     private IntegerProperty score = new SimpleIntegerProperty(0);
+    private IntegerProperty nbDays = new SimpleIntegerProperty(0);
 
     private final ObjectProperty<FermeStatus> fermeStatus = new SimpleObjectProperty<>(FermeStatus.START);
     public Ferme(){}
 
     void start(){
         if (isSaved){
-            terrain = saveGame.getFerme().getTerrain();
+            System.out.println("JE PASSE DANS LE START POUR LOAD GAME OUI OUI !!!!!!!!");
+            if (saveGame.getTerrain() != null){
+                terrain = saveGame.getTerrain();
+                System.out.println("j'ai bien un terrain");
+                System.out.println(saveGame);
+            }
+
+            else
+                System.out.println("NO TERRAIN FDPPQSPDFJSDPFJ");
             fermeStatus.set(FermeStatus.STARTED);
         }else{
             terrain = new Terrain();
@@ -34,7 +49,7 @@ class Ferme {
         fermeStatus.set(FermeStatus.STARTED);
     }
     Memento saveGame(int nbJour){
-        saveGame = new Memento(this, score.getValue(), nbJour);
+        saveGame = new Memento(getTerrain(), score.getValue(), nbJour);
         isSaved = true;
         return saveGame;
     }
@@ -42,8 +57,12 @@ class Ferme {
         return isSaved;
     }
     void loadGame(){
-        if (isSaved)
+        stop();
+        if (isSaved){
+            System.out.println("JE PASSE DANS LE LOAD GAME CORRECTEMENT !!!!!!!!!!!!!!!!!!!!!!!");
             start();
+            isSaved = false;
+        }
     }
     int MementoNbDayProperty(){
         return saveGame.getJour();
@@ -79,17 +98,46 @@ class Ferme {
     }
 
 
+    void addListener(Position pos){
+        ObservableSet<Element> elem = terrain.getElem(pos.getX(), pos.getY());
+        for (Element e : elem){
+            nbDaysInFarm().addListener((obs, oldVal, newVal) -> {
+                if (e.getType().toString().contains("CABBAGE")){
+                    Cabbage c = (Cabbage) e;
+                    c.getCurrentState().nextDay();
+                }else if (e.getType().toString().contains("CARROT")){
+                    Carrot c = (Carrot) e ;
+                    c.getCurrentState().nextDay();
+                }
+            });
+        }
+    }
+
     boolean cellContainsElementType(ParcelleValue pv, int line, int col){
         return terrain.containsElementType(pv, line, col);
     }
 
     //ajout un element a une cellule
     void addElementToCell(Element p, int line, int col){
-        // check if the cell already contains a vegetable of the same type
-        if (!cellContainsElementType(p.getType(),line, col) &&
+        // check s'il y a une carrot / cabbage
+        if (!cellContainsElementType(p.getType(),line, col) ||
                 !cellContainsCarrotOrCabbage(line, col)) {
             terrain.addElementToCell(p, line, col);
+            grassOnCell(line,col);
         }
+    }
+
+    private void grassOnCell(int line, int col){
+        ObservableSet<Element> elem = terrain.getElem(line, col);
+        if (cellContainsElementType(ParcelleValue.GRASS, line,col)){
+            for (Element e : elem){
+                if (e.getType().toString().contains("CABBAGE")){
+                    Cabbage cab = (Cabbage) e;
+                    cab.setHasGrass(true);
+                }
+            }
+        }
+
     }
 
     private boolean cellContainsCarrotOrCabbage(int line, int col) {
@@ -167,6 +215,10 @@ class Ferme {
     Terrain getTerrain(){
         return terrain;
     }
+
+    ReadOnlyIntegerProperty nbDaysInFarm(){ return nbDays;}
+
+    void setDays(int day){ nbDays.set(day);}
 
 
 /*-------------------------------POUR DEBUG------------------------------------*/

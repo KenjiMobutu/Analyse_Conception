@@ -1,5 +1,8 @@
 package eu.epfc.anc3.model;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+
 public abstract class VegetableState {
     /*
     propriétés :
@@ -7,15 +10,15 @@ public abstract class VegetableState {
     daysToNextState : propriété qui contiendra le nombre de jours nécessaires pour passer à l'état suivant.
      */
     //faire un state pour chaque légume + grass
-    protected int growthDays ; // Nombre de jours nécessaires pour que le légume arrive à maturité
-    protected int daysToNextState; // Nombre de jours nécessaires pour passer à l'état suivant
+    protected IntegerProperty growthDays = new SimpleIntegerProperty(0); // Nombre de jours nécessaires pour que le légume arrive à maturité
+    protected IntegerProperty daysToNextState = new SimpleIntegerProperty(0); // Nombre de jours nécessaires pour passer à l'état suivant
 
     protected Vegetable vegetable; // Légume auquel cet état est associé
     // Constructeur
     public VegetableState(Vegetable vegetable, int growthDays, int daysToNextState) {
         this.vegetable = vegetable;
-        this.growthDays = growthDays;
-        this.daysToNextState = daysToNextState;
+        this.growthDays.set(growthDays);
+        this.daysToNextState.set(daysToNextState);
     }
     public VegetableState(Vegetable vegetable) {
         this.vegetable = vegetable;
@@ -47,4 +50,6 @@ public abstract class VegetableState {
     public abstract int stateProperty();
 
     public abstract void fertiliser();
+
+    abstract boolean lastDay();
 }

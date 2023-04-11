@@ -73,6 +73,7 @@ public class FermeFacade {
         recolt.bind(fermeStatusProperty().isEqualTo(FermeStatus.RECOLT));
         useFertilizer.bind(fermeStatusProperty().isEqualTo(FermeStatus.FERTILIZER));
         score.bind(ferme.getPoint());
+
     }
 
     //permet de déplacer le fermier dans le jeu
@@ -128,11 +129,11 @@ public class FermeFacade {
         ferme.saveGame(nbJours.get());
     }
     public void loadGame(){
-        if (ferme.saveGameDidWell()) { // check if there is a saved game to load
+        if (ferme.saveGameDidWell()) { // check si y a une save
             System.out.println("Loading game...");
-            ferme.loadGame(); // load the game data
-            nbJours.set(ferme.MementoNbDayProperty()); // update the number of days played
-            //score.set(ferme.getMementoScoreProperty()); // update the score
+            ferme.loadGame(); // load the game
+            nbJours.set(ferme.MementoNbDayProperty());
+            //score.set(ferme.getMementoScoreProperty());
 
         } else {
             System.out.println("No saved game to load.");
@@ -188,6 +189,7 @@ public class FermeFacade {
     }
     public void moveFarmer(Move move) {
         System.out.println(getStatus() );
+
         if (isInProgress.getValue()){
             removeElemFromCell(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY(), ParcelleValue.FARMER);
             switch (move){
@@ -294,41 +296,32 @@ public class FermeFacade {
         System.out.println(!containsElementType(ParcelleValue.GRASS,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) );
         //addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(),new Grass());
         ferme.addElementToCell(new Grass(),farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
+        addListenerToVegetables(posGrass);
 
         System.out.println(ferme.getAllElem(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "qsldh");
     }
 
     void plantCabbage(){
-        Cabbage cabbageState1 = new Cabbage(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY());
+        Position cabbagePos = new Position(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
+        Cabbage cabbageState1 = new Cabbage(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(),containsElementType(ParcelleValue.GRASS,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()));
         //Position posCabbage = new Position(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
+        addListenerToVegetables(cabbagePos);
         System.out.println(!containsElementType(ParcelleValue.CABBAGE1,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "ICI Cabbage");
         addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(),cabbageState1);
         //      <------------ mettre ça dans Cabbage ------------>
-        if(containsElementType(ParcelleValue.GRASS,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY())) {
-            nbJours.addListener((obs, oldVal, newVal) -> {
-                System.out.println("next day");
-                //si contien grass next day with grass *****
-                cabbageState1.getCurrentState().nextDayWithGrass();
-            });
-        }else{
-            nbJours.addListener((obs, oldVal, newVal) -> {
-                System.out.println("next day");
-                cabbageState1.getCurrentState().nextDay();
-            });
-        }
+
         System.out.println(ferme.getAllElem(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "ICI Cabbage");
     }
     void PlantCarrot(){
+        Position carrotPos = new Position(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
         Carrot carrot = new Carrot(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY());
-        //Position posCarrot = new Position(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
-        System.out.println(!containsElementType(ParcelleValue.CARROT1,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "ICI Carrot");
         addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(), carrot);
-        // mettre ça dans cabbage
-        nbJours.addListener((obs, oldVal, newVal) -> {
-            System.out.println("++day");
-            carrot.getCurrentState().nextDay();
-        });
+        addListenerToVegetables(carrotPos);
         System.out.println(ferme.getAllElem(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "ICI Carrot");
+    }
+
+    void addListenerToVegetables(Position vegetablePos){
+        ferme.addListener(vegetablePos);
     }
 
 
@@ -368,6 +361,8 @@ public class FermeFacade {
 
     public IntegerProperty nextDayProperty() {
         nbJours.set(nbJours.get() + 1);
+        System.out.println("nombre de jour dans fichier Ferme : ->>> "  + ferme.nbDaysInFarm());
+        ferme.setDays(nbJours.get()+1);
         System.out.println(nbJours + "nbJours");
         return nbJours;
     }
