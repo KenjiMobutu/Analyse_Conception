@@ -1,24 +1,74 @@
 package eu.epfc.anc3.model;
 
 import javafx.beans.property.*;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableSet;
 
 class Ferme {
 
+    /**
+     *
+     *              ---------------> SUPPRIMER LE COMPTEUR DE GRASS AVANT LA REMISE </--------------->
+     *
+     */
+
+    //dans chaque cell mettre bool et
+    // mettre a vrai quand un etat d'un legume change et
+    // si la vue est binder dessus elle sera notifié quand un elem de la liste change d'état
+
+
     private Terrain terrain = new Terrain();
+    private Memento saveGame = new Memento();
+    private boolean isSaved = false;
+
     private IntegerProperty score = new SimpleIntegerProperty(0);
+    private IntegerProperty nbDays = new SimpleIntegerProperty(0);
 
     private final ObjectProperty<FermeStatus> fermeStatus = new SimpleObjectProperty<>(FermeStatus.START);
     public Ferme(){}
 
     void start(){
-        terrain = new Terrain();
-        fermeStatus.set(FermeStatus.STARTED);
+        if (isSaved){
+            System.out.println("JE PASSE DANS LE START POUR LOAD GAME OUI OUI !!!!!!!!");
+            if (saveGame.getTerrain() != null){
+                terrain = saveGame.getTerrain();
+                System.out.println("j'ai bien un terrain");
+                System.out.println(saveGame);
+            }
+
+            else
+                System.out.println("NO TERRAIN FDPPQSPDFJSDPFJ");
+            fermeStatus.set(FermeStatus.STARTED);
+        }else{
+            terrain = new Terrain();
+            fermeStatus.set(FermeStatus.STARTED);
+        }
+
     }
     void newGame() {
         terrain.resetTerrain();
         fermeStatus.set(FermeStatus.STARTED);
+    }
+    Memento saveGame(int nbJour){
+        saveGame = new Memento(getTerrain(), score.getValue(), nbJour);
+        isSaved = true;
+        return saveGame;
+    }
+    boolean saveGameDidWell(){
+        return isSaved;
+    }
+    void loadGame(){
+        stop();
+        if (isSaved){
+            System.out.println("JE PASSE DANS LE LOAD GAME CORRECTEMENT !!!!!!!!!!!!!!!!!!!!!!!");
+            start();
+            isSaved = false;
+        }
+    }
+    int MementoNbDayProperty(){
+        return saveGame.getJour();
+    }
+    int MementoScoreProperty(){
+        return saveGame.getScore();
     }
     void stop(){
         fermeStatus.setValue(FermeStatus.STOP);
@@ -48,19 +98,56 @@ class Ferme {
     }
 
 
+    void addListener(Position pos){
+        ObservableSet<Element> elem = terrain.getElem(pos.getX(), pos.getY());
+        for (Element e : elem){
+            nbDaysInFarm().addListener((obs, oldVal, newVal) -> {
+                if (e.getType().toString().contains("CABBAGE")){
+                    Cabbage c = (Cabbage) e;
+                    c.getCurrentState().nextDay();
+                }else if (e.getType().toString().contains("CARROT")){
+                    Carrot c = (Carrot) e ;
+                    c.getCurrentState().nextDay();
+                }
+            });
+        }
+    }
+
     boolean cellContainsElementType(ParcelleValue pv, int line, int col){
         return terrain.containsElementType(pv, line, col);
     }
 
     //ajout un element a une cellule
     void addElementToCell(Element p, int line, int col){
-        // check si la cellule a deja un element de type vegetable
-        if (!cellContainsElementType(p.getType(),line, col) &&
-                (p.getType() != ParcelleValue.CARROT1 || !cellContainsElementType(ParcelleValue.CABBAGE1 ,line, col)) &&
-                (p.getType() != ParcelleValue.CABBAGE1 || !cellContainsElementType(ParcelleValue.CARROT1 ,line, col)))
-        {
+        // check s'il y a une carrot / cabbage
+        if (!cellContainsElementType(p.getType(),line, col) ||
+                !cellContainsCarrotOrCabbage(line, col)) {
             terrain.addElementToCell(p, line, col);
+            grassOnCell(line,col);
         }
+    }
+
+    private void grassOnCell(int line, int col){
+        ObservableSet<Element> elem = terrain.getElem(line, col);
+        if (cellContainsElementType(ParcelleValue.GRASS, line,col)){
+            for (Element e : elem){
+                if (e.getType().toString().contains("CABBAGE")){
+                    Cabbage cab = (Cabbage) e;
+                    cab.setHasGrass(true);
+                }
+            }
+        }
+
+    }
+
+    private boolean cellContainsCarrotOrCabbage(int line, int col) {
+        for (ParcelleValue pv : ParcelleValue.values()) {
+            if ((pv.toString().contains("CARROT") || pv.toString().contains("CABBAGE")) &&
+                    cellContainsElementType(pv, line, col)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 
@@ -71,29 +158,26 @@ class Ferme {
     }
     void removeVegetables( int line, int col){
         ObservableSet<Element> elem = getAllElem(line,col);
-        for (Element e : elem) {
-            if (e instanceof Grass){
-                continue;
-            }else if (e instanceof Carrot){
-                Carrot currentCarrot = (Carrot) e;
+        Element lastElement = elem.stream().reduce((a, b) -> b).orElse(null);
+
+        if (lastElement != null){
+            if (lastElement.getType().toString().contains("CARROT")){
+                Carrot currentCarrot = (Carrot) lastElement;
                 addPoint(currentCarrot.getCurrentState().getHarvestPoints());
                 System.out.println("state cabbage : " + currentCarrot.getCurrentState() + " point a avoir : " + currentCarrot.getCurrentState().getHarvestPoints());
-                terrain.removeVegetables(e, line, col);
-
-            }else if (e instanceof Cabbage){
-                Cabbage currentCabbage = (Cabbage) e;
+            }else if(lastElement.getType().toString().contains("CABBAGE")) {
+                Cabbage currentCabbage = (Cabbage)lastElement;
                 addPoint(currentCabbage.getCurrentState().getHarvestPoints());
                 System.out.println("state cabbage : " + currentCabbage.getCurrentState() + " point a avoir : " + currentCabbage.getCurrentState().getHarvestPoints());
-                terrain.removeVegetables(e, line, col);
             }
+            terrain.removeVegetables(lastElement, line, col);
         }
     }
     void fetilize(int line, int col){
         ObservableSet<Element> elem = getAllElem(line,col);
         for (Element e : elem) {
-            if (e instanceof Grass){
-                continue;
-            }else if (e instanceof Carrot c){
+            if (e.getType().toString().contains("CARROT")){
+                Carrot c = (Carrot) e ;
                 if (c.getCurrentState().stateProperty() < 3 ){
                     while (c.getCurrentState().stateProperty() != 3){
                         c.getCurrentState().nextState();
@@ -107,8 +191,9 @@ class Ferme {
         return score;
     }
 
-    void setPoint(int point){
+    int setPoint(int point){
         score.set(point);
+        return point;
     }
     void addPoint(int point){
         score.set(score.get() + point);
@@ -130,6 +215,10 @@ class Ferme {
     Terrain getTerrain(){
         return terrain;
     }
+
+    ReadOnlyIntegerProperty nbDaysInFarm(){ return nbDays;}
+
+    void setDays(int day){ nbDays.set(day);}
 
 
 /*-------------------------------POUR DEBUG------------------------------------*/

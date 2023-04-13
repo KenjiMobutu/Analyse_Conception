@@ -1,6 +1,8 @@
 package eu.epfc.anc3.model;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
@@ -21,14 +23,16 @@ class Parcelle {
         elementPriorityMap.put(ParcelleValue.CARROT4, 3);
         elementPriorityMap.put(ParcelleValue.ROTTEN_CARROT, 3);
 
-        elementPriorityMap.put(ParcelleValue.CABBAGE1, 4);
-        elementPriorityMap.put(ParcelleValue.CABBAGE2, 4);
-        elementPriorityMap.put(ParcelleValue.CABBAGE3, 4);
-        elementPriorityMap.put(ParcelleValue.CABBAGE4, 4);
-        elementPriorityMap.put(ParcelleValue.ROTTEN_CABBAGE, 4);
-        elementPriorityMap.put(ParcelleValue.FARMER, 5);
+        elementPriorityMap.put(ParcelleValue.CABBAGE1, 3);
+        elementPriorityMap.put(ParcelleValue.CABBAGE2, 3);
+        elementPriorityMap.put(ParcelleValue.CABBAGE3, 3);
+        elementPriorityMap.put(ParcelleValue.CABBAGE4, 3);
+        elementPriorityMap.put(ParcelleValue.ROTTEN_CABBAGE, 3);
+        elementPriorityMap.put(ParcelleValue.FARMER, 4);
 
     }
+
+    private BooleanProperty refresh = new SimpleBooleanProperty(false);
 
     private final Comparator<Element> elementComparator = new Comparator<>() {
         @Override
@@ -45,6 +49,10 @@ class Parcelle {
     private final ObservableSet<Element> elements = FXCollections.observableSet(
             new TreeSet<>(elementComparator)
     );
+
+    BooleanProperty refreshProperty(){return refresh;}
+
+    void setRefresh(Boolean b){refresh.set(b);}
 
 
     ObservableSet<Element> getElements() {

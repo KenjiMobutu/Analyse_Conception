@@ -1,24 +1,29 @@
 package eu.epfc.anc3.model;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+
 class Vegetable {
     private VegetableState currentState;
     private boolean hasGrass;
-    private int growthDays;
+    private IntegerProperty growthDays = new SimpleIntegerProperty(0);
     private int yieldPoints;
     private int rottenDays;
     private int daysSincePlanted;
+    private Position pos;
     private boolean isFertilized;
     private boolean isPlantedOnGrass;
     private boolean isHarvested;
     private boolean isRotten;
 
-    public Vegetable() {
-
-        this.hasGrass = false;
+    public Vegetable(boolean containGrass, int line, int col) {
+        this.hasGrass = containGrass;
+        this.pos = new Position(line,col);
+        System.out.println(containGrass + "<----- CONTAINS GRASS ???????????");
         this.isFertilized = false;
     }
     public Vegetable(int growthDays, int yieldPoints, int rottenDays) {
-        this.growthDays = growthDays;
+        this.growthDays.set(growthDays);
         this.yieldPoints = yieldPoints;
         this.rottenDays = rottenDays;
         this.daysSincePlanted = 0;
@@ -32,15 +37,6 @@ class Vegetable {
         this.currentState = state;
     }
 
-
-
-   // public void grow() {
-   //     currentState.grow();}
-
-   /* public void harvest() {
-        currentState.harvest();
-    }
-*/
     public boolean hasGrass() {
         return hasGrass;
     }
@@ -103,7 +99,7 @@ class Vegetable {
         this.currentState = currentState;
     }
 
-    public int getGrowthDays() {
+    public IntegerProperty getGrowthDays() {
         return growthDays;
     }
 

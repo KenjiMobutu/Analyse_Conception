@@ -1,21 +1,29 @@
 package eu.epfc.anc3.model;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 
+// faire boolean quand on creer un legume et quand c'est true tu mets a jour avec un booleanProperty -> bind a sa cellule
 //k:trouver une solution pour retirer public de la classe
 public class Cabbage extends Vegetable implements Element {
+//    private int line,col;
+    //private BooleanProperty containsGrass;
     private ReadOnlyObjectWrapper<VegetableState> state = new ReadOnlyObjectWrapper<>();
     private final int maxScore = 200;
 
-    public Cabbage() {
-        super();
+    public Cabbage(int line, int col, boolean containGrass) {
+        super(containGrass, line, col);
+        //this.line = line;this.col = col;
+        //this.containsGrass.set(containGrass);
         this.setState(new CabbageState1(this));
         System.out.println("Cabbage created");
     }
     @Override
-    public ParcelleValue getType(){return ParcelleValue.CABBAGE1;}
+    public ParcelleValue getType(){return state.get().getType();}
+
     public void addStateListener(ChangeListener<VegetableState> listener) {
         stateProperty().addListener(listener);
     }
@@ -52,6 +60,7 @@ public class Cabbage extends Vegetable implements Element {
 
         @Override
         public void nextState() {
+
             vegetable.setCurrentState(new CabbageState2(vegetable));
             System.out.println("Cabbage state 1 changed to state 2");
             Cabbage.this.getType();
@@ -66,12 +75,15 @@ public class Cabbage extends Vegetable implements Element {
         @Override
         public void nextDay() {
             nbJours++;
-           /* if (vegetable.getDaysSincePlanted() >= growthDays) {
-                vegetable.setCurrentState(new CabbageState2(vegetable));
-            }*/
-            System.out.println("nbJours = " + nbJours);
-            if (nbJours == daysToNextState) {
-                this.nextState();
+            if (this.vegetable.hasGrass()){
+                if (nbJours == daysToNextState -1){
+                    this.nextState();
+                }
+            }else{
+                System.out.println("nbJours = " + nbJours);
+                if (nbJours == daysToNextState) {
+                    this.nextState();
+                }
             }
         }
         @Override
@@ -91,6 +103,16 @@ public class Cabbage extends Vegetable implements Element {
         @Override
         public int stateProperty() {
             return 1;
+        }
+
+        @Override
+        public void fertiliser() {
+
+        }
+
+        @Override
+        boolean lastDay() {
+            return false;
         }
 
     }
@@ -123,9 +145,15 @@ public class Cabbage extends Vegetable implements Element {
         @Override
         public void nextDay() {
             nbJours++;
-            System.out.println("nbJours = " + nbJours);
-            if (nbJours == daysToNextState) {
-                this.nextState();
+            if (this.vegetable.hasGrass()){
+                if (nbJours == daysToNextState -1){
+                    this.nextState();
+                }
+            }else{
+                System.out.println("nbJours = " + nbJours);
+                if (nbJours == daysToNextState) {
+                    this.nextState();
+                }
             }
         }
 
@@ -146,6 +174,16 @@ public class Cabbage extends Vegetable implements Element {
         @Override
         public int stateProperty() {
             return 2;
+        }
+
+        @Override
+        public void fertiliser() {
+
+        }
+
+        @Override
+        boolean lastDay() {
+            return false;
         }
 
         public VegetableState getCurrentState() {
@@ -183,9 +221,15 @@ public class Cabbage extends Vegetable implements Element {
         @Override
         public void nextDay() {
             nbJours++;
-            System.out.println("nbJours = " + nbJours);
-            if (nbJours == daysToNextState) {
-                this.nextState();
+            if (this.vegetable.hasGrass()){
+                if (nbJours == daysToNextState -1){
+                    this.nextState();
+                }
+            }else{
+                System.out.println("nbJours = " + nbJours);
+                if (nbJours == daysToNextState) {
+                    this.nextState();
+                }
             }
         }
 
@@ -206,6 +250,16 @@ public class Cabbage extends Vegetable implements Element {
         @Override
         public int stateProperty() {
             return 3;
+        }
+
+        @Override
+        public void fertiliser() {
+
+        }
+
+        @Override
+        boolean lastDay() {
+            return false;
         }
 
         public VegetableState getCurrentState() {
@@ -242,11 +296,16 @@ public class Cabbage extends Vegetable implements Element {
         @Override
         public void nextDay() {
             nbJours++;
-            System.out.println("nbJours = " + nbJours);
-            if (nbJours == daysToNextState) {
-                this.nextState();
+            if (this.vegetable.hasGrass()){
+                if (nbJours == daysToNextState -1){
+                    this.nextState();
+                }
+            }else{
+                System.out.println("nbJours = " + nbJours);
+                if (nbJours == daysToNextState) {
+                    this.nextState();
+                }
             }
-
         }
         public ParcelleValue getType() {
             return ParcelleValue.CABBAGE4;
@@ -266,6 +325,16 @@ public class Cabbage extends Vegetable implements Element {
             return 4;
         }
 
+        @Override
+        public void fertiliser() {
+
+        }
+
+        @Override
+        boolean lastDay() {
+            return false;
+        }
+
         public VegetableState getCurrentState() {
             return getState();
         }
@@ -280,7 +349,7 @@ public class Cabbage extends Vegetable implements Element {
             super(vegetable);
             vegetable.setState(this);
             System.out.println(getCurrentState().toString() + " ETAT" );
-            growthDays = 12;
+            growthDays.set(12);
             System.out.println("Cabbage state ROTTEN created");
         }
 
@@ -292,15 +361,21 @@ public class Cabbage extends Vegetable implements Element {
         @Override
         public int getHarvestPoints() {
 
-            return (int) ((1.0 / 10.0) * maxScore * (growthDays - nbJours - 12));
+            return (int) ((1.0 / 10.0) * maxScore * (growthDays.get() - nbJours - 12));
         }
 
         @Override
         public void nextDay() {
             nbJours++;
-            System.out.println("nbJours = " + nbJours);
-            if (nbJours == maxGrowthDays) {
-                vegetable.setCurrentState(new CabbageRottenState(vegetable));
+            if (this.vegetable.hasGrass()){
+                if (nbJours == daysToNextState.get()-1){
+                    this.nextState();
+                }
+            }else{
+                System.out.println("nbJours = " + nbJours);
+                if (nbJours == daysToNextState.get()) {
+                    this.nextState();
+                }
             }
         }
 
@@ -321,6 +396,18 @@ public class Cabbage extends Vegetable implements Element {
         @Override
         public int stateProperty() {
             return 5;
+        }
+
+        @Override
+        public void fertiliser() {
+
+        }
+
+        @Override
+        boolean lastDay() {
+            if (nbJours == maxGrowthDays)
+                return true;
+            return false;
         }
 
         public VegetableState getCurrentState() {
