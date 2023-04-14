@@ -9,8 +9,11 @@ import static eu.epfc.anc3.model.Terrain.GRID_WIDTH;
 public class FermeFacade {
 
     private final Ferme ferme = new Ferme();
+    private final Terrain terrain = new Terrain();
     private final Farmer farmer = new Farmer();
     private boolean isPressingAction = false;
+
+
 
     //check si jeu est démarrable :
     private final BooleanProperty isStartable = new SimpleBooleanProperty(false);
@@ -293,20 +296,21 @@ public class FermeFacade {
     }
 
     void plantCabbage(){
-        Cabbage cabbageState1 = new Cabbage();
-        //Position posCabbage = new Position(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
+        Position posCabbage = new Position(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
+        Cabbage cabbage = new Cabbage(posCabbage);
+        System.out.println( "POSITION Cabbage --> "+ posCabbage.getX() + " " + posCabbage.getY());
         System.out.println(!containsElementType(ParcelleValue.CABBAGE1,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "ICI Cabbage");
-        addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(),cabbageState1);
-        if(containsElementType(ParcelleValue.GRASS,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY())) {
+        addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(),cabbage);
+       if(containsElementType(ParcelleValue.GRASS,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY())) {
             nbJours.addListener((obs, oldVal, newVal) -> {
                 System.out.println("next day");
                 //si contien grass next day with grass *****
-                cabbageState1.getCurrentState().nextDayWithGrass();
+                cabbage.getCurrentState().nextDayWithGrass();
             });
         }else{
             nbJours.addListener((obs, oldVal, newVal) -> {
                 System.out.println("next day");
-                cabbageState1.getCurrentState().nextDay();
+                cabbage.getCurrentState().nextDay();
             });
         }
         System.out.println(ferme.getAllElem(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "ICI Cabbage");
@@ -356,17 +360,78 @@ public class FermeFacade {
         showElementsInCell(pos.getX(), pos.getY());
     }
 
-    public ReadOnlyIntegerProperty getNbGrass() {return ferme.nbGrassPlant();}//K:Pour DEBUG
+    //public ReadOnlyIntegerProperty getNbGrass() {return ferme.nbGrassPlant();}//K:Pour DEBUG
 
-    public ReadOnlyIntegerProperty getNbJour() {return ferme.nbDays();
-    }
+    //public ReadOnlyIntegerProperty getNbJour() {return ferme.nbDays();}
 
-    public ReadOnlyIntegerProperty nextDay() { return this.nextDayProperty();
-    }
+    public ReadOnlyIntegerProperty nextDay() { return this.nextDayProperty();}
 
     public IntegerProperty nextDayProperty() {
         nbJours.set(nbJours.get() + 1);
+        System.out.println("ROTTEN VEGGIEs");
+        rottenVegetables();
         System.out.println(nbJours + "nbJours");
         return nbJours;
+    }
+
+    private void rottenVegetables() {
+        for (int i = 0; i < Terrain.GRID_HEIGHT; i++) {
+            for (int j = 0; j < Terrain.GRID_WIDTH; j++) {
+                ObservableSet<Element> elem = ferme.getAllElem(i, j);
+                for (Element e : elem) {
+                    System.out.println("ROTTEN VEGETABLES (cabbage) --> " + e.getType().name());
+                    /*if (e.getType() == ParcelleValue.ROTTEN_CABBAGE || e.getType() == ParcelleValue.ROTTEN_CARROT) {
+                        // Supprimer le légume pourri de la cellule
+                        if (e.isRotten()) {
+                            ferme.removeElementFromCell(e.getType(), i, j);
+                            terrain.notifyParcelleView(new Position(i, j));
+                        }
+                    }*/
+
+                }
+            }
+        }
+    }
+
+
+    void posListener(Position pos) {
+        ObservableSet<Element> elem = terrain.getElem(pos.getX(), pos.getY());
+        for (Element e : elem) {
+            nbJours.addListener((obs, oldVal, newVal) -> {
+                if (e.getType() == ParcelleValue.CABBAGE1 || e.getType() == ParcelleValue.CABBAGE2
+                        || e.getType() == ParcelleValue.CABBAGE3 || e.getType() == ParcelleValue.CABBAGE4) {
+                    Cabbage c = (Cabbage) e;
+                    c.getCurrentState().nextDay();
+                    if (c.getCurrentState().getDaysBeforeRotting() == 0) {
+                        c.setRotten(true);
+                    }
+                    terrain.notifyParcelleView(pos);
+                    if (c.isRotten()) {
+                        ferme.removeElementFromCell(c.getType(), pos.getX(), pos.getY());
+                        terrain.notifyParcelleView(pos);
+                    }
+                } else if (e.getType() == ParcelleValue.CARROT1 || e.getType() == ParcelleValue.CARROT2
+                        || e.getType() == ParcelleValue.CARROT3 || e.getType() == ParcelleValue.CARROT4) {
+                    Carrot c = (Carrot) e;
+                    c.getCurrentState().nextDay();
+                    if (c.getCurrentState().getDaysBeforeRotting() == 0) {
+                        c.setRotten(true);
+                    }
+                    terrain.notifyParcelleView(pos);
+                    if (c.isRotten()) {
+                        ferme.removeElementFromCell(c.getType(), pos.getX(), pos.getY());
+                        terrain.notifyParcelleView(pos);
+                    }
+                } /*else if (e.getType() == ParcelleValue.GRASS) {
+                    Grass g = (Grass) e;
+                    g.getCurrentState().nextDay();
+                    terrain.notifyParcelleView(pos);
+                    if (g.getCurrentState().getDaysBeforeGrowing() == 0) {
+                        g.getCurrentState().nextState();
+                        terrain.notifyParcelleView(pos);
+                    }
+                }*/
+            });
+        }
     }
 }

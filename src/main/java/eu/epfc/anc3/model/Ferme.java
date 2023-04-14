@@ -8,9 +8,14 @@ class Ferme {
 
     private Terrain terrain = new Terrain();
     private IntegerProperty score = new SimpleIntegerProperty(0);
+    //private final IntegerProperty score = new SimpleIntegerProperty(0);
+    private final IntegerProperty nbDays = new SimpleIntegerProperty(0);
 
     private final ObjectProperty<FermeStatus> fermeStatus = new SimpleObjectProperty<>(FermeStatus.START);
     public Ferme(){}
+
+    public static void removeVegetable(Vegetable vegetable) {
+    }
 
     void start(){
         terrain = new Terrain();
@@ -86,6 +91,8 @@ class Ferme {
             terrain.removeVegetables(lastElement, line, col);
         }
     }
+
+
     void fetilize(int line, int col){
         ObservableSet<Element> elem = getAllElem(line,col);
         for (Element e : elem) {
@@ -126,11 +133,4 @@ class Ferme {
         return terrain;
     }
 
-
-/*-------------------------------POUR DEBUG------------------------------------*/
-    private final Farmer farmer= new Farmer() ;
-    public ReadOnlyIntegerProperty nbGrassPlant() {return farmer.nbgrass();
-    }
-    public ReadOnlyIntegerProperty nbDays() {return farmer.nbgrass();
-    }
 }

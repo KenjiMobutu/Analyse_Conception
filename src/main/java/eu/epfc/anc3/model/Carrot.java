@@ -22,6 +22,12 @@ public class Carrot extends Vegetable implements Element {
     public ParcelleValue getType() {
         return ParcelleValue.CARROT1;
     }
+
+    @Override
+    public boolean isRotten() {
+        return false;
+    }
+
     public void addStateListener(ChangeListener<VegetableState> listener) {
         stateProperty().addListener(listener);
     }
@@ -64,6 +70,11 @@ public class Carrot extends Vegetable implements Element {
         }
         public int stateProperty(){
             return 1;
+        }
+
+        @Override
+        public int getDaysBeforeRotting() {
+            return 0;
         }
 
         @Override
@@ -113,6 +124,11 @@ public class Carrot extends Vegetable implements Element {
 
         public int stateProperty(){
             return 2;
+        }
+
+        @Override
+        public int getDaysBeforeRotting() {
+            return 0;
         }
 
         @Override
@@ -166,6 +182,12 @@ public class Carrot extends Vegetable implements Element {
         public int stateProperty(){
             return 3;
         }
+
+        @Override
+        public int getDaysBeforeRotting() {
+            return 0;
+        }
+
         @Override
         public void nextState() {
             System.out.println("Carrot state 3 changed to state 4");
@@ -216,6 +238,12 @@ public class Carrot extends Vegetable implements Element {
         public int stateProperty(){
             return 4;
         }
+
+        @Override
+        public int getDaysBeforeRotting() {
+            return 0;
+        }
+
         @Override
         public void nextState() {
             System.out.println("Carrot state 4 changed to state ROTTEN");
@@ -270,6 +298,12 @@ public class Carrot extends Vegetable implements Element {
         public int stateProperty(){
             return 5;
         }
+
+        @Override
+        public int getDaysBeforeRotting() {
+            return 0;
+        }
+
         @Override
         public int getHarvestPoints() {
             //points_perdus = 1/10 * rendement_maximal * (jour de la récolte - premier jour du stade Pourri)

@@ -61,7 +61,7 @@ public class MenuViewModel {
     }
     public ReadOnlyIntegerProperty score(){return fermeFacade.scoreProperty();}
 
-    public ReadOnlyIntegerProperty nbGrass(){return fermeFacade.getNbGrass();}//K:pour DEBUG
+    //public ReadOnlyIntegerProperty nbGrass(){return fermeFacade.getNbGrass();}//K:pour DEBUG
 
 
     public void sleepMode() {

@@ -6,4 +6,9 @@ class Dirt implements Element{
         return ParcelleValue.DIRT;
     }
 
+    @Override
+    public boolean isRotten() {
+        return false;
+    }
+
 }

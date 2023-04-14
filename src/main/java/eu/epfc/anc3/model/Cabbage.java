@@ -8,14 +8,34 @@ import javafx.beans.value.ObservableValue;
 public class Cabbage extends Vegetable implements Element {
     private ReadOnlyObjectWrapper<VegetableState> state = new ReadOnlyObjectWrapper<>();
     private final int maxScore = 200;
-
-    public Cabbage() {
+    private final Position posCabbage;
+    public Cabbage(Position posCabbage){
         super();
+        this.posCabbage = new Position(posCabbage.getX(), posCabbage.getY());
         this.setState(new CabbageState1(this));
         System.out.println("Cabbage created");
     }
+    public Position getPosCabbage() {
+        return posCabbage;
+    }
+
+    public void setPosCabbage(int x, int y){
+        posCabbage.setX(x); posCabbage.setY(y);
+    }
+
+    /*public Cabbage() {
+        super();
+        this.setState(new CabbageState1(this));
+        System.out.println("Cabbage created");
+    }*/
     @Override
     public ParcelleValue getType(){return ParcelleValue.CABBAGE1;}
+
+    @Override
+    public boolean isRotten() {
+        return false;
+    }
+
     public void addStateListener(ChangeListener<VegetableState> listener) {
         stateProperty().addListener(listener);
     }
@@ -38,6 +58,8 @@ public class Cabbage extends Vegetable implements Element {
     public VegetableState getCurrentState() {
         return getState();
     }
+
+
     /*----------------------------------------------------------------------------------------*/
 
     //Level1
@@ -93,6 +115,12 @@ public class Cabbage extends Vegetable implements Element {
             return 1;
         }
 
+        @Override
+        public int getDaysBeforeRotting() {
+            return 5;
+        }
+
+
     }
 
     //Level2
@@ -146,6 +174,11 @@ public class Cabbage extends Vegetable implements Element {
         @Override
         public int stateProperty() {
             return 2;
+        }
+
+        @Override
+        public int getDaysBeforeRotting() {
+            return 6;
         }
 
         public VegetableState getCurrentState() {
@@ -208,6 +241,11 @@ public class Cabbage extends Vegetable implements Element {
             return 3;
         }
 
+        @Override
+        public int getDaysBeforeRotting() {
+            return 7;
+        }
+
         public VegetableState getCurrentState() {
             return getState();
         }
@@ -231,7 +269,7 @@ public class Cabbage extends Vegetable implements Element {
             System.out.println("Carrot state 4 changed to state ROTTEN");
             vegetable.setState(new CabbageRottenState(vegetable));
             Cabbage.this.getType();
-            System.out.println(getType() + " TYPE");
+            System.out.println(getType() + " TYPE 4");
         }
 
         @Override
@@ -266,6 +304,11 @@ public class Cabbage extends Vegetable implements Element {
             return 4;
         }
 
+        @Override
+        public int getDaysBeforeRotting() {
+            return 5;
+        }
+
         public VegetableState getCurrentState() {
             return getState();
         }
@@ -280,14 +323,19 @@ public class Cabbage extends Vegetable implements Element {
             super(vegetable);
             vegetable.setState(this);
             System.out.println(getCurrentState().toString() + " ETAT" );
+            System.out.println("TYPE ==> " + getType());
             growthDays = 12;
             System.out.println("Cabbage state ROTTEN created");
         }
 
         @Override
         public void nextState() {
-
+            Cabbage.this.getType();
+            System.out.println(getType() + " TYPE!!!");
+            Ferme.removeVegetable(vegetable);
         }
+
+
 
         @Override
         public int getHarvestPoints() {
@@ -301,6 +349,7 @@ public class Cabbage extends Vegetable implements Element {
             System.out.println("nbJours = " + nbJours);
             if (nbJours == maxGrowthDays) {
                 vegetable.setCurrentState(new CabbageRottenState(vegetable));
+                this.nextState();
             }
         }
 
@@ -315,12 +364,18 @@ public class Cabbage extends Vegetable implements Element {
             System.out.println("nbJours = " + nbJours);
             if (nbJours == maxGrowthDays / 2) {
                 vegetable.setCurrentState(new CabbageRottenState(vegetable));
+                this.nextState();
             }
         }
 
         @Override
         public int stateProperty() {
             return 5;
+        }
+
+        @Override
+        public int getDaysBeforeRotting() {
+            return 0;
         }
 
         public VegetableState getCurrentState() {

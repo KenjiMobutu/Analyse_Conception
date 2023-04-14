@@ -56,4 +56,39 @@ class Terrain {
         return  matrix[line][col].getElements().stream().map(e -> e.getType()).anyMatch(x -> x == pv);
     }
 
+    public void updateAllParcelleViews() {
+        for (int i = 0; i < GRID_HEIGHT; i++) {
+            for (int j = 0; j < GRID_WIDTH; j++) {
+                notifyParcelleView(new Position(i, j));
+
+            }
+        }
+    }
+    public boolean containsRottenElement() {
+        for (int i = 0; i < GRID_HEIGHT; i++) {
+            for (int j = 0; j < GRID_WIDTH; j++) {
+                ObservableSet<Element> elements = matrix[i][j].getElements();
+                for (Element e : elements) {
+                    if (e.isRotten()) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+
+
+
+    public void notifyParcelleView(Position pos) {
+        // récupérer la liste d'éléments dans la position donnée
+        ObservableSet<Element> elements = getElem(pos.getX(), pos.getY());
+
+        // mettre à jour la vue pour cette position en fonction des éléments
+        // par exemple :
+        // - actualiser les images représentant les éléments dans la position
+        // - actualiser les informations de chaque élément affiché dans la position
+        // - etc.
+    }
 }

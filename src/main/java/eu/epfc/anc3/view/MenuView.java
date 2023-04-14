@@ -136,10 +136,10 @@ public class MenuView extends VBox {
         sleepButton.setGraphic(view5);
         sleepButton.setFocusTraversable(false);
     }
-    private void manageNbGrass() {//K:pour DEBUG
+    /*private void manageNbGrass() {//K:pour DEBUG
         System.out.println(menuViewModel.nbGrass().toString());
         nbGrass.textProperty().bind(menuViewModel.nbGrass().asString());
-    }
+    }*/
 
     private void manageScore(){
         nbScore.textProperty().bind(menuViewModel.score().asString());

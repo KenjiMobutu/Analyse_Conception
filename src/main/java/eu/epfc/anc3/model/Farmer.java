@@ -24,6 +24,11 @@ class Farmer implements Element{
     public ParcelleValue getType(){return ParcelleValue.FARMER;}
 
     @Override
+    public boolean isRotten() {
+        return false;
+    }
+
+    @Override
     public String toString() {return "Farmer Position : " + getPosFarmer();}
 
     /*-----------------POUR DEBUG-----------------------------------------------*/

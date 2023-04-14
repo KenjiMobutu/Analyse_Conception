@@ -11,7 +11,6 @@ class Parcelle {
     //cellule
 
     private final Map<ParcelleValue, Integer> elementPriorityMap = new HashMap<>();
-
     {
         elementPriorityMap.put(ParcelleValue.DIRT, 1);
         elementPriorityMap.put(ParcelleValue.GRASS, 2);
