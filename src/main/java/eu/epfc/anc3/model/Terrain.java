@@ -30,7 +30,7 @@ class Terrain {
             }
         }
     }
-
+    Terrain(Terrain t){this();}
     void resetTerrain() {
         for (int i = 0; i < GRID_HEIGHT; ++i) {
             for (int j = 0; j < GRID_WIDTH; ++j) {
@@ -42,6 +42,8 @@ class Terrain {
     void addElementToCell(Element e, int line, int col) {
         matrix[line][col].addElement(e);
     }
+
+    Parcelle getparcell(int line, int col){return matrix[line][col];}
     void removeElement(ParcelleValue pv , int line, int col){
          matrix[line][col].getElements().removeIf(e -> e.getType() == pv);
     }

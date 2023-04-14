@@ -26,6 +26,7 @@ class Ferme {
     private final ObjectProperty<FermeStatus> fermeStatus = new SimpleObjectProperty<>(FermeStatus.START);
     public Ferme(){}
 
+
     void start(){
         if (isSaved){
             System.out.println("JE PASSE DANS LE START POUR LOAD GAME OUI OUI !!!!!!!!");
@@ -49,7 +50,7 @@ class Ferme {
         fermeStatus.set(FermeStatus.STARTED);
     }
     Memento saveGame(int nbJour){
-        saveGame = new Memento(getTerrain(), score.getValue(), nbJour);
+        saveGame = new Memento(mementoTerrain(), score.getValue(), nbJour);
         isSaved = true;
         return saveGame;
     }
@@ -123,9 +124,14 @@ class Ferme {
         if (!cellContainsElementType(p.getType(),line, col) ||
                 !cellContainsCarrotOrCabbage(line, col)) {
             terrain.addElementToCell(p, line, col);
+            if (p.getType().toString().contains("CARROT")){
+                Carrot c = (Carrot) p;
+                c.setParcelle(terrain.getparcell(line,col));
+            }
             grassOnCell(line,col);
         }
     }
+
 
     private void grassOnCell(int line, int col){
         ObservableSet<Element> elem = terrain.getElem(line, col);
@@ -212,6 +218,7 @@ class Ferme {
         terrain.addElementToCell(farmer, line, col);
     }
 
+    Terrain mementoTerrain(){return new Terrain(getTerrain());}
     Terrain getTerrain(){
         return terrain;
     }

@@ -14,11 +14,18 @@ public class Carrot extends Vegetable implements Element {
 
     private ReadOnlyObjectWrapper<VegetableState> state = new ReadOnlyObjectWrapper<>();
     private final int maxScore = 100;
+
+    private Parcelle parcelle;
     public Carrot(int line, int col) {
         super(false, line,col);
         //this.line = line; this.col = col;
         this.setState(new CarrotState1(this));
     }
+
+    public void setParcelle(Parcelle parcelle) {
+        this.parcelle = parcelle;
+    }
+
     @Override
     public ParcelleValue getType() {
         return state.get().getType();
@@ -29,6 +36,8 @@ public class Carrot extends Vegetable implements Element {
 
     public void setState(VegetableState newState) {
         state.set(newState);
+        if (parcelle != null)
+            parcelle.addElement(this);
     }
     private ObservableValue<VegetableState> stateProperty() {
         return state.getReadOnlyProperty();
