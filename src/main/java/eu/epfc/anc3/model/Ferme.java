@@ -11,7 +11,7 @@ class Ferme {
 
     private final ObjectProperty<FermeStatus> fermeStatus = new SimpleObjectProperty<>(FermeStatus.START);
     public Ferme(){}
-
+    //test push
     void start(){
         terrain = new Terrain();
         fermeStatus.set(FermeStatus.STARTED);
