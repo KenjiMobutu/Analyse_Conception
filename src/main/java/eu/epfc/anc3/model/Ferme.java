@@ -49,7 +49,6 @@ class Ferme {
         fermeStatus.set(FermeStatus.DEPLANT_GRASS);
     }
 
-
     boolean cellContainsElementType(ParcelleValue pv, int line, int col){
         return terrain.containsElementType(pv, line, col);
     }
@@ -64,7 +63,6 @@ class Ferme {
             terrain.addElementToCell(p, line, col);
         }
     }
-
 
     //supprime un element
     void removeElementFromCell(ParcelleValue p, int line, int col){
@@ -89,8 +87,7 @@ class Ferme {
         }
     }
 
-
-    void fetilize(int line, int col){
+    void fertilize(int line, int col){
         ObservableSet<Element> elem = getAllElem(line,col);
         for (Element e : elem) {
             if (e instanceof Grass){

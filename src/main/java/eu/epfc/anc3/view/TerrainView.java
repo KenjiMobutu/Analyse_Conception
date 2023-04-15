@@ -12,7 +12,7 @@ import javafx.scene.layout.RowConstraints;
 import static eu.epfc.anc3.view.FermeView.*;
 import static eu.epfc.anc3.view.FermeView.FERME_WIDTH;
 
-public class TerrainView extends GridPane {
+class TerrainView extends GridPane {
     // grid
     public TerrainView (TerrainViewModel terrainViewModel, DoubleProperty fermeWidthProperty){
         setGridLinesVisible(false);

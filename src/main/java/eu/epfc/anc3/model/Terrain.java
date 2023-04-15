@@ -59,7 +59,7 @@ class Terrain {
     public void updateAllParcelleViews() {
         for (int i = 0; i < GRID_HEIGHT; i++) {
             for (int j = 0; j < GRID_WIDTH; j++) {
-                notifyParcelleView(new Position(i, j));
+                //notifyParcelleView(new Position(i, j));
 
             }
         }
@@ -78,17 +78,14 @@ class Terrain {
         return false;
     }
 
-
-
-
-    public void notifyParcelleView(Position pos) {
+    public void notifyParcelleView(int line, int col) {
         // récupérer la liste d'éléments dans la position donnée
-        ObservableSet<Element> elements = getElem(pos.getX(), pos.getY());
-
+        ObservableSet<Element> elements = getElem(line, col);
+        System.out.println("notifyParcelleView 1 --> " + elements.size());
         // mettre à jour la vue pour cette position en fonction des éléments
-        // par exemple :
-        // - actualiser les images représentant les éléments dans la position
-        // - actualiser les informations de chaque élément affiché dans la position
-        // - etc.
+        for(Element e : elements) {
+            System.out.println("notifyParcelleView 2  --> " + e.getType());
+            e.getType();
+        }
     }
 }

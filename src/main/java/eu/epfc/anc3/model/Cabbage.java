@@ -25,7 +25,7 @@ public class Cabbage extends Vegetable implements Element {
 
     public Cabbage() {
         super();
-        this.setState(new CabbageState1(this));
+        setState(new CabbageState1(this));
         System.out.println("Cabbage created");
     }
     @Override
@@ -338,8 +338,6 @@ public class Cabbage extends Vegetable implements Element {
         public ParcelleValue nextState() {
             return ParcelleValue.ROTTEN_CABBAGE;
         }
-
-
 
         @Override
         public int getHarvestPoints() {

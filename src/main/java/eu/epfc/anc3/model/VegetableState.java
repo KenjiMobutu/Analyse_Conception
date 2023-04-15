@@ -12,11 +12,11 @@ public abstract class VegetableState {
 
     protected Vegetable vegetable; // Légume auquel cet état est associé
     // Constructeur
-    public VegetableState(Vegetable vegetable, int growthDays, int daysToNextState) {
+   /* public VegetableState(Vegetable vegetable, int growthDays, int daysToNextState) {
         this.vegetable = vegetable;
         this.growthDays = growthDays;
         this.daysToNextState = daysToNextState;
-    }
+    }*/
     public VegetableState(Vegetable vegetable) {
         this.vegetable = vegetable;
     }
