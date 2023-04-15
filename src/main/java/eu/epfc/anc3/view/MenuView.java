@@ -259,6 +259,9 @@ public class MenuView extends VBox {
         plantCarotteButton.setDisable(true);
         fertilizerButton.setDisable(true);
         recoltButton.setDisable(true);
+        loadButton.setDisable(true);
+        saveButton.setDisable(true);
+        sleepButton.setDisable(true);
         menuViewModel.stop();
         nbJour.setText("0");
         manageNewGameButton();
@@ -304,6 +307,9 @@ public class MenuView extends VBox {
             plantCarotteButton.setDisable(false);
             fertilizerButton.setDisable(false);
             recoltButton.setDisable(false);
+            sleepButton.setDisable(false);
+            loadButton.setDisable(false);
+            saveButton.setDisable(false);
             menuViewModel.newGame();
             if (toggleGroup.getSelectedToggle() != null) {
                 toggleGroup.getSelectedToggle().setSelected(false);
