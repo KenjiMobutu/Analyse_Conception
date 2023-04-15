@@ -297,8 +297,7 @@ public class FermeFacade {
 
     void plantCabbage(){
         Position posCabbage = new Position(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
-        Cabbage cabbage = new Cabbage(posCabbage);
-        System.out.println( "POSITION Cabbage --> "+ posCabbage.getX() + " " + posCabbage.getY());
+        Cabbage cabbage = new Cabbage();
         System.out.println(!containsElementType(ParcelleValue.CABBAGE1,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "ICI Cabbage");
         addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(),cabbage);
        if(containsElementType(ParcelleValue.GRASS,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY())) {
@@ -307,12 +306,12 @@ public class FermeFacade {
                 //si contien grass next day with grass *****
                 cabbage.getCurrentState().nextDayWithGrass();
             });
-        }else{
+       }else{
             nbJours.addListener((obs, oldVal, newVal) -> {
                 System.out.println("next day");
                 cabbage.getCurrentState().nextDay();
             });
-        }
+       }
         System.out.println(ferme.getAllElem(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "ICI Cabbage");
     }
     void PlantCarrot(){
@@ -379,7 +378,7 @@ public class FermeFacade {
             for (int j = 0; j < Terrain.GRID_WIDTH; j++) {
                 ObservableSet<Element> elem = ferme.getAllElem(i, j);
                 for (Element e : elem) {
-                    System.out.println("ROTTEN VEGETABLES (cabbage) --> " + e.getType().name());
+                    System.out.println("ROTTEN VEGETABLES (cabbage) --> " + e.getType() + " " + e.isRotten());
                     /*if (e.getType() == ParcelleValue.ROTTEN_CABBAGE || e.getType() == ParcelleValue.ROTTEN_CARROT) {
                         // Supprimer le légume pourri de la cellule
                         if (e.isRotten()) {

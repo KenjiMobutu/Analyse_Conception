@@ -105,6 +105,7 @@ public class MenuView extends VBox {
         fertilizerButton.setDisable(true);
         recoltButton.setDisable(true);
         startButton.setDisable(false);
+        sleepButton.setDisable(true);
     }
     private void setUpImages(){
         Image img1 = new Image("cabbage4.png");
@@ -217,6 +218,7 @@ public class MenuView extends VBox {
         plantCabbageButton.setDisable(false);
         fertilizerButton.setDisable(false);
         recoltButton.setDisable(false);
+        sleepButton.setDisable(false);
         menuViewModel.start();
     }
 

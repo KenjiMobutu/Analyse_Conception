@@ -8,26 +8,26 @@ import javafx.beans.value.ObservableValue;
 public class Cabbage extends Vegetable implements Element {
     private ReadOnlyObjectWrapper<VegetableState> state = new ReadOnlyObjectWrapper<>();
     private final int maxScore = 200;
-    private final Position posCabbage;
-    public Cabbage(Position posCabbage){
+    //private final Position posCabbage;
+    /*public Cabbage(Position posCabbage){
         super();
         this.posCabbage = new Position(posCabbage.getX(), posCabbage.getY());
         this.setState(new CabbageState1(this));
         System.out.println("Cabbage created");
-    }
-    public Position getPosCabbage() {
+    }*/
+    /*public Position getPosCabbage() {
         return posCabbage;
     }
 
     public void setPosCabbage(int x, int y){
         posCabbage.setX(x); posCabbage.setY(y);
-    }
+    }*/
 
-    /*public Cabbage() {
+    public Cabbage() {
         super();
         this.setState(new CabbageState1(this));
         System.out.println("Cabbage created");
-    }*/
+    }
     @Override
     public ParcelleValue getType(){return ParcelleValue.CABBAGE1;}
 
@@ -73,11 +73,12 @@ public class Cabbage extends Vegetable implements Element {
         }
 
         @Override
-        public void nextState() {
+        public ParcelleValue nextState() {
             vegetable.setCurrentState(new CabbageState2(vegetable));
             System.out.println("Cabbage state 1 changed to state 2");
             Cabbage.this.getType();
             System.out.println(getType() + " TYPE");
+            return null;
         }
 
         @Override
@@ -129,6 +130,7 @@ public class Cabbage extends Vegetable implements Element {
         private int daysToNextState = 9;
         CabbageState2(Vegetable vegetable) {
             super(vegetable);
+            setState(this);
             vegetable.setState(this);
             System.out.println(getCurrentState().toString() + " ETAT" );
             nbJours = 5;
@@ -136,11 +138,12 @@ public class Cabbage extends Vegetable implements Element {
         }
 
         @Override
-        public void nextState() {
+        public ParcelleValue nextState() {
             System.out.println("Cabbage state 2 changed to state 3");
             vegetable.setState(new Cabbage.CabbageState3(vegetable));
             Cabbage.this.getType();
             System.out.println(getType() + " TYPE");
+            return null;
         }
 
         @Override
@@ -194,18 +197,19 @@ public class Cabbage extends Vegetable implements Element {
         private int daysToNextState = 12;
         CabbageState3(Vegetable vegetable) {
             super(vegetable);
-            vegetable.setState(this);
+            setState(this);
             System.out.println(getCurrentState().toString() + " ETAT" );
             nbJours = 9;
             System.out.println("Cabbage state 3 created");
         }
 
         @Override
-        public void nextState() {
+        public ParcelleValue nextState() {
             System.out.println("Cabbage state 3 changed to state 4");
-            vegetable.setState(new Cabbage.CabbageState4(vegetable));
+            vegetable.setState(new CabbageState4(vegetable));
             Cabbage.this.getType();
             System.out.println(getType() + " TYPE");
+            return null;
         }
 
         @Override
@@ -265,11 +269,12 @@ public class Cabbage extends Vegetable implements Element {
         }
 
         @Override
-        public void nextState() {
+        public ParcelleValue nextState() {
             System.out.println("Carrot state 4 changed to state ROTTEN");
             vegetable.setState(new CabbageRottenState(vegetable));
             Cabbage.this.getType();
             System.out.println(getType() + " TYPE 4");
+            return null;
         }
 
         @Override
@@ -321,6 +326,7 @@ public class Cabbage extends Vegetable implements Element {
         int maxGrowthDays = 24;
         CabbageRottenState(Vegetable vegetable) {
             super(vegetable);
+            setState(this);
             vegetable.setState(this);
             System.out.println(getCurrentState().toString() + " ETAT" );
             System.out.println("TYPE ==> " + getType());
@@ -329,10 +335,8 @@ public class Cabbage extends Vegetable implements Element {
         }
 
         @Override
-        public void nextState() {
-            Cabbage.this.getType();
-            System.out.println(getType() + " TYPE!!!");
-            Ferme.removeVegetable(vegetable);
+        public ParcelleValue nextState() {
+            return ParcelleValue.ROTTEN_CABBAGE;
         }
 
 

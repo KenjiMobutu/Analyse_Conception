@@ -1,13 +1,8 @@
 package eu.epfc.anc3.model;
 
-import javafx.beans.Observable;
-import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.scene.layout.GridPane;
 
 //k:trouver une solution pour retirer public de la classe
 public class Carrot extends Vegetable implements Element {
@@ -78,11 +73,12 @@ public class Carrot extends Vegetable implements Element {
         }
 
         @Override
-        public void nextState() {
+        public ParcelleValue nextState() {
             vegetable.setCurrentState(new CarrotState2(vegetable));
             System.out.println("Carrot state 1 changed to state 2");
             Carrot.this.getType();
             System.out.println(getType() + " TYPE");
+            return null;
         }
 
         public ParcelleValue getType() {
@@ -132,11 +128,12 @@ public class Carrot extends Vegetable implements Element {
         }
 
         @Override
-        public void nextState() {
+        public ParcelleValue nextState() {
             System.out.println("Carrot state 2 changed to state 3");
             vegetable.setState(new CarrotState3(vegetable));
             Carrot.this.getType();
             System.out.println(getType() + " TYPE");
+            return null;
         }
 
 
@@ -189,11 +186,12 @@ public class Carrot extends Vegetable implements Element {
         }
 
         @Override
-        public void nextState() {
+        public ParcelleValue nextState() {
             System.out.println("Carrot state 3 changed to state 4");
             setState(new CarrotState4(vegetable));
             Carrot.this.getType();
             System.out.println(getType() + " TYPE");
+            return null;
         }
 
         @Override
@@ -245,11 +243,12 @@ public class Carrot extends Vegetable implements Element {
         }
 
         @Override
-        public void nextState() {
+        public ParcelleValue nextState() {
             System.out.println("Carrot state 4 changed to state ROTTEN");
             vegetable.setState(new CarrotState5(vegetable));
             Carrot.this.getType();
             System.out.println(getType() + " TYPE");
+            return null;
         }
 
         @Override
@@ -292,8 +291,9 @@ public class Carrot extends Vegetable implements Element {
         }
 
         @Override
-        public void nextState() {
+        public ParcelleValue nextState() {
 
+            return null;
         }
         public int stateProperty(){
             return 5;
