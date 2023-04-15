@@ -78,14 +78,18 @@ class Terrain {
         return false;
     }
 
-    public void notifyParcelleView(int line, int col) {
+    public void notifyParcelleView(Position pos) {
         // récupérer la liste d'éléments dans la position donnée
-        ObservableSet<Element> elements = getElem(line, col);
+        ObservableSet<Element> elements = getElem(pos.getX(), pos.getY());
         System.out.println("notifyParcelleView 1 --> " + elements.size());
         // mettre à jour la vue pour cette position en fonction des éléments
         for(Element e : elements) {
             System.out.println("notifyParcelleView 2  --> " + e.getType());
             e.getType();
+            if (e.getStateChanged()) { // vérifie si l'élément a changé d'état
+                // mettre à jour la vue pour cet élément en fonction de son nouvel état
+                e.setStateChanged(false); // remet l'état changé de l'élément à false
+            }
         }
     }
 }

@@ -24,6 +24,16 @@ class Farmer implements Element{
     public ParcelleValue getType(){return ParcelleValue.FARMER;}
 
     @Override
+    public boolean getStateChanged() {
+        return false;
+    }
+
+    @Override
+    public void setStateChanged(boolean stateChanged) {
+
+    }
+
+    @Override
     public boolean isRotten() {
         return false;
     }

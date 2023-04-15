@@ -366,12 +366,14 @@ public class FermeFacade {
                 ObservableSet<Element> elem = ferme.getAllElem(i, j);
                 for (Element e : elem) {
                     System.out.println("ROTTEN VEGETABLES (cabbage) --> " +elem  + e.getType() + " " + e.isRotten());
-                    terrain.notifyParcelleView(i, j);
+                    terrain.notifyParcelleView(new Position(i, j));
+                    e.setStateChanged(true); // met à jour l'état changé de l'élément
+                    System.out.println(e.getStateChanged());
                     if (e.getType() == ParcelleValue.ROTTEN_CABBAGE || e.getType() == ParcelleValue.ROTTEN_CARROT) {
                         // Supprimer le légume pourri de la cellule
                         if (e.isRotten()) {
                             ferme.removeElementFromCell(e.getType(), i, j);
-                            terrain.notifyParcelleView(i, j);
+                            terrain.notifyParcelleView(new Position(i, j));
                         }
                     }
 

@@ -7,6 +7,7 @@ import javafx.beans.value.ObservableValue;
 //k:trouver une solution pour retirer public de la classe
 public class Carrot extends Vegetable implements Element {
     //private IntegerProperty nbJours = new SimpleIntegerProperty(0);
+    private boolean stateChanged = false;
     private ReadOnlyObjectWrapper<VegetableState> state = new ReadOnlyObjectWrapper<>();
     private final int maxScore = 100;
     public Carrot() {
@@ -16,6 +17,16 @@ public class Carrot extends Vegetable implements Element {
     @Override
     public ParcelleValue getType() {
         return ParcelleValue.CARROT1;
+    }
+
+    @Override
+    public boolean getStateChanged() {
+        return stateChanged;
+    }
+
+    @Override
+    public void setStateChanged(boolean stateChanged) {
+        this.stateChanged = stateChanged;
     }
 
     @Override

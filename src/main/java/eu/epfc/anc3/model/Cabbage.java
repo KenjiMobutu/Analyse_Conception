@@ -6,6 +6,7 @@ import javafx.beans.value.ObservableValue;
 
 //k:trouver une solution pour retirer public de la classe
 public class Cabbage extends Vegetable implements Element {
+    private boolean stateChanged = false;
     private ReadOnlyObjectWrapper<VegetableState> state = new ReadOnlyObjectWrapper<>();
     private final int maxScore = 200;
     //private final Position posCabbage;
@@ -30,6 +31,16 @@ public class Cabbage extends Vegetable implements Element {
     }
     @Override
     public ParcelleValue getType(){return ParcelleValue.CABBAGE1;}
+
+    @Override
+    public boolean getStateChanged() {
+        return stateChanged;
+    }
+
+    @Override
+    public void setStateChanged(boolean stateChanged) {
+        this.stateChanged = stateChanged;
+    }
 
     @Override
     public boolean isRotten() {
@@ -89,9 +100,6 @@ public class Cabbage extends Vegetable implements Element {
         @Override
         public void nextDay() {
             nbJours++;
-           /* if (vegetable.getDaysSincePlanted() >= growthDays) {
-                vegetable.setCurrentState(new CabbageState2(vegetable));
-            }*/
             System.out.println("nbJours = " + nbJours);
             if (nbJours == daysToNextState) {
                 this.nextState();

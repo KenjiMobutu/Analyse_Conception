@@ -7,6 +7,16 @@ class Grass extends Vegetable implements Element{ //BV : pas public
     public ParcelleValue getType(){return ParcelleValue.GRASS;}
 
     @Override
+    public boolean getStateChanged() {
+        return false;
+    }
+
+    @Override
+    public void setStateChanged(boolean stateChanged) {
+
+    }
+
+    @Override
     public boolean isRotten() {
         return false;
     }
