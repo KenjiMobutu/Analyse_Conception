@@ -20,8 +20,6 @@ class Grass extends Vegetable implements Element{ //BV : pas public
 
     } //BV : rien de public mis à part getType
 
-    IntegerProperty nbJoursProperty(){return nbJours;}
-    void setNbJoursProperty(int i ){nbJours.set(i);}
 
     void nextDay(){
         ++nbJoursSinceStart;
@@ -44,10 +42,7 @@ class Grass extends Vegetable implements Element{ //BV : pas public
 
     @Override
     public boolean isRotten() {
-        if(nbJoursSinceStart == maxGrowthDays.getValue()+1)
-            return true;
-        else
-            return false;
+        return nbJoursSinceStart == maxGrowthDays.getValue() + 1;
     }
 
     @Override

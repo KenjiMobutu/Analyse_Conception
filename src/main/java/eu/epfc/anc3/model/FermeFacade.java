@@ -13,7 +13,7 @@ public class FermeFacade {
     Memento memento;
     private final Terrain terrain = new Terrain();
     private final Farmer farmer = new Farmer();
-    private final Vegetable vegetable = new Vegetable();
+    //private final Vegetable vegetable = new Vegetable();
     private boolean isPressingAction = false;
 
 
@@ -45,8 +45,8 @@ public class FermeFacade {
     private final BooleanProperty recolt = new SimpleBooleanProperty(false);
 
 
-    private IntegerProperty nbJours = new SimpleIntegerProperty(0);
-    private IntegerProperty score = new SimpleIntegerProperty(0);
+    private final IntegerProperty nbJours = new SimpleIntegerProperty(0);
+    private final IntegerProperty score = new SimpleIntegerProperty(0);
 
 
     // retourne les éléments d'une cellule :
@@ -196,26 +196,24 @@ public class FermeFacade {
         System.out.println(getStatus() );
         if (isInProgress.getValue()){
             removeElemFromCell(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY(), ParcelleValue.FARMER);
-            switch (move){
-                case UP:
+            switch (move) {
+                case UP -> {
                     goUp();
                     System.out.println("here farmer pos : -->" + farmer.getPosFarmer());
-                    break;
-                case DOWN:
+                }
+                case DOWN -> {
                     goDown();
                     System.out.println("here farmer pos : -->" + farmer.getPosFarmer());
-                    break;
-                case LEFT:
+                }
+                case LEFT -> {
                     goLeft();
                     System.out.println("here farmer pos : -->" + farmer.getPosFarmer());
-                    break;
-                case RIGHT:
+                }
+                case RIGHT -> {
                     goRight();
                     System.out.println("here farmer pos : -->" + farmer.getPosFarmer());
-                    break;
-                case SPACE:
-                    System.out.println("pressing space");
-                    break;
+                }
+                case SPACE -> System.out.println("pressing space");
             }
 
             if (actionPressedProperty())

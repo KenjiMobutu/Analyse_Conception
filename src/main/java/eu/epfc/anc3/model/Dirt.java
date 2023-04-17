@@ -12,9 +12,7 @@ class Dirt implements Element{
     }
 
     @Override
-    public void setStateChanged(boolean stateChanged) {
-
-    }
+    public void setStateChanged(boolean stateChanged) {}
 
     @Override
     public boolean isRotten() {

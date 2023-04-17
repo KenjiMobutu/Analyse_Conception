@@ -3,7 +3,6 @@ package eu.epfc.anc3.model;
 import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
-import javafx.geometry.Pos;
 
 class Farmer implements Element{
 

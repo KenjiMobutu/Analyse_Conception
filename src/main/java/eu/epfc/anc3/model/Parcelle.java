@@ -1,13 +1,14 @@
 package eu.epfc.anc3.model;
 
 import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
 
-import java.util.*;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeSet;
 
 class Parcelle {
     //cellule
@@ -24,24 +25,19 @@ class Parcelle {
         elementPriorityMap.put(ParcelleValue.CARROT4, 3);
         elementPriorityMap.put(ParcelleValue.ROTTEN_CARROT, 3);
 
-        elementPriorityMap.put(ParcelleValue.CABBAGE1, 4);
-        elementPriorityMap.put(ParcelleValue.CABBAGE2, 4);
-        elementPriorityMap.put(ParcelleValue.CABBAGE3, 4);
-        elementPriorityMap.put(ParcelleValue.CABBAGE4, 4);
-        elementPriorityMap.put(ParcelleValue.ROTTEN_CABBAGE, 4);
-        elementPriorityMap.put(ParcelleValue.FARMER, 5);
+        elementPriorityMap.put(ParcelleValue.CABBAGE1, 3);
+        elementPriorityMap.put(ParcelleValue.CABBAGE2, 3);
+        elementPriorityMap.put(ParcelleValue.CABBAGE3, 3);
+        elementPriorityMap.put(ParcelleValue.CABBAGE4, 3);
+        elementPriorityMap.put(ParcelleValue.ROTTEN_CABBAGE, 3);
+        elementPriorityMap.put(ParcelleValue.FARMER, 4);
 
     }
 
-    private final Comparator<Element> elementComparator = new Comparator<>() {
-        @Override
-        public int compare(Element e1, Element e2) {
-
-
-            int priority1 = elementPriorityMap.getOrDefault(e1.getType(), 0);
-            int priority2 = elementPriorityMap.getOrDefault(e2.getType(), 0);
-            return Integer.compare(priority1, priority2);
-        }
+    private final Comparator<Element> elementComparator = (e1, e2) -> {
+        int priority1 = elementPriorityMap.getOrDefault(e1.getType(), 0);
+        int priority2 = elementPriorityMap.getOrDefault(e2.getType(), 0);
+        return Integer.compare(priority1, priority2);
     };
 
 
@@ -70,9 +66,7 @@ class Parcelle {
     BooleanProperty stateChangeProperty(){
         return stateChange;
     }
-    void setHasVegetable(boolean b){
-        hasVegetable.set(b);
-    }
+
     void setStateChange(boolean b){
         stateChange.set(b);
     }
@@ -88,6 +82,10 @@ class Parcelle {
     void removeElement(Element e) {
         elements.remove(e);
     }
-//
-//    void clear(){elements.clear();}
+
+
+   void removeRottenVegetables() {
+        elements.removeIf(Element::isRotten);
+    }
+
 }

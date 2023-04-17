@@ -1,7 +1,6 @@
 package eu.epfc.anc3.model;
 
 import javafx.beans.property.*;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableSet;
 
 class Ferme {
@@ -9,9 +8,7 @@ class Ferme {
     Memento saveGame;
     boolean isSaved;
     private Terrain terrain ;
-    private IntegerProperty score = new SimpleIntegerProperty(0);
-    //private final IntegerProperty score = new SimpleIntegerProperty(0);
-    private final IntegerProperty nbDays = new SimpleIntegerProperty(0);
+    private final IntegerProperty score = new SimpleIntegerProperty(0);
 
     private final ObjectProperty<FermeStatus> fermeStatus = new SimpleObjectProperty<>(FermeStatus.START);
     public Ferme(){}
@@ -69,15 +66,6 @@ class Ferme {
     }
 
     //ajout un element a une cellule
-    /*void addElementToCell(Element p, int line, int col){
-        // check si la cellule a deja un element de type vegetable
-        if (!cellContainsElementType(p.getType(),line, col) &&
-                (p.getType() != ParcelleValue.CARROT1 || !cellContainsElementType(ParcelleValue.CABBAGE1 ,line, col)) &&
-                (p.getType() != ParcelleValue.CABBAGE1 || !cellContainsElementType(ParcelleValue.CARROT1 ,line, col)))
-        {
-            terrain.addElementToCell(p, line, col);
-        }
-    }*/
     void addElementToCell(Element p, int line, int col){
         // check s'il y a une carrot / cabbage
         if (!cellContainsElementType(p.getType(),line, col) ||
@@ -165,21 +153,21 @@ class Ferme {
     ReadOnlyObjectProperty<FermeStatus> fermeStatusProperty(){return fermeStatus;}
 
     void removeRotten(){
-        for (int i = 0; i < terrain.GRID_HEIGHT; i++) {
-            for (int j = 0; j < terrain.GRID_WIDTH; j++) {
+        //ferme.removeRotten...  --> terrain.removeRotten --> à chaque parcelle -> parcelle.removeRotten
+        for (int i = 0; i < Terrain.GRID_HEIGHT; i++) {
+            for (int j = 0; j < Terrain.GRID_WIDTH; j++) {
                 ObservableSet<Element> elem = getAllElem(i, j);
                 for (Element e : elem) {
                     System.out.println("ROTTEN VEGETABLES (cabbage) --> " +elem  + e.getType() + " " + e.isRotten());
                     terrain.notifyParcelleView(new Position(i, j));
-                    if (e.getType() == ParcelleValue.ROTTEN_CABBAGE || e.getType() == ParcelleValue.ROTTEN_CARROT || e.getType() == ParcelleValue.GRASS) {
-                        e.setStateChanged(true); // met à jour l'état changé de l'élément
-                        System.out.println(e.getStateChanged());
+                    e.setStateChanged(true); // met à jour l'état changé de l'élément
+                    System.out.println(e.getStateChanged());
                         // Supprimer le légume ou l'herbe pourri de la cellule
-                        if (e.isRotten()) {
-                            removeVegetables( i, j);
-                            terrain.notifyParcelleView(new Position(i, j));
-                        }
+                    if (e.isRotten()) {
+                        removeVegetables( i, j);
+                        terrain.notifyParcelleView(new Position(i, j));
                     }
+
                 }
             }
         }
