@@ -96,6 +96,18 @@ public class FermeFacade {
 
     }
 
+    public void loadGame(){
+        if (ferme.saveGameDidWell()) { // check si y a une save
+            System.out.println("Loading game...");
+            ferme.loadGame(); // load the game
+            nbJours.set(ferme.MementoNbDayProperty());
+            //score.set(ferme.getMementoScoreProperty());
+
+        } else {
+            System.out.println("No saved game to load.");
+        }
+    }
+
     public void stop(){
         if (isStarted.getValue() ||isInProgress.getValue()){
             System.out.println(" -> arrêt du jeu :) ");
