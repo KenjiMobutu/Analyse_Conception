@@ -7,11 +7,11 @@ import javafx.geometry.Insets;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
-
 import static eu.epfc.anc3.view.FermeView.*;
 
+// grid
 class TerrainView extends GridPane {
-    // grid
+
     public TerrainView (TerrainViewModel terrainViewModel, DoubleProperty fermeWidthProperty){
         setGridLinesVisible(false);
         setPadding(new Insets(PADDING));

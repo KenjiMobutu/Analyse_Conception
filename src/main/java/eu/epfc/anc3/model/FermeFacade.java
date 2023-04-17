@@ -223,9 +223,8 @@ public class FermeFacade {
 
     }
     void handleAction(){
-        if (plantGrass.getValue()){
+        if (plantGrass.getValue())
             dropGrass();
-        }
         else if (plantCabbage.getValue())
             plantCabbage();
         else if (plantCarrot.getValue())

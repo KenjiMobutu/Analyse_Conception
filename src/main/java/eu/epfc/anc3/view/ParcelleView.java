@@ -75,13 +75,10 @@ public class ParcelleView extends StackPane {
 
         // Ajouter une image pour la parcelle vide
         addParcelleImage(ParcelleValue.EMPTY);
+
         // Ajouter des images pour chaque élément dans la parcelle
         for(Element e : valueProp) {
-
-            ImageView imageView = new ImageView(images.get(e.getType()));
-            imageView.setFitWidth(this.imageView.getFitWidth());
-            imageView.setFitHeight(this.imageView.getFitHeight());
-            ParcelleView.this.getChildren().add(imageView);
+            addParcelleImage(e.getType());
         }
     }
 
