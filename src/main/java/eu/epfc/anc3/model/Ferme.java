@@ -84,16 +84,15 @@ class Ferme {
     void fertilize(int line, int col){
         ObservableSet<Element> elem = getAllElem(line,col);
         for (Element e : elem) {
-            if (e.getType() == ParcelleValue.GRASS){
-                continue;
-            }else if (e.getType().toString().contains("CARROT")){
-                Carrot c = (Carrot) e;
-                if (c.getCurrentState().stateProperty() < 3 ){
-                    while (c.getCurrentState().stateProperty() != 3){
-                        c.getCurrentState().nextState();
+            if ( e.canBeFetilize() && e.isVegetable()){
+                Vegetable vegetable = (Vegetable) e;
+                if (vegetable.getCurrentState().stateProperty() < 3 ){
+                    while (vegetable.getCurrentState().stateProperty() != 3){
+                        vegetable.getCurrentState().nextState();
                     }
                 }
             }
+
         }
     }
 

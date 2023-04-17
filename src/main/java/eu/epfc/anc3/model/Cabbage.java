@@ -52,6 +52,11 @@ public class Cabbage extends Vegetable implements Element {
         return true;
     }
 
+    @Override
+    public boolean canBeFetilize() {
+        return false;
+    }
+
 
     public void addStateListener(ChangeListener<VegetableState> listener) {
         stateProperty().addListener(listener);
