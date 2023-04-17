@@ -9,8 +9,8 @@ import static eu.epfc.anc3.model.Terrain.GRID_WIDTH;
 public class FermeFacade {
  // TODO : Memento : doit faire une copie profonde de chaque fichier
 
-    // TODO : METTRE LE SCORE A 0 A CHAQUE DEBUT DE PARTIE
     private final Ferme ferme = new Ferme();
+    Memento memento;
     private final Terrain terrain = new Terrain();
     private final Farmer farmer = new Farmer();
     private final Vegetable vegetable = new Vegetable();
@@ -92,6 +92,22 @@ public class FermeFacade {
             spawnFarmerInFarm();
         }
     }
+    public void saveGame(){
+        ferme.saveGame(nbJours.getValue(), farmer, fermeStatusProperty().getValue());
+        System.out.println("game is saved");
+    }
+
+    public void loadGame(){
+        if (ferme.saveGameDidWell()) { // check si y a une save
+            System.out.println("Loading game...");
+            ferme.loadGame(); // load the game
+            nbJours.set(ferme.MementoNbDayProperty());
+            //score.set(ferme.getMementoScoreProperty());
+
+        } else {
+            System.out.println("No saved game to load.");
+        }
+    }
 
     public void stop(){
         if (isStarted.getValue() ||isInProgress.getValue()){
@@ -142,6 +158,7 @@ public class FermeFacade {
             ferme.newGame();
             farmer.setPosFarmer(0,0);
             spawnFarmerInFarm();
+            ferme.setScore(0);
             System.out.println("le jeu est relancé :D ");
         }
     }
@@ -198,9 +215,10 @@ public class FermeFacade {
                     break;
                 case SPACE:
                     System.out.println("pressing space");
+                    break;
             }
 
-            if (actionPressedProperty())//BV : rename et mettre après le switch
+            if (actionPressedProperty())
                 handleAction();
         }
         System.out.println(ferme.getAllElem(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + " <--- affichage des elements d'une cellule");
@@ -209,8 +227,7 @@ public class FermeFacade {
     void handleAction(){
         if (plantGrass.getValue()){
             dropGrass();
-        }else if (deplantGrass.getValue())
-            removeGrass();
+        }
         else if (plantCabbage.getValue())
             plantCabbage();
         else if (plantCarrot.getValue())
@@ -279,55 +296,32 @@ public class FermeFacade {
     void dropGrass(){ //BV : voir plus haut
         Position posGrass = new Position(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
         farmer.plantGrass(posGrass);//K:Pour DEBUG
+        Grass grass = new Grass(terrain.getParcelle(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()));
+
+        grass.nbJours.bind(nbJours);
+
         System.out.println(!containsElementType(ParcelleValue.GRASS,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) );
         //addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(),new Grass());
-        ferme.addElementToCell(new Grass(),farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
+        ferme.addElementToCell(grass,farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
 
-        System.out.println(ferme.getAllElem(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "qsldh");
     }
 
     void plantCabbage(){
-        Position posCabbage = new Position(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
         Cabbage cabbage = new Cabbage(terrain.getParcelle(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()));
-        System.out.println(!containsElementType(ParcelleValue.CABBAGE1,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "ICI Cabbage");
         addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(),cabbage);
 
-        //TODO : déplacer ça dans cabbage
-        if(containsElementType(ParcelleValue.GRASS,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY())) {
-            nbJours.addListener((obs, oldVal, newVal) -> {
-                System.out.println("next day");
-                //si contien grass next day with grass *****
-                cabbage.getCurrentState().nextDayWithGrass();
-            });
-       }else{
-            nbJours.addListener((obs, oldVal, newVal) -> {
-                System.out.println("next day");
-                cabbage.getCurrentState().nextDay();
-            });
-       }
+        cabbage.nbJoursProperty().bind(nbJours);
+
         System.out.println(ferme.getAllElem(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "ICI Cabbage");
     }
     void PlantCarrot(){
         Carrot carrot = new Carrot(terrain.getParcelle(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY())  );
         //Position posCarrot = new Position(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
-        System.out.println(!containsElementType(ParcelleValue.CARROT1,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "ICI Carrot");
         addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(), carrot);
 
-        //TODO : déplacer ça dans carrot
         carrot.nbJoursProperty().bind(nbJours);
-        System.out.println(ferme.getAllElem(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "ICI Carrot");
     }
 
-    void removeGrass(){
-        farmer.removeGrassAtPos(farmer.getPosFarmer());//K:Pour DEBUG
-
-        removeElemFromCell(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY(), ParcelleValue.GRASS);
-
-        System.out.println(ferme.getAllElem(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "   qsldh");
-
-        displayTerrain(farmer.getPosFarmer());
-
-    }
     private void recoltVegetals() {
         //faire fonction addPoint qui récupère le state du légume et les points lié a celui-ci
         ferme.removeVegetables(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
@@ -355,25 +349,8 @@ public class FermeFacade {
 
     private void removeRottenVegetables() {
         //ferme.removeRotten...  --> terrain.removeRotten --> à chaque parcelle -> parcelle.removeRotten
-        for (int i = 0; i < terrain.GRID_HEIGHT; i++) {
-            for (int j = 0; j < terrain.GRID_WIDTH; j++) {
-                ObservableSet<Element> elem = ferme.getAllElem(i, j);
-                for (Element e : elem) {
-                    System.out.println("ROTTEN VEGETABLES (cabbage) --> " +elem  + e.getType() + " " + e.isRotten());
-                    terrain.notifyParcelleView(new Position(i, j));
-                    if (e.getType() == ParcelleValue.ROTTEN_CABBAGE || e.getType() == ParcelleValue.ROTTEN_CARROT || e.getType() == ParcelleValue.GRASS) {
-                        e.setStateChanged(true); // met à jour l'état changé de l'élément
-                        System.out.println(e.getStateChanged());
-                        // Supprimer le légume ou l'herbe pourri de la cellule
-                        if (e.isRotten()) {
-                            ferme.removeVegetables( i, j);
-                            terrain.notifyParcelleView(new Position(i, j));
-                        }
-                    }
+        ferme.removeRotten();
 
-                }
-            }
-        }
     }
 
 

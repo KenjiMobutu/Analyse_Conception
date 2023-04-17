@@ -6,7 +6,9 @@ import javafx.collections.ObservableSet;
 
 class Ferme {
 
-    private Terrain terrain = new Terrain();
+    Memento saveGame;
+    boolean isSaved;
+    private Terrain terrain ;
     private IntegerProperty score = new SimpleIntegerProperty(0);
     //private final IntegerProperty score = new SimpleIntegerProperty(0);
     private final IntegerProperty nbDays = new SimpleIntegerProperty(0);
@@ -15,8 +17,21 @@ class Ferme {
     public Ferme(){}
 
     void start(){
-        terrain = new Terrain();
-        fermeStatus.set(FermeStatus.STARTED);
+        if (isSaved){
+            System.out.println("JE PASSE DANS LE START POUR LOAD GAME OUI OUI !!!!!!!!");
+            if (saveGame.getTerrain() != null){
+                this.terrain = saveGame.getTerrain();
+                System.out.println("j'ai bien un terrain");
+            }
+
+            else
+                System.out.println("NO TERRAIN");
+            fermeStatus.set(FermeStatus.STARTED);
+        }else{
+            terrain = new Terrain();
+            fermeStatus.set(FermeStatus.STARTED);
+        }
+
     }
     void newGame() {
         terrain.resetTerrain();
@@ -54,7 +69,7 @@ class Ferme {
     }
 
     //ajout un element a une cellule
-    void addElementToCell(Element p, int line, int col){
+    /*void addElementToCell(Element p, int line, int col){
         // check si la cellule a deja un element de type vegetable
         if (!cellContainsElementType(p.getType(),line, col) &&
                 (p.getType() != ParcelleValue.CARROT1 || !cellContainsElementType(ParcelleValue.CABBAGE1 ,line, col)) &&
@@ -62,7 +77,40 @@ class Ferme {
         {
             terrain.addElementToCell(p, line, col);
         }
+    }*/
+    void addElementToCell(Element p, int line, int col){
+        // check s'il y a une carrot / cabbage
+        if (!cellContainsElementType(p.getType(),line, col) ||
+                !cellContainsVegetable(line, col)) {
+            terrain.addElementToCell(p, line, col);
+            grassOnCell(line,col);
+        }
     }
+
+
+    private void grassOnCell(int line, int col){
+        ObservableSet<Element> elem = terrain.getElem(line, col);
+        if (cellContainsElementType(ParcelleValue.GRASS, line,col)){
+            for (Element e : elem){
+                if (e.isVegetable()){
+                    Vegetable v = (Vegetable) e;
+                    v.setHasGrass(true);
+                }
+            }
+        }
+
+    }
+
+    boolean cellContainsVegetable(int line, int col) {
+        ObservableSet<Element> elem = terrain.getElem(line, col);
+        for (Element e : elem){
+            if (e.isVegetable()){
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     //supprime un element
     void removeElementFromCell(ParcelleValue p, int line, int col){
@@ -100,6 +148,10 @@ class Ferme {
         return score;
     }
 
+    void setScore(int i){
+        score.set(i);
+    }
+
     void addPoint(int point){
         score.set(score.get() + point);
         //récupérer de removeVegetables les harvestPoint pour ensuite renvoyer les points dans la ferme
@@ -112,11 +164,53 @@ class Ferme {
     //retourne le status du jeu
     ReadOnlyObjectProperty<FermeStatus> fermeStatusProperty(){return fermeStatus;}
 
+    void removeRotten(){
+        for (int i = 0; i < terrain.GRID_HEIGHT; i++) {
+            for (int j = 0; j < terrain.GRID_WIDTH; j++) {
+                ObservableSet<Element> elem = getAllElem(i, j);
+                for (Element e : elem) {
+                    System.out.println("ROTTEN VEGETABLES (cabbage) --> " +elem  + e.getType() + " " + e.isRotten());
+                    terrain.notifyParcelleView(new Position(i, j));
+                    if (e.getType() == ParcelleValue.ROTTEN_CABBAGE || e.getType() == ParcelleValue.ROTTEN_CARROT || e.getType() == ParcelleValue.GRASS) {
+                        e.setStateChanged(true); // met à jour l'état changé de l'élément
+                        System.out.println(e.getStateChanged());
+                        // Supprimer le légume ou l'herbe pourri de la cellule
+                        if (e.isRotten()) {
+                            removeVegetables( i, j);
+                            terrain.notifyParcelleView(new Position(i, j));
+                        }
+                    }
+                }
+            }
+        }
+    }
     //permet de déplacer le joueur dans le grid
     void spawnFarmer(Farmer farmer, int line, int col){
         terrain.addElementToCell(farmer, line, col);
     }
+    int MementoNbDayProperty(){
+        return saveGame.getJour();
+    }
+    int MementoScoreProperty(){
+        return saveGame.getScore();
+    }
 
+    Terrain mementoTerrain(){return new Terrain(terrain);}
+    Memento saveGame(int nbJour, Farmer farmer, FermeStatus fermeStatus){
+        saveGame = new Memento(mementoTerrain(), farmer, fermeStatus, this, score.getValue(), nbJour);
+        isSaved = true;
+        return saveGame;
+    }
+    boolean saveGameDidWell(){
+        return isSaved;
+    }
+    void loadGame(){
+        if (isSaved){
+            System.out.println("JE PASSE DANS LE LOAD GAME CORRECTEMENT !!!!!!!!!!!!!!!!!!!!!!!");
+            start();
+            isSaved = false;
+        }
+    }
     Terrain getTerrain(){
         return terrain;
     }

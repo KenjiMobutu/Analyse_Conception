@@ -29,7 +29,6 @@ class Parcelle {
         elementPriorityMap.put(ParcelleValue.CABBAGE3, 4);
         elementPriorityMap.put(ParcelleValue.CABBAGE4, 4);
         elementPriorityMap.put(ParcelleValue.ROTTEN_CABBAGE, 4);
-        elementPriorityMap.put(ParcelleValue.CABBAGE1, 4);
         elementPriorityMap.put(ParcelleValue.FARMER, 5);
 
     }
@@ -77,10 +76,18 @@ class Parcelle {
     void setStateChange(boolean b){
         stateChange.set(b);
     }
+
+    boolean hasGrass(){
+        for (Element e : elements){
+            if (e.getType() == ParcelleValue.GRASS)
+                return true;
+        }
+        return false;
+    }
 //
-//    void removeElement(Element e) {
-//        elements.remove(e);
-//    }
+    void removeElement(Element e) {
+        elements.remove(e);
+    }
 //
 //    void clear(){elements.clear();}
 }

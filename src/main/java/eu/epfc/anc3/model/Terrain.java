@@ -30,6 +30,9 @@ class Terrain {
             }
         }
     }
+    Terrain(Terrain terrain){
+        this.matrix = terrain.matrix;
+    }
 
     void resetTerrain() {
         for (int i = 0; i < GRID_HEIGHT; ++i) {
