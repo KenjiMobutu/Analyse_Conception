@@ -9,7 +9,6 @@ import static eu.epfc.anc3.model.Terrain.GRID_WIDTH;
 public class FermeFacade {
  // TODO : Memento : doit faire une copie profonde de chaque fichier
 
-    // TODO : METTRE LE SCORE A 0 A CHAQUE DEBUT DE PARTIE
     private final Ferme ferme = new Ferme();
     private final Terrain terrain = new Terrain();
     private final Farmer farmer = new Farmer();
@@ -202,7 +201,7 @@ public class FermeFacade {
                     break;
             }
 
-            if (actionPressedProperty())//BV : rename et mettre après le switch
+            if (actionPressedProperty())
                 handleAction();
         }
         System.out.println(ferme.getAllElem(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + " <--- affichage des elements d'une cellule");
@@ -219,9 +218,7 @@ public class FermeFacade {
         else if (useFertilizer.getValue())
             dropFertilizer();
         else if (recolt.getValue())
-            recoltVegetals();else{
-            System.out.println("Y A UN PROBLEME QUELQUE PART OEOEOEOEEEEEEEEEEEEEEEEEE");
-        }
+            recoltVegetals();
 
         displayTerrain(farmer.getPosFarmer());
         spawnFarmerInFarm();
@@ -282,15 +279,15 @@ public class FermeFacade {
     void dropGrass(){ //BV : voir plus haut
         Position posGrass = new Position(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
         farmer.plantGrass(posGrass);//K:Pour DEBUG
+        Grass grass = new Grass(terrain.getParcelle(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()));
+
         System.out.println(!containsElementType(ParcelleValue.GRASS,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) );
         //addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(),new Grass());
-        ferme.addElementToCell(new Grass(),farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
+        ferme.addElementToCell(grass,farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
 
-        System.out.println(ferme.getAllElem(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "qsldh");
     }
 
     void plantCabbage(){
-        Position posCabbage = new Position(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
         Cabbage cabbage = new Cabbage(terrain.getParcelle(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()));
         addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(),cabbage);
 

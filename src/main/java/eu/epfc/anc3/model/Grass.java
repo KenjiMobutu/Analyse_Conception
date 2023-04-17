@@ -4,10 +4,16 @@ class Grass extends Vegetable implements Element{ //BV : pas public
     // ajouter method auto recolt après 12 jours
     int maxGrowthDays = 12;
     int nbJours;
-    Grass(){
+    private Parcelle parcelle;
+    Grass(Parcelle parcelle){
         nbJours = 0;
+        setParcelle(parcelle);
+
     } //BV : rien de public mis à part getType
 
+    void setParcelle(Parcelle parcelle){
+        this.parcelle = parcelle;
+    }
     public ParcelleValue getType(){return ParcelleValue.GRASS;}
 
     @Override
