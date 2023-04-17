@@ -7,7 +7,9 @@ import static eu.epfc.anc3.model.Terrain.GRID_HEIGHT;
 import static eu.epfc.anc3.model.Terrain.GRID_WIDTH;
 
 public class FermeFacade {
- // Memento : doit faire une copie profonde de chaque fichier
+ // TODO : Memento : doit faire une copie profonde de chaque fichier
+
+    // TODO : METTRE LE SCORE A 0 A CHAQUE DEBUT DE PARTIE
     private final Ferme ferme = new Ferme();
     private final Terrain terrain = new Terrain();
     private final Farmer farmer = new Farmer();
@@ -31,16 +33,6 @@ public class FermeFacade {
     //public ReadOnlyBooleanProperty isStartableProperty (){return isStartable;}
     public ReadOnlyBooleanProperty isStartedProperty (){return isStarted;}
     public boolean actionPressedProperty() {return isPressingAction;} //BV mettre juste action property
-
-//    private ReadOnlyIntegerProperty nbDays = new ReadOnlyIntegerWrapper(0);
-//
-//    public void setNbDay(int value) {
-//        nbDays.set(value);
-//    }
-//
-//    public ReadOnlyIntegerProperty nbDaysProperty() {
-//        return nbDays.getReadOnlyProperty();
-//    }
 
     // mettre le spacePressed a true :
     public void setActionProperty(boolean b){isPressingAction = b;} //BV
@@ -205,8 +197,7 @@ public class FermeFacade {
                     System.out.println("here farmer pos : -->" + farmer.getPosFarmer());
                     break;
                 case SPACE:
-                    System.out.println("plant grass val :" + plantGrass.getValue());
-                    System.out.println("un plant grass val :" + deplantGrass.getValue());
+                    System.out.println("pressing space");
             }
 
             if (actionPressedProperty())//BV : rename et mettre après le switch
@@ -226,9 +217,9 @@ public class FermeFacade {
             PlantCarrot();
         else if (useFertilizer.getValue())
             dropFertilizer();
-        else if (recolt.getValue()){
+        else if (recolt.getValue())
             recoltVegetals();
-        }
+
         displayTerrain(farmer.getPosFarmer());
         spawnFarmerInFarm();
     }
@@ -300,7 +291,9 @@ public class FermeFacade {
         Cabbage cabbage = new Cabbage(terrain.getParcelle(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()));
         System.out.println(!containsElementType(ParcelleValue.CABBAGE1,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "ICI Cabbage");
         addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(),cabbage);
-       if(containsElementType(ParcelleValue.GRASS,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY())) {
+
+        //TODO : déplacer ça dans cabbage
+        if(containsElementType(ParcelleValue.GRASS,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY())) {
             nbJours.addListener((obs, oldVal, newVal) -> {
                 System.out.println("next day");
                 //si contien grass next day with grass *****
@@ -319,10 +312,9 @@ public class FermeFacade {
         //Position posCarrot = new Position(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
         System.out.println(!containsElementType(ParcelleValue.CARROT1,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "ICI Carrot");
         addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(), carrot);
-        nbJours.addListener((obs, oldVal, newVal) -> {
-            System.out.println("++day");
-            carrot.getCurrentState().nextDay();
-        });
+
+        //TODO : déplacer ça dans carrot
+        carrot.nbJoursProperty().bind(nbJours);
         System.out.println(ferme.getAllElem(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "ICI Carrot");
     }
 

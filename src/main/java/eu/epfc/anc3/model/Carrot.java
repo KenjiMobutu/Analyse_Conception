@@ -1,12 +1,14 @@
 package eu.epfc.anc3.model;
 
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 
 //k:trouver une solution pour retirer public de la classe
 public class Carrot extends Vegetable implements Element {
-    //private IntegerProperty nbJours = new SimpleIntegerProperty(0);
+    private IntegerProperty nbJours = new SimpleIntegerProperty(0);
     private boolean stateChanged = false;
     private ReadOnlyObjectWrapper<VegetableState> state = new ReadOnlyObjectWrapper<>();
     private final int maxScore = 100;
@@ -14,6 +16,10 @@ public class Carrot extends Vegetable implements Element {
     public Carrot(Parcelle parcelle) {
         super();
         setParcelle(parcelle);
+        nbJours.addListener((obs, oldVal, newVal) -> {
+            System.out.println("++day");
+            this.getCurrentState().nextDay();
+        });
         this.setState(new CarrotState1(this));
     }
     @Override
@@ -21,6 +27,9 @@ public class Carrot extends Vegetable implements Element {
         return state.get().getType();
     }
 
+    IntegerProperty nbJoursProperty() {
+        return nbJours;
+    }
     @Override
     public boolean getStateChanged() {
         return stateChanged;
@@ -346,6 +355,7 @@ public class Carrot extends Vegetable implements Element {
         public CarrotState5(Vegetable vegetable) {
             super(vegetable);
             vegetable.setState(this);
+            parcelle.setStateChange(false);
             System.out.println(getCurrentState().toString() + " ETAT" );
             growthDays = 12;
             System.out.println("Carrot POURRIE created");

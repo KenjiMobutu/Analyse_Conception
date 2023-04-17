@@ -379,6 +379,7 @@ public class Cabbage extends Vegetable implements Element {
             super(vegetable);
             setState(this);
             vegetable.setState(this);
+            parcelle.setStateChange(false);
             System.out.println(getCurrentState().toString() + " ETAT" );
             System.out.println("TYPE ==> " + getType());
             nbJours = 14;
