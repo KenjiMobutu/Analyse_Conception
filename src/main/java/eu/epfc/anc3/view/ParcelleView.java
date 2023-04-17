@@ -85,76 +85,14 @@ public class ParcelleView extends StackPane {
         addParcelleImage(ParcelleValue.EMPTY);
         // Ajouter des images pour chaque élément dans la parcelle
         for(Element e : valueProp) {
-            ParcelleView.this.getChildren().add(new ImageView(images.get(e.getType())));
+
+            ImageView imageView = new ImageView(images.get(e.getType()));
+            imageView.setFitWidth(this.imageView.getFitWidth());
+            imageView.setFitHeight(this.imageView.getFitHeight());
+            ParcelleView.this.getChildren().add(imageView);
             //ParcelleView.this.getChildren().add(new ImageView(map.get(e.getType())));
             //handleElementChange(e);
         }
-    }
-
-    private void handleElementChange(Element e) {
-        // Vérifier le type de l'élément et ajouter une image correspondante
-        verifyElementsType(e);
-
-        // Ajouter un écouteur d'état pour les carottes
-        addCarrotImage(e);
-
-        // Ajouter un écouteur d'état pour les choux
-        addCabbageImage(e);
-    }
-
-    private void verifyElementsType(Element e){
-        // Vérifier le type de l'élément et ajouter une image correspondante
-        addParcelleImage(e.getType());
-    }
-
-    private void addCarrotImage(Element e){
-        // Ajouter un écouteur d'état pour les carottes
-        if (e.getType() == ParcelleValue.CARROT1) {
-            Carrot c = (Carrot) e;
-            c.addStateListener((obs, oldState, newState) -> handleCarrotChange(newState.getType()));
-            addParcelleImage(e.getType());
-        }
-    }
-
-    private void addCabbageImage(Element e){
-        // Ajouter un écouteur d'état pour les choux
-        if (e.getType() == ParcelleValue.CABBAGE1) {
-            Cabbage c = (Cabbage) e;
-            c.addStateListener((obs, oldState, newState) -> handleCabbageChange(newState.getType()));
-            addParcelleImage(e.getType());
-        }
-    }
-
-    //gère le changement d'image pour l'état de la carotte
-    private void handleCarrotChange(ParcelleValue pv) {
-        // Récupérer l'image enfant correspondante
-        Node child = ParcelleView.this.getChildren().get(1);
-
-        // Vérifier si l'image n'est pas de l'herbe et la supprimer si nécessaire
-        if (getParcelleValueFromImage(((ImageView) child).getImage()) != ParcelleValue.GRASS) {
-            ParcelleView.this.getChildren().remove(1);
-        } else {
-            ParcelleView.this.getChildren().remove(2);
-        }
-
-        // Ajouter l'image mise à jour pour la carotte
-        addParcelleImage(pv);
-    }
-
-    //gère le changement d'image pour l'état du chou
-    private void handleCabbageChange(ParcelleValue pv) {
-        // Récupérer l'image enfant correspondante
-        Node child = ParcelleView.this.getChildren().get(1);
-
-        // Vérifier si l'image n'est pas de l'herbe et la supprimer si nécessaire
-        if (getParcelleValueFromImage(((ImageView) child).getImage()) != ParcelleValue.GRASS) {
-            ParcelleView.this.getChildren().remove(1);
-        } else {
-            ParcelleView.this.getChildren().remove(2);
-        }
-
-        // Ajouter l'image mise à jour pour le chou
-        addParcelleImage(pv);
     }
 
     void addParcelleImage(ParcelleValue pv) {
