@@ -90,8 +90,6 @@ public class ParcelleView extends StackPane {
             imageView.setFitWidth(this.imageView.getFitWidth());
             imageView.setFitHeight(this.imageView.getFitHeight());
             ParcelleView.this.getChildren().add(imageView);
-            //ParcelleView.this.getChildren().add(new ImageView(map.get(e.getType())));
-            //handleElementChange(e);
         }
     }
 
@@ -102,11 +100,5 @@ public class ParcelleView extends StackPane {
         getChildren().add(imageView);
     }
 
-    // Récupérer la valeur de la parcelle à partir de l'image (gère la superposition d'images pour les carottes et les choux)
-    public static ParcelleValue getParcelleValueFromImage(Image image) {
-        String imageName = image.getUrl().substring(image.getUrl().lastIndexOf("/") + 1);
-        imageName = imageName.substring(0, imageName.indexOf("."));
-        return ParcelleValue.valueOf(imageName.toUpperCase());
-    }
 
 }

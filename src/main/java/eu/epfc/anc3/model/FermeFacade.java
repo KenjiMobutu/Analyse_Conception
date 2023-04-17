@@ -7,7 +7,7 @@ import static eu.epfc.anc3.model.Terrain.GRID_HEIGHT;
 import static eu.epfc.anc3.model.Terrain.GRID_WIDTH;
 
 public class FermeFacade {
-
+ // Memento : doit faire une copie profonde de chaque fichier
     private final Ferme ferme = new Ferme();
     private final Terrain terrain = new Terrain();
     private final Farmer farmer = new Farmer();
