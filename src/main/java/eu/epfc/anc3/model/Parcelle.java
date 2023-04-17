@@ -1,6 +1,8 @@
 package eu.epfc.anc3.model;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
@@ -10,6 +12,8 @@ import java.util.*;
 class Parcelle {
     //cellule
 
+    BooleanProperty hasVegetable = new SimpleBooleanProperty(false);
+    BooleanProperty stateChange = new SimpleBooleanProperty(false);
     private final Map<ParcelleValue, Integer> elementPriorityMap = new HashMap<>();
     {
         elementPriorityMap.put(ParcelleValue.DIRT, 1);
@@ -25,7 +29,6 @@ class Parcelle {
         elementPriorityMap.put(ParcelleValue.CABBAGE3, 4);
         elementPriorityMap.put(ParcelleValue.CABBAGE4, 4);
         elementPriorityMap.put(ParcelleValue.ROTTEN_CABBAGE, 4);
-        elementPriorityMap.put(ParcelleValue.CABBAGE1, 4);
         elementPriorityMap.put(ParcelleValue.FARMER, 5);
 
     }
@@ -60,12 +63,31 @@ class Parcelle {
     }
 
     void addElement(Element e) {
+        if (e.isVegetable())
+            hasVegetable.set(true);
         elements.add(e);
     }
+    BooleanProperty stateChangeProperty(){
+        return stateChange;
+    }
+    void setHasVegetable(boolean b){
+        hasVegetable.set(b);
+    }
+    void setStateChange(boolean b){
+        stateChange.set(b);
+    }
+
+    boolean hasGrass(){
+        for (Element e : elements){
+            if (e.getType() == ParcelleValue.GRASS)
+                return true;
+        }
+        return false;
+    }
 //
-//    void removeElement(Element e) {
-//        elements.remove(e);
-//    }
+    void removeElement(Element e) {
+        elements.remove(e);
+    }
 //
 //    void clear(){elements.clear();}
 }

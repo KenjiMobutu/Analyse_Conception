@@ -1,13 +1,35 @@
 package eu.epfc.anc3.model;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+
 class Grass extends Vegetable implements Element{ //BV : pas public
     // ajouter method auto recolt après 12 jours
-    int maxGrowthDays = 12;
-    int nbJours;
-    Grass(){
-        nbJours = 0;
+    IntegerProperty maxGrowthDays = new SimpleIntegerProperty(0);
+    IntegerProperty nbJours = new SimpleIntegerProperty(0);
+    int nbJoursSinceStart ;
+    private Parcelle parcelle;
+    Grass(Parcelle parcelle){
+        nbJoursSinceStart = 0;
+        maxGrowthDays.set(nbJours.getValue() + 12);
+        nbJours.addListener((obs, oldVal, newVal) -> {
+            System.out.println("++day ------|>" +  nbJoursSinceStart);
+            this.nextDay();
+        });
+        setParcelle(parcelle);
+
     } //BV : rien de public mis à part getType
 
+    IntegerProperty nbJoursProperty(){return nbJours;}
+    void setNbJoursProperty(int i ){nbJours.set(i);}
+
+    void nextDay(){
+        ++nbJoursSinceStart;
+        isRotten();
+    }
+    void setParcelle(Parcelle parcelle){
+        this.parcelle = parcelle;
+    }
     public ParcelleValue getType(){return ParcelleValue.GRASS;}
 
     @Override
@@ -22,10 +44,25 @@ class Grass extends Vegetable implements Element{ //BV : pas public
 
     @Override
     public boolean isRotten() {
-        if(nbJours == maxGrowthDays)
+        if(nbJoursSinceStart == maxGrowthDays.getValue()+1)
             return true;
         else
             return false;
+    }
+
+    @Override
+    public boolean isVegetable() {
+        return false;
+    }
+
+    @Override
+    public boolean canBeFetilize() {
+        return false;
+    }
+
+    @Override
+    public Parcelle getParcelle() {
+        return null;
     }
 
     @Override

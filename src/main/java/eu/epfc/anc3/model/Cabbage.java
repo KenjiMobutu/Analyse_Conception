@@ -1,34 +1,32 @@
 package eu.epfc.anc3.model;
 
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 
 //k:trouver une solution pour retirer public de la classe
 public class Cabbage extends Vegetable implements Element {
+    private IntegerProperty nbJours = new SimpleIntegerProperty(0);
     private boolean stateChanged = false;
     private ReadOnlyObjectWrapper<VegetableState> state = new ReadOnlyObjectWrapper<>();
     private final int maxScore = 200;
-    //private final Position posCabbage;
-    /*public Cabbage(Position posCabbage){
+    private Parcelle parcelle;
+    public Cabbage(Parcelle parcelle) {
         super();
-        this.posCabbage = new Position(posCabbage.getX(), posCabbage.getY());
-        this.setState(new CabbageState1(this));
-        System.out.println("Cabbage created");
-    }*/
-    /*public Position getPosCabbage() {
-        return posCabbage;
-    }
-
-    public void setPosCabbage(int x, int y){
-        posCabbage.setX(x); posCabbage.setY(y);
-    }*/
-
-    public Cabbage() {
-        super();
+        setParcelle(parcelle);
+        nbJours.addListener((obs, oldVal, newVal) -> {
+            if (this.hasGrass())
+                this.getCurrentState().nextDayWithGrass();
+            else
+                this.getCurrentState().nextDay();
+        });
         setState(new CabbageState1(this));
         System.out.println("Cabbage created");
     }
+
+    IntegerProperty nbJoursProperty(){return nbJours;}
     @Override
     public ParcelleValue getType(){return state.get().getType();}
 
@@ -47,16 +45,26 @@ public class Cabbage extends Vegetable implements Element {
         return this.getState().isRotten();
     }
 
-
-    public void addStateListener(ChangeListener<VegetableState> listener) {
-        stateProperty().addListener(listener);
+    @Override
+    public boolean isVegetable() {
+        return true;
     }
 
+    @Override
+    public boolean canBeFetilize() {
+        return false;
+    }
+
+    @Override
+    public Parcelle getParcelle() {
+        return parcelle;
+    }
+
+    void setParcelle(Parcelle parcelle){
+         this.parcelle = parcelle;
+    }
     public void setState(VegetableState newState) {
         state.set(newState);
-    }
-    private ObservableValue<VegetableState> stateProperty() {
-        return state.getReadOnlyProperty();
     }
     public VegetableState getState() {
         return state.get();
@@ -86,11 +94,7 @@ public class Cabbage extends Vegetable implements Element {
 
         @Override
         public ParcelleValue nextState() {
-            /*vegetable.setCurrentState(new CabbageState2(vegetable));
-            System.out.println("Cabbage state 1 changed to state 2");
-            Cabbage.this.getType();
-            System.out.println(getType() + " TYPE");*/
-
+            parcelle.setStateChange(true);
             vegetable.nextState(new CabbageState2(vegetable));
             return ParcelleValue.CABBAGE2;
         }
@@ -103,10 +107,10 @@ public class Cabbage extends Vegetable implements Element {
         @Override
         public void nextDay() {
             nbJours++;
-            System.out.println("nbJours = " + nbJours);
             if (nbJours == daysToNextState) {
                 this.nextState();
             }
+
         }
         @Override
         public ParcelleValue getType() {
@@ -147,6 +151,7 @@ public class Cabbage extends Vegetable implements Element {
         CabbageState2(Vegetable vegetable) {
             super(vegetable);
             setState(this);
+            parcelle.setStateChange(false);
             vegetable.setState(this);
             System.out.println(getCurrentState().toString() + " ETAT" );
             nbJours = 5;
@@ -156,6 +161,7 @@ public class Cabbage extends Vegetable implements Element {
         @Override
         public ParcelleValue nextState() {
             System.out.println("Cabbage state 2 changed to state 3");
+            parcelle.setStateChange(true);
             vegetable.setState(new Cabbage.CabbageState3(vegetable));
             Cabbage.this.getType();
             System.out.println(getType() + " TYPE");
@@ -216,6 +222,7 @@ public class Cabbage extends Vegetable implements Element {
         CabbageState3(Vegetable vegetable) {
             super(vegetable);
             setState(this);
+            parcelle.setStateChange(false);
             System.out.println(getCurrentState().toString() + " ETAT" );
             nbJours = 9;
             System.out.println("Cabbage state 3 created");
@@ -225,6 +232,7 @@ public class Cabbage extends Vegetable implements Element {
         public ParcelleValue nextState() {
             System.out.println("Cabbage state 3 changed to state 4");
             vegetable.setState(new CabbageState4(vegetable));
+            parcelle.setStateChange(true);
             Cabbage.this.getType();
             System.out.println(getType() + " TYPE");
             return null;
@@ -286,6 +294,7 @@ public class Cabbage extends Vegetable implements Element {
         CabbageState4(Vegetable vegetable) {
             super(vegetable);
             vegetable.setState(this);
+            parcelle.setStateChange(false);
             System.out.println(getCurrentState().toString() + " ETAT" );
             nbJours = 12;
             System.out.println("Cabbage state 4 created");
@@ -296,6 +305,7 @@ public class Cabbage extends Vegetable implements Element {
             System.out.println("Carrot state 4 changed to state ROTTEN");
             vegetable.setState(new CabbageRottenState(vegetable));
             Cabbage.this.getType();
+            parcelle.setStateChange(true);
             System.out.println(getType() + " TYPE 4");
             return null;
         }
@@ -356,6 +366,7 @@ public class Cabbage extends Vegetable implements Element {
             super(vegetable);
             setState(this);
             vegetable.setState(this);
+            parcelle.setStateChange(false);
             System.out.println(getCurrentState().toString() + " ETAT" );
             System.out.println("TYPE ==> " + getType());
             nbJours = 14;

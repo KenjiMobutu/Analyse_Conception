@@ -1,6 +1,7 @@
 package eu.epfc.anc3.model;
 
 import javafx.beans.Observable;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
@@ -29,6 +30,9 @@ class Terrain {
             }
         }
     }
+    Terrain(Terrain terrain){
+        this.matrix = terrain.matrix;
+    }
 
     void resetTerrain() {
         for (int i = 0; i < GRID_HEIGHT; ++i) {
@@ -45,9 +49,13 @@ class Terrain {
          matrix[line][col].getElements().removeIf(e -> e.getType() == pv);
     }
     void removeVegetables(Element e, int line, int col){
+
         matrix[line][col].getElements().remove(e);
     }
 
+    Parcelle getParcelle(int line, int col) {
+        return matrix[line][col];
+    }
     ObservableSet<Element> getElem(int line, int col){return matrix[line][col].getElements();}
 
     ObservableSet<ParcelleValue> getElemType(int line, int col){return matrix[line][col].getElementsType();}
@@ -91,5 +99,9 @@ class Terrain {
                 e.setStateChanged(false); // remet l'état changé de l'élément à false
             }
         }
+    }
+
+    BooleanProperty getElementsStateProperty(int line,int col){
+        return matrix[line][col].stateChangeProperty();
     }
 }

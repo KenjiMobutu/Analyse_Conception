@@ -39,6 +39,21 @@ class Farmer implements Element{
     }
 
     @Override
+    public boolean isVegetable() {
+        return false;
+    }
+
+    @Override
+    public boolean canBeFetilize() {
+        return false;
+    }
+
+    @Override
+    public Parcelle getParcelle() {
+        return null;
+    }
+
+    @Override
     public String toString() {return "Farmer Position : " + getPosFarmer();}
 
     /*-----------------POUR DEBUG-----------------------------------------------*/
