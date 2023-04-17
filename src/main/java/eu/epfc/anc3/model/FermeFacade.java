@@ -281,6 +281,8 @@ public class FermeFacade {
         farmer.plantGrass(posGrass);//K:Pour DEBUG
         Grass grass = new Grass(terrain.getParcelle(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()));
 
+        grass.nbJoursProperty().bind(nbJours);
+
         System.out.println(!containsElementType(ParcelleValue.GRASS,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) );
         //addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(),new Grass());
         ferme.addElementToCell(grass,farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
@@ -330,25 +332,8 @@ public class FermeFacade {
 
     private void removeRottenVegetables() {
         //ferme.removeRotten...  --> terrain.removeRotten --> à chaque parcelle -> parcelle.removeRotten
-        for (int i = 0; i < terrain.GRID_HEIGHT; i++) {
-            for (int j = 0; j < terrain.GRID_WIDTH; j++) {
-                ObservableSet<Element> elem = ferme.getAllElem(i, j);
-                for (Element e : elem) {
-                    System.out.println("ROTTEN VEGETABLES (cabbage) --> " +elem  + e.getType() + " " + e.isRotten());
-                    terrain.notifyParcelleView(new Position(i, j));
-                    if (e.getType() == ParcelleValue.ROTTEN_CABBAGE || e.getType() == ParcelleValue.ROTTEN_CARROT || e.getType() == ParcelleValue.GRASS) {
-                        e.setStateChanged(true); // met à jour l'état changé de l'élément
-                        System.out.println(e.getStateChanged());
-                        // Supprimer le légume ou l'herbe pourri de la cellule
-                        if (e.isRotten()) {
-                            ferme.removeVegetables( i, j);
-                            terrain.notifyParcelleView(new Position(i, j));
-                        }
-                    }
+        ferme.removeRotten();
 
-                }
-            }
-        }
     }
 
 

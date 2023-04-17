@@ -68,9 +68,6 @@ class Ferme {
         if (!cellContainsElementType(p.getType(),line, col) ||
                 !cellContainsVegetable(line, col)) {
             terrain.addElementToCell(p, line, col);
-            if (p.getType().toString().contains("CARROT")){
-                Carrot c = (Carrot) p;
-            }
             grassOnCell(line,col);
         }
     }
@@ -152,6 +149,26 @@ class Ferme {
     //retourne le status du jeu
     ReadOnlyObjectProperty<FermeStatus> fermeStatusProperty(){return fermeStatus;}
 
+    void removeRotten(){
+        for (int i = 0; i < terrain.GRID_HEIGHT; i++) {
+            for (int j = 0; j < terrain.GRID_WIDTH; j++) {
+                ObservableSet<Element> elem = getAllElem(i, j);
+                for (Element e : elem) {
+                    System.out.println("ROTTEN VEGETABLES (cabbage) --> " +elem  + e.getType() + " " + e.isRotten());
+                    terrain.notifyParcelleView(new Position(i, j));
+                    if (e.getType() == ParcelleValue.ROTTEN_CABBAGE || e.getType() == ParcelleValue.ROTTEN_CARROT || e.getType() == ParcelleValue.GRASS) {
+                        e.setStateChanged(true); // met à jour l'état changé de l'élément
+                        System.out.println(e.getStateChanged());
+                        // Supprimer le légume ou l'herbe pourri de la cellule
+                        if (e.isRotten()) {
+                            removeVegetables( i, j);
+                            terrain.notifyParcelleView(new Position(i, j));
+                        }
+                    }
+                }
+            }
+        }
+    }
     //permet de déplacer le joueur dans le grid
     void spawnFarmer(Farmer farmer, int line, int col){
         terrain.addElementToCell(farmer, line, col);

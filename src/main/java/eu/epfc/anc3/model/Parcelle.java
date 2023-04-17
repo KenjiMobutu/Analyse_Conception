@@ -85,9 +85,9 @@ class Parcelle {
         return false;
     }
 //
-//    void removeElement(Element e) {
-//        elements.remove(e);
-//    }
+    void removeElement(Element e) {
+        elements.remove(e);
+    }
 //
 //    void clear(){elements.clear();}
 }

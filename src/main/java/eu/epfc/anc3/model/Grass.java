@@ -1,16 +1,27 @@
 package eu.epfc.anc3.model;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+
 class Grass extends Vegetable implements Element{ //BV : pas public
     // ajouter method auto recolt après 12 jours
     int maxGrowthDays = 12;
-    int nbJours;
+    IntegerProperty nbJours = new SimpleIntegerProperty(0);
     private Parcelle parcelle;
     Grass(Parcelle parcelle){
-        nbJours = 0;
+        nbJours.set(0);
+        nbJours.addListener((obs, oldVal, newVal) -> {
+            System.out.println("++day");
+            this.nextDay();
+        });
         setParcelle(parcelle);
 
     } //BV : rien de public mis à part getType
 
+    IntegerProperty nbJoursProperty(){return nbJours;}
+    void nextDay(){
+        isRotten();
+    }
     void setParcelle(Parcelle parcelle){
         this.parcelle = parcelle;
     }
@@ -28,7 +39,7 @@ class Grass extends Vegetable implements Element{ //BV : pas public
 
     @Override
     public boolean isRotten() {
-        if(nbJours == maxGrowthDays)
+        if(nbJours.getValue().equals(maxGrowthDays))
             return true;
         else
             return false;
