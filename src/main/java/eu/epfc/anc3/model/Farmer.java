@@ -49,6 +49,11 @@ class Farmer implements Element{
     }
 
     @Override
+    public Parcelle getParcelle() {
+        return null;
+    }
+
+    @Override
     public String toString() {return "Farmer Position : " + getPosFarmer();}
 
     /*-----------------POUR DEBUG-----------------------------------------------*/

@@ -7,6 +7,7 @@ import eu.epfc.anc3.model.ParcelleValue;
 import eu.epfc.anc3.vm.ParcelleViewModel;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
 import javafx.collections.SetChangeListener;
@@ -58,56 +59,6 @@ public class ParcelleView extends StackPane {
 
 
 
-    /*public ParcelleView(ParcelleViewModel parcelleViewModel, DoubleBinding parcelleWidthProperty) {
-        imageView.setPreserveRatio(true);
-        imageView.fitWidthProperty().bind(parcelleWidthProperty);
-        imageView.fitHeightProperty().bind(parcelleWidthProperty);
-        imageView.setImage(DIRT);
-        getChildren().add(imageView);
-
-        ObservableSet<Element> valueProp = parcelleViewModel.getElementsInCell();
-
-        // Ajouter un écouteur de changement d'état
-       valueProp.addListener((SetChangeListener<Element>) change -> {
-            ParcelleView.this.getChildren().clear();
-            addParcelleImage(ParcelleValue.EMPTY);
-            for(Element e : valueProp) {
-                if (e.getType() != ParcelleValue.CABBAGE1  && e.getType() != ParcelleValue.CARROT1)
-                    addParcelleImage(e.getType());
-                if (e.getType() == ParcelleValue.CARROT1) {
-                    Carrot c = (Carrot) e;
-                    c.addStateListener((obs, oldState, newState) -> {
-                        ParcelleValue pv = newState.getType();
-                        System.out.println("PARCELLE VALUE ==> " + pv);
-                        Node child = ParcelleView.this.getChildren().get(1);
-                        if (getParcelleValueFromImage(((ImageView) child).getImage()) != ParcelleValue.GRASS) {
-                            ParcelleView.this.getChildren().remove(1);
-                        }else {
-                            ParcelleView.this.getChildren().remove(2);
-                        }
-                        addParcelleImage(pv);
-                    });
-                }
-                if (e.getType() == ParcelleValue.CABBAGE1) {
-                    Cabbage c = (Cabbage) e;
-                    c.addStateListener((obs, oldState, newState) -> {
-                        ParcelleValue pv = newState.getType();
-                        Node child = ParcelleView.this.getChildren().get(1);
-                        if (getParcelleValueFromImage(((ImageView) child).getImage()) != ParcelleValue.GRASS) {
-                            ParcelleView.this.getChildren().remove(1);
-                        }else {
-                            ParcelleView.this.getChildren().remove(2);
-                        }
-                        addParcelleImage(pv);
-                    });
-                }
-                addParcelleImage(e.getType());
-
-            }
-       });
-        this.setOnMouseClicked(e -> parcelleViewModel.play());
-    }*/
-
     public ParcelleView(ParcelleViewModel parcelleViewModel, DoubleBinding parcelleWidthProperty) {
         // Créer une image view pour la vue de la parcelle
         imageView.setPreserveRatio(true);
@@ -118,10 +69,10 @@ public class ParcelleView extends StackPane {
 
         // Obtenir l'ensemble observables des éléments dans la parcelle
         ObservableSet<Element> valueProp = parcelleViewModel.getElementsInCell();
-
         // Ajouter un écouteur de changement d'état
         valueProp.addListener((SetChangeListener<Element>) change -> handleParcelleViewChange(valueProp));
-
+        //parcelleViewModel.changeStateProperty.addListener...
+        parcelleViewModel.getElementsStateProperty().addListener((obs, oldState, newState) -> handleParcelleViewChange(valueProp));
         // Ajouter un événement de clic pour jouer la parcelle
         this.setOnMouseClicked(e -> parcelleViewModel.play());
     }
@@ -132,11 +83,11 @@ public class ParcelleView extends StackPane {
 
         // Ajouter une image pour la parcelle vide
         addParcelleImage(ParcelleValue.EMPTY);
-
         // Ajouter des images pour chaque élément dans la parcelle
         for(Element e : valueProp) {
+            ParcelleView.this.getChildren().add(new ImageView(images.get(e.getType())));
             //ParcelleView.this.getChildren().add(new ImageView(map.get(e.getType())));
-            handleElementChange(e);
+            //handleElementChange(e);
         }
     }
 

@@ -13,6 +13,7 @@ class Parcelle {
     //cellule
 
     BooleanProperty hasVegetable = new SimpleBooleanProperty(false);
+    BooleanProperty stateChange = new SimpleBooleanProperty(false);
     private final Map<ParcelleValue, Integer> elementPriorityMap = new HashMap<>();
     {
         elementPriorityMap.put(ParcelleValue.DIRT, 1);
@@ -67,9 +68,14 @@ class Parcelle {
             hasVegetable.set(true);
         elements.add(e);
     }
-
+    BooleanProperty stateChangeProperty(){
+        return stateChange;
+    }
     void setHasVegetable(boolean b){
         hasVegetable.set(b);
+    }
+    void setStateChange(boolean b){
+        stateChange.set(b);
     }
 //
 //    void removeElement(Element e) {

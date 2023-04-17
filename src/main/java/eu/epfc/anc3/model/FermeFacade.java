@@ -297,7 +297,7 @@ public class FermeFacade {
 
     void plantCabbage(){
         Position posCabbage = new Position(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
-        Cabbage cabbage = new Cabbage();
+        Cabbage cabbage = new Cabbage(terrain.getParcelle(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()));
         System.out.println(!containsElementType(ParcelleValue.CABBAGE1,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "ICI Cabbage");
         addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(),cabbage);
        if(containsElementType(ParcelleValue.GRASS,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY())) {
@@ -315,7 +315,7 @@ public class FermeFacade {
         System.out.println(ferme.getAllElem(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "ICI Cabbage");
     }
     void PlantCarrot(){
-        Carrot carrot = new Carrot();
+        Carrot carrot = new Carrot(terrain.getParcelle(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY())  );
         //Position posCarrot = new Position(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
         System.out.println(!containsElementType(ParcelleValue.CARROT1,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "ICI Carrot");
         addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(), carrot);
@@ -384,4 +384,8 @@ public class FermeFacade {
         }
     }
 
+
+    public BooleanProperty getElementsStateProperty(int line, int col){
+        return terrain.getElementsStateProperty(line, col);
+    }
 }

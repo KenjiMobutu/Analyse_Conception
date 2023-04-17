@@ -39,6 +39,11 @@ class Grass extends Vegetable implements Element{ //BV : pas public
     }
 
     @Override
+    public Parcelle getParcelle() {
+        return null;
+    }
+
+    @Override
     public String toString() {
         return "Grass ; ";
     }

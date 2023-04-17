@@ -9,6 +9,7 @@ public class Cabbage extends Vegetable implements Element {
     private boolean stateChanged = false;
     private ReadOnlyObjectWrapper<VegetableState> state = new ReadOnlyObjectWrapper<>();
     private final int maxScore = 200;
+    private Parcelle parcelle;
     //private final Position posCabbage;
     /*public Cabbage(Position posCabbage){
         super();
@@ -24,8 +25,9 @@ public class Cabbage extends Vegetable implements Element {
         posCabbage.setX(x); posCabbage.setY(y);
     }*/
 
-    public Cabbage() {
+    public Cabbage(Parcelle parcelle) {
         super();
+        setParcelle(parcelle);
         setState(new CabbageState1(this));
         System.out.println("Cabbage created");
     }
@@ -55,6 +57,15 @@ public class Cabbage extends Vegetable implements Element {
     @Override
     public boolean canBeFetilize() {
         return false;
+    }
+
+    @Override
+    public Parcelle getParcelle() {
+        return parcelle;
+    }
+
+    Parcelle setParcelle(Parcelle parcelle){
+        return parcelle = parcelle;
     }
 
 

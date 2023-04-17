@@ -10,8 +10,10 @@ public class Carrot extends Vegetable implements Element {
     private boolean stateChanged = false;
     private ReadOnlyObjectWrapper<VegetableState> state = new ReadOnlyObjectWrapper<>();
     private final int maxScore = 100;
-    public Carrot() {
+    private Parcelle parcelle ;
+    public Carrot(Parcelle parcelle) {
         super();
+        setParcelle(parcelle);
         this.setState(new CarrotState1(this));
     }
     @Override
@@ -44,12 +46,23 @@ public class Carrot extends Vegetable implements Element {
         return true;
     }
 
+    @Override
+    public Parcelle getParcelle() {
+        return parcelle;
+    }
+    void setParcelle(Parcelle parcelle){
+         this.parcelle = parcelle;
+    }
+
     public void addStateListener(ChangeListener<VegetableState> listener) {
         stateProperty().addListener(listener);
     }
 
     public void setState(VegetableState newState) {
         state.set(newState);
+        //TODO : dire à la parcelle qu'on a changé d'état
+        //maParcelle.j'ai changé'
+        //changer un boolean property auquel est abonné le VM et la V
     }
     private ObservableValue<VegetableState> stateProperty() {
         return state.getReadOnlyProperty();
@@ -103,6 +116,7 @@ public class Carrot extends Vegetable implements Element {
             vegetable.setCurrentState(new CarrotState2(vegetable));
             System.out.println("Carrot state 1 changed to state 2");
             Carrot.this.getType();
+            parcelle.setStateChange(true);
             System.out.println(getType() + " TYPE");
             return null;
         }
@@ -138,6 +152,7 @@ public class Carrot extends Vegetable implements Element {
         private int daysToNextState = 6;
         public CarrotState2(Vegetable vegetable) {
             super(vegetable);
+                parcelle.setStateChange(false);
             vegetable.setState(this);
             System.out.println(getCurrentState().toString() + " ETAT" );
             nbJours = 3;

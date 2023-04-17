@@ -7,6 +7,7 @@ public interface Element {
     boolean isRotten();
     boolean isVegetable();
     boolean canBeFetilize();
+    Parcelle getParcelle();
 
     // pour pouvoir itérer plus facilement les elements d'une cell
 }

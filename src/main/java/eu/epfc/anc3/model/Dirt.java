@@ -31,4 +31,9 @@ class Dirt implements Element{
         return false;
     }
 
+    @Override
+    public Parcelle getParcelle() {
+        return null;
+    }
+
 }
