@@ -108,7 +108,11 @@ class Ferme {
                     c.getCurrentState().nextDay();
                 }else if (e.getType().toString().contains("CARROT")){
                     Carrot c = (Carrot) e ;
-                    c.getCurrentState().nextDay();
+                    if (c.growCarrotProperty().getValue()){
+                        c.nextState();
+                    }else
+                    c   .getCurrentState().nextDay();
+
                 }
             });
         }
@@ -126,7 +130,7 @@ class Ferme {
             terrain.addElementToCell(p, line, col);
             if (p.getType().toString().contains("CARROT")){
                 Carrot c = (Carrot) p;
-                c.setParcelle(terrain.getparcell(line,col));
+                addListener(new Position(line,col));
             }
             grassOnCell(line,col);
         }
@@ -146,7 +150,7 @@ class Ferme {
 
     }
 
-    private boolean cellContainsCarrotOrCabbage(int line, int col) {
+    boolean cellContainsCarrotOrCabbage(int line, int col) {
         for (ParcelleValue pv : ParcelleValue.values()) {
             if ((pv.toString().contains("CARROT") || pv.toString().contains("CABBAGE")) &&
                     cellContainsElementType(pv, line, col)) {
@@ -206,7 +210,12 @@ class Ferme {
         //récupérer de removeVegetables les harvestPoint pour ensuite renvoyer les points dans la ferme
     }
 
-    ObservableSet<Element> getAllElem(int line, int col){ return terrain.getElem(line, col);}
+    ObservableSet<Element> getAllElem(int line, int col){
+        if (cellContainsCarrotOrCabbage(line,col)){
+            addListener(new Position(line,col));
+        }
+        return terrain.getElem(line, col);
+    }
 
     ObservableSet<ParcelleValue> getAllElemType(int line, int col){return terrain.getElemType(line,col);}
 

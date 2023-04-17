@@ -1,6 +1,7 @@
 package eu.epfc.anc3.model;
 
 import javafx.beans.Observable;
+import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.*;
 import javafx.beans.value.ChangeListener;
@@ -15,11 +16,21 @@ public class Carrot extends Vegetable implements Element {
     private ReadOnlyObjectWrapper<VegetableState> state = new ReadOnlyObjectWrapper<>();
     private final int maxScore = 100;
 
+    private IntegerProperty nbDays = new SimpleIntegerProperty(0);
     private Parcelle parcelle;
+
+    private BooleanProperty stateChanged = new SimpleBooleanProperty(false);
     public Carrot(int line, int col) {
         super(false, line,col);
         //this.line = line; this.col = col;
+
         this.setState(new CarrotState1(this));
+        this.nbDays.bind(getState().growthDaysProperty());
+        this.getState().daysToNextStateProperty().addListener((obs,oldValue, newValue) -> {
+            if (this.getState().growthDaysProperty().toString().equals(this.getState().daysToNextStateProperty().toString())) {
+                this.nextState();
+            }
+        });
     }
 
     public void setParcelle(Parcelle parcelle) {
@@ -36,8 +47,6 @@ public class Carrot extends Vegetable implements Element {
 
     public void setState(VegetableState newState) {
         state.set(newState);
-        if (parcelle != null)
-            parcelle.addElement(this);
     }
     private ObservableValue<VegetableState> stateProperty() {
         return state.getReadOnlyProperty();
@@ -47,12 +56,14 @@ public class Carrot extends Vegetable implements Element {
     }
 
     public BooleanProperty growCarrotProperty() {
-        IntegerProperty growthDays = state.get().growthDays;
-        IntegerProperty daysToNextState = state.get().daysToNextState;
-
-        BooleanBinding nextState = growthDays.isEqualTo(daysToNextState);
-        return new SimpleBooleanProperty(nextState.get());
+        BooleanBinding isReadyToGrow = Bindings.createBooleanBinding(() ->
+                        state.get().growthDaysProperty().get() == state.get().daysToNextStateProperty().get(),
+                state.get().growthDaysProperty(), state.get().daysToNextStateProperty());
+        stateChanged.bind(isReadyToGrow);
+        return stateChanged;
     }
+
+
 
     @Override
     public String toString() {
@@ -67,13 +78,19 @@ public class Carrot extends Vegetable implements Element {
     //Level1
     public class CarrotState1 extends VegetableState {
         private IntegerProperty nbJours = new SimpleIntegerProperty(0);
-        private static final int daysToNextState = 3;
+        private static final IntegerProperty daysToNextState = new SimpleIntegerProperty(3);
+
+        public IntegerProperty nbJoursProperty() {
+            return nbJours;
+        }
 
         public CarrotState1(Vegetable vegetable) {
             super(vegetable);
             //this.setState(new CarrotState1(this));
-            nbJours.addListener((obs,oldVal,newVal) -> {
-                this.nextDay();
+            nbJours.addListener((obs, oldVal, newVal) -> {
+                if (nbJours.equals(daysToNextState)) {
+                    this.nextState();
+                }
             });
             //growthDays = 0;
             System.out.println("Carrot State 1 created");
@@ -124,25 +141,39 @@ public class Carrot extends Vegetable implements Element {
 
         @Override
         public void nextDay() {
-            //nbJours.set(nbJours.get()+1);
+            nbJours.set(nbJours.get()+1);
             if (growCarrotProperty().getValue()) {
                 this.nextState();
             }
+            System.out.println("nbJours = " + nbJours + "oh look guys this shit isnt working as always " + growCarrotProperty());
 
-            System.out.println("nbJours = " + nbJours);
+        }
 
+        @Override
+        public IntegerProperty daysToNextStateProperty() {
+            return nbJours;
+        }
+
+        @Override
+        public IntegerProperty growthDaysProperty() {
+            return daysToNextState;
         }
     }
 
     //Level2
     public class CarrotState2 extends VegetableState{
-        private int nbJours;
-        private int daysToNextState = 6;
+        private IntegerProperty nbJours = new SimpleIntegerProperty(0);
+        private static final IntegerProperty daysToNextState = new SimpleIntegerProperty(6);
         public CarrotState2(Vegetable vegetable) {
             super(vegetable);
             vegetable.setState(this);
             System.out.println(getCurrentState().toString() + " ETAT" );
-            nbJours = 3;
+            nbJours.set(3);
+            nbJours.addListener((obs, oldVal, newVal) -> {
+                if (nbJours.equals(daysToNextState)) {
+                    this.nextState();
+                }
+            });
             System.out.println("Carrot state 2 created");
         }
 
@@ -179,12 +210,23 @@ public class Carrot extends Vegetable implements Element {
 
         @Override
         public void nextDay() {
-            nbJours++;
-            System.out.println("nbJours = " + nbJours);
-            if (nbJours == daysToNextState) {
+            nbJours.set(nbJours.get()+1);
+            System.out.println("nbJours = " + nbJours + " wtf is that shit mf ");
+            if (nbJours.equals(daysToNextState)) {
                 this.nextState();
             }
         }
+
+        @Override
+        public IntegerProperty daysToNextStateProperty() {
+            return nbJours;
+        }
+
+        @Override
+        public IntegerProperty growthDaysProperty() {
+            return daysToNextState;
+        }
+
         public ParcelleValue getType() {
             return ParcelleValue.CARROT2;
         }
@@ -202,13 +244,18 @@ public class Carrot extends Vegetable implements Element {
 
     //Level3
     public class CarrotState3 extends VegetableState{
-        private int nbJours;
-        private int daysToNextState = 9;
+        private IntegerProperty nbJours = new SimpleIntegerProperty(0);
+        private static final IntegerProperty daysToNextState = new SimpleIntegerProperty(9);
         public CarrotState3(Vegetable vegetable) {
             super(vegetable);
             vegetable.setState(this);
             System.out.println(getCurrentState().toString() + " ETAT" );
-            nbJours = 6;
+            nbJours.set(6);
+            nbJours.addListener((obs, oldVal, newVal) -> {
+                if (nbJours.equals(daysToNextState)) {
+                    this.nextState();
+                }
+            });
             System.out.println("Carrot state 3 created");
         }
         public int stateProperty(){
@@ -219,7 +266,15 @@ public class Carrot extends Vegetable implements Element {
         public void fertiliser() {
 
         }
+        @Override
+        public IntegerProperty daysToNextStateProperty() {
+            return nbJours;
+        }
 
+        @Override
+        public IntegerProperty growthDaysProperty() {
+            return daysToNextState;
+        }
         @Override
         boolean lastDay() {
             return false;
@@ -240,9 +295,9 @@ public class Carrot extends Vegetable implements Element {
 
         @Override
         public void nextDay() {
-            nbJours++;
+            nbJours.set(nbJours.get()+1);
             System.out.println("nbJours = " + nbJours);
-            if ( nbJours == daysToNextState) {
+            if ( nbJours.equals(daysToNextState)) {
                 System.out.println("Carrot state 3 changed to state 4");
                 this.nextState();
             }
@@ -263,13 +318,18 @@ public class Carrot extends Vegetable implements Element {
 
     //Level4
     public class CarrotState4 extends VegetableState{
-        private int nbJours;
-        private int daysToNextState =  12;
+        private IntegerProperty nbJours = new SimpleIntegerProperty(0);
+        private IntegerProperty daysToNextState = new SimpleIntegerProperty(12);
         public CarrotState4(Vegetable vegetable) {
             super(vegetable);
             vegetable.setState(this);
             System.out.println(getCurrentState().toString() + " ETAT" );
-            nbJours = 9;
+            nbJours.set(9);
+            nbJours.addListener((obs, oldVal, newVal) -> {
+                if (nbJours.equals(daysToNextState)) {
+                    this.nextState();
+                }
+            });
             System.out.println("Carrot state 4 created");
         }
         public int stateProperty(){
@@ -280,7 +340,15 @@ public class Carrot extends Vegetable implements Element {
         public void fertiliser() {
 
         }
+        @Override
+        public IntegerProperty daysToNextStateProperty() {
+            return nbJours;
+        }
 
+        @Override
+        public IntegerProperty growthDaysProperty() {
+            return daysToNextState;
+        }
         @Override
         boolean lastDay() {
             return false;
@@ -301,9 +369,9 @@ public class Carrot extends Vegetable implements Element {
 
         @Override
         public void nextDay() {
-            nbJours++;
+            nbJours.set(nbJours.get()+1);
             System.out.println("nbJours = " + nbJours);
-            if (nbJours == daysToNextState) {
+            if ( nbJours.equals(daysToNextState)) {
                 this.nextState();
             }
         }
@@ -323,8 +391,8 @@ public class Carrot extends Vegetable implements Element {
 
     //Level5-->pourri
     public class CarrotState5 extends VegetableState{
-        private int nbJours;
-        int maxGrowthDays = 22;
+        private IntegerProperty nbJours = new SimpleIntegerProperty(0);
+        IntegerProperty maxGrowthDays = new SimpleIntegerProperty(22);
         public CarrotState5(Vegetable vegetable) {
             super(vegetable);
             vegetable.setState(this);
@@ -345,7 +413,15 @@ public class Carrot extends Vegetable implements Element {
         public void fertiliser() {
 
         }
+        @Override
+        public IntegerProperty daysToNextStateProperty() {
+            return nbJours;
+        }
 
+        @Override
+        public IntegerProperty growthDaysProperty() {
+            return daysToNextState;
+        }
         @Override
         boolean lastDay() {
             if (nbJours == maxGrowthDays){
@@ -358,12 +434,12 @@ public class Carrot extends Vegetable implements Element {
         public int getHarvestPoints() {
             //points_perdus = 1/10 * rendement_maximal * (jour de la récolte - premier jour du stade Pourri)
 
-            return (int) ((1.0 / 10.0) * maxScore * (growthDays.get() - nbJours - 12));
+            return (int) ((1.0 / 10.0) * maxScore * (growthDays.get() - (nbJours.get() - 12)));
         }
 
         @Override
         public void nextDay() {
-            nbJours++;
+            nbJours.set(nbJours.get()+1);
             System.out.println("nbJours = " + nbJours);
             if (nbJours == maxGrowthDays) {
                 //recolte obligatoire

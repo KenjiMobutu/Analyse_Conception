@@ -42,6 +42,9 @@ public abstract class VegetableState {
                 ", vegetable=" + vegetable +
                 '}';
     }
+
+    public abstract IntegerProperty daysToNextStateProperty();
+    public abstract IntegerProperty growthDaysProperty();
     // Méthode pour récupérer le type de légume associé à cet état
     public abstract ParcelleValue getType();
 

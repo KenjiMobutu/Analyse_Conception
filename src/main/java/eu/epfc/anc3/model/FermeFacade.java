@@ -213,7 +213,6 @@ public class FermeFacade {
                     System.out.println("plant grass val :" + plantGrass.getValue());
                     System.out.println("un plant grass val :" + deplantGrass.getValue());
             }
-
             if (actionProperty())
                 handleAction();
         }
@@ -357,6 +356,10 @@ public class FermeFacade {
     }
 
     public ReadOnlyIntegerProperty nextDay() { return this.nextDayProperty();
+    }
+
+    public boolean containsVegetable(int line, int col){
+        return ferme.cellContainsCarrotOrCabbage(line,col);
     }
 
     public IntegerProperty nextDayProperty() {

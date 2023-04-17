@@ -1,6 +1,7 @@
 package eu.epfc.anc3.model;
 
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
@@ -86,6 +87,17 @@ public class Cabbage extends Vegetable implements Element {
                 }
             }
         }
+
+        @Override
+        public IntegerProperty daysToNextStateProperty() {
+            return null;
+        }
+
+        @Override
+        public IntegerProperty growthDaysProperty() {
+            return null;
+        }
+
         @Override
         public ParcelleValue getType() {
             return ParcelleValue.CABBAGE1;
@@ -155,6 +167,16 @@ public class Cabbage extends Vegetable implements Element {
                     this.nextState();
                 }
             }
+        }
+
+        @Override
+        public IntegerProperty daysToNextStateProperty() {
+            return null;
+        }
+
+        @Override
+        public IntegerProperty growthDaysProperty() {
+            return null;
         }
 
         @Override
@@ -234,6 +256,16 @@ public class Cabbage extends Vegetable implements Element {
         }
 
         @Override
+        public IntegerProperty daysToNextStateProperty() {
+            return null;
+        }
+
+        @Override
+        public IntegerProperty growthDaysProperty() {
+            return null;
+        }
+
+        @Override
         public ParcelleValue getType() {
             return ParcelleValue.CABBAGE3;
         }
@@ -307,6 +339,17 @@ public class Cabbage extends Vegetable implements Element {
                 }
             }
         }
+
+        @Override
+        public IntegerProperty daysToNextStateProperty() {
+            return null;
+        }
+
+        @Override
+        public IntegerProperty growthDaysProperty() {
+            return null;
+        }
+
         public ParcelleValue getType() {
             return ParcelleValue.CABBAGE4;
         }
@@ -377,6 +420,16 @@ public class Cabbage extends Vegetable implements Element {
                     this.nextState();
                 }
             }
+        }
+
+        @Override
+        public IntegerProperty daysToNextStateProperty() {
+            return null;
+        }
+
+        @Override
+        public IntegerProperty growthDaysProperty() {
+            return null;
         }
 
         @Override

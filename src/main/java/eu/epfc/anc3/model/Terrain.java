@@ -58,6 +58,4 @@ class Terrain {
     boolean containsElementType(ParcelleValue pv, int line, int col){
         return  matrix[line][col].getElements().stream().map(e -> e.getType()).anyMatch(x -> x == pv);
     }
-
-
 }
