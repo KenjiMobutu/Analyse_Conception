@@ -1,6 +1,8 @@
 package eu.epfc.anc3.model;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
@@ -10,6 +12,7 @@ import java.util.*;
 class Parcelle {
     //cellule
 
+    BooleanProperty hasVegetable = new SimpleBooleanProperty(false);
     private final Map<ParcelleValue, Integer> elementPriorityMap = new HashMap<>();
     {
         elementPriorityMap.put(ParcelleValue.DIRT, 1);
@@ -60,7 +63,13 @@ class Parcelle {
     }
 
     void addElement(Element e) {
+        if (e.isVegetable())
+            hasVegetable.set(true);
         elements.add(e);
+    }
+
+    void setHasVegetable(boolean b){
+        hasVegetable.set(b);
     }
 //
 //    void removeElement(Element e) {

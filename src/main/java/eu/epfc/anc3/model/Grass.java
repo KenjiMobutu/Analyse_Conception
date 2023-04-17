@@ -29,6 +29,11 @@ class Grass extends Vegetable implements Element{ //BV : pas public
     }
 
     @Override
+    public boolean isVegetable() {
+        return false;
+    }
+
+    @Override
     public String toString() {
         return "Grass ; ";
     }

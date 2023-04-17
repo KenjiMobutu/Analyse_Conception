@@ -47,6 +47,11 @@ public class Cabbage extends Vegetable implements Element {
         return this.getState().isRotten();
     }
 
+    @Override
+    public boolean isVegetable() {
+        return true;
+    }
+
 
     public void addStateListener(ChangeListener<VegetableState> listener) {
         stateProperty().addListener(listener);

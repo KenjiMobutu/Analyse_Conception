@@ -21,4 +21,9 @@ class Dirt implements Element{
         return false;
     }
 
+    @Override
+    public boolean isVegetable() {
+        return false;
+    }
+
 }

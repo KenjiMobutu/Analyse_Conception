@@ -45,6 +45,7 @@ class Terrain {
          matrix[line][col].getElements().removeIf(e -> e.getType() == pv);
     }
     void removeVegetables(Element e, int line, int col){
+
         matrix[line][col].getElements().remove(e);
     }
 

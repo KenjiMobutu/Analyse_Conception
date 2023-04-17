@@ -5,6 +5,7 @@ public interface Element {
     boolean getStateChanged();
     void setStateChanged(boolean stateChanged);
     boolean isRotten();
+    boolean isVegetable();
 
     // pour pouvoir itérer plus facilement les elements d'une cell
 }

@@ -34,6 +34,11 @@ public class Carrot extends Vegetable implements Element {
         return false;
     }
 
+    @Override
+    public boolean isVegetable() {
+        return true;
+    }
+
     public void addStateListener(ChangeListener<VegetableState> listener) {
         stateProperty().addListener(listener);
     }
