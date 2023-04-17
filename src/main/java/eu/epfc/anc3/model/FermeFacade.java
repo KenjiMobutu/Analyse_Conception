@@ -91,6 +91,10 @@ public class FermeFacade {
             spawnFarmerInFarm();
         }
     }
+    public void saveGame(){
+        new Memento(terrain, farmer,fermeStatusProperty().getValue());
+
+    }
 
     public void stop(){
         if (isStarted.getValue() ||isInProgress.getValue()){
