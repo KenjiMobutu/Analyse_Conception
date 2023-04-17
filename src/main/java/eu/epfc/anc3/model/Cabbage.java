@@ -17,7 +17,7 @@ public class Cabbage extends Vegetable implements Element {
         super();
         setParcelle(parcelle);
         nbJours.addListener((obs, oldVal, newVal) -> {
-            if (parcelle.hasGrass())
+            if (this.hasGrass())
                 this.getCurrentState().nextDayWithGrass();
             else
                 this.getCurrentState().nextDay();

@@ -54,7 +54,7 @@ class Ferme {
     }
 
     //ajout un element a une cellule
-    void addElementToCell(Element p, int line, int col){
+    /*void addElementToCell(Element p, int line, int col){
         // check si la cellule a deja un element de type vegetable
         if (!cellContainsElementType(p.getType(),line, col) &&
                 (p.getType() != ParcelleValue.CARROT1 || !cellContainsElementType(ParcelleValue.CABBAGE1 ,line, col)) &&
@@ -62,7 +62,43 @@ class Ferme {
         {
             terrain.addElementToCell(p, line, col);
         }
+    }*/
+    void addElementToCell(Element p, int line, int col){
+        // check s'il y a une carrot / cabbage
+        if (!cellContainsElementType(p.getType(),line, col) ||
+                !cellContainsVegetable(line, col)) {
+            terrain.addElementToCell(p, line, col);
+            if (p.getType().toString().contains("CARROT")){
+                Carrot c = (Carrot) p;
+            }
+            grassOnCell(line,col);
+        }
     }
+
+
+    private void grassOnCell(int line, int col){
+        ObservableSet<Element> elem = terrain.getElem(line, col);
+        if (cellContainsElementType(ParcelleValue.GRASS, line,col)){
+            for (Element e : elem){
+                if (e.isVegetable()){
+                    Vegetable v = (Vegetable) e;
+                    v.setHasGrass(true);
+                }
+            }
+        }
+
+    }
+
+    boolean cellContainsVegetable(int line, int col) {
+        ObservableSet<Element> elem = terrain.getElem(line, col);
+        for (Element e : elem){
+            if (e.isVegetable()){
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     //supprime un element
     void removeElementFromCell(ParcelleValue p, int line, int col){
