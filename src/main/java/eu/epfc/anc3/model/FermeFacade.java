@@ -362,6 +362,7 @@ public class FermeFacade {
     }
 
     private void removeRottenVegetables() {
+        //ferme.removeRotten...  --> terrain.removeRotten --> à chaque parcelle -> parcelle.removeRotten
         for (int i = 0; i < terrain.GRID_HEIGHT; i++) {
             for (int j = 0; j < terrain.GRID_WIDTH; j++) {
                 ObservableSet<Element> elem = ferme.getAllElem(i, j);

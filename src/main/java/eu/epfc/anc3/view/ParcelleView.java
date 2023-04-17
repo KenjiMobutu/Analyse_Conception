@@ -135,6 +135,7 @@ public class ParcelleView extends StackPane {
 
         // Ajouter des images pour chaque élément dans la parcelle
         for(Element e : valueProp) {
+            //ParcelleView.this.getChildren().add(new ImageView(map.get(e.getType())));
             handleElementChange(e);
         }
     }
@@ -152,9 +153,7 @@ public class ParcelleView extends StackPane {
 
     private void verifyElementsType(Element e){
         // Vérifier le type de l'élément et ajouter une image correspondante
-        if (e.getType() != ParcelleValue.CABBAGE1 && e.getType() != ParcelleValue.CARROT1) {
-            addParcelleImage(e.getType());
-        }
+        addParcelleImage(e.getType());
     }
 
     private void addCarrotImage(Element e){
