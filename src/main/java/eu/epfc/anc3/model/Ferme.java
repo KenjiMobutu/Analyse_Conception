@@ -8,7 +8,7 @@ class Ferme {
 
     Memento saveGame;
     boolean isSaved;
-    private Terrain terrain = new Terrain();
+    private Terrain terrain ;
     private IntegerProperty score = new SimpleIntegerProperty(0);
     //private final IntegerProperty score = new SimpleIntegerProperty(0);
     private final IntegerProperty nbDays = new SimpleIntegerProperty(0);
@@ -17,8 +17,21 @@ class Ferme {
     public Ferme(){}
 
     void start(){
-        terrain = new Terrain();
-        fermeStatus.set(FermeStatus.STARTED);
+        if (isSaved){
+            System.out.println("JE PASSE DANS LE START POUR LOAD GAME OUI OUI !!!!!!!!");
+            if (saveGame.getTerrain() != null){
+                this.terrain = saveGame.getTerrain();
+                System.out.println("j'ai bien un terrain");
+            }
+
+            else
+                System.out.println("NO TERRAIN");
+            fermeStatus.set(FermeStatus.STARTED);
+        }else{
+            terrain = new Terrain();
+            fermeStatus.set(FermeStatus.STARTED);
+        }
+
     }
     void newGame() {
         terrain.resetTerrain();
@@ -183,8 +196,8 @@ class Ferme {
     }
 
     Terrain mementoTerrain(){return new Terrain(terrain);}
-    Memento saveGame(int nbJour){
-        saveGame = new Memento(mementoTerrain(), score.getValue(), nbJour);
+    Memento saveGame(int nbJour, Farmer farmer, FermeStatus fermeStatus){
+        saveGame = new Memento(mementoTerrain(), farmer, fermeStatus, this, score.getValue(), nbJour);
         isSaved = true;
         return saveGame;
     }
@@ -192,7 +205,6 @@ class Ferme {
         return isSaved;
     }
     void loadGame(){
-        stop();
         if (isSaved){
             System.out.println("JE PASSE DANS LE LOAD GAME CORRECTEMENT !!!!!!!!!!!!!!!!!!!!!!!");
             start();

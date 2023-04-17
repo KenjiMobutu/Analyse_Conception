@@ -10,6 +10,7 @@ public class FermeFacade {
  // TODO : Memento : doit faire une copie profonde de chaque fichier
 
     private final Ferme ferme = new Ferme();
+    Memento memento;
     private final Terrain terrain = new Terrain();
     private final Farmer farmer = new Farmer();
     private final Vegetable vegetable = new Vegetable();
@@ -92,8 +93,8 @@ public class FermeFacade {
         }
     }
     public void saveGame(){
-        new Memento(terrain, farmer,fermeStatusProperty().getValue());
-
+        ferme.saveGame(nbJours.getValue(), farmer, fermeStatusProperty().getValue());
+        System.out.println("game is saved");
     }
 
     public void loadGame(){

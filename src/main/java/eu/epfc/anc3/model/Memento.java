@@ -4,18 +4,23 @@ public class Memento {
 
     public Memento (){}
 
+    Terrain terrain; Farmer farmer; FermeStatus fermeStatus; Ferme ferme;
+    int score; int nbJour;
+    public Memento(Terrain terrain, Farmer farmer, FermeStatus fermeStatus, Ferme ferme, int nbJour, int score){
+
+        this.terrain = terrain; this.farmer = farmer; this.fermeStatus = fermeStatus;this.ferme = ferme; this.nbJour = nbJour; this.score = score;
+    }
+
     public Memento(Terrain terrain, Farmer farmer, FermeStatus fermeStatus){
 
     }
 
 
-    private Terrain terrain;
-    private int score, jour;
 
     public Memento(Terrain terrain, int score, int jour) {
         this.terrain = terrain;
         this.score = score;
-        this.jour = jour;
+        this.nbJour = jour;
     }
 
     public Terrain getTerrain() {
@@ -27,7 +32,7 @@ public class Memento {
     }
 
     public int getJour() {
-        return jour;
+        return nbJour;
     }
 
 
