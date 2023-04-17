@@ -6,6 +6,8 @@ import javafx.collections.ObservableSet;
 
 class Ferme {
 
+    Memento memento;
+    boolean isSaved;
     private Terrain terrain = new Terrain();
     private IntegerProperty score = new SimpleIntegerProperty(0);
     //private final IntegerProperty score = new SimpleIntegerProperty(0);
@@ -173,7 +175,29 @@ class Ferme {
     void spawnFarmer(Farmer farmer, int line, int col){
         terrain.addElementToCell(farmer, line, col);
     }
+    int MementoNbDayProperty(){
+        return saveGame.getJour();
+    }
+    int MementoScoreProperty(){
+        return saveGame.getScore();
+    }
 
+    Memento saveGame(int nbJour){
+        saveGame = new Memento(mementoTerrain(), score.getValue(), nbJour);
+        isSaved = true;
+        return saveGame;
+    }
+    boolean saveGameDidWell(){
+        return isSaved;
+    }
+    void loadGame(){
+        stop();
+        if (isSaved){
+            System.out.println("JE PASSE DANS LE LOAD GAME CORRECTEMENT !!!!!!!!!!!!!!!!!!!!!!!");
+            start();
+            isSaved = false;
+        }
+    }
     Terrain getTerrain(){
         return terrain;
     }
