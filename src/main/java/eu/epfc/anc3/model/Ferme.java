@@ -6,7 +6,7 @@ import javafx.collections.ObservableSet;
 
 class Ferme {
 
-    Memento memento;
+    Memento saveGame;
     boolean isSaved;
     private Terrain terrain = new Terrain();
     private IntegerProperty score = new SimpleIntegerProperty(0);
@@ -182,6 +182,7 @@ class Ferme {
         return saveGame.getScore();
     }
 
+    Terrain mementoTerrain(){return new Terrain(terrain);}
     Memento saveGame(int nbJour){
         saveGame = new Memento(mementoTerrain(), score.getValue(), nbJour);
         isSaved = true;
