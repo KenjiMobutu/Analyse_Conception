@@ -13,7 +13,7 @@ import javafx.scene.layout.VBox;
 public class MenuView extends VBox {
 
     private final Label scoreLabel = new Label("Score : ");
-    private final TextField nbScore = new TextField(); //<------------- a binder
+    private final TextField nbScore = new TextField("0"); //<------------- a binder
     private final Label jourLabel = new Label("Jour : ");
     private  final TextField nbJour = new TextField("0"); // <------------- a binder
 

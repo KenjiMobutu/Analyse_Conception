@@ -79,7 +79,7 @@ class Parcelle {
 
     boolean hasGrass(){
         for (Element e : elements){
-            if (e.getType().toString().equals("GRASS"))
+            if (e.getType() == ParcelleValue.GRASS)
                 return true;
         }
         return false;
