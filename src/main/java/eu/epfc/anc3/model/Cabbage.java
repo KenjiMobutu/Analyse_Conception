@@ -1,36 +1,32 @@
 package eu.epfc.anc3.model;
 
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 
 //k:trouver une solution pour retirer public de la classe
 public class Cabbage extends Vegetable implements Element {
+    private IntegerProperty nbJours = new SimpleIntegerProperty(0);
     private boolean stateChanged = false;
     private ReadOnlyObjectWrapper<VegetableState> state = new ReadOnlyObjectWrapper<>();
     private final int maxScore = 200;
     private Parcelle parcelle;
-    //private final Position posCabbage;
-    /*public Cabbage(Position posCabbage){
-        super();
-        this.posCabbage = new Position(posCabbage.getX(), posCabbage.getY());
-        this.setState(new CabbageState1(this));
-        System.out.println("Cabbage created");
-    }*/
-    /*public Position getPosCabbage() {
-        return posCabbage;
-    }
-
-    public void setPosCabbage(int x, int y){
-        posCabbage.setX(x); posCabbage.setY(y);
-    }*/
-
     public Cabbage(Parcelle parcelle) {
         super();
         setParcelle(parcelle);
+        nbJours.addListener((obs, oldVal, newVal) -> {
+            if (parcelle.hasGrass())
+                this.getCurrentState().nextDayWithGrass();
+            else
+                this.getCurrentState().nextDay();
+        });
         setState(new CabbageState1(this));
         System.out.println("Cabbage created");
     }
+
+    IntegerProperty nbJoursProperty(){return nbJours;}
     @Override
     public ParcelleValue getType(){return state.get().getType();}
 
@@ -67,17 +63,8 @@ public class Cabbage extends Vegetable implements Element {
     void setParcelle(Parcelle parcelle){
          this.parcelle = parcelle;
     }
-
-
-    public void addStateListener(ChangeListener<VegetableState> listener) {
-        stateProperty().addListener(listener);
-    }
-
     public void setState(VegetableState newState) {
         state.set(newState);
-    }
-    private ObservableValue<VegetableState> stateProperty() {
-        return state.getReadOnlyProperty();
     }
     public VegetableState getState() {
         return state.get();
@@ -120,10 +107,10 @@ public class Cabbage extends Vegetable implements Element {
         @Override
         public void nextDay() {
             nbJours++;
-            System.out.println("nbJours = " + nbJours);
             if (nbJours == daysToNextState) {
                 this.nextState();
             }
+
         }
         @Override
         public ParcelleValue getType() {
