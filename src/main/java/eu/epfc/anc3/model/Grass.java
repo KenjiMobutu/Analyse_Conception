@@ -5,13 +5,15 @@ import javafx.beans.property.SimpleIntegerProperty;
 
 class Grass extends Vegetable implements Element{ //BV : pas public
     // ajouter method auto recolt après 12 jours
-    int maxGrowthDays = 12;
+    IntegerProperty maxGrowthDays = new SimpleIntegerProperty(0);
     IntegerProperty nbJours = new SimpleIntegerProperty(0);
+    int nbJoursSinceStart ;
     private Parcelle parcelle;
     Grass(Parcelle parcelle){
-        nbJours.set(0);
+        nbJoursSinceStart = 0;
+        maxGrowthDays.set(nbJours.getValue() + 12);
         nbJours.addListener((obs, oldVal, newVal) -> {
-            System.out.println("++day");
+            System.out.println("++day ------|>" +  nbJoursSinceStart);
             this.nextDay();
         });
         setParcelle(parcelle);
@@ -19,7 +21,10 @@ class Grass extends Vegetable implements Element{ //BV : pas public
     } //BV : rien de public mis à part getType
 
     IntegerProperty nbJoursProperty(){return nbJours;}
+    void setNbJoursProperty(int i ){nbJours.set(i);}
+
     void nextDay(){
+        ++nbJoursSinceStart;
         isRotten();
     }
     void setParcelle(Parcelle parcelle){
@@ -39,7 +44,7 @@ class Grass extends Vegetable implements Element{ //BV : pas public
 
     @Override
     public boolean isRotten() {
-        if(nbJours.getValue().equals(maxGrowthDays))
+        if(nbJoursSinceStart == maxGrowthDays.getValue()+1)
             return true;
         else
             return false;

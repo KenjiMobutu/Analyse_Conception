@@ -281,7 +281,7 @@ public class FermeFacade {
         farmer.plantGrass(posGrass);//K:Pour DEBUG
         Grass grass = new Grass(terrain.getParcelle(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()));
 
-        grass.nbJoursProperty().bind(nbJours);
+        grass.nbJours.bind(nbJours);
 
         System.out.println(!containsElementType(ParcelleValue.GRASS,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) );
         //addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(),new Grass());
