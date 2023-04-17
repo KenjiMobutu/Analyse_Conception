@@ -92,7 +92,7 @@ class Ferme {
         for (Element e : elem) {
             if (e.getType() == ParcelleValue.GRASS){
                 continue;
-            }else if (e.getType() == ParcelleValue.CARROT1){
+            }else if (e.getType().toString().contains("CARROT")){
                 Carrot c = (Carrot) e;
                 if (c.getCurrentState().stateProperty() < 3 ){
                     while (c.getCurrentState().stateProperty() != 3){

@@ -11,6 +11,7 @@ public class FermeFacade {
     private final Ferme ferme = new Ferme();
     private final Terrain terrain = new Terrain();
     private final Farmer farmer = new Farmer();
+    private final Vegetable vegetable = new Vegetable();
     private boolean isPressingAction = false;
 
 
@@ -361,18 +362,18 @@ public class FermeFacade {
     }
 
     private void removeRottenVegetables() {
-        for (int i = 0; i < Terrain.GRID_HEIGHT; i++) {
-            for (int j = 0; j < Terrain.GRID_WIDTH; j++) {
+        for (int i = 0; i < terrain.GRID_HEIGHT; i++) {
+            for (int j = 0; j < terrain.GRID_WIDTH; j++) {
                 ObservableSet<Element> elem = ferme.getAllElem(i, j);
                 for (Element e : elem) {
                     System.out.println("ROTTEN VEGETABLES (cabbage) --> " +elem  + e.getType() + " " + e.isRotten());
                     terrain.notifyParcelleView(new Position(i, j));
-                    e.setStateChanged(true); // met à jour l'état changé de l'élément
-                    System.out.println(e.getStateChanged());
-                    if (e.getType() == ParcelleValue.ROTTEN_CABBAGE || e.getType() == ParcelleValue.ROTTEN_CARROT) {
-                        // Supprimer le légume pourri de la cellule
+                    if (e.getType() == ParcelleValue.ROTTEN_CABBAGE || e.getType() == ParcelleValue.ROTTEN_CARROT || e.getType() == ParcelleValue.GRASS) {
+                        e.setStateChanged(true); // met à jour l'état changé de l'élément
+                        System.out.println(e.getStateChanged());
+                        // Supprimer le légume ou l'herbe pourri de la cellule
                         if (e.isRotten()) {
-                            ferme.removeElementFromCell(e.getType(), i, j);
+                            ferme.removeVegetables( i, j);
                             terrain.notifyParcelleView(new Position(i, j));
                         }
                     }

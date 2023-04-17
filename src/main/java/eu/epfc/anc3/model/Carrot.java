@@ -16,7 +16,7 @@ public class Carrot extends Vegetable implements Element {
     }
     @Override
     public ParcelleValue getType() {
-        return ParcelleValue.CARROT1;
+        return state.get().getType();
     }
 
     @Override
@@ -84,6 +84,11 @@ public class Carrot extends Vegetable implements Element {
         }
 
         @Override
+        public boolean isRotten() {
+            return false;
+        }
+
+        @Override
         public ParcelleValue nextState() {
             vegetable.setCurrentState(new CarrotState2(vegetable));
             System.out.println("Carrot state 1 changed to state 2");
@@ -136,6 +141,11 @@ public class Carrot extends Vegetable implements Element {
         @Override
         public int getDaysBeforeRotting() {
             return 0;
+        }
+
+        @Override
+        public boolean isRotten() {
+            return false;
         }
 
         @Override
@@ -197,6 +207,11 @@ public class Carrot extends Vegetable implements Element {
         }
 
         @Override
+        public boolean isRotten() {
+            return false;
+        }
+
+        @Override
         public ParcelleValue nextState() {
             System.out.println("Carrot state 3 changed to state 4");
             setState(new CarrotState4(vegetable));
@@ -251,6 +266,11 @@ public class Carrot extends Vegetable implements Element {
         @Override
         public int getDaysBeforeRotting() {
             return 0;
+        }
+
+        @Override
+        public boolean isRotten() {
+            return false;
         }
 
         @Override
@@ -316,9 +336,16 @@ public class Carrot extends Vegetable implements Element {
         }
 
         @Override
+        public boolean isRotten() {
+            if(12 == maxGrowthDays/2)
+                return true;
+            else
+                return false;
+        }
+
+        @Override
         public int getHarvestPoints() {
             //points_perdus = 1/10 * rendement_maximal * (jour de la récolte - premier jour du stade Pourri)
-
             return (int) ((1.0 / 10.0) * maxScore * (growthDays - nbJours - 12));
         }
 

@@ -2,7 +2,11 @@ package eu.epfc.anc3.model;
 
 class Grass extends Vegetable implements Element{ //BV : pas public
     // ajouter method auto recolt après 12 jours
-    Grass(){} //BV : rien de public mis à part getType
+    int maxGrowthDays = 12;
+    int nbJours;
+    Grass(){
+        nbJours = 0;
+    } //BV : rien de public mis à part getType
 
     public ParcelleValue getType(){return ParcelleValue.GRASS;}
 
@@ -18,7 +22,10 @@ class Grass extends Vegetable implements Element{ //BV : pas public
 
     @Override
     public boolean isRotten() {
-        return false;
+        if(nbJours == maxGrowthDays)
+            return true;
+        else
+            return false;
     }
 
     @Override

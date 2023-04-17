@@ -47,4 +47,6 @@ public abstract class VegetableState {
     public abstract int stateProperty();
 
     public abstract int getDaysBeforeRotting();
+
+    public abstract boolean isRotten();
 }

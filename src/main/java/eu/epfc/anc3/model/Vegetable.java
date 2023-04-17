@@ -56,8 +56,9 @@ class Vegetable {
         isFertilized = fertilized;
     }
 
-    public void nextState() {
-        currentState.nextState();
+    public void nextState(VegetableState state) {
+        this.currentState = state;
+        //currentState.nextState();
     }
 
 

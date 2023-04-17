@@ -30,7 +30,7 @@ public class Cabbage extends Vegetable implements Element {
         System.out.println("Cabbage created");
     }
     @Override
-    public ParcelleValue getType(){return ParcelleValue.CABBAGE1;}
+    public ParcelleValue getType(){return state.get().getType();}
 
     @Override
     public boolean getStateChanged() {
@@ -44,8 +44,9 @@ public class Cabbage extends Vegetable implements Element {
 
     @Override
     public boolean isRotten() {
-        return false;
+        return this.getState().isRotten();
     }
+
 
     public void addStateListener(ChangeListener<VegetableState> listener) {
         stateProperty().addListener(listener);
@@ -85,11 +86,13 @@ public class Cabbage extends Vegetable implements Element {
 
         @Override
         public ParcelleValue nextState() {
-            vegetable.setCurrentState(new CabbageState2(vegetable));
+            /*vegetable.setCurrentState(new CabbageState2(vegetable));
             System.out.println("Cabbage state 1 changed to state 2");
             Cabbage.this.getType();
-            System.out.println(getType() + " TYPE");
-            return null;
+            System.out.println(getType() + " TYPE");*/
+
+            vegetable.nextState(new CabbageState2(vegetable));
+            return ParcelleValue.CABBAGE2;
         }
 
         @Override
@@ -127,6 +130,11 @@ public class Cabbage extends Vegetable implements Element {
         @Override
         public int getDaysBeforeRotting() {
             return 5;
+        }
+
+        @Override
+        public boolean isRotten() {
+            return false;
         }
 
 
@@ -195,7 +203,9 @@ public class Cabbage extends Vegetable implements Element {
         public VegetableState getCurrentState() {
             return getState();
         }
-
+        public boolean isRotten() {
+            return false;
+        }
 
     }
 
@@ -256,6 +266,11 @@ public class Cabbage extends Vegetable implements Element {
         @Override
         public int getDaysBeforeRotting() {
             return 7;
+        }
+
+        @Override
+        public boolean isRotten() {
+            return false;
         }
 
         public VegetableState getCurrentState() {
@@ -322,6 +337,11 @@ public class Cabbage extends Vegetable implements Element {
             return 5;
         }
 
+        @Override
+        public boolean isRotten() {
+            return false;
+        }
+
         public VegetableState getCurrentState() {
             return getState();
         }
@@ -338,6 +358,7 @@ public class Cabbage extends Vegetable implements Element {
             vegetable.setState(this);
             System.out.println(getCurrentState().toString() + " ETAT" );
             System.out.println("TYPE ==> " + getType());
+            nbJours = 14;
             growthDays = 12;
             System.out.println("Cabbage state ROTTEN created");
         }
@@ -391,7 +412,12 @@ public class Cabbage extends Vegetable implements Element {
         public VegetableState getCurrentState() {
             return getState();
         }
-
+        public boolean isRotten() {
+            if(12 == maxGrowthDays/2)
+                return true;
+            else
+                return false;
+        }
 
     }
 }
