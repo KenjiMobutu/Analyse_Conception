@@ -152,7 +152,7 @@ public class Carrot extends Vegetable implements Element {
         private int daysToNextState = 6;
         public CarrotState2(Vegetable vegetable) {
             super(vegetable);
-                parcelle.setStateChange(false);
+            parcelle.setStateChange(false);
             vegetable.setState(this);
             System.out.println(getCurrentState().toString() + " ETAT" );
             nbJours = 3;
@@ -178,6 +178,7 @@ public class Carrot extends Vegetable implements Element {
             System.out.println("Carrot state 2 changed to state 3");
             vegetable.setState(new CarrotState3(vegetable));
             Carrot.this.getType();
+            parcelle.setStateChange(true);
             System.out.println(getType() + " TYPE");
             return null;
         }
@@ -218,6 +219,7 @@ public class Carrot extends Vegetable implements Element {
         public CarrotState3(Vegetable vegetable) {
             super(vegetable);
             vegetable.setState(this);
+            parcelle.setStateChange(false);
             System.out.println(getCurrentState().toString() + " ETAT" );
             nbJours = 6;
             System.out.println("Carrot state 3 created");
@@ -241,6 +243,7 @@ public class Carrot extends Vegetable implements Element {
             System.out.println("Carrot state 3 changed to state 4");
             setState(new CarrotState4(vegetable));
             Carrot.this.getType();
+            parcelle.setStateChange(true);
             System.out.println(getType() + " TYPE");
             return null;
         }
@@ -280,6 +283,7 @@ public class Carrot extends Vegetable implements Element {
         public CarrotState4(Vegetable vegetable) {
             super(vegetable);
             vegetable.setState(this);
+            parcelle.setStateChange(false);
             System.out.println(getCurrentState().toString() + " ETAT" );
             nbJours = 9;
             System.out.println("Carrot state 4 created");
@@ -303,6 +307,7 @@ public class Carrot extends Vegetable implements Element {
             System.out.println("Carrot state 4 changed to state ROTTEN");
             vegetable.setState(new CarrotState5(vegetable));
             Carrot.this.getType();
+            parcelle.setStateChange(true);
             System.out.println(getType() + " TYPE");
             return null;
         }

@@ -64,8 +64,8 @@ public class Cabbage extends Vegetable implements Element {
         return parcelle;
     }
 
-    Parcelle setParcelle(Parcelle parcelle){
-        return parcelle = parcelle;
+    void setParcelle(Parcelle parcelle){
+         this.parcelle = parcelle;
     }
 
 
@@ -107,11 +107,7 @@ public class Cabbage extends Vegetable implements Element {
 
         @Override
         public ParcelleValue nextState() {
-            /*vegetable.setCurrentState(new CabbageState2(vegetable));
-            System.out.println("Cabbage state 1 changed to state 2");
-            Cabbage.this.getType();
-            System.out.println(getType() + " TYPE");*/
-
+            parcelle.setStateChange(true);
             vegetable.nextState(new CabbageState2(vegetable));
             return ParcelleValue.CABBAGE2;
         }
@@ -168,6 +164,7 @@ public class Cabbage extends Vegetable implements Element {
         CabbageState2(Vegetable vegetable) {
             super(vegetable);
             setState(this);
+            parcelle.setStateChange(false);
             vegetable.setState(this);
             System.out.println(getCurrentState().toString() + " ETAT" );
             nbJours = 5;
@@ -177,6 +174,7 @@ public class Cabbage extends Vegetable implements Element {
         @Override
         public ParcelleValue nextState() {
             System.out.println("Cabbage state 2 changed to state 3");
+            parcelle.setStateChange(true);
             vegetable.setState(new Cabbage.CabbageState3(vegetable));
             Cabbage.this.getType();
             System.out.println(getType() + " TYPE");
@@ -237,6 +235,7 @@ public class Cabbage extends Vegetable implements Element {
         CabbageState3(Vegetable vegetable) {
             super(vegetable);
             setState(this);
+            parcelle.setStateChange(false);
             System.out.println(getCurrentState().toString() + " ETAT" );
             nbJours = 9;
             System.out.println("Cabbage state 3 created");
@@ -246,6 +245,7 @@ public class Cabbage extends Vegetable implements Element {
         public ParcelleValue nextState() {
             System.out.println("Cabbage state 3 changed to state 4");
             vegetable.setState(new CabbageState4(vegetable));
+            parcelle.setStateChange(true);
             Cabbage.this.getType();
             System.out.println(getType() + " TYPE");
             return null;
@@ -307,6 +307,7 @@ public class Cabbage extends Vegetable implements Element {
         CabbageState4(Vegetable vegetable) {
             super(vegetable);
             vegetable.setState(this);
+            parcelle.setStateChange(false);
             System.out.println(getCurrentState().toString() + " ETAT" );
             nbJours = 12;
             System.out.println("Cabbage state 4 created");
@@ -317,6 +318,7 @@ public class Cabbage extends Vegetable implements Element {
             System.out.println("Carrot state 4 changed to state ROTTEN");
             vegetable.setState(new CabbageRottenState(vegetable));
             Cabbage.this.getType();
+            parcelle.setStateChange(true);
             System.out.println(getType() + " TYPE 4");
             return null;
         }
