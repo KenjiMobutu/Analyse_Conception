@@ -62,7 +62,6 @@ class Terrain {
         // mettre à jour la vue pour cette position en fonction des éléments
         for(Element e : elements) {
             System.out.println("notifyParcelleView 2  --> " + e.getType());
-            e.getType();
             if (e.getStateChanged()) { // vérifie si l'élément a changé d'état
                 // mettre à jour la vue pour cet élément en fonction de son nouvel état
                 e.setStateChanged(false); // remet l'état changé de l'élément à false

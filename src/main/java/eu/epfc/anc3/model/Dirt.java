@@ -34,4 +34,9 @@ class Dirt implements Element{
         return null;
     }
 
+    @Override
+    public boolean isGrass() {
+        return false;
+    }
+
 }

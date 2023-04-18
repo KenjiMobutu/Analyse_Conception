@@ -23,9 +23,6 @@ public abstract class VegetableState {
     @Override
     public String toString() {
         return "VegetableState{" +
-                "growthDays=" + growthDays +
-                ", daysToNextState=" + daysToNextState +
-               // ", day=" + day +
                 ", vegetable=" + vegetable +
                 '}';
     }

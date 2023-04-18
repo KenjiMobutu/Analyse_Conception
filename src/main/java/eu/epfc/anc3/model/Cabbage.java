@@ -59,6 +59,11 @@ public class Cabbage extends Vegetable implements Element {
         return parcelle;
     }
 
+    @Override
+    public boolean isGrass() {
+        return false;
+    }
+
     void setParcelle(Parcelle parcelle){
          this.parcelle = parcelle;
     }
@@ -362,11 +367,7 @@ public class Cabbage extends Vegetable implements Element {
         @Override
         public void nextDay() {
             nbJours++;
-            System.out.println("nbJours = " + nbJours);
-            if (nbJours == maxGrowthDays) {
-                vegetable.setCurrentState(new CabbageRottenState(vegetable));
-                this.nextState();
-            }
+            System.out.println("nbJours 1 ==>  " + nbJours);
         }
 
         @Override
@@ -377,11 +378,7 @@ public class Cabbage extends Vegetable implements Element {
         @Override
         public void nextDayWithGrass() {
             nbJours++;
-            System.out.println("nbJours = " + nbJours);
-            if (nbJours == maxGrowthDays / 2) {
-                vegetable.setCurrentState(new CabbageRottenState(vegetable));
-                this.nextState();
-            }
+            System.out.println("nbJours ==> " + nbJours);
         }
 
         @Override
@@ -394,7 +391,7 @@ public class Cabbage extends Vegetable implements Element {
         }
 
         public boolean isRotten() {
-            return 12 == maxGrowthDays / 2;
+            return maxGrowthDays == nbJours;
         }
 
     }

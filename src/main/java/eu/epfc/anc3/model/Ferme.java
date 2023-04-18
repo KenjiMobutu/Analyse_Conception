@@ -3,6 +3,10 @@ package eu.epfc.anc3.model;
 import javafx.beans.property.*;
 import javafx.collections.ObservableSet;
 
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+
 class Ferme {
 
     Memento saveGame;
@@ -152,26 +156,48 @@ class Ferme {
     //retourne le status du jeu
     ReadOnlyObjectProperty<FermeStatus> fermeStatusProperty(){return fermeStatus;}
 
-    void removeRotten(){
-        //ferme.removeRotten...  --> terrain.removeRotten --> à chaque parcelle -> parcelle.removeRotten
+
+   void removeRottens() {
         for (int i = 0; i < Terrain.GRID_HEIGHT; i++) {
             for (int j = 0; j < Terrain.GRID_WIDTH; j++) {
                 ObservableSet<Element> elem = getAllElem(i, j);
-                for (Element e : elem) {
-                    System.out.println("ROTTEN VEGETABLES (cabbage) --> " +elem  + e.getType() + " " + e.isRotten());
-                    terrain.notifyParcelleView(new Position(i, j));
-                    e.setStateChanged(true); // met à jour l'état changé de l'élément
-                    System.out.println(e.getStateChanged());
-                        // Supprimer le légume ou l'herbe pourri de la cellule
-                    if (e.isRotten()) {
+                Iterator<Element> iter = elem.iterator();
+                while (iter.hasNext()) {
+                    Element e = iter.next();
+                    if (e.isRotten() && e.isGrass()){
+                        e.setStateChanged(true);
                         removeVegetables( i, j);
-                        terrain.notifyParcelleView(new Position(i, j));
+                    }else if (e.isRotten()){
+                        e.setStateChanged(true);
+                        removeVegetables( i, j);
                     }
-
                 }
             }
         }
     }
+    void removeRotten() {
+        for (int i = 0; i < Terrain.GRID_HEIGHT; i++) {
+            for (int j = 0; j < Terrain.GRID_WIDTH; j++) {
+                ObservableSet<Element> elem = getAllElem(i, j);
+                Iterator<Element> iter = elem.iterator();
+                while (iter.hasNext()) {
+                    Element e = iter.next();
+                    if (e.isRotten()) {
+                        e.setStateChanged(true);
+                        if (e.isGrass()) {
+                            iter.remove();
+                        } else {
+                            removeVegetables(i, j);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+
+
     //permet de déplacer le joueur dans le grid
     void spawnFarmer(Farmer farmer, int line, int col){
         terrain.addElementToCell(farmer, line, col);

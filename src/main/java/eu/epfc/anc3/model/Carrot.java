@@ -57,6 +57,12 @@ public class Carrot extends Vegetable implements Element {
     public Parcelle getParcelle() {
         return parcelle;
     }
+
+    @Override
+    public boolean isGrass() {
+        return false;
+    }
+
     void setParcelle(Parcelle parcelle){
          this.parcelle = parcelle;
     }

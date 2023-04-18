@@ -53,6 +53,11 @@ class Farmer implements Element{
     }
 
     @Override
+    public boolean isGrass() {
+        return false;
+    }
+
+    @Override
     public String toString() {return "Farmer Position : " + getPosFarmer();}
 
     /*-----------------POUR DEBUG-----------------------------------------------*/
