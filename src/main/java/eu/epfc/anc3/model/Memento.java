@@ -6,7 +6,7 @@ public class Memento {
 
     Terrain terrain; Farmer farmer; FermeStatus fermeStatus; Ferme ferme;
     int score; int nbJour;
-    public Memento(Terrain terrain, Farmer farmer, FermeStatus fermeStatus, Ferme ferme, int nbJour, int score){
+    public Memento(Terrain terrain, Farmer farmer, FermeStatus fermeStatus, int nbJour, int score){
 
         this.terrain = terrain; this.farmer = farmer; this.fermeStatus = fermeStatus;this.ferme = ferme; this.nbJour = nbJour; this.score = score;
     }

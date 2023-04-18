@@ -197,7 +197,7 @@ class Ferme {
 
     Terrain mementoTerrain(){return new Terrain(terrain);}
     Memento saveGame(int nbJour, Farmer farmer, FermeStatus fermeStatus){
-        saveGame = new Memento(mementoTerrain(), farmer, fermeStatus, this, score.getValue(), nbJour);
+        saveGame = new Memento(mementoTerrain(), farmer, fermeStatus, score.getValue(), nbJour);
         isSaved = true;
         return saveGame;
     }
