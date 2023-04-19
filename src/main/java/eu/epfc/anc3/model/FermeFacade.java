@@ -9,13 +9,13 @@ import static eu.epfc.anc3.model.Terrain.GRID_WIDTH;
 public class FermeFacade {
  // TODO : Memento : doit faire une copie profonde de chaque fichier
 
-    private final Ferme ferme = new Ferme();
+
     Memento memento;
     private final Terrain terrain = new Terrain();
     private final Farmer farmer = new Farmer();
     //private final Vegetable vegetable = new Vegetable();
     private boolean isPressingAction = false;
-
+    private final Ferme ferme = new Ferme(terrain, farmer);
 
 
     //check si jeu est démarrable :
@@ -93,7 +93,7 @@ public class FermeFacade {
         }
     }
     public void saveGame(){
-        ferme.saveGame(nbJours.getValue(), farmer, fermeStatusProperty().getValue());
+        ferme.saveGame(farmer,ferme);
         System.out.println("game is saved");
     }
 
@@ -101,7 +101,7 @@ public class FermeFacade {
         if (ferme.saveGameDidWell()) { // check si y a une save
             System.out.println("Loading game...");
             ferme.loadGame(); // load the game
-            nbJours.set(ferme.MementoNbDayProperty());
+            //nbJours.set(ferme.MementoNbDayProperty());
             //score.set(ferme.getMementoScoreProperty());
 
         } else {

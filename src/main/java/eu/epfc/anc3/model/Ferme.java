@@ -12,22 +12,27 @@ class Ferme {
     Memento saveGame;
     boolean isSaved;
     private Terrain terrain ;
+    private Farmer farmer = new Farmer();
+    public Memento memento = new Memento(farmer, this);
     private final IntegerProperty score = new SimpleIntegerProperty(0);
 
     private final ObjectProperty<FermeStatus> fermeStatus = new SimpleObjectProperty<>(FermeStatus.START);
-    public Ferme(){}
+    public Ferme(Terrain terrain, Farmer farmer){}
+    public Ferme( Ferme ferme){
+        this(new Terrain(ferme.terrain), new Farmer(ferme.farmer));
 
+    }
     void start(){
         if (isSaved){
             System.out.println("JE PASSE DANS LE START POUR LOAD GAME OUI OUI !!!!!!!!");
-            if (saveGame.getTerrain() != null){
+           /* if (saveGame.getTerrain() != null){
                 this.terrain = saveGame.getTerrain();
                 System.out.println("j'ai bien un terrain");
             }
 
             else
                 System.out.println("NO TERRAIN");
-            fermeStatus.set(FermeStatus.STARTED);
+            fermeStatus.set(FermeStatus.STARTED);*/
         }else{
             terrain = new Terrain();
             fermeStatus.set(FermeStatus.STARTED);
@@ -202,16 +207,16 @@ class Ferme {
     void spawnFarmer(Farmer farmer, int line, int col){
         terrain.addElementToCell(farmer, line, col);
     }
-    int MementoNbDayProperty(){
+   /* int MementoNbDayProperty(){
         return saveGame.getJour();
     }
     int MementoScoreProperty(){
         return saveGame.getScore();
-    }
+    }*/
 
     Terrain mementoTerrain(){return new Terrain(terrain);}
-    Memento saveGame(int nbJour, Farmer farmer, FermeStatus fermeStatus){
-        saveGame = new Memento(mementoTerrain(), farmer, fermeStatus, this, score.getValue(), nbJour);
+    Memento saveGame(Farmer farmer, Ferme ferme){
+        saveGame = new Memento(farmer, ferme);
         isSaved = true;
         return saveGame;
     }
@@ -221,7 +226,8 @@ class Ferme {
     void loadGame(){
         if (isSaved){
             System.out.println("JE PASSE DANS LE LOAD GAME CORRECTEMENT !!!!!!!!!!!!!!!!!!!!!!!");
-            start();
+            memento.restore();
+            //start();
             isSaved = false;
         }
     }
