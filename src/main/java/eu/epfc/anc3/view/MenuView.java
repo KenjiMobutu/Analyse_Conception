@@ -2,7 +2,6 @@ package eu.epfc.anc3.view;
 
 import eu.epfc.anc3.vm.MenuViewModel;
 import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -22,8 +21,6 @@ public class MenuView extends VBox {
     private final TextField nbScore = new TextField("0");
     private final Label jourLabel = new Label("Jour : ");
     private final TextField nbJour = new TextField("0");
-
-
     private final Button startButton = new Button();
     private final Button sleepButton = new Button("sleep");
     private final Button stopButton = new Button();
@@ -31,28 +28,20 @@ public class MenuView extends VBox {
     private final Button loadButton = new Button("Restaurer");
     private final ToggleButton plantButtonGrass = new ToggleButton();
     private final ToggleButton unPlantButton = new ToggleButton();
-
     private final ToggleGroup toggleGroup = new ToggleGroup();
     private final ToggleButton plantCarotteButton = new ToggleButton();
     private final ToggleButton plantCabbageButton = new ToggleButton();
     private final ToggleButton fertilizerButton = new ToggleButton();
     private final ToggleButton recoltButton = new ToggleButton();
-
     private final MenuViewModel menuViewModel;
-
     private final HBox nbHbox;
-    //HBox buttonsHBox = new HBox(startButton,sleepButton) ;
 
-    VBox actionVbox = new VBox(plantButtonGrass,unPlantButton,plantCarotteButton, plantCabbageButton,fertilizerButton,recoltButton);
+    VBox actionVbox = new VBox(plantButtonGrass,plantCarotteButton, plantCabbageButton,fertilizerButton,recoltButton);
     HBox buttons = new HBox(startButton,sleepButton, saveButton, loadButton);
-    public void bindNbJours(IntegerProperty nbJoursProperty) {
-        nbJour.textProperty().bind(nbJoursProperty.asString());
-    }
+
     public MenuView(MenuViewModel menuViewModel) {
         this.menuViewModel = menuViewModel;
         this.nbHbox = createNewHobx();
-        //this.buttons = buttons;
-        // this.actionVbox = actionVbox;
         configureMenu();
         bindLabelsToViewModel();
         setUpButtonStart();

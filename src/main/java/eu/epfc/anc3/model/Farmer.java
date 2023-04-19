@@ -3,7 +3,6 @@ package eu.epfc.anc3.model;
 import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
-import javafx.geometry.Pos;
 
 class Farmer implements Element{
 
@@ -51,6 +50,11 @@ class Farmer implements Element{
     @Override
     public Parcelle getParcelle() {
         return null;
+    }
+
+    @Override
+    public boolean isGrass() {
+        return false;
     }
 
     @Override

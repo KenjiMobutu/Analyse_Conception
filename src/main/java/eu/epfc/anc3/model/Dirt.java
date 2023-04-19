@@ -12,9 +12,7 @@ class Dirt implements Element{
     }
 
     @Override
-    public void setStateChanged(boolean stateChanged) {
-
-    }
+    public void setStateChanged(boolean stateChanged) {}
 
     @Override
     public boolean isRotten() {
@@ -34,6 +32,11 @@ class Dirt implements Element{
     @Override
     public Parcelle getParcelle() {
         return null;
+    }
+
+    @Override
+    public boolean isGrass() {
+        return false;
     }
 
 }

@@ -1,24 +1,16 @@
 package eu.epfc.anc3.view;
 
-import eu.epfc.anc3.model.Cabbage;
-import eu.epfc.anc3.model.Carrot;
 import eu.epfc.anc3.model.Element;
 import eu.epfc.anc3.model.ParcelleValue;
 import eu.epfc.anc3.vm.ParcelleViewModel;
 import javafx.beans.binding.DoubleBinding;
-import javafx.beans.property.ReadOnlyObjectProperty;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
 import javafx.collections.SetChangeListener;
-import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
-
+import javafx.scene.layout.StackPane;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 public class ParcelleView extends StackPane {
     private static final Image FARMER = new Image("farmer.png");
@@ -37,7 +29,7 @@ public class ParcelleView extends StackPane {
 
 
 
-    private ImageView imageView = new ImageView();
+    private final ImageView imageView = new ImageView();
 
     private static final Map<ParcelleValue, Image> images = new HashMap<>();
     static {
@@ -83,13 +75,10 @@ public class ParcelleView extends StackPane {
 
         // Ajouter une image pour la parcelle vide
         addParcelleImage(ParcelleValue.EMPTY);
+
         // Ajouter des images pour chaque élément dans la parcelle
         for(Element e : valueProp) {
-
-            ImageView imageView = new ImageView(images.get(e.getType()));
-            imageView.setFitWidth(this.imageView.getFitWidth());
-            imageView.setFitHeight(this.imageView.getFitHeight());
-            ParcelleView.this.getChildren().add(imageView);
+            addParcelleImage(e.getType());
         }
     }
 
