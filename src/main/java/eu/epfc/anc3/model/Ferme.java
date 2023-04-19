@@ -8,27 +8,13 @@ import java.util.Iterator;
 import java.util.Set;
 
 class Ferme {
-
-    Memento saveGame;
-    boolean isSaved;
     private Terrain terrain ;
     private final IntegerProperty score = new SimpleIntegerProperty(0);
-
     private final ObjectProperty<FermeStatus> fermeStatus = new SimpleObjectProperty<>(FermeStatus.START);
     public Ferme(){}
 
     void start(){
-        if (isSaved){
-            System.out.println("JE PASSE DANS LE START POUR LOAD GAME OUI OUI !!!!!!!!");
-            if (saveGame.getTerrain() != null){
-                this.terrain = saveGame.getTerrain();
-                System.out.println("j'ai bien un terrain");
-            }
-
-            else
-                System.out.println("NO TERRAIN");
-            fermeStatus.set(FermeStatus.STARTED);
-        }else{
+        if (fermeStatus.get() == FermeStatus.START){
             terrain = new Terrain();
             fermeStatus.set(FermeStatus.STARTED);
         }
@@ -181,38 +167,9 @@ class Ferme {
         }
     }
 
-
-
-
     //permet de déplacer le joueur dans le grid
     void spawnFarmer(Farmer farmer, int line, int col){
         terrain.addElementToCell(farmer, line, col);
-    }
-    int MementoNbDayProperty(){
-        return saveGame.getJour();
-    }
-    int MementoScoreProperty(){
-        return saveGame.getScore();
-    }
-
-    Terrain mementoTerrain(){return new Terrain(terrain);}
-    Memento saveGame(int nbJour, Farmer farmer, FermeStatus fermeStatus){
-        saveGame = new Memento(mementoTerrain(), farmer, fermeStatus, this, score.getValue(), nbJour);
-        isSaved = true;
-        return saveGame;
-    }
-    boolean saveGameDidWell(){
-        return isSaved;
-    }
-    void loadGame(){
-        if (isSaved){
-            System.out.println("JE PASSE DANS LE LOAD GAME CORRECTEMENT !!!!!!!!!!!!!!!!!!!!!!!");
-            start();
-            isSaved = false;
-        }
-    }
-    Terrain getTerrain(){
-        return terrain;
     }
 
 }

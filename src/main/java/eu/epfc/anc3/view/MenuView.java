@@ -54,8 +54,6 @@ public class MenuView extends VBox {
         setUpButtonStop();
         setUpSleepAction();
 
-        setUpSaveAction();
-        setUpLoadAction();
     }
 
 
@@ -187,14 +185,6 @@ public class MenuView extends VBox {
         plantCarotteButton.setOnAction(e -> handlePlantCarottButtonAction());
     }
 
-
-    private void  setUpSaveAction() {
-        saveButton.setOnAction(e -> handleSaveButton());
-    }
-    private void setUpLoadAction() {
-        loadButton.setOnAction(e -> handleLoadButton());
-    }
-
     private void setUpButtonFertilizer() {
         fertilizerButton.setOnAction(e -> handleFertilizerButtonAction());
     }
@@ -244,13 +234,6 @@ public class MenuView extends VBox {
         menuViewModel.stop();
         nbJour.setText("0");
         manageNewGameButton();
-    }
-    private void handleSaveButton(){
-        menuViewModel.save();
-    }
-
-    private void handleLoadButton(){
-        menuViewModel.load();
     }
 
     private void handlePlantGrassButtonAction() {

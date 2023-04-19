@@ -55,12 +55,6 @@ public class MenuViewModel {
 
     //public ReadOnlyIntegerProperty nbGrass(){return fermeFacade.getNbGrass();}//K:pour DEBUG
 
-    public void save(){
-        fermeFacade.saveGame();
-    }
-    public void load(){
-        fermeFacade.loadGame();
-    }
     public void sleepMode() {
         fermeFacade.nextDay();
     }

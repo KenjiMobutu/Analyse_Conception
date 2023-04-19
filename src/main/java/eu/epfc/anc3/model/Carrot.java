@@ -346,7 +346,7 @@ public class Carrot extends Vegetable implements Element {
 
         @Override
         public boolean isRotten() {
-            return 11 == maxGrowthDays / 2;
+            return maxGrowthDays == nbJours;
         }
 
         @Override
@@ -359,10 +359,6 @@ public class Carrot extends Vegetable implements Element {
         public void nextDay() {
             nbJours++;
             System.out.println("nbJours = " + nbJours);
-            if (nbJours == maxGrowthDays) {
-                vegetable.setCurrentState(new CarrotState5(vegetable));
-                this.nextState();
-            }
         }
         public ParcelleValue getType() {
             return ParcelleValue.ROTTEN_CARROT;

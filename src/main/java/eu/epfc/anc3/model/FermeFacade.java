@@ -10,7 +10,6 @@ public class FermeFacade {
  // TODO : Memento : doit faire une copie profonde de chaque fichier
 
     private final Ferme ferme = new Ferme();
-    Memento memento;
     private final Terrain terrain = new Terrain();
     private final Farmer farmer = new Farmer();
     //private final Vegetable vegetable = new Vegetable();
@@ -90,22 +89,6 @@ public class FermeFacade {
             System.out.println(" -> lancement du jeu :) ");
             ferme.start();
             spawnFarmerInFarm();
-        }
-    }
-    public void saveGame(){
-        ferme.saveGame(nbJours.getValue(), farmer, fermeStatusProperty().getValue());
-        System.out.println("game is saved");
-    }
-
-    public void loadGame(){
-        if (ferme.saveGameDidWell()) { // check si y a une save
-            System.out.println("Loading game...");
-            ferme.loadGame(); // load the game
-            nbJours.set(ferme.MementoNbDayProperty());
-            //score.set(ferme.getMementoScoreProperty());
-
-        } else {
-            System.out.println("No saved game to load.");
         }
     }
 
