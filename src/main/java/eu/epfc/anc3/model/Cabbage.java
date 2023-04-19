@@ -124,7 +124,7 @@ public class Cabbage extends Vegetable implements Element {
         public void nextDayWithGrass() {
             nbJours++;
             System.out.println("nbJours = " + nbJours);
-            if (nbJours == daysToNextState-1) {
+            if (nbJours == daysToNextState-1 || nbJours >= daysToNextState) {
                 this.nextState();
             }
         }
@@ -188,7 +188,7 @@ public class Cabbage extends Vegetable implements Element {
         public void nextDayWithGrass() {
             nbJours++;
             System.out.println("nbJours = " + nbJours);
-            if (nbJours == daysToNextState-1) {
+            if (nbJours == daysToNextState-1 || nbJours >= daysToNextState) {
                 this.nextState();
             }
         }
@@ -252,7 +252,7 @@ public class Cabbage extends Vegetable implements Element {
         public void nextDayWithGrass() {
             nbJours++;
             System.out.println("nbJours = " + nbJours);
-            if (nbJours == daysToNextState-1) {
+            if (nbJours == daysToNextState-1 || nbJours >= daysToNextState) {
                 this.nextState();
             }
         }
@@ -317,7 +317,7 @@ public class Cabbage extends Vegetable implements Element {
         public void nextDayWithGrass() {
             nbJours++;
             System.out.println("nbJours = " + nbJours);
-            if (nbJours == daysToNextState-1) {
+            if (nbJours == daysToNextState-1 || nbJours >= daysToNextState) {
                 this.nextState();
             }
         }
