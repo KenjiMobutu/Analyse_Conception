@@ -320,7 +320,6 @@ public class FermeFacade {
     }
 
     private void recoltVegetals() {
-        //faire fonction addPoint qui récupère le state du légume et les points lié a celui-ci
         ferme.removeVegetables(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
     }
     public ReadOnlyIntegerProperty scoreProperty(){

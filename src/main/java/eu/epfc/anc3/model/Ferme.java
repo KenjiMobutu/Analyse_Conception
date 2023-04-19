@@ -119,7 +119,11 @@ class Ferme {
     void removeVegetables( int line, int col){
         ObservableSet<Element> elem = getAllElem(line,col);
         Element lastElement = elem.stream().reduce((a, b) -> b).orElse(null);
-        if (lastElement != null && lastElement.getType() != ParcelleValue.FARMER){
+        if (lastElement != null ){
+            if (lastElement.isVegetable()){
+                Vegetable v = (Vegetable) lastElement;
+                addPoint(v.getCurrentState().getHarvestPoints());
+            }
             terrain.removeVegetables(lastElement, line, col);
         }
     }
@@ -183,13 +187,6 @@ class Ferme {
         for (int i = 0; i < Terrain.GRID_HEIGHT; i++) {
             for (int j = 0; j < Terrain.GRID_WIDTH; j++) {
                 ObservableSet<Element> elem = getAllElem(i, j);
-//                for (Element e : new HashSet<>(elem)) {
-//                    if (e.isRotten()) {
-//                        e.setStateChanged(true);
-//                        removeRottenVegetables(e, i, j);
-//                    }
-//                }
-
                 Iterator<Element> iter = elem.iterator();
                 while (iter.hasNext()) {
                     Element e = iter.next();
