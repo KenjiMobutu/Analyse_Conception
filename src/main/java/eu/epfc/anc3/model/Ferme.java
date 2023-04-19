@@ -109,10 +109,17 @@ class Ferme {
         if (cellContainsElementType(p, line, col))
             terrain.removeElement(p,line,col);
     }
+    void removeRottenVegetables(Element e, int line, int col){
+        if (e.isVegetable()){
+            Vegetable v = (Vegetable) e;
+            addPoint(v.getCurrentState().getHarvestPoints());
+        }
+        terrain.removeVegetables(e, line, col);
+    }
     void removeVegetables( int line, int col){
         ObservableSet<Element> elem = getAllElem(line,col);
         Element lastElement = elem.stream().reduce((a, b) -> b).orElse(null);
-        if (lastElement != null){
+        if (lastElement != null && lastElement.getType() != ParcelleValue.FARMER){
             if (lastElement.isVegetable()){
                 Vegetable v = (Vegetable) lastElement;
                 addPoint(v.getCurrentState().getHarvestPoints());
@@ -179,15 +186,22 @@ class Ferme {
         for (int i = 0; i < Terrain.GRID_HEIGHT; i++) {
             for (int j = 0; j < Terrain.GRID_WIDTH; j++) {
                 ObservableSet<Element> elem = getAllElem(i, j);
+//                for (Element e : new HashSet<>(elem)) {
+//                    if (e.isRotten()) {
+//                        e.setStateChanged(true);
+//                        removeRottenVegetables(e, i, j);
+//                    }
+//                }
+
                 Iterator<Element> iter = elem.iterator();
                 while (iter.hasNext()) {
                     Element e = iter.next();
                     if (e.isRotten()) {
                         e.setStateChanged(true);
                         if (e.isGrass()) {
-                            iter.remove();
+                            terrain.removeElement(e.getType(),i,j);
                         } else {
-                            removeVegetables(i, j);
+                            removeRottenVegetables(e,i, j);
                         }
                     }
                 }
