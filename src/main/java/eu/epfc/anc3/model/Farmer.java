@@ -11,6 +11,9 @@ class Farmer implements Element{
     public Farmer(){
         this.posFarmer = new Position(0,0);
     }
+    public Farmer(Farmer farmer){
+        this.posFarmer = farmer.posFarmer;
+    }
 
     public Position getPosFarmer() {
         return posFarmer;

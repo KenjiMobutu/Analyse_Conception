@@ -102,6 +102,7 @@ public class FermeFacade {
             System.out.println("Loading game...");
             ferme.loadGame(); // load the game
             nbJours.set(ferme.MementoNbDayProperty());
+            spawnFarmerInFarm();
             //score.set(ferme.getMementoScoreProperty());
 
         } else {

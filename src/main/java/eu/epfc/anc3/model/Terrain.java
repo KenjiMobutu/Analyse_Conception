@@ -1,7 +1,12 @@
 package eu.epfc.anc3.model;
 
 import javafx.beans.property.BooleanProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
+
+import java.util.HashSet;
+import java.util.Set;
+import java.util.TreeSet;
 
 class Terrain {
     //grid
@@ -21,8 +26,18 @@ class Terrain {
             }
         }
     }
-    Terrain(Terrain terrain){
-        this.matrix = terrain.matrix;
+
+    Terrain(Terrain copyTerrain) {
+        matrix = new Parcelle[GRID_HEIGHT][];
+        for (int i = 0; i < GRID_HEIGHT; ++i) {
+            matrix[i] = new Parcelle[GRID_WIDTH];
+            for (int j = 0; j < GRID_WIDTH; ++j) {
+                Parcelle originalParcelle = copyTerrain.matrix[i][j];
+                Set<Element> originalElements = originalParcelle.getElements();
+                Set<Element> copiedElements = new HashSet<>(originalElements);
+                matrix[i][j] = new Parcelle(copiedElements);
+            }
+        }
     }
 
     void resetTerrain() {

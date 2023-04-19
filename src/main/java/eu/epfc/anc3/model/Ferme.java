@@ -19,9 +19,11 @@ class Ferme {
 
     void start(){
         if (isSaved){
+            stop();
             System.out.println("JE PASSE DANS LE START POUR LOAD GAME OUI OUI !!!!!!!!");
             if (saveGame.getTerrain() != null){
-                this.terrain = saveGame.getTerrain();
+                terrain.resetTerrain();
+                this.terrain = new Terrain(saveGame.getTerrain());
                 System.out.println("j'ai bien un terrain");
             }
 
@@ -163,26 +165,6 @@ class Ferme {
     //retourne le status du jeu
     ReadOnlyObjectProperty<FermeStatus> fermeStatusProperty(){return fermeStatus;}
 
-
-   void removeRottens() {
-        for (int i = 0; i < Terrain.GRID_HEIGHT; i++) {
-            for (int j = 0; j < Terrain.GRID_WIDTH; j++) {
-                ObservableSet<Element> elem = getAllElem(i, j);
-                Iterator<Element> iter = elem.iterator();
-                while (iter.hasNext()) {
-                    Element e = iter.next();
-                    if (e.isRotten() && e.isGrass()){
-                        e.setStateChanged(true);
-                        removeVegetables( i, j);
-                    }else if (e.isRotten()){
-                        e.setStateChanged(true);
-                        removeVegetables( i, j);
-                    }
-                }
-            }
-        }
-    }
-
     void removeRotten() {
         for (int i = 0; i < Terrain.GRID_HEIGHT; i++) {
             for (int j = 0; j < Terrain.GRID_WIDTH; j++) {
@@ -217,7 +199,9 @@ class Ferme {
 
     Terrain mementoTerrain(){return new Terrain(terrain);}
     Memento saveGame(int nbJour, Farmer farmer, FermeStatus fermeStatus){
-        saveGame = new Memento(mementoTerrain(), farmer, fermeStatus, score.getValue(), nbJour);
+        IntegerProperty nbJourMemento = new SimpleIntegerProperty(nbJour);
+        IntegerProperty scoreMemento = new SimpleIntegerProperty(score.getValue());
+        saveGame = new Memento(mementoTerrain(), new Farmer(farmer), fermeStatus, scoreMemento.getValue(), nbJourMemento.getValue());
         isSaved = true;
         return saveGame;
     }
@@ -228,6 +212,7 @@ class Ferme {
         if (isSaved){
             System.out.println("JE PASSE DANS LE LOAD GAME CORRECTEMENT !!!!!!!!!!!!!!!!!!!!!!!");
             start();
+            score.set(saveGame.score);
             isSaved = false;
         }
     }

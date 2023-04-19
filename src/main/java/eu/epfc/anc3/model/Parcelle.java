@@ -5,10 +5,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
 
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeSet;
+import java.util.*;
 
 class Parcelle {
     //cellule
@@ -44,6 +41,12 @@ class Parcelle {
     private final ObservableSet<Element> elements = FXCollections.observableSet(
             new TreeSet<>(elementComparator)
     );
+
+    Parcelle(){}
+    Parcelle(Set<Element> elemnt){
+        for (Element e : elemnt)
+            addElement(e);
+    }
 
 
     ObservableSet<Element> getElements() {
