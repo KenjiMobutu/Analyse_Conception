@@ -50,7 +50,7 @@ public class PurpleCarrot extends Vegetable implements Element {
 
     @Override
     public boolean isVegetable() {
-        return false;
+        return true;
     }
 
     @Override
