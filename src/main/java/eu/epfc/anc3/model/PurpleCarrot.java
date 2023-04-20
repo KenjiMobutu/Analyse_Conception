@@ -33,6 +33,11 @@ public class PurpleCarrot extends Vegetable implements Element {
     }
 
     @Override
+    public boolean canBeFetilize() {
+        return true;
+    }
+
+    @Override
     public ParcelleValue getType() {
         return state.get().getType();
     }
@@ -53,10 +58,6 @@ public class PurpleCarrot extends Vegetable implements Element {
         return true;
     }
 
-    @Override
-    public boolean canBeFetilize() {
-        return false;
-    }
     public void setState(VegetableState newState) {
         state.set(newState);
     }
