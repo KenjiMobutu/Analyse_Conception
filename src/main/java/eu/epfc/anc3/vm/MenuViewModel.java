@@ -43,6 +43,9 @@ public class MenuViewModel {
     public void plantCarottMode() {
         fermeFacade.plantCarrotMode();
     }
+    public void plantYellowThing() {
+        fermeFacade.plantYellowThingMode();
+    }
     public void fertilizerMode() {
         fermeFacade.fertilizerMode();
     }

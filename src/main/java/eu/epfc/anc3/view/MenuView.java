@@ -33,10 +33,15 @@ public class MenuView extends VBox {
     private final ToggleButton plantCabbageButton = new ToggleButton();
     private final ToggleButton fertilizerButton = new ToggleButton();
     private final ToggleButton recoltButton = new ToggleButton();
+
+    /** ---------------------------------- TEST -------------------------------------*/
+    private final ToggleButton plantYellowThing = new ToggleButton("plant yellow thing");
+
+
     private final MenuViewModel menuViewModel;
     private final HBox nbHbox;
 
-    VBox actionVbox = new VBox(plantButtonGrass,plantCarotteButton, plantCabbageButton,fertilizerButton,recoltButton);
+    VBox actionVbox = new VBox(plantButtonGrass,plantCarotteButton, plantCabbageButton,plantYellowThing,fertilizerButton,recoltButton);
     HBox buttons = new HBox(startButton,sleepButton, saveButton, loadButton);
 
     public MenuView(MenuViewModel menuViewModel) {
@@ -48,12 +53,11 @@ public class MenuView extends VBox {
         setUpButtonPlantGrass();
         setUpButtonPlantCabbage();
         setUpButtonPlantCarott();
-        setUpButtonFertilizer();
+        setUpButtonFertilizer();        setUpButtonPlantYellowThing();
         setUpButtonRecolt();
         setUpButtonUnplant();
         setUpButtonStop();
         setUpSleepAction();
-
         setUpSaveAction();
         setUpLoadAction();
     }
@@ -99,7 +103,7 @@ public class MenuView extends VBox {
         plantButtonGrass.setDisable(true);
         unPlantButton.setDisable(true);
         plantCabbageButton.setDisable(true);
-        plantCarotteButton.setDisable(true);
+        plantCarotteButton.setDisable(true);plantYellowThing.setDisable(true);
         fertilizerButton.setDisable(true);
         recoltButton.setDisable(true);
         startButton.setDisable(false);
@@ -115,6 +119,12 @@ public class MenuView extends VBox {
         plantCabbageButton.setGraphic(view1);
         plantCabbageButton.setFocusTraversable(false);
         plantCabbageButton.setPrefSize(145, 10);
+
+        Image imgYellow = new Image("trucJaune5.png");
+        ImageView viewYellow = new ImageView(imgYellow);
+        plantYellowThing.setGraphic(viewYellow);
+        plantYellowThing.setFocusTraversable(false);
+        plantYellowThing.setPrefSize(145, 10);
 
         Image img2 = new Image("carrot4.png");
         ImageView view2 = new ImageView(img2);
@@ -150,6 +160,7 @@ public class MenuView extends VBox {
         plantCabbageButton.setToggleGroup(toggleGroup);
         plantCarotteButton.setToggleGroup(toggleGroup);
         fertilizerButton.setToggleGroup(toggleGroup);
+        plantYellowThing.setToggleGroup(toggleGroup);
         recoltButton.setToggleGroup(toggleGroup);
         unPlantButton.setToggleGroup(toggleGroup);
     }
@@ -211,6 +222,9 @@ public class MenuView extends VBox {
     private void setUpButtonRecolt() {
         recoltButton.setOnAction(e -> handleRecoltButtonAction());
     }
+    private void setUpButtonPlantYellowThing() {
+        plantYellowThing.setOnAction(e -> handlePlantYellowButtonAction());
+    }
     //Ajouter les setUp des autres boutons.
 
     public void handleStartButtonAction() {
@@ -222,6 +236,7 @@ public class MenuView extends VBox {
         unPlantButton.setDisable(false);
         plantCarotteButton.setDisable(false);
         plantCabbageButton.setDisable(false);
+        plantYellowThing.setDisable(false);
         fertilizerButton.setDisable(false);
         recoltButton.setDisable(false);
         sleepButton.setDisable(false);
@@ -236,6 +251,7 @@ public class MenuView extends VBox {
         unPlantButton.setDisable(true);
         plantCabbageButton.setDisable(true);
         plantCarotteButton.setDisable(true);
+        plantYellowThing.setDisable(true);
         fertilizerButton.setDisable(true);
         recoltButton.setDisable(true);
         loadButton.setDisable(true);
@@ -258,6 +274,9 @@ public class MenuView extends VBox {
     }
     private void handlePlantCabbageButtonAction() {
         menuViewModel.plantCabbageMode();
+    }
+    private void handlePlantYellowButtonAction() {
+        menuViewModel.plantYellowThing();
     }
     private void handlePlantCarottButtonAction() {
         menuViewModel.plantCarottMode();

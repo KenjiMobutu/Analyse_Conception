@@ -26,6 +26,12 @@ public class ParcelleView extends StackPane {
     private static final Image CARROT3 = new Image("carrot3.png");
     private static final Image CARROT4 = new Image("carrot4.png");
     private static final Image CARROTROTTEN = new Image("rotten_carrot.png");
+    private static final Image YELLOWTHING1 = new Image("trucJaune1.png");
+    private static final Image YELLOWTHING2 = new Image("trucJaune2.png");
+    private static final Image YELLOWTHING3 = new Image("trucJaune3.png");
+    private static final Image YELLOWTHING4 = new Image("trucJaune4.png");
+    private static final Image YELLOWTHING5 = new Image("trucJaune5.png");
+    private static final Image YELLOWTHING6 = new Image("rotten_trucJaune.jpg");
 
 
 
@@ -47,6 +53,13 @@ public class ParcelleView extends StackPane {
         images.put(ParcelleValue.CARROT3, CARROT3);
         images.put(ParcelleValue.CARROT4, CARROT4);
         images.put(ParcelleValue.ROTTEN_CARROT, CARROTROTTEN);
+
+        images.put(ParcelleValue.YELLOWTHING1, YELLOWTHING1);
+        images.put(ParcelleValue.YELLOWTHING2, YELLOWTHING2);
+        images.put(ParcelleValue.YELLOWTHING3, YELLOWTHING3);
+        images.put(ParcelleValue.YELLOWTHING4, YELLOWTHING4);
+        images.put(ParcelleValue.YELLOWTHING5, YELLOWTHING5);
+        images.put(ParcelleValue.ROTTEN_YELLOWTHING1, YELLOWTHING6);
     }
 
 

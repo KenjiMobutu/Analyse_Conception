@@ -22,7 +22,7 @@ class Ferme {
             stop();
             System.out.println("JE PASSE DANS LE START POUR LOAD GAME OUI OUI !!!!!!!!");
             if (saveGame.getTerrain() != null){
-                terrain.resetTerrain();
+                //terrain.resetTerrain();
                 this.terrain = new Terrain(saveGame.getTerrain());
                 System.out.println("j'ai bien un terrain");
             }
@@ -30,7 +30,8 @@ class Ferme {
             else
                 System.out.println("NO TERRAIN");
             fermeStatus.set(FermeStatus.STARTED);
-        }else{
+        }
+        else{
             terrain = new Terrain();
             fermeStatus.set(FermeStatus.STARTED);
         }
@@ -53,6 +54,9 @@ class Ferme {
 
     void plantCarrotMode() {
         fermeStatus.setValue(FermeStatus.PLANT_CARROT);
+    }
+    void plantYellowThing() {
+        fermeStatus.setValue(FermeStatus.PLANT_YELLOWTHING);
     }
 
     void fertilizerMode() {

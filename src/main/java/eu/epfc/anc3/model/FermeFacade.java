@@ -41,6 +41,7 @@ public class FermeFacade {
     private final BooleanProperty deplantGrass = new SimpleBooleanProperty(false);
     private final BooleanProperty plantCarrot = new SimpleBooleanProperty(false);
     private final BooleanProperty plantCabbage = new SimpleBooleanProperty(false);
+    private final BooleanProperty plantYellowThing = new SimpleBooleanProperty(false);
     private final BooleanProperty useFertilizer = new SimpleBooleanProperty(false);
     private final BooleanProperty recolt = new SimpleBooleanProperty(false);
 
@@ -67,6 +68,7 @@ public class FermeFacade {
                 .or(ferme.fermeStatusProperty().isEqualTo(FermeStatus.PLANT_CABBAGE))
                 .or(ferme.fermeStatusProperty().isEqualTo(FermeStatus.PLANT_CARROT))
                 .or(ferme.fermeStatusProperty().isEqualTo(FermeStatus.FERTILIZER))
+                .or(ferme.fermeStatusProperty().isEqualTo(FermeStatus.PLANT_YELLOWTHING))
                 .or(ferme.fermeStatusProperty().isEqualTo(FermeStatus.RECOLT)));
 
         isStarted.bind(ferme.fermeStatusProperty().isNotEqualTo(FermeStatus.START));
@@ -77,6 +79,7 @@ public class FermeFacade {
         deplantGrass.bind(fermeStatusProperty().isEqualTo(FermeStatus.DEPLANT_GRASS));
         plantCabbage.bind(fermeStatusProperty().isEqualTo(FermeStatus.PLANT_CABBAGE));
         plantCarrot.bind(fermeStatusProperty().isEqualTo(FermeStatus.PLANT_CARROT));
+        plantYellowThing.bind(fermeStatusProperty().isEqualTo(FermeStatus.PLANT_YELLOWTHING));
         recolt.bind(fermeStatusProperty().isEqualTo(FermeStatus.RECOLT));
         useFertilizer.bind(fermeStatusProperty().isEqualTo(FermeStatus.FERTILIZER));
         score.bind(ferme.getPoint());
@@ -132,6 +135,12 @@ public class FermeFacade {
         if (isStarted.getValue()){
             System.out.println("  -> Planter Carrot est possible :) ");
             ferme.plantCarrotMode();
+        }
+    }
+    public void plantYellowThingMode() {
+        if (isStarted.getValue()){
+            System.out.println("  -> Planter yellowThing est possible :) ");
+            ferme.plantYellowThing();
         }
     }
     public void fertilizerMode() {
@@ -232,6 +241,8 @@ public class FermeFacade {
             PlantCarrot();
         else if (useFertilizer.getValue())
             dropFertilizer();
+        else if (plantYellowThing.getValue())
+            PlantYellowThing();
         else if (recolt.getValue())
             recoltVegetals();
 
@@ -318,6 +329,14 @@ public class FermeFacade {
         addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(), carrot);
 
         carrot.nbJoursProperty().bind(nbJours);
+    }
+
+    void PlantYellowThing(){
+        PurpleCarrot purpleCarrot = new PurpleCarrot(terrain.getParcelle(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY())  );
+        //Position posCarrot = new Position(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
+        addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(), purpleCarrot);
+
+        purpleCarrot.nbJoursProperty().bind(nbJours);
     }
 
     private void recoltVegetals() {
