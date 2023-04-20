@@ -47,9 +47,10 @@ class Ferme {
         fermeStatus.setValue(FermeStatus.RECOLT);
     }
 
-    void unplantMode(){
-        fermeStatus.set(FermeStatus.DEPLANT_GRASS);
-    }
+    void unplantMode(){ fermeStatus.set(FermeStatus.DEPLANT_GRASS);}
+
+    void cowMode() {fermeStatus.set(FermeStatus.COW);}
+    void sheepMode() {fermeStatus.set(FermeStatus.SHEEP);}
 
     boolean cellContainsElementType(ParcelleValue pv, int line, int col){
         return terrain.containsElementType(pv, line, col);

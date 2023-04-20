@@ -33,11 +33,13 @@ public class MenuView extends VBox {
     private final ToggleButton plantCabbageButton = new ToggleButton();
     private final ToggleButton fertilizerButton = new ToggleButton();
     private final ToggleButton recoltButton = new ToggleButton();
+    private final ToggleButton cowButton = new ToggleButton();
+    private final ToggleButton sheepButton = new ToggleButton();
     private final MenuViewModel menuViewModel;
     private final HBox nbHbox;
 
-    VBox actionVbox = new VBox(plantButtonGrass,plantCarotteButton, plantCabbageButton,fertilizerButton,recoltButton);
-    HBox buttons = new HBox(startButton,sleepButton, saveButton, loadButton);
+    VBox actionVbox = new VBox(plantButtonGrass,plantCarotteButton, plantCabbageButton,fertilizerButton,recoltButton,cowButton,sheepButton);
+    HBox buttons = new HBox(startButton,sleepButton);
 
     public MenuView(MenuViewModel menuViewModel) {
         this.menuViewModel = menuViewModel;
@@ -53,6 +55,8 @@ public class MenuView extends VBox {
         setUpButtonUnplant();
         setUpButtonStop();
         setUpSleepAction();
+        setUpCowButton();
+        setUpSheepButton();
 
     }
 
@@ -71,6 +75,9 @@ public class MenuView extends VBox {
 
         unPlantButton.setDisable(true);
         unPlantButton.setPrefSize(145, 10);
+
+        cowButton.setPrefSize(145, 10);
+        sheepButton.setPrefSize(145, 10);
         setUpButtonMode();
         setUpImages();
         // nbGrassTextField.setDisable(true);
@@ -101,11 +108,10 @@ public class MenuView extends VBox {
         fertilizerButton.setDisable(true);
         recoltButton.setDisable(true);
         startButton.setDisable(false);
-        saveButton.setDisable(false);
-        loadButton.setDisable(false);
         sleepButton.setDisable(true);
-        saveButton.setDisable(true);
-        loadButton.setDisable(true);
+        cowButton.setDisable(true);
+        sheepButton.setDisable(true);
+
     }
     private void setUpImages(){
         Image img1 = new Image("cabbage4.png");
@@ -136,6 +142,16 @@ public class MenuView extends VBox {
         ImageView view5 = new ImageView(img5);
         sleepButton.setGraphic(view5);
         sleepButton.setFocusTraversable(false);
+
+        Image img6 = new Image("cow.png");
+        ImageView view6 = new ImageView(img6);
+        cowButton.setGraphic(view6);
+        cowButton.setFocusTraversable(false);
+
+        Image img7 = new Image("sheep.png");
+        ImageView view7 = new ImageView(img7);
+        sheepButton.setGraphic(view7);
+        sheepButton.setFocusTraversable(false);
     }
 
     private void manageScore(){
@@ -150,6 +166,8 @@ public class MenuView extends VBox {
         fertilizerButton.setToggleGroup(toggleGroup);
         recoltButton.setToggleGroup(toggleGroup);
         unPlantButton.setToggleGroup(toggleGroup);
+        cowButton.setToggleGroup(toggleGroup);
+        sheepButton.setToggleGroup(toggleGroup);
     }
 
     private void bindLabelsToViewModel() {
@@ -161,6 +179,8 @@ public class MenuView extends VBox {
         plantCarotteButton.textProperty().bind(menuViewModel.plantCarrotLabelProperty());
         fertilizerButton.textProperty().bind(menuViewModel.fertilizerLabelProperty());
         recoltButton.textProperty().bind(menuViewModel.recoltLabelProperty());
+        cowButton.textProperty().bind(menuViewModel.cowLabelProperty());
+        sheepButton.textProperty().bind(menuViewModel.sheepLabelProperty());
     }
 
     HBox createNewHobx() {
@@ -187,6 +207,13 @@ public class MenuView extends VBox {
 
     private void setUpButtonFertilizer() {
         fertilizerButton.setOnAction(e -> handleFertilizerButtonAction());
+    }
+    private void setUpSheepButton() {
+        sheepButton.setOnAction(e -> handleSheepButtonAction());
+    }
+
+    private void setUpCowButton() {
+        cowButton.setOnAction(e -> handleCowButtonAction());
     }
 
     private void setUpSleepAction(){
@@ -217,6 +244,8 @@ public class MenuView extends VBox {
         sleepButton.setDisable(false);
         loadButton.setDisable(false);
         saveButton.setDisable(false);
+        cowButton.setDisable(false);
+        sheepButton.setDisable(false);
         menuViewModel.start();
     }
 
@@ -231,6 +260,8 @@ public class MenuView extends VBox {
         loadButton.setDisable(true);
         saveButton.setDisable(true);
         sleepButton.setDisable(true);
+        cowButton.setDisable(true);
+        sheepButton.setDisable(true);
         menuViewModel.stop();
         nbJour.setText("0");
         manageNewGameButton();
@@ -257,6 +288,12 @@ public class MenuView extends VBox {
     }
     private void handleSleepButtonAction() { menuViewModel.sleepMode();
     }
+    private void handleSheepButtonAction() {
+        menuViewModel.sheepMode();
+    }
+    private void handleCowButtonAction() {
+        menuViewModel.cowMode();
+    }
 
     private void manageNewGameButton() {
         buttons.getChildren().add(0, startButton);
@@ -270,8 +307,8 @@ public class MenuView extends VBox {
             fertilizerButton.setDisable(false);
             recoltButton.setDisable(false);
             sleepButton.setDisable(false);
-            loadButton.setDisable(false);
-            saveButton.setDisable(false);
+            cowButton.setDisable(false);
+            sheepButton.setDisable(false);
             menuViewModel.newGame();
             if (toggleGroup.getSelectedToggle() != null) {
                 toggleGroup.getSelectedToggle().setSelected(false);

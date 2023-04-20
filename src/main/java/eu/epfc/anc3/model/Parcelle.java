@@ -30,7 +30,11 @@ class Parcelle {
         elementPriorityMap.put(ParcelleValue.CABBAGE3, 3);
         elementPriorityMap.put(ParcelleValue.CABBAGE4, 3);
         elementPriorityMap.put(ParcelleValue.ROTTEN_CABBAGE, 3);
-        elementPriorityMap.put(ParcelleValue.FARMER, 4);
+
+        elementPriorityMap.put(ParcelleValue.SHEEP, 4);
+        elementPriorityMap.put(ParcelleValue.COW, 4);
+
+        elementPriorityMap.put(ParcelleValue.FARMER, 5);
 
     }
 

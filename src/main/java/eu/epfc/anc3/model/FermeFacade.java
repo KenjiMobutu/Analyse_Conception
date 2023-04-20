@@ -42,6 +42,8 @@ public class FermeFacade {
     private final BooleanProperty plantCabbage = new SimpleBooleanProperty(false);
     private final BooleanProperty useFertilizer = new SimpleBooleanProperty(false);
     private final BooleanProperty recolt = new SimpleBooleanProperty(false);
+    private final BooleanProperty putCow = new SimpleBooleanProperty(false);
+    private final BooleanProperty putSheep = new SimpleBooleanProperty(false);
 
 
     private final IntegerProperty nbJours = new SimpleIntegerProperty(0);
@@ -66,6 +68,8 @@ public class FermeFacade {
                 .or(ferme.fermeStatusProperty().isEqualTo(FermeStatus.PLANT_CABBAGE))
                 .or(ferme.fermeStatusProperty().isEqualTo(FermeStatus.PLANT_CARROT))
                 .or(ferme.fermeStatusProperty().isEqualTo(FermeStatus.FERTILIZER))
+                .or(ferme.fermeStatusProperty().isEqualTo(FermeStatus.COW))
+                .or(ferme.fermeStatusProperty().isEqualTo(FermeStatus.SHEEP))
                 .or(ferme.fermeStatusProperty().isEqualTo(FermeStatus.RECOLT)));
 
         isStarted.bind(ferme.fermeStatusProperty().isNotEqualTo(FermeStatus.START));
@@ -78,6 +82,8 @@ public class FermeFacade {
         plantCarrot.bind(fermeStatusProperty().isEqualTo(FermeStatus.PLANT_CARROT));
         recolt.bind(fermeStatusProperty().isEqualTo(FermeStatus.RECOLT));
         useFertilizer.bind(fermeStatusProperty().isEqualTo(FermeStatus.FERTILIZER));
+        putCow.bind(fermeStatusProperty().isEqualTo(FermeStatus.COW));
+        putSheep.bind(fermeStatusProperty().isEqualTo(FermeStatus.SHEEP));
         score.bind(ferme.getPoint());
     }
 
@@ -133,6 +139,18 @@ public class FermeFacade {
         if (isStarted.getValue()){
             System.out.println("  -> Déplanter de l'herbe est possible :) ");
             ferme.unplantMode();
+        }
+    }
+    public void cowMode(){
+        if (isStarted.getValue()){
+            System.out.println("  -> Vache est possible :) ");
+            ferme.cowMode();
+        }
+    }
+    public void sheepMode(){
+        if (isStarted.getValue()){
+            System.out.println("  -> Mouton est possible :) ");
+            ferme.sheepMode();
         }
     }
     public void newGame() {
@@ -216,6 +234,11 @@ public class FermeFacade {
             dropFertilizer();
         else if (recolt.getValue())
             recoltVegetals();
+        else if (putCow.getValue())
+            putCow();
+        else if (putSheep.getValue())
+            putSheep();
+
 
         displayTerrain(farmer.getPosFarmer());
         spawnFarmerInFarm();
@@ -305,6 +328,15 @@ public class FermeFacade {
     private void recoltVegetals() {
         //faire fonction addPoint qui récupère le state du légume et les points lié a celui-ci
         ferme.removeVegetables(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
+    }
+    private void putSheep() {
+        Sheep sheep = new Sheep(terrain.getParcelle(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()));
+        addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(), sheep);
+    }
+
+    private void putCow() {
+        Cow cow = new Cow(terrain.getParcelle(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()));
+        addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(), cow);
     }
     public ReadOnlyIntegerProperty scoreProperty(){
         return score;

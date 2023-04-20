@@ -34,6 +34,12 @@ public class MenuViewModel {
     public ReadOnlyStringProperty unPlantLabelProperty() {
         return new SimpleStringProperty("Tondre du gazon");
     }
+    public ReadOnlyStringProperty cowLabelProperty() {
+        return new SimpleStringProperty("Vache");
+    }
+    public ReadOnlyStringProperty sheepLabelProperty() {
+        return new SimpleStringProperty("Mouton");
+    }
     public void start() {fermeFacade.start();}
     public void stop() {fermeFacade.stop();}
     public void plantGrassMode(){fermeFacade.plantGrassMode();}
@@ -52,6 +58,9 @@ public class MenuViewModel {
         fermeFacade.newGame();
     }
     public ReadOnlyIntegerProperty score(){return fermeFacade.scoreProperty();}
+
+    public void cowMode() {fermeFacade.cowMode();}
+    public void sheepMode() {fermeFacade.sheepMode();}
 
     //public ReadOnlyIntegerProperty nbGrass(){return fermeFacade.getNbGrass();}//K:pour DEBUG
 
