@@ -19,14 +19,6 @@ class Position {
         this.y = y;
     }
 
-    void setPos(int x, int y){
-        this.setX(x); this.setY(y);
-    }
-
-    void getPos(){
-        this.toString();
-    }
-
     Position(int x, int y){
         this.x = x;
         this.y = y;

@@ -2,10 +2,7 @@ package eu.epfc.anc3.model;
 
 import javafx.beans.property.*;
 import javafx.collections.ObservableSet;
-
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Set;
 
 class Ferme {
     private Terrain terrain ;

@@ -1,7 +1,6 @@
 package eu.epfc.anc3.view;
 
 import eu.epfc.anc3.vm.MenuViewModel;
-import javafx.beans.property.IntegerProperty;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -9,13 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class MenuView extends VBox {
-
-
-    /**
-     *
-     *              ---------------> SUPPRIMER LE COMPTEUR DE GRASS AVANT LA REMISE </--------------->
-     */
+class MenuView extends VBox {
 
     private final Label scoreLabel = new Label("Score : ");
     private final TextField nbScore = new TextField("0");
@@ -37,7 +30,7 @@ public class MenuView extends VBox {
     private final HBox nbHbox;
 
     VBox actionVbox = new VBox(plantButtonGrass,plantCarotteButton, plantCabbageButton,fertilizerButton,recoltButton);
-    HBox buttons = new HBox(startButton,sleepButton, saveButton, loadButton);
+    HBox buttons = new HBox(startButton,sleepButton);
 
     public MenuView(MenuViewModel menuViewModel) {
         this.menuViewModel = menuViewModel;
@@ -255,8 +248,7 @@ public class MenuView extends VBox {
     private void handleUnPlantButtonAction() {
         menuViewModel.unplantMode();
     }
-    private void handleSleepButtonAction() { menuViewModel.sleepMode();
-    }
+    private void handleSleepButtonAction() { menuViewModel.sleepMode();}
 
     private void manageNewGameButton() {
         buttons.getChildren().add(0, startButton);
@@ -278,6 +270,5 @@ public class MenuView extends VBox {
             }
         });
     }
-
 
 }

@@ -71,21 +71,4 @@ class Parcelle {
         stateChange.set(b);
     }
 
-    boolean hasGrass(){
-        for (Element e : elements){
-            if (e.getType() == ParcelleValue.GRASS)
-                return true;
-        }
-        return false;
-    }
-//
-    void removeElement(Element e) {
-        elements.remove(e);
-    }
-
-
-   void removeRottenVegetables() {
-        elements.removeIf(Element::isRotten);
-    }
-
 }

@@ -31,9 +31,8 @@ public class FermeFacade {
 
     //public ReadOnlyBooleanProperty isStartableProperty (){return isStartable;}
     public ReadOnlyBooleanProperty isStartedProperty (){return isStarted;}
-    public boolean actionPressedProperty() {return isPressingAction;} //BV mettre juste action property
+    public boolean actionProperty() {return isPressingAction;} //BV mettre juste action property
 
-    // mettre le spacePressed a true :
     public void setActionProperty(boolean b){isPressingAction = b;} //BV
     // les actions possible :
     private final BooleanProperty plantGrass = new SimpleBooleanProperty(false);
@@ -42,16 +41,9 @@ public class FermeFacade {
     private final BooleanProperty plantCabbage = new SimpleBooleanProperty(false);
     private final BooleanProperty useFertilizer = new SimpleBooleanProperty(false);
     private final BooleanProperty recolt = new SimpleBooleanProperty(false);
-
-
     private final IntegerProperty nbJours = new SimpleIntegerProperty(0);
     private final IntegerProperty score = new SimpleIntegerProperty(0);
 
-
-    // retourne les éléments d'une cellule :
-    public ObservableSet<ParcelleValue> getElementsType(int line, int col){ //BV : à enlevefr
-        return ferme.getAllElemType(line,col);
-    }
 
     public ObservableSet<Element> getElements(int line, int col){
         return ferme.getAllElem(line,col);
@@ -199,7 +191,7 @@ public class FermeFacade {
                 case SPACE -> System.out.println("pressing space");
             }
 
-            if (actionPressedProperty())
+            if (actionProperty())
                 handleAction();
         }
         System.out.println(ferme.getAllElem(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + " <--- affichage des elements d'une cellule");

@@ -8,7 +8,7 @@ class Grass extends Vegetable implements Element{ //BV : pas public
     IntegerProperty maxGrowthDays = new SimpleIntegerProperty(0);
     IntegerProperty nbJours = new SimpleIntegerProperty(0);
     int nbJoursSinceStart ;
-    private Parcelle parcelle;
+    Parcelle parcelle ;
     Grass(Parcelle parcelle){
         nbJoursSinceStart = 0;
         maxGrowthDays.set(nbJours.getValue() + 12);

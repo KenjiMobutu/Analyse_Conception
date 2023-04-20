@@ -8,7 +8,6 @@ public class MenuViewModel {
 
     public MenuViewModel(FermeFacade ferme){
         this.fermeFacade = ferme;
-
     }
 
     public ReadOnlyStringProperty startLabelProperty() {
@@ -21,9 +20,7 @@ public class MenuViewModel {
     public ReadOnlyStringProperty plantCabbageLabelProperty() {
         return new SimpleStringProperty("Planter du chou");
     }
-    public ReadOnlyStringProperty plantCarrotLabelProperty() {
-        return new SimpleStringProperty("Planter des carottes");
-    }
+    public ReadOnlyStringProperty plantCarrotLabelProperty() {return new SimpleStringProperty("Planter des carottes");}
     public ReadOnlyStringProperty fertilizerLabelProperty() {
         return new SimpleStringProperty("Fertiliser");
     }
@@ -59,8 +56,5 @@ public class MenuViewModel {
         fermeFacade.nextDay();
     }
 
-    /*public void saveGame() {
-        fermeFacade.saveGame();
-    }*/
 
 }

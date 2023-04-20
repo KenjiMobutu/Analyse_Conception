@@ -5,7 +5,7 @@ import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleIntegerProperty;
 
 //k:trouver une solution pour retirer public de la classe
-public class Carrot extends Vegetable implements Element {
+class Carrot extends Vegetable implements Element {
     private final IntegerProperty nbJours = new SimpleIntegerProperty(0);
     private boolean stateChanged = false;
     private final ReadOnlyObjectWrapper<VegetableState> state = new ReadOnlyObjectWrapper<>();
