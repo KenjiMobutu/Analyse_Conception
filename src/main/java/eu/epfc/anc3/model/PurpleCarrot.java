@@ -72,6 +72,12 @@ public class PurpleCarrot extends Vegetable implements Element {
     public boolean isGrass() {
         return false;
     }
+
+    @Override
+    public boolean isBlock() {
+        return false;
+    }
+
     public VegetableState getCurrentState() {
         return getState();
     }

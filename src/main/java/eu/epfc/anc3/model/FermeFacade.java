@@ -7,7 +7,6 @@ import static eu.epfc.anc3.model.Terrain.GRID_HEIGHT;
 import static eu.epfc.anc3.model.Terrain.GRID_WIDTH;
 
 public class FermeFacade {
- // TODO : Memento : doit faire une copie profonde de chaque fichier
 
     private final Ferme ferme = new Ferme();
     Memento memento;
@@ -88,11 +87,17 @@ public class FermeFacade {
     //permet de déplacer le fermier dans le jeu
     void spawnFarmerInFarm(){ferme.spawnFarmer(farmer, farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY());}
 
+    void spawnBlockInFarm(){
+        addElementToCell(4,5,new Block());
+        addElementToCell(6,3,new Block());
+        addElementToCell(1,9,new Block());
+    }
     public void start(){
         if (isStartable.get()){
             System.out.println(" -> lancement du jeu :) ");
             ferme.start();
             spawnFarmerInFarm();
+            spawnBlockInFarm();
         }
     }
     public void saveGame(){
@@ -196,11 +201,14 @@ public class FermeFacade {
 
     public void teleport(int line, int col) { //BV : à revoir, ceci ajoute le fermier en line/col, c'est la parcelle qui décidera où il doit se trouver dans la liste
         System.out.println("CLICK" + line+ "<--> "+col);
-        removeElemFromCell(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY(), ParcelleValue.FARMER);
-        Position newPosFarmer = new Position(line,col);
-        farmer.setPosFarmer(newPosFarmer.getX(),newPosFarmer.getY()); //BV dans spawn
-        //ferme.setFarmerInFarm(farmer);
-        ferme.spawnFarmer(farmer, line, col);
+        if (!containsElementType(ParcelleValue.BLOCK,line,col)){
+            removeElemFromCell(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY(), ParcelleValue.FARMER);
+            Position newPosFarmer = new Position(line,col);
+            farmer.setPosFarmer(newPosFarmer.getX(),newPosFarmer.getY()); //BV dans spawn
+            //ferme.setFarmerInFarm(farmer);
+            ferme.spawnFarmer(farmer, line, col);
+        }
+
     }
     public void moveFarmer(Move move) {
         System.out.println(getStatus() );
@@ -252,7 +260,7 @@ public class FermeFacade {
 
     void goUp(){ //BV : voir "play" mais qui devrait se nommer "teleport"
         Position up = new Position(farmer.getPosFarmer().getX()-1, farmer.getPosFarmer().getY());
-        if (up.getX() >= 0){
+        if (up.getX() >= 0 && !containsElementType(ParcelleValue.BLOCK,up.getX(),up.getY())){
             System.out.println("x : " + up.getX() + "  y :" + up.getY());
             removeElemFromCell(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY(), ParcelleValue.FARMER);
             farmer.setPosFarmer(up.getX(),up.getY());
@@ -265,7 +273,7 @@ public class FermeFacade {
     void goDown(){
 
         Position down = new Position(farmer.getPosFarmer().getX()+1, farmer.getPosFarmer().getY());
-        if (down.getX() < GRID_HEIGHT){
+        if (down.getX() < GRID_HEIGHT && !containsElementType(ParcelleValue.BLOCK, down.getX(), down.getY())){
             System.out.println("x : " + down.getX() + "  y :" + down.getY());
             removeElemFromCell(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY(), ParcelleValue.FARMER);
             farmer.setPosFarmer(down.getX(),down.getY()); // a mettre dans spawnFarmer
@@ -277,7 +285,7 @@ public class FermeFacade {
 
     void goRight(){
         Position right = new Position(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()+1);
-        if (right.getY() < GRID_WIDTH){
+        if (right.getY() < GRID_WIDTH && !containsElementType(ParcelleValue.BLOCK,right.getX(), right.getY())){
             System.out.println("x : " + right.getX() + "  y :" + right.getY());
             removeElemFromCell(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY(), ParcelleValue.FARMER);
             farmer.setPosFarmer(right.getX(),right.getY());
@@ -290,7 +298,7 @@ public class FermeFacade {
     void goLeft(){
 
         Position left = new Position(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()-1);
-        if (left.getY() >= 0){
+        if (left.getY() >= 0 && !containsElementType(ParcelleValue.BLOCK, left.getX(), left.getY())){
             System.out.println("x : " + left.getX() + "  y :" + left.getY());
 
             removeElemFromCell(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY(), ParcelleValue.FARMER);

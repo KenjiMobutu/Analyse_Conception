@@ -63,6 +63,11 @@ public class Carrot extends Vegetable implements Element {
         return false;
     }
 
+    @Override
+    public boolean isBlock() {
+        return false;
+    }
+
     void setParcelle(Parcelle parcelle){
          this.parcelle = parcelle;
     }

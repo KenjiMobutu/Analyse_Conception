@@ -1,10 +1,17 @@
 package eu.epfc.anc3.model;
 
-class Dirt implements Element{
-    @Override
-    public ParcelleValue getType() {
-        return ParcelleValue.DIRT;
+import javafx.beans.property.ReadOnlyIntegerProperty;
+import javafx.beans.property.SimpleListProperty;
+import javafx.collections.FXCollections;
+
+class Block implements Element{
+
+    private Parcelle parcelle ;
+
+    public Block(){
     }
+
+    public ParcelleValue getType(){return ParcelleValue.BLOCK;}
 
     @Override
     public boolean getStateChanged() {
@@ -12,7 +19,9 @@ class Dirt implements Element{
     }
 
     @Override
-    public void setStateChanged(boolean stateChanged) {}
+    public void setStateChanged(boolean stateChanged) {
+
+    }
 
     @Override
     public boolean isRotten() {
@@ -41,7 +50,7 @@ class Dirt implements Element{
 
     @Override
     public boolean isBlock() {
-        return false;
+        return true;
     }
 
 }

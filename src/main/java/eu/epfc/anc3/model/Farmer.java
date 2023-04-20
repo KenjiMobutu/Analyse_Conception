@@ -61,6 +61,11 @@ class Farmer implements Element{
     }
 
     @Override
+    public boolean isBlock() {
+        return false;
+    }
+
+    @Override
     public String toString() {return "Farmer Position : " + getPosFarmer();}
 
     /*-----------------POUR DEBUG-----------------------------------------------*/

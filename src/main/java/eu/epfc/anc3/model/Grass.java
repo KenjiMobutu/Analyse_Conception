@@ -66,6 +66,11 @@ class Grass extends Vegetable implements Element{ //BV : pas public
     }
 
     @Override
+    public boolean isBlock() {
+        return false;
+    }
+
+    @Override
     public String toString() {
         return "Grass ; ";
     }
