@@ -8,8 +8,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 class Ferme {
-
-    Memento saveGame;
+    private CareTaker caretaker = new CareTaker();
     boolean isSaved;
     private Terrain terrain ;
     private final IntegerProperty score = new SimpleIntegerProperty(0);
@@ -21,9 +20,10 @@ class Ferme {
         if (isSaved){
             stop();
             System.out.println("JE PASSE DANS LE START POUR LOAD GAME OUI OUI !!!!!!!!");
-            if (saveGame.getTerrain() != null){
+            if (caretaker.getMemento() != null){
+                Memento game = caretaker.getMemento();
                 terrain.resetTerrain();
-                this.terrain = new Terrain(saveGame.getTerrain());
+                this.terrain = new Terrain(game.getTerrain());
                 System.out.println("j'ai bien un terrain");
             }
 
@@ -191,28 +191,28 @@ class Ferme {
         terrain.addElementToCell(farmer, line, col);
     }
     int MementoNbDayProperty(){
-        return saveGame.getJour();
-    }
-    int MementoScoreProperty(){
-        return saveGame.getScore();
+        Memento m = caretaker.getMemento();
+        return m.getJour();
     }
 
     Terrain mementoTerrain(){return new Terrain(terrain);}
-    Memento saveGame(int nbJour, Farmer farmer, FermeStatus fermeStatus){
+
+    void saveGame(int nbJour, Farmer farmer, FermeStatus fermeStatus){
         IntegerProperty nbJourMemento = new SimpleIntegerProperty(nbJour);
         IntegerProperty scoreMemento = new SimpleIntegerProperty(score.getValue());
-        saveGame = new Memento(mementoTerrain(), new Farmer(farmer), fermeStatus, scoreMemento.getValue(), nbJourMemento.getValue());
+        Memento m = new Memento(mementoTerrain(), new Farmer(farmer), fermeStatus, scoreMemento.getValue(), nbJourMemento.getValue());
         isSaved = true;
-        return saveGame;
+        caretaker.addMemento(m);
     }
     boolean saveGameDidWell(){
         return isSaved;
     }
     void loadGame(){
         if (isSaved){
+            Memento loadGame = caretaker.getMemento();
             System.out.println("JE PASSE DANS LE LOAD GAME CORRECTEMENT !!!!!!!!!!!!!!!!!!!!!!!");
             start();
-            score.set(saveGame.score);
+            score.set(loadGame.score);
             isSaved = false;
         }
     }
