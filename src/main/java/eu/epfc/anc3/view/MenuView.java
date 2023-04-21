@@ -1,8 +1,6 @@
 package eu.epfc.anc3.view;
 
 import eu.epfc.anc3.vm.MenuViewModel;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -10,43 +8,33 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class MenuView extends VBox {
+class MenuView extends VBox {
 
     private final Label scoreLabel = new Label("Score : ");
     private final TextField nbScore = new TextField("0");
     private final Label jourLabel = new Label("Jour : ");
     private final TextField nbJour = new TextField("0");
-
-    private final Label nbGrassTxt = new Label("Nombre de parcelles de gazon : ");
-    private final TextField nbGrass= new TextField();
-
     private final Button startButton = new Button();
     private final Button sleepButton = new Button("sleep");
     private final Button stopButton = new Button();
+    private final Button saveButton = new Button("Sauvegarder");
+    private final Button loadButton = new Button("Restaurer");
     private final ToggleButton plantButtonGrass = new ToggleButton();
     private final ToggleButton unPlantButton = new ToggleButton();
-
     private final ToggleGroup toggleGroup = new ToggleGroup();
     private final ToggleButton plantCarotteButton = new ToggleButton();
     private final ToggleButton plantCabbageButton = new ToggleButton();
     private final ToggleButton fertilizerButton = new ToggleButton();
     private final ToggleButton recoltButton = new ToggleButton();
-
     private final MenuViewModel menuViewModel;
-
     private final HBox nbHbox;
-    //HBox buttonsHBox = new HBox(startButton,sleepButton) ;
 
-    VBox actionVbox = new VBox(plantButtonGrass,unPlantButton,plantCarotteButton, plantCabbageButton,fertilizerButton,recoltButton);
+    VBox actionVbox = new VBox(plantButtonGrass,plantCarotteButton, plantCabbageButton,fertilizerButton,recoltButton);
     HBox buttons = new HBox(startButton,sleepButton);
-    public void bindNbJours(IntegerProperty nbJoursProperty) {
-        nbJour.textProperty().bind(nbJoursProperty.asString());
-    }
+
     public MenuView(MenuViewModel menuViewModel) {
         this.menuViewModel = menuViewModel;
         this.nbHbox = createNewHobx();
-        //this.buttons = buttons;
-        // this.actionVbox = actionVbox;
         configureMenu();
         bindLabelsToViewModel();
         setUpButtonStart();
@@ -58,6 +46,7 @@ public class MenuView extends VBox {
         setUpButtonUnplant();
         setUpButtonStop();
         setUpSleepAction();
+
     }
 
 
@@ -77,12 +66,11 @@ public class MenuView extends VBox {
         unPlantButton.setPrefSize(145, 10);
         setUpButtonMode();
         setUpImages();
-       // nbGrassTextField.setDisable(true);
+        // nbGrassTextField.setDisable(true);
 
         manageScore();
         addToToggleGroup();
         bindLabelsToViewModel();
-        manageNbGrass();//K:pour DEBUG
     }
 
     private void setUpButtonMode(){
@@ -90,12 +78,12 @@ public class MenuView extends VBox {
         startButton.setDisable(false);
         startButton.setFocusTraversable(false);
         stopButton.setFocusTraversable(false);
+        saveButton.setFocusTraversable(false);
+        loadButton.setFocusTraversable(false);
+
         nbHbox.setFocusTraversable(false);
         plantButtonGrass.setFocusTraversable(false);
         unPlantButton.setFocusTraversable(false);
-        nbGrass.setFocusTraversable(false);
-        nbGrassTxt.setFocusTraversable(false);
-        nbGrass.setDisable(true);
         /*---------*/
         nbJour.setDisable(true);
         nbScore.setDisable(true);
@@ -106,6 +94,11 @@ public class MenuView extends VBox {
         fertilizerButton.setDisable(true);
         recoltButton.setDisable(true);
         startButton.setDisable(false);
+        saveButton.setDisable(false);
+        loadButton.setDisable(false);
+        sleepButton.setDisable(true);
+        saveButton.setDisable(true);
+        loadButton.setDisable(true);
     }
     private void setUpImages(){
         Image img1 = new Image("cabbage4.png");
@@ -137,10 +130,6 @@ public class MenuView extends VBox {
         sleepButton.setGraphic(view5);
         sleepButton.setFocusTraversable(false);
     }
-    private void manageNbGrass() {//K:pour DEBUG
-        System.out.println(menuViewModel.nbGrass().toString());
-        nbGrass.textProperty().bind(menuViewModel.nbGrass().asString());
-    }
 
     private void manageScore(){
         nbScore.textProperty().bind(menuViewModel.score().asString());
@@ -168,7 +157,7 @@ public class MenuView extends VBox {
     }
 
     HBox createNewHobx() {
-        return new HBox(scoreLabel,nbScore ,jourLabel,nbJour, nbGrassTxt,nbGrass);//K:pour DEBUG
+        return new HBox(scoreLabel,nbScore ,jourLabel,nbJour);//K:pour DEBUG
     }
     public void setUpButtonStart() {
         startButton.setOnAction(e -> handleStartButtonAction());
@@ -218,6 +207,9 @@ public class MenuView extends VBox {
         plantCabbageButton.setDisable(false);
         fertilizerButton.setDisable(false);
         recoltButton.setDisable(false);
+        sleepButton.setDisable(false);
+        loadButton.setDisable(false);
+        saveButton.setDisable(false);
         menuViewModel.start();
     }
 
@@ -229,6 +221,9 @@ public class MenuView extends VBox {
         plantCarotteButton.setDisable(true);
         fertilizerButton.setDisable(true);
         recoltButton.setDisable(true);
+        loadButton.setDisable(true);
+        saveButton.setDisable(true);
+        sleepButton.setDisable(true);
         menuViewModel.stop();
         nbJour.setText("0");
         manageNewGameButton();
@@ -249,14 +244,11 @@ public class MenuView extends VBox {
     private void handleRecoltButtonAction() {
         menuViewModel.recoltMode();
     }
-//    private void updateNbDaysLabel(){
-//        nbJour.textProperty().bind(menuViewModel.getNbDay().asString());
-//    }
+
     private void handleUnPlantButtonAction() {
         menuViewModel.unplantMode();
     }
-    private void handleSleepButtonAction() { menuViewModel.sleepMode();
-    }
+    private void handleSleepButtonAction() { menuViewModel.sleepMode();}
 
     private void manageNewGameButton() {
         buttons.getChildren().add(0, startButton);
@@ -269,9 +261,14 @@ public class MenuView extends VBox {
             plantCarotteButton.setDisable(false);
             fertilizerButton.setDisable(false);
             recoltButton.setDisable(false);
+            sleepButton.setDisable(false);
+            loadButton.setDisable(false);
+            saveButton.setDisable(false);
             menuViewModel.newGame();
+            if (toggleGroup.getSelectedToggle() != null) {
+                toggleGroup.getSelectedToggle().setSelected(false);
+            }
         });
     }
-
 
 }

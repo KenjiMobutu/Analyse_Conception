@@ -2,18 +2,13 @@ package eu.epfc.anc3.vm;
 
 import eu.epfc.anc3.model.Element;
 import eu.epfc.anc3.model.FermeFacade;
-import eu.epfc.anc3.model.ParcelleValue;
+
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ReadOnlyBooleanProperty;
-import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.collections.ObservableSet;
 
-import java.util.Set;
-
-
+//cell
 public class ParcelleViewModel {
-    //cell
-    // remettre en private quand tout sera correcte (mettre en public si on veut débug les elements dans une cellule
-    //puis remettre les lignes nécessaire dans le fichier ParcelleView.
     private final int line, col;
     private final FermeFacade fermeFacade;
     public ParcelleViewModel(int line, int col, FermeFacade ferme){
@@ -21,13 +16,9 @@ public class ParcelleViewModel {
         this.line = line;
         this.fermeFacade = ferme;
     }
-
-
     public ReadOnlyBooleanProperty isStarted(){return fermeFacade.isStartedProperty();}
-
-    // a refaire : public ReadOnlyObjectProperty<ParcelleValue> elementInCell(){return fermeFacade.valueProperty(line,col);}
-    public ObservableSet<ParcelleValue> elementPropertyValue () {return fermeFacade.getElementsType(line,col);}
     public ObservableSet<Element> getElementsInCell(){return fermeFacade.getElements(line,col);}
+    public BooleanProperty getElementsStateProperty(){return fermeFacade.getElementsStateProperty(line,col);}
     public void play() {
         System.out.println(isStarted());
         System.out.println(line +" ----- "+ col);

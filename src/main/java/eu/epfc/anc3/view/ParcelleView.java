@@ -1,22 +1,18 @@
 package eu.epfc.anc3.view;
 
-import eu.epfc.anc3.model.Cabbage;
-import eu.epfc.anc3.model.Carrot;
 import eu.epfc.anc3.model.Element;
 import eu.epfc.anc3.model.ParcelleValue;
 import eu.epfc.anc3.vm.ParcelleViewModel;
 import javafx.beans.binding.DoubleBinding;
 import javafx.collections.ObservableSet;
 import javafx.collections.SetChangeListener;
-import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
-
+import javafx.scene.layout.StackPane;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ParcelleView extends StackPane {
+class ParcelleView extends StackPane {
     private static final Image FARMER = new Image("farmer.png");
     private static final Image DIRT = new Image("dirt.png");
     private static final Image GRASS = new Image("grass.png");
@@ -33,7 +29,7 @@ public class ParcelleView extends StackPane {
 
 
 
-    private ImageView imageView = new ImageView();
+    private final ImageView imageView = new ImageView();
 
     private static final Map<ParcelleValue, Image> images = new HashMap<>();
     static {
@@ -56,51 +52,34 @@ public class ParcelleView extends StackPane {
 
 
     public ParcelleView(ParcelleViewModel parcelleViewModel, DoubleBinding parcelleWidthProperty) {
+        // Créer une image view pour la vue de la parcelle
         imageView.setPreserveRatio(true);
         imageView.fitWidthProperty().bind(parcelleWidthProperty);
         imageView.fitHeightProperty().bind(parcelleWidthProperty);
         imageView.setImage(DIRT);
         getChildren().add(imageView);
 
+        // Obtenir l'ensemble observables des éléments dans la parcelle
         ObservableSet<Element> valueProp = parcelleViewModel.getElementsInCell();
-
-        // Ajouter un écouteur de changement d'état à chaque CarrotViewModel
-       valueProp.addListener((SetChangeListener<Element>) change -> {
-            ParcelleView.this.getChildren().clear();
-            addParcelleImage(ParcelleValue.EMPTY);
-            for(Element e : valueProp) {
-                if (e.getType() != ParcelleValue.CABBAGE1  && e.getType() != ParcelleValue.CARROT1)
-                    addParcelleImage(e.getType());
-                if (e instanceof Carrot) {
-                    Carrot c = (Carrot) e;
-                    c.addStateListener((obs, oldState, newState) -> {
-                        ParcelleValue pv = newState.getType();
-                        Node child = ParcelleView.this.getChildren().get(1);
-                        if (getParcelleValueFromImage(((ImageView) child).getImage()) != ParcelleValue.GRASS) {
-                            ParcelleView.this.getChildren().remove(1);
-                        }else {
-                            ParcelleView.this.getChildren().remove(2);
-                        }
-                        addParcelleImage(pv);
-                    });
-                }
-                if (e instanceof Cabbage) {
-                    Cabbage c = (Cabbage) e;
-                    c.addStateListener((obs, oldState, newState) -> {
-                        ParcelleValue pv = newState.getType();
-                        Node child = ParcelleView.this.getChildren().get(1);
-                        if (getParcelleValueFromImage(((ImageView) child).getImage()) != ParcelleValue.GRASS) {
-                            ParcelleView.this.getChildren().remove(1);
-                        }else {
-                            ParcelleView.this.getChildren().remove(2);
-                        }
-                        addParcelleImage(pv);
-                    });
-                }
-                addParcelleImage(e.getType());
-            }
-        });
+        // Ajouter un écouteur de changement d'état
+        valueProp.addListener((SetChangeListener<Element>) change -> handleParcelleViewChange(valueProp));
+        //parcelleViewModel.changeStateProperty.addListener...
+        parcelleViewModel.getElementsStateProperty().addListener((obs, oldState, newState) -> handleParcelleViewChange(valueProp));
+        // Ajouter un événement de clic pour jouer la parcelle
         this.setOnMouseClicked(e -> parcelleViewModel.play());
+    }
+
+    private void handleParcelleViewChange(ObservableSet<Element> valueProp) {
+        // Effacer les enfants précédents de ParcelleView
+        ParcelleView.this.getChildren().clear();
+
+        // Ajouter une image pour la parcelle vide
+        addParcelleImage(ParcelleValue.EMPTY);
+
+        // Ajouter des images pour chaque élément dans la parcelle
+        for(Element e : valueProp) {
+            addParcelleImage(e.getType());
+        }
     }
 
     void addParcelleImage(ParcelleValue pv) {
@@ -109,10 +88,6 @@ public class ParcelleView extends StackPane {
         imageView.setFitHeight(this.imageView.getFitHeight());
         getChildren().add(imageView);
     }
-    public static ParcelleValue getParcelleValueFromImage(Image image) {
-        String imageName = image.getUrl().substring(image.getUrl().lastIndexOf("/") + 1);
-        imageName = imageName.substring(0, imageName.indexOf("."));
-        return ParcelleValue.valueOf(imageName.toUpperCase());
-    }
+
 
 }

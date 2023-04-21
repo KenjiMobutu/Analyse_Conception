@@ -1,8 +1,6 @@
 package eu.epfc.anc3.vm;
 
 import eu.epfc.anc3.model.FermeFacade;
-import javafx.beans.binding.Bindings;
-import javafx.beans.binding.IntegerBinding;
 import javafx.beans.property.*;
 
 public class MenuViewModel {
@@ -10,7 +8,6 @@ public class MenuViewModel {
 
     public MenuViewModel(FermeFacade ferme){
         this.fermeFacade = ferme;
-
     }
 
     public ReadOnlyStringProperty startLabelProperty() {
@@ -23,9 +20,7 @@ public class MenuViewModel {
     public ReadOnlyStringProperty plantCabbageLabelProperty() {
         return new SimpleStringProperty("Planter du chou");
     }
-    public ReadOnlyStringProperty plantCarrotLabelProperty() {
-        return new SimpleStringProperty("Planter des carottes");
-    }
+    public ReadOnlyStringProperty plantCarrotLabelProperty() {return new SimpleStringProperty("Planter des carottes");}
     public ReadOnlyStringProperty fertilizerLabelProperty() {
         return new SimpleStringProperty("Fertiliser");
     }
@@ -48,12 +43,6 @@ public class MenuViewModel {
     public void fertilizerMode() {
         fermeFacade.fertilizerMode();
     }
-//    public void setNbDays(int nbDays) {
-//        fermeFacade.setNbDay(nbDays);
-//    }
-//    public ReadOnlyIntegerProperty getNbDay() {
-//        return fermeFacade.nbDaysProperty();
-//    }
     public void recoltMode() {fermeFacade.recoltMode();}
     public void unplantMode(){fermeFacade.unplantMode();}
     public void newGame() {
@@ -61,15 +50,11 @@ public class MenuViewModel {
     }
     public ReadOnlyIntegerProperty score(){return fermeFacade.scoreProperty();}
 
-    public ReadOnlyIntegerProperty nbGrass(){return fermeFacade.getNbGrass();}//K:pour DEBUG
-
+    //public ReadOnlyIntegerProperty nbGrass(){return fermeFacade.getNbGrass();}//K:pour DEBUG
 
     public void sleepMode() {
         fermeFacade.nextDay();
     }
 
-    /*public void saveGame() {
-        fermeFacade.saveGame();
-    }*/
 
 }

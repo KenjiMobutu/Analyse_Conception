@@ -1,22 +1,10 @@
 package eu.epfc.anc3.model;
 
-public abstract class VegetableState {
-    /*
-    propriétés :
-    growthDays : propriété qui contiendra le nombre de jours nécessaires pour que le légume arrive à maturité.
-    daysToNextState : propriété qui contiendra le nombre de jours nécessaires pour passer à l'état suivant.
-     */
-    //faire un state pour chaque légume + grass
+abstract class VegetableState {
     protected int growthDays ; // Nombre de jours nécessaires pour que le légume arrive à maturité
-    protected int daysToNextState; // Nombre de jours nécessaires pour passer à l'état suivant
-
     protected Vegetable vegetable; // Légume auquel cet état est associé
+
     // Constructeur
-    public VegetableState(Vegetable vegetable, int growthDays, int daysToNextState) {
-        this.vegetable = vegetable;
-        this.growthDays = growthDays;
-        this.daysToNextState = daysToNextState;
-    }
     public VegetableState(Vegetable vegetable) {
         this.vegetable = vegetable;
     }
@@ -33,9 +21,6 @@ public abstract class VegetableState {
     @Override
     public String toString() {
         return "VegetableState{" +
-                "growthDays=" + growthDays +
-                ", daysToNextState=" + daysToNextState +
-               // ", day=" + day +
                 ", vegetable=" + vegetable +
                 '}';
     }
@@ -45,4 +30,6 @@ public abstract class VegetableState {
     public abstract void nextDayWithGrass();
 
     public abstract int stateProperty();
+
+    public abstract boolean isRotten();
 }

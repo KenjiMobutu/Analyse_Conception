@@ -10,10 +10,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class FermeView extends BorderPane {
@@ -45,16 +42,7 @@ public class FermeView extends BorderPane {
         stage.show();
         stage.setMinHeight(stage.getHeight());
         stage.setMinWidth(stage.getWidth());
-        //scene.widthProperty().addListener((obs, oldval, newval) -> resizeTerrain(newval.doubleValue(), scene.getHeight()));
-        //scene.heightProperty().addListener((obs, oldval, newval) -> resizeTerrain(scene.getWidth(), newval.doubleValue()));
     }
-    /*private void resizeTerrain(double width, double height) {
-        double gridWidth = Math.min(width - MENU_WIDTH - 2 * PADDING, height - 2 * PADDING);
-        gridWidthProperty.set(gridWidth);
-        if (terrainView != null) {
-            terrainView.resize(gridWidth, height - 2 * PADDING);
-        }
-    }*/
 
     private void configMainComponents(Stage stage){
         // Configuration de la fenêtre
@@ -123,28 +111,28 @@ public class FermeView extends BorderPane {
     public void configKeyPressed(Scene scene){
         //doit focus la scene
         scene.setOnKeyPressed(keyEvent -> {
-            switch(keyEvent.getCode()) {
-                case RIGHT:
+            switch (keyEvent.getCode()) {
+                case RIGHT -> {
                     System.out.println(keyEvent.getCode());
                     fermeViewModel.keyPressed(Move.RIGHT);
-                    break;
-                case LEFT:
+                }
+                case LEFT -> {
                     System.out.println(keyEvent.getCode());
                     fermeViewModel.keyPressed(Move.LEFT);
-                    break;
-                case UP:
+                }
+                case UP -> {
                     System.out.println(keyEvent.getCode());
                     fermeViewModel.keyPressed(Move.UP);
-                    break;
-                case DOWN:
+                }
+                case DOWN -> {
                     System.out.println(keyEvent.getCode());
                     fermeViewModel.keyPressed(Move.DOWN);
-                    break;
-                case SPACE:
-                    System.out.println(keyEvent.getCode()+ " est pressé -----------------");
+                }
+                case SPACE -> {
+                    System.out.println(keyEvent.getCode() + " est pressé -----------------");
                     spacePressed(true);
                     fermeViewModel.keyPressed(Move.SPACE);
-                    break;
+                }
             }
         });
     }
