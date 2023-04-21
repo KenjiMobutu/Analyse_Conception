@@ -1,7 +1,7 @@
 //ANC3 2223 c01
 package eu.epfc.anc3.app;
 
-import eu.epfc.anc3.model.Carrot;
+
 import eu.epfc.anc3.view.FermeView;
 import javafx.application.Application;
 import javafx.scene.Scene;
