@@ -4,7 +4,6 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleIntegerProperty;
 
-//k:trouver une solution pour retirer public de la classe
 class Carrot extends Vegetable implements Element {
     private final IntegerProperty nbJours = new SimpleIntegerProperty(0);
     private boolean stateChanged = false;
@@ -15,7 +14,6 @@ class Carrot extends Vegetable implements Element {
         super();
         setParcelle(parcelle);
         nbJours.addListener((obs, oldVal, newVal) -> {
-            System.out.println("++day");
             this.getCurrentState().nextDay();
         });
         this.setState(new CarrotState1(this));
@@ -135,7 +133,6 @@ class Carrot extends Vegetable implements Element {
         @Override
         public void nextDay() {
             nbJours++;
-            System.out.println("nbJours = " + nbJours);
             if (nbJours == daysToNextState) {
                 this.nextState();
             }
@@ -182,7 +179,6 @@ class Carrot extends Vegetable implements Element {
         @Override
         public void nextDay() {
             nbJours++;
-            System.out.println("nbJours = " + nbJours);
             int daysToNextState = 6;
             if (nbJours == daysToNextState) {
                 this.nextState();
@@ -241,7 +237,6 @@ class Carrot extends Vegetable implements Element {
         @Override
         public void nextDay() {
             nbJours++;
-            System.out.println("nbJours = " + nbJours);
             int daysToNextState = 9;
             if ( nbJours == daysToNextState) {
                 System.out.println("Carrot state 3 changed to state 4");
@@ -300,7 +295,6 @@ class Carrot extends Vegetable implements Element {
         @Override
         public void nextDay() {
             nbJours++;
-            System.out.println("nbJours = " + nbJours);
             int daysToNextState = 12;
             if (nbJours == daysToNextState) {
                 this.nextState();
@@ -356,7 +350,6 @@ class Carrot extends Vegetable implements Element {
         @Override
         public void nextDay() {
             nbJours++;
-            System.out.println("nbJours = " + nbJours);
         }
         public ParcelleValue getType() {
             return ParcelleValue.ROTTEN_CARROT;

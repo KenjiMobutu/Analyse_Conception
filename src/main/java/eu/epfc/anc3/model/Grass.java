@@ -4,7 +4,6 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 class Grass extends Vegetable implements Element{ //BV : pas public
-    // ajouter method auto recolt après 12 jours
     IntegerProperty maxGrowthDays = new SimpleIntegerProperty(0);
     IntegerProperty nbJours = new SimpleIntegerProperty(0);
     int nbJoursSinceStart ;
@@ -70,8 +69,4 @@ class Grass extends Vegetable implements Element{ //BV : pas public
         return "Grass ; ";
     }
 
-    Grass(Position p){} //K:pour debug
-    /*public VegetableState getCurrentState() {
-        return getState();
-    }*/
 }

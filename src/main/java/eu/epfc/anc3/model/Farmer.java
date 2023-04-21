@@ -59,21 +59,4 @@ class Farmer implements Element{
 
     @Override
     public String toString() {return "Farmer Position : " + getPosFarmer();}
-
-    /*-----------------POUR DEBUG-----------------------------------------------*/
-    public static final SimpleListProperty<Grass> listOfPlantedGrass = new SimpleListProperty<>(FXCollections.observableArrayList());
-    public ReadOnlyIntegerProperty nbgrass() {return listOfPlantedGrass.sizeProperty();
-    }
-    public void plantGrass(Position p ){//K:pour debug
-        listOfPlantedGrass.add(new Grass(p));
-    }
-
-    public void removeGrassAtPos(Position posFarmer) {//K:pour debug
-        if (hasPlantedGrass())
-            listOfPlantedGrass.remove(listOfPlantedGrass.get(listOfPlantedGrass.getSize()-1));
-    }
-
-    private boolean hasPlantedGrass() {
-        return !listOfPlantedGrass.isEmpty();
-    }
 }

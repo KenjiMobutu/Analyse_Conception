@@ -10,11 +10,8 @@
 
 ### Liste des bugs connus
 
-  * bug 1 : on peut récolté une carrotte mais l'objet carrotte en lui-même existe toujours. (ça créer une erreur car parcelleView essaie de la supprimer. (pareil pour cabbage))
-  * bug 2 : un chou même après avoir été récolté continue de pousser jusque être pourri.
-  * bug 3 : on peut faire fertilizer sur les carrottes mais l'image ne change pas.
-  * bug 4 : erreur dans ParcelleView avec le node Child.
-  * bug 5 : 
+  * bug 1 : ne peut pas rester appuyer sur espace pour récolter
+  * bug 2 : 
   * ...
 
 ### Liste des fonctionnalités supplémentaires
@@ -27,4 +24,5 @@
 
 ## Notes de version itération 3 
 
+Pas fait
 ...
