@@ -17,7 +17,7 @@ class Grass extends Vegetable implements Element{ //BV : pas public
         });
         setParcelle(parcelle);
 
-    } //BV : rien de public mis à part getType
+    }
 
 
     void nextDay(){

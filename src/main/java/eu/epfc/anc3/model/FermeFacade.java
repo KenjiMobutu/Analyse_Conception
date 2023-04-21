@@ -220,8 +220,6 @@ public class FermeFacade {
         }
         spawnFarmerInFarm();
 
-//        ferme.spawnFarmer(farmer, farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
-
     }
     void goDown(){
 
@@ -232,8 +230,6 @@ public class FermeFacade {
             farmer.setPosFarmer(down.getX(),down.getY()); // a mettre dans spawnFarmer
         }
         spawnFarmerInFarm();
-
-//        ferme.spawnFarmer(farmer, farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
     }
 
     void goRight(){
@@ -245,7 +241,6 @@ public class FermeFacade {
         }
         spawnFarmerInFarm();
 
-//        ferme.spawnFarmer(farmer, farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY());
     }
 
     void goLeft(){
@@ -259,8 +254,6 @@ public class FermeFacade {
             farmer.setPosFarmer(left.getX(),left.getY());
         }
         spawnFarmerInFarm();
-
-//        ferme.spawnFarmer(farmer, farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
     }
 
     void dropGrass(){
@@ -311,9 +304,7 @@ public class FermeFacade {
     }
 
     private void removeRottenVegetables() {
-        //ferme.removeRotten...  --> terrain.removeRotten --> à chaque parcelle -> parcelle.removeRotten
         ferme.removeRotten();
-
     }
 
 

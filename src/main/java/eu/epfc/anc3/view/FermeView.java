@@ -109,7 +109,6 @@ public class FermeView extends BorderPane {
         });
     }
     public void configKeyPressed(Scene scene){
-        //doit focus la scene
         scene.setOnKeyPressed(keyEvent -> {
             switch (keyEvent.getCode()) {
                 case RIGHT -> {
