@@ -68,9 +68,6 @@ class Carrot extends Vegetable implements Element {
 
     public void setState(VegetableState newState) {
         state.set(newState);
-        //TODO : dire à la parcelle qu'on a changé d'état
-        //maParcelle.j'ai changé'
-        //changer un boolean property auquel est abonné le VM et la V
     }
     public VegetableState getState() {
         return state.get();
