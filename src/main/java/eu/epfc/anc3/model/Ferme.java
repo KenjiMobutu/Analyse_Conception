@@ -166,6 +166,8 @@ class Ferme {
 
     //permet de déplacer le joueur dans le grid
     void spawnFarmer(Farmer farmer, int line, int col){
+        Position newPosFarmer = new Position(line,col);
+        farmer.setPosFarmer(newPosFarmer.getX(),newPosFarmer.getY());
         terrain.addElementToCell(farmer, line, col);
     }
 

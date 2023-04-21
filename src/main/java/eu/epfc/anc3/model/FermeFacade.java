@@ -7,7 +7,6 @@ import static eu.epfc.anc3.model.Terrain.GRID_HEIGHT;
 import static eu.epfc.anc3.model.Terrain.GRID_WIDTH;
 
 public class FermeFacade {
- // TODO : Memento : doit faire une copie profonde de chaque fichier
 
     private final Ferme ferme = new Ferme();
     private final Terrain terrain = new Terrain();
@@ -159,12 +158,11 @@ public class FermeFacade {
     FermeStatus getStatus(){return fermeStatusProperty().get();}
 
 
-    public void teleport(int line, int col) { //BV : à revoir, ceci ajoute le fermier en line/col, c'est la parcelle qui décidera où il doit se trouver dans la liste
+    public void teleport(int line, int col) {
         System.out.println("CLICK" + line+ "<--> "+col);
         removeElemFromCell(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY(), ParcelleValue.FARMER);
         Position newPosFarmer = new Position(line,col);
         farmer.setPosFarmer(newPosFarmer.getX(),newPosFarmer.getY()); //BV dans spawn
-        //ferme.setFarmerInFarm(farmer);
         ferme.spawnFarmer(farmer, line, col);
     }
     public void moveFarmer(Move move) {
@@ -265,17 +263,11 @@ public class FermeFacade {
 //        ferme.spawnFarmer(farmer, farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
     }
 
-    void dropGrass(){ //BV : voir plus haut
-        Position posGrass = new Position(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
-        farmer.plantGrass(posGrass);//K:Pour DEBUG
+    void dropGrass(){
         Grass grass = new Grass(terrain.getParcelle(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()));
-
         grass.nbJours.bind(nbJours);
-
         System.out.println(!containsElementType(ParcelleValue.GRASS,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) );
-        //addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(),new Grass());
         ferme.addElementToCell(grass,farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
-
     }
 
     void plantCabbage(){
@@ -290,7 +282,6 @@ public class FermeFacade {
         Carrot carrot = new Carrot(terrain.getParcelle(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY())  );
         //Position posCarrot = new Position(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
         addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(), carrot);
-
         carrot.nbJoursProperty().bind(nbJours);
     }
 
