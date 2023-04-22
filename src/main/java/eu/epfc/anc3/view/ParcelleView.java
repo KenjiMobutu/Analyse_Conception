@@ -28,6 +28,7 @@ public class ParcelleView extends StackPane {
     private static final Image CARROTROTTEN = new Image("rotten_carrot.png");
     private static final Image SHEEP = new Image("sheep.png");
     private static final Image COW = new Image("cow.png");
+    private static final Image COWBABY = new Image("cowBaby.png");
 
 
 
@@ -51,6 +52,7 @@ public class ParcelleView extends StackPane {
         images.put(ParcelleValue.ROTTEN_CARROT, CARROTROTTEN);
         images.put(ParcelleValue.SHEEP, SHEEP);
         images.put(ParcelleValue.COW, COW);
+        images.put(ParcelleValue.COWBABY, COWBABY);
     }
 
 

@@ -337,6 +337,7 @@ public class FermeFacade {
     private void putCow() {
         Cow cow = new Cow(terrain.getParcelle(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()));
         addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(), cow);
+        cow.nbJoursProperty().bind(nbJours);
     }
     public ReadOnlyIntegerProperty scoreProperty(){
         return score;

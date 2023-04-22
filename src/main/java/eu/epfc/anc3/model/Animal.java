@@ -1,6 +1,6 @@
 package eu.epfc.anc3.model;
 
-public class Animal {
+class Animal {
     private AnimalState currentState;
 
 

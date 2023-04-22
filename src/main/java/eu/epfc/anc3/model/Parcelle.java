@@ -33,6 +33,7 @@ class Parcelle {
 
         elementPriorityMap.put(ParcelleValue.SHEEP, 4);
         elementPriorityMap.put(ParcelleValue.COW, 4);
+        elementPriorityMap.put(ParcelleValue.COWBABY, 4);
 
         elementPriorityMap.put(ParcelleValue.FARMER, 5);
 
