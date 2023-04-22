@@ -1,7 +1,11 @@
 package eu.epfc.anc3.model;
 
+import javafx.application.Platform;
 import javafx.beans.property.*;
 import javafx.collections.ObservableSet;
+import javafx.scene.input.KeyCode;
+
+import java.util.Random;
 
 import static eu.epfc.anc3.model.Terrain.GRID_HEIGHT;
 import static eu.epfc.anc3.model.Terrain.GRID_WIDTH;
@@ -14,8 +18,6 @@ public class FermeFacade {
     private final Farmer farmer = new Farmer();
     //private final Vegetable vegetable = new Vegetable();
     private boolean isPressingAction = false;
-
-
 
     //check si jeu est démarrable :
     private final BooleanProperty isStartable = new SimpleBooleanProperty(false);
@@ -232,6 +234,7 @@ public class FermeFacade {
         System.out.println(ferme.getAllElem(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + " <--- affichage des elements d'une cellule");
 
     }
+    private boolean isRecolting = false;
     void handleAction(){
         if (plantGrass.getValue())
             dropGrass();
@@ -241,16 +244,16 @@ public class FermeFacade {
             PlantCarrot();
         else if (useFertilizer.getValue())
             dropFertilizer();
-        else if (recolt.getValue())
+        else if (recolt.getValue()){
+            isRecolting = true;
             recoltVegetals();
+        }
         else if (putCow.getValue())
             putCow();
         else if (putSheep.getValue())
             putSheep();
         else if (plantCorn.getValue())
             plantCorn();
-
-
 
         displayTerrain(farmer.getPosFarmer());
         spawnFarmerInFarm();
@@ -337,15 +340,29 @@ public class FermeFacade {
         carrot.nbJoursProperty().bind(nbJours);
     }
     void plantCorn(){
-        Corn corn = new Corn(terrain.getParcelle(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()));
-        addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(), corn);
+        // Définir les bornes pour les positions aléatoires
+        int minX = 0;
+        int maxX = 14;
+        int minY = 0;
+        int maxY = 24;
+
+        // Générer des coordonnées aléatoires
+        Random random = new Random();
+        int x = random.nextInt(maxX - minX + 1) + minX;
+        int y = random.nextInt(maxY - minY + 1) + minY;
+
+        Corn corn = new Corn(terrain.getParcelle(x, y));
+        addElementToCell(x, y, corn);
 
         corn.nbJoursProperty().bind(nbJours);
     }
 
     private void recoltVegetals() {
-        //faire fonction addPoint qui récupère le state du légume et les points lié a celui-ci
         ferme.removeVegetables(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
+        if (isRecolting) {
+            Platform.runLater(this::recoltVegetals);
+        }
+        spawnFarmerInFarm();
     }
     private void putSheep() {
         Sheep sheep = new Sheep(terrain.getParcelle(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()));

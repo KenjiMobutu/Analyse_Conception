@@ -106,15 +106,27 @@ class Ferme {
         terrain.removeVegetables(e, line, col);
     }
     void removeVegetables( int line, int col){
-        ObservableSet<Element> elem = getAllElem(line,col);
-        Element lastElement = elem.stream().reduce((a, b) -> b).orElse(null);
+        //ObservableSet<Element> elem = getAllElem(line,col);
+        /*Element lastElement = elem.stream().reduce((a, b) -> b).orElse(null);
         if (lastElement != null ){
             if (lastElement.isVegetable()){
                 Vegetable v = (Vegetable) lastElement;
                 addPoint(v.getCurrentState().getHarvestPoints());
             }
             terrain.removeVegetables(lastElement, line, col);
+        }*/
+        ObservableSet<Element> elem = getAllElem(line, col);
+        Iterator<Element> iterator = elem.iterator();
+        while (iterator.hasNext()) {
+            Element e = iterator.next();
+            if (e.isVegetable()) {
+                Vegetable v = (Vegetable) e;
+                addPoint(v.getCurrentState().getHarvestPoints());
+            }
+            terrain.removeVegetables(e, line, col);
+            iterator.remove();
         }
+
     }
 
     void fertilize(int line, int col){

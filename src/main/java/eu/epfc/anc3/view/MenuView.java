@@ -271,6 +271,7 @@ public class MenuView extends VBox {
         sleepButton.setDisable(true);
         cowButton.setDisable(true);
         sheepButton.setDisable(true);
+        cornButton.setDisable(true);
         menuViewModel.stop();
         nbJour.setText("0");
         manageNewGameButton();
@@ -317,6 +318,7 @@ public class MenuView extends VBox {
             sleepButton.setDisable(false);
             cowButton.setDisable(false);
             sheepButton.setDisable(false);
+            cornButton.setDisable(false);
             menuViewModel.newGame();
             if (toggleGroup.getSelectedToggle() != null) {
                 toggleGroup.getSelectedToggle().setSelected(false);
