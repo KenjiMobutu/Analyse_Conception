@@ -29,8 +29,10 @@ public class ParcelleView extends StackPane {
     private static final Image SHEEP = new Image("sheep.png");
     private static final Image COW = new Image("cow.png");
     private static final Image COWBABY = new Image("cowBaby.png");
-
-
+    private static final Image CORN1 = new Image("corn1.png");
+    private static final Image CORN2 = new Image("corn2.png");
+    private static final Image CORN3 = new Image("corn3.png");
+    private static final Image CORN4 = new Image("corn4.png");
 
     private final ImageView imageView = new ImageView();
 
@@ -49,6 +51,10 @@ public class ParcelleView extends StackPane {
         images.put(ParcelleValue.CARROT2, CARROT2);
         images.put(ParcelleValue.CARROT3, CARROT3);
         images.put(ParcelleValue.CARROT4, CARROT4);
+        images.put(ParcelleValue.CORN1, CORN1);
+        images.put(ParcelleValue.CORN2, CORN2);
+        images.put(ParcelleValue.CORN3, CORN3);
+        images.put(ParcelleValue.CORN4, CORN4);
         images.put(ParcelleValue.ROTTEN_CARROT, CARROTROTTEN);
         images.put(ParcelleValue.SHEEP, SHEEP);
         images.put(ParcelleValue.COW, COW);

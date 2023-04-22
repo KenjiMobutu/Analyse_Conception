@@ -31,6 +31,11 @@ class Parcelle {
         elementPriorityMap.put(ParcelleValue.CABBAGE4, 3);
         elementPriorityMap.put(ParcelleValue.ROTTEN_CABBAGE, 3);
 
+        elementPriorityMap.put(ParcelleValue.CORN1, 3);
+        elementPriorityMap.put(ParcelleValue.CORN2, 3);
+        elementPriorityMap.put(ParcelleValue.CORN3, 3);
+        elementPriorityMap.put(ParcelleValue.CORN4, 3);
+
         elementPriorityMap.put(ParcelleValue.SHEEP, 4);
         elementPriorityMap.put(ParcelleValue.COW, 4);
         elementPriorityMap.put(ParcelleValue.COWBABY, 4);
@@ -82,15 +87,6 @@ class Parcelle {
                 return true;
         }
         return false;
-    }
-//
-    void removeElement(Element e) {
-        elements.remove(e);
-    }
-
-
-   void removeRottenVegetables() {
-        elements.removeIf(Element::isRotten);
     }
 
 }

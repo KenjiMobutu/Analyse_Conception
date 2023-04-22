@@ -40,6 +40,9 @@ public class MenuViewModel {
     public ReadOnlyStringProperty sheepLabelProperty() {
         return new SimpleStringProperty("Mouton");
     }
+    public ReadOnlyStringProperty cornLabelProperty() {
+        return new SimpleStringProperty("Maïs");
+    }
     public void start() {fermeFacade.start();}
     public void stop() {fermeFacade.stop();}
     public void plantGrassMode(){fermeFacade.plantGrassMode();}
@@ -61,6 +64,7 @@ public class MenuViewModel {
 
     public void cowMode() {fermeFacade.cowMode();}
     public void sheepMode() {fermeFacade.sheepMode();}
+    public void cornMode() {fermeFacade.cornMode();}
 
     //public ReadOnlyIntegerProperty nbGrass(){return fermeFacade.getNbGrass();}//K:pour DEBUG
 

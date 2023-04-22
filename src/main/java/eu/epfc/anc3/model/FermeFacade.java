@@ -44,6 +44,7 @@ public class FermeFacade {
     private final BooleanProperty recolt = new SimpleBooleanProperty(false);
     private final BooleanProperty putCow = new SimpleBooleanProperty(false);
     private final BooleanProperty putSheep = new SimpleBooleanProperty(false);
+    private final BooleanProperty plantCorn = new SimpleBooleanProperty(false);
 
 
     private final IntegerProperty nbJours = new SimpleIntegerProperty(0);
@@ -70,6 +71,7 @@ public class FermeFacade {
                 .or(ferme.fermeStatusProperty().isEqualTo(FermeStatus.FERTILIZER))
                 .or(ferme.fermeStatusProperty().isEqualTo(FermeStatus.COW))
                 .or(ferme.fermeStatusProperty().isEqualTo(FermeStatus.SHEEP))
+                .or(ferme.fermeStatusProperty().isEqualTo(FermeStatus.PLANT_CORN))
                 .or(ferme.fermeStatusProperty().isEqualTo(FermeStatus.RECOLT)));
 
         isStarted.bind(ferme.fermeStatusProperty().isNotEqualTo(FermeStatus.START));
@@ -84,6 +86,7 @@ public class FermeFacade {
         useFertilizer.bind(fermeStatusProperty().isEqualTo(FermeStatus.FERTILIZER));
         putCow.bind(fermeStatusProperty().isEqualTo(FermeStatus.COW));
         putSheep.bind(fermeStatusProperty().isEqualTo(FermeStatus.SHEEP));
+        plantCorn.bind(fermeStatusProperty().isEqualTo(FermeStatus.PLANT_CORN));
         score.bind(ferme.getPoint());
     }
 
@@ -151,6 +154,12 @@ public class FermeFacade {
         if (isStarted.getValue()){
             System.out.println("  -> Mouton est possible :) ");
             ferme.sheepMode();
+        }
+    }
+    public void cornMode(){
+        if (isStarted.getValue()){
+            System.out.println("  -> Maïs est possible :) ");
+            ferme.cornMode();
         }
     }
     public void newGame() {
@@ -238,6 +247,9 @@ public class FermeFacade {
             putCow();
         else if (putSheep.getValue())
             putSheep();
+        else if (plantCorn.getValue())
+            plantCorn();
+
 
 
         displayTerrain(farmer.getPosFarmer());
@@ -323,6 +335,12 @@ public class FermeFacade {
         addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(), carrot);
 
         carrot.nbJoursProperty().bind(nbJours);
+    }
+    void plantCorn(){
+        Corn corn = new Corn(terrain.getParcelle(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()));
+        addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(), corn);
+
+        corn.nbJoursProperty().bind(nbJours);
     }
 
     private void recoltVegetals() {

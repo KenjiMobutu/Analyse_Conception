@@ -52,6 +52,8 @@ class Ferme {
     void cowMode() {fermeStatus.set(FermeStatus.COW);}
     void sheepMode() {fermeStatus.set(FermeStatus.SHEEP);}
 
+    void cornMode() {fermeStatus.set(FermeStatus.PLANT_CORN);}
+
     boolean cellContainsElementType(ParcelleValue pv, int line, int col){
         return terrain.containsElementType(pv, line, col);
     }

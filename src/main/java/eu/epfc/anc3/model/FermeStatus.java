@@ -9,5 +9,6 @@ enum FermeStatus {
     FERTILIZER,
     RECOLT,
     COW,
-    SHEEP
+    SHEEP,
+    PLANT_CORN
 }

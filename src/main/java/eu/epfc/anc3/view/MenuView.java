@@ -11,12 +11,6 @@ import javafx.scene.layout.VBox;
 
 public class MenuView extends VBox {
 
-
-    /**
-     *
-     *              ---------------> SUPPRIMER LE COMPTEUR DE GRASS AVANT LA REMISE </--------------->
-     */
-
     private final Label scoreLabel = new Label("Score : ");
     private final TextField nbScore = new TextField("0");
     private final Label jourLabel = new Label("Jour : ");
@@ -35,10 +29,11 @@ public class MenuView extends VBox {
     private final ToggleButton recoltButton = new ToggleButton();
     private final ToggleButton cowButton = new ToggleButton();
     private final ToggleButton sheepButton = new ToggleButton();
+    private final ToggleButton cornButton = new ToggleButton();
     private final MenuViewModel menuViewModel;
     private final HBox nbHbox;
 
-    VBox actionVbox = new VBox(plantButtonGrass,plantCarotteButton, plantCabbageButton,fertilizerButton,recoltButton,cowButton,sheepButton);
+    VBox actionVbox = new VBox(plantButtonGrass,plantCarotteButton, plantCabbageButton,cornButton,fertilizerButton,recoltButton,cowButton,sheepButton);
     HBox buttons = new HBox(startButton,sleepButton);
 
     public MenuView(MenuViewModel menuViewModel) {
@@ -57,8 +52,10 @@ public class MenuView extends VBox {
         setUpSleepAction();
         setUpCowButton();
         setUpSheepButton();
+        setUpCornButton();
 
     }
+
 
 
     private void configureMenu(){
@@ -78,6 +75,7 @@ public class MenuView extends VBox {
 
         cowButton.setPrefSize(145, 10);
         sheepButton.setPrefSize(145, 10);
+        cornButton.setPrefSize(145, 10);
         setUpButtonMode();
         setUpImages();
         // nbGrassTextField.setDisable(true);
@@ -111,6 +109,7 @@ public class MenuView extends VBox {
         sleepButton.setDisable(true);
         cowButton.setDisable(true);
         sheepButton.setDisable(true);
+        cornButton.setDisable(true);
 
     }
     private void setUpImages(){
@@ -152,6 +151,11 @@ public class MenuView extends VBox {
         ImageView view7 = new ImageView(img7);
         sheepButton.setGraphic(view7);
         sheepButton.setFocusTraversable(false);
+
+        Image img8 = new Image("corn0.png");
+        ImageView view8 = new ImageView(img8);
+        cornButton.setGraphic(view8);
+        cornButton.setFocusTraversable(false);
     }
 
     private void manageScore(){
@@ -168,6 +172,7 @@ public class MenuView extends VBox {
         unPlantButton.setToggleGroup(toggleGroup);
         cowButton.setToggleGroup(toggleGroup);
         sheepButton.setToggleGroup(toggleGroup);
+        cornButton.setToggleGroup(toggleGroup);
     }
 
     private void bindLabelsToViewModel() {
@@ -181,6 +186,7 @@ public class MenuView extends VBox {
         recoltButton.textProperty().bind(menuViewModel.recoltLabelProperty());
         cowButton.textProperty().bind(menuViewModel.cowLabelProperty());
         sheepButton.textProperty().bind(menuViewModel.sheepLabelProperty());
+        cornButton.textProperty().bind(menuViewModel.cornLabelProperty());
     }
 
     HBox createNewHobx() {
@@ -215,6 +221,8 @@ public class MenuView extends VBox {
     private void setUpCowButton() {
         cowButton.setOnAction(e -> handleCowButtonAction());
     }
+    private void setUpCornButton() { cornButton.setOnAction(e -> handleCornButtonAction());
+    }
 
     private void setUpSleepAction(){
         sleepButton.setOnAction(event -> {
@@ -246,6 +254,7 @@ public class MenuView extends VBox {
         saveButton.setDisable(false);
         cowButton.setDisable(false);
         sheepButton.setDisable(false);
+        cornButton.setDisable(false);
         menuViewModel.start();
     }
 
@@ -291,10 +300,9 @@ public class MenuView extends VBox {
     private void handleSheepButtonAction() {
         menuViewModel.sheepMode();
     }
-    private void handleCowButtonAction() {
-        menuViewModel.cowMode();
-    }
+    private void handleCowButtonAction() {menuViewModel.cowMode();}
 
+    private void handleCornButtonAction() {menuViewModel.cornMode();}
     private void manageNewGameButton() {
         buttons.getChildren().add(0, startButton);
         startButton.setOnAction(e -> {
