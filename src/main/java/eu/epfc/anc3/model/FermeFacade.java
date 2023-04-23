@@ -58,6 +58,7 @@ public class FermeFacade {
                 .or(ferme.fermeStatusProperty().isEqualTo(FermeStatus.PLANT_CABBAGE))
                 .or(ferme.fermeStatusProperty().isEqualTo(FermeStatus.PLANT_CARROT))
                 .or(ferme.fermeStatusProperty().isEqualTo(FermeStatus.FERTILIZER))
+                .or(ferme.fermeStatusProperty().isEqualTo(FermeStatus.PLANT_YELLOWTHING))
                 .or(ferme.fermeStatusProperty().isEqualTo(FermeStatus.RECOLT)));
 
         isStarted.bind(ferme.fermeStatusProperty().isNotEqualTo(FermeStatus.START));

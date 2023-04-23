@@ -24,7 +24,10 @@ class MenuView extends VBox {
     private final ToggleGroup toggleGroup = new ToggleGroup();
     private final ToggleButton plantCarotteButton = new ToggleButton();
     private final ToggleButton plantCabbageButton = new ToggleButton();
+
     private final ToggleButton plantYellowThing = new ToggleButton("plant yellowTruc");
+
+
     private final ToggleButton fertilizerButton = new ToggleButton();
     private final ToggleButton recoltButton = new ToggleButton();
     private final MenuViewModel menuViewModel;
@@ -44,6 +47,7 @@ class MenuView extends VBox {
         setUpButtonPlantCarott();
         setUpButtonFertilizer();
         setUpButtonRecolt();
+        setUpPlantYellowThingAction();
         setUpButtonUnplant();
         setUpButtonStop();
         setUpSleepAction();
@@ -193,6 +197,7 @@ class MenuView extends VBox {
 
 
     private void setUpPlantYellowThingAction(){plantYellowThing.setOnAction(e -> handlePlantYellowThing());}
+
     private void setUpSleepAction(){
         sleepButton.setOnAction(event -> {
             int nbJours = Integer.parseInt(nbJour.getText());

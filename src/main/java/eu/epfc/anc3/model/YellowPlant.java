@@ -115,7 +115,7 @@ public class YellowPlant extends Vegetable implements Element {
             }
 
             public ParcelleValue getType() {
-                return ParcelleValue.CARROT1;
+                return ParcelleValue.YELLOW1;
             }
 
             @Override
@@ -184,7 +184,7 @@ public class YellowPlant extends Vegetable implements Element {
                 }
             }
             public ParcelleValue getType() {
-                return ParcelleValue.CARROT2;
+                return ParcelleValue.YELLOW2;
             }
 
             @Override
@@ -243,7 +243,7 @@ public class YellowPlant extends Vegetable implements Element {
                 }
             }
             public ParcelleValue getType() {
-                return ParcelleValue.CARROT3;
+                return ParcelleValue.YELLOW3;
             }
 
             @Override
@@ -300,7 +300,7 @@ public class YellowPlant extends Vegetable implements Element {
                 }
             }
             public ParcelleValue getType() {
-                return ParcelleValue.CARROT4;
+                return ParcelleValue.YELLOW4;
             }
 
             @Override
@@ -351,7 +351,7 @@ public class YellowPlant extends Vegetable implements Element {
                 nbJours++;
             }
             public ParcelleValue getType() {
-                return ParcelleValue.ROTTEN_CARROT;
+                return ParcelleValue.ROTTEN_YELLOW;
             }
 
             @Override
