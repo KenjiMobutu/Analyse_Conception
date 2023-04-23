@@ -24,12 +24,13 @@ class MenuView extends VBox {
     private final ToggleGroup toggleGroup = new ToggleGroup();
     private final ToggleButton plantCarotteButton = new ToggleButton();
     private final ToggleButton plantCabbageButton = new ToggleButton();
+    private final ToggleButton plantYellowThing = new ToggleButton("plant yellowTruc");
     private final ToggleButton fertilizerButton = new ToggleButton();
     private final ToggleButton recoltButton = new ToggleButton();
     private final MenuViewModel menuViewModel;
     private final HBox nbHbox;
 
-    VBox actionVbox = new VBox(plantButtonGrass,plantCarotteButton, plantCabbageButton,fertilizerButton,recoltButton);
+    VBox actionVbox = new VBox(plantButtonGrass,plantCarotteButton, plantCabbageButton,plantYellowThing,fertilizerButton,recoltButton);
     HBox buttons = new HBox(startButton,sleepButton);
 
     public MenuView(MenuViewModel menuViewModel) {
@@ -113,6 +114,13 @@ class MenuView extends VBox {
         plantCarotteButton.setFocusTraversable(false);
         plantCarotteButton.setPrefSize(145, 10);
 
+        Image imgYellow = new Image("trucJaune5.png");
+        ImageView view66 = new ImageView(imgYellow);
+        plantYellowThing.setGraphic(view66);
+        plantYellowThing.setFocusTraversable(false);
+        plantYellowThing.setPrefSize(145, 10);
+
+
         Image img3 = new Image("watering_can.png");
         ImageView view3 = new ImageView(img3);
         fertilizerButton.setGraphic(view3);
@@ -143,6 +151,7 @@ class MenuView extends VBox {
         fertilizerButton.setToggleGroup(toggleGroup);
         recoltButton.setToggleGroup(toggleGroup);
         unPlantButton.setToggleGroup(toggleGroup);
+        plantYellowThing.setToggleGroup(toggleGroup);
     }
 
     private void bindLabelsToViewModel() {
@@ -182,6 +191,8 @@ class MenuView extends VBox {
         fertilizerButton.setOnAction(e -> handleFertilizerButtonAction());
     }
 
+
+    private void setUpPlantYellowThingAction(){plantYellowThing.setOnAction(e -> handlePlantYellowThing());}
     private void setUpSleepAction(){
         sleepButton.setOnAction(event -> {
             int nbJours = Integer.parseInt(nbJour.getText());
@@ -240,6 +251,9 @@ class MenuView extends VBox {
     }
     private void handleFertilizerButtonAction() {
         menuViewModel.fertilizerMode();
+    }
+    private void handlePlantYellowThing() {
+        menuViewModel.plantYellowThingMode();
     }
     private void handleRecoltButtonAction() {
         menuViewModel.recoltMode();

@@ -39,6 +39,9 @@ class Ferme {
     void fertilizerMode() {
         fermeStatus.setValue(FermeStatus.FERTILIZER);
     }
+    void plantYellowThingMode() {
+        fermeStatus.setValue(FermeStatus.PLANT_YELLOWTHING);
+    }
 
     void recoltMode() {
         fermeStatus.setValue(FermeStatus.RECOLT);

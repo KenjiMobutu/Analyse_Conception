@@ -38,6 +38,7 @@ public class FermeFacade {
     private final BooleanProperty deplantGrass = new SimpleBooleanProperty(false);
     private final BooleanProperty plantCarrot = new SimpleBooleanProperty(false);
     private final BooleanProperty plantCabbage = new SimpleBooleanProperty(false);
+    private final BooleanProperty plantYellow = new SimpleBooleanProperty(false);
     private final BooleanProperty useFertilizer = new SimpleBooleanProperty(false);
     private final BooleanProperty recolt = new SimpleBooleanProperty(false);
     private final IntegerProperty nbJours = new SimpleIntegerProperty(0);
@@ -67,6 +68,7 @@ public class FermeFacade {
         deplantGrass.bind(fermeStatusProperty().isEqualTo(FermeStatus.DEPLANT_GRASS));
         plantCabbage.bind(fermeStatusProperty().isEqualTo(FermeStatus.PLANT_CABBAGE));
         plantCarrot.bind(fermeStatusProperty().isEqualTo(FermeStatus.PLANT_CARROT));
+        plantYellow.bind(fermeStatusProperty().isEqualTo(FermeStatus.PLANT_YELLOWTHING));
         recolt.bind(fermeStatusProperty().isEqualTo(FermeStatus.RECOLT));
         useFertilizer.bind(fermeStatusProperty().isEqualTo(FermeStatus.FERTILIZER));
         score.bind(ferme.getPoint());
@@ -111,6 +113,12 @@ public class FermeFacade {
         if (isStarted.getValue()){
             System.out.println("  -> Fertilizer est possible :) ");
             ferme.fertilizerMode();
+        }
+    }
+    public void plantYellowThingMode() {
+        if (isStarted.getValue()){
+            System.out.println("  -> Fertilizer est possible :) ");
+            ferme.plantYellowThingMode();
         }
     }
     public void recoltMode() {
@@ -204,6 +212,9 @@ public class FermeFacade {
             PlantCarrot();
         else if (useFertilizer.getValue())
             dropFertilizer();
+        else if (plantYellow.getValue()){
+            plantYellowThing();
+        }
         else if (recolt.getValue())
             recoltVegetals();
 
@@ -276,6 +287,11 @@ public class FermeFacade {
         //Position posCarrot = new Position(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
         addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(), carrot);
         carrot.nbJoursProperty().bind(nbJours);
+    }
+    void plantYellowThing(){
+        YellowPlant yellow = new YellowPlant(terrain.getParcelle(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()));
+        addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(), yellow);
+        yellow.nbJoursProperty().bind(nbJours);
     }
 
     private void recoltVegetals() {

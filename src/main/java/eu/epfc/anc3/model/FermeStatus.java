@@ -7,5 +7,6 @@ enum FermeStatus {
     PLANT_CABBAGE,
     PLANT_CARROT,
     FERTILIZER,
-    RECOLT
+    RECOLT,
+    PLANT_YELLOWTHING
 }
