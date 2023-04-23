@@ -53,6 +53,7 @@ class Ferme {
     void sheepMode() {fermeStatus.set(FermeStatus.SHEEP);}
 
     void cornMode() {fermeStatus.set(FermeStatus.PLANT_CORN);}
+    void strawberryMode() {fermeStatus.set(FermeStatus.PLANT_STRAWBERRY);}
 
     boolean cellContainsElementType(ParcelleValue pv, int line, int col){
         return terrain.containsElementType(pv, line, col);
@@ -106,16 +107,16 @@ class Ferme {
         terrain.removeVegetables(e, line, col);
     }
     void removeVegetables( int line, int col){
-        //ObservableSet<Element> elem = getAllElem(line,col);
-        /*Element lastElement = elem.stream().reduce((a, b) -> b).orElse(null);
+        ObservableSet<Element> elem = getAllElem(line,col);
+        Element lastElement = elem.stream().reduce((a, b) -> b).orElse(null);
         if (lastElement != null ){
             if (lastElement.isVegetable()){
                 Vegetable v = (Vegetable) lastElement;
                 addPoint(v.getCurrentState().getHarvestPoints());
             }
             terrain.removeVegetables(lastElement, line, col);
-        }*/
-        ObservableSet<Element> elem = getAllElem(line, col);
+        }
+        /*ObservableSet<Element> elem = getAllElem(line, col);
         Iterator<Element> iterator = elem.iterator();
         while (iterator.hasNext()) {
             Element e = iterator.next();
@@ -125,7 +126,7 @@ class Ferme {
             }
             terrain.removeVegetables(e, line, col);
             iterator.remove();
-        }
+        }*/
 
     }
 

@@ -36,6 +36,10 @@ class Parcelle {
         elementPriorityMap.put(ParcelleValue.CORN3, 3);
         elementPriorityMap.put(ParcelleValue.CORN4, 3);
 
+        elementPriorityMap.put(ParcelleValue.STRAWBERRY1, 3);
+        elementPriorityMap.put(ParcelleValue.STRAWBERRY2, 3);
+        elementPriorityMap.put(ParcelleValue.STRAWBERRY3, 3);
+
         elementPriorityMap.put(ParcelleValue.SHEEP, 4);
         elementPriorityMap.put(ParcelleValue.COW, 4);
         elementPriorityMap.put(ParcelleValue.COWBABY, 4);

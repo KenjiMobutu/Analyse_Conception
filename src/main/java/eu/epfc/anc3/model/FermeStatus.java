@@ -10,5 +10,6 @@ enum FermeStatus {
     RECOLT,
     COW,
     SHEEP,
-    PLANT_CORN
+    PLANT_CORN,
+    PLANT_STRAWBERRY
 }

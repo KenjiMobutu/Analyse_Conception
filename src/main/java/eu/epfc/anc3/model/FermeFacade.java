@@ -47,7 +47,7 @@ public class FermeFacade {
     private final BooleanProperty putCow = new SimpleBooleanProperty(false);
     private final BooleanProperty putSheep = new SimpleBooleanProperty(false);
     private final BooleanProperty plantCorn = new SimpleBooleanProperty(false);
-
+    private final BooleanProperty plantStrawberry = new SimpleBooleanProperty(false);
 
     private final IntegerProperty nbJours = new SimpleIntegerProperty(0);
     private final IntegerProperty score = new SimpleIntegerProperty(0);
@@ -74,6 +74,7 @@ public class FermeFacade {
                 .or(ferme.fermeStatusProperty().isEqualTo(FermeStatus.COW))
                 .or(ferme.fermeStatusProperty().isEqualTo(FermeStatus.SHEEP))
                 .or(ferme.fermeStatusProperty().isEqualTo(FermeStatus.PLANT_CORN))
+                .or(ferme.fermeStatusProperty().isEqualTo(FermeStatus.PLANT_STRAWBERRY))
                 .or(ferme.fermeStatusProperty().isEqualTo(FermeStatus.RECOLT)));
 
         isStarted.bind(ferme.fermeStatusProperty().isNotEqualTo(FermeStatus.START));
@@ -89,6 +90,7 @@ public class FermeFacade {
         putCow.bind(fermeStatusProperty().isEqualTo(FermeStatus.COW));
         putSheep.bind(fermeStatusProperty().isEqualTo(FermeStatus.SHEEP));
         plantCorn.bind(fermeStatusProperty().isEqualTo(FermeStatus.PLANT_CORN));
+        plantStrawberry.bind(fermeStatusProperty().isEqualTo(FermeStatus.PLANT_STRAWBERRY));
         score.bind(ferme.getPoint());
     }
 
@@ -164,6 +166,12 @@ public class FermeFacade {
             ferme.cornMode();
         }
     }
+    public void strawberryMode(){
+        if (isStarted.getValue()){
+            System.out.println("  -> Fraise est possible :) ");
+            ferme.strawberryMode();
+        }
+    }
     public void newGame() {
         System.out.println("Le joueur souhaite rejouer : ");
         if (isStopped.getValue()){
@@ -234,7 +242,7 @@ public class FermeFacade {
         System.out.println(ferme.getAllElem(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + " <--- affichage des elements d'une cellule");
 
     }
-    private boolean isRecolting = false;
+
     void handleAction(){
         if (plantGrass.getValue())
             dropGrass();
@@ -244,16 +252,17 @@ public class FermeFacade {
             PlantCarrot();
         else if (useFertilizer.getValue())
             dropFertilizer();
-        else if (recolt.getValue()){
-            isRecolting = true;
+        else if (recolt.getValue())
             recoltVegetals();
-        }
         else if (putCow.getValue())
             putCow();
         else if (putSheep.getValue())
             putSheep();
         else if (plantCorn.getValue())
             plantCorn();
+        else if (plantStrawberry.getValue())
+            plantStrawberry();
+
 
         displayTerrain(farmer.getPosFarmer());
         spawnFarmerInFarm();
@@ -356,13 +365,26 @@ public class FermeFacade {
 
         corn.nbJoursProperty().bind(nbJours);
     }
+    void plantStrawberry(){
+        // Définir les bornes pour les positions aléatoires
+        int minX = 0;
+        int maxX = 14;
+        int minY = 0;
+        int maxY = 24;
+
+        // Générer des coordonnées aléatoires
+        Random random = new Random();
+        int x = random.nextInt(maxX - minX + 1) + minX;
+        int y = random.nextInt(maxY - minY + 1) + minY;
+
+        Strawberry strawberry = new Strawberry(terrain.getParcelle(x, y));
+        addElementToCell(x, y, strawberry);
+
+        strawberry.nbJoursProperty().bind(nbJours);
+    }
 
     private void recoltVegetals() {
         ferme.removeVegetables(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
-        if (isRecolting) {
-            Platform.runLater(this::recoltVegetals);
-        }
-        spawnFarmerInFarm();
     }
     private void putSheep() {
         Sheep sheep = new Sheep(terrain.getParcelle(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()));
@@ -370,8 +392,18 @@ public class FermeFacade {
     }
 
     private void putCow() {
-        Cow cow = new Cow(terrain.getParcelle(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()));
-        addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(), cow);
+        // Définir les bornes pour les positions aléatoires
+        int minX = 0;
+        int maxX = 14;
+        int minY = 0;
+        int maxY = 24;
+
+        // Générer des coordonnées aléatoires
+        Random random = new Random();
+        int x = random.nextInt(maxX - minX + 1) + minX;
+        int y = random.nextInt(maxY - minY + 1) + minY;
+        Cow cow = new Cow(terrain.getParcelle(x, y));
+        addElementToCell(x, y, cow);
         cow.nbJoursProperty().bind(nbJours);
     }
     public ReadOnlyIntegerProperty scoreProperty(){
