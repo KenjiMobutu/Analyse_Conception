@@ -14,6 +14,8 @@ class MenuView extends VBox {
     private final TextField nbScore = new TextField("0");
     private final Label jourLabel = new Label("Jour : ");
     private final TextField nbJour = new TextField("0");
+    private final Label graine = new Label("Graine : ");
+    private final TextField nbGraine = new TextField("0");
     private final Button startButton = new Button();
     private final Button sleepButton = new Button("sleep");
     private final Button stopButton = new Button();
@@ -74,6 +76,7 @@ class MenuView extends VBox {
         // nbGrassTextField.setDisable(true);
 
         manageScore();
+        manageGraine();
         addToToggleGroup();
         bindLabelsToViewModel();
     }
@@ -91,6 +94,7 @@ class MenuView extends VBox {
         unPlantButton.setFocusTraversable(false);
         /*---------*/
         nbJour.setDisable(true);
+        nbGraine.setDisable(true);
         nbScore.setDisable(true);
         plantButtonGrass.setDisable(true);
         unPlantButton.setDisable(true);
@@ -146,6 +150,9 @@ class MenuView extends VBox {
     private void manageScore(){
         nbScore.textProperty().bind(menuViewModel.score().asString());
     }
+    private void manageGraine(){
+        nbGraine.textProperty().bind(menuViewModel.graine().asString());
+    }
 
 
     private void addToToggleGroup(){
@@ -170,7 +177,7 @@ class MenuView extends VBox {
     }
 
     HBox createNewHobx() {
-        return new HBox(scoreLabel,nbScore ,jourLabel,nbJour);//K:pour DEBUG
+        return new HBox(scoreLabel,nbScore ,jourLabel,nbJour, graine,nbGraine);//K:pour DEBUG
     }
     public void setUpButtonStart() {
         startButton.setOnAction(e -> handleStartButtonAction());

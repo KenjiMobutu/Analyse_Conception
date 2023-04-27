@@ -106,6 +106,11 @@ public class YellowPlant extends Vegetable implements Element {
             }
 
             @Override
+            public boolean isMaxLevel() {
+                return false;
+            }
+
+            @Override
             public void nextState() {
                 vegetable.setCurrentState(new YellowPlant.YellowPlantState2(vegetable));
                 System.out.println("Carrot state 1 changed to state 2");
@@ -157,6 +162,11 @@ public class YellowPlant extends Vegetable implements Element {
 
             @Override
             public boolean isRotten() {
+                return false;
+            }
+
+            @Override
+            public boolean isMaxLevel() {
                 return false;
             }
 
@@ -220,6 +230,11 @@ public class YellowPlant extends Vegetable implements Element {
             }
 
             @Override
+            public boolean isMaxLevel() {
+                return false;
+            }
+
+            @Override
             public void nextState() {
                 System.out.println("Carrot state 3 changed to state 4");
                 setState(new YellowPlant.YellowPlantState4(vegetable));
@@ -275,6 +290,11 @@ public class YellowPlant extends Vegetable implements Element {
             @Override
             public boolean isRotten() {
                 return false;
+            }
+
+            @Override
+            public boolean isMaxLevel() {
+                return true;
             }
 
             @Override
@@ -338,6 +358,11 @@ public class YellowPlant extends Vegetable implements Element {
             @Override
             public boolean isRotten() {
                 return maxGrowthDays == nbJours;
+            }
+
+            @Override
+            public boolean isMaxLevel() {
+                return false;
             }
 
             @Override

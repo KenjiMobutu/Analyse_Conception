@@ -104,6 +104,11 @@ class Carrot extends Vegetable implements Element {
         }
 
         @Override
+        public boolean isMaxLevel() {
+            return false;
+        }
+
+        @Override
         public void nextState() {
             vegetable.setCurrentState(new CarrotState2(vegetable));
             System.out.println("Carrot state 1 changed to state 2");
@@ -155,6 +160,11 @@ class Carrot extends Vegetable implements Element {
 
         @Override
         public boolean isRotten() {
+            return false;
+        }
+
+        @Override
+        public boolean isMaxLevel() {
             return false;
         }
 
@@ -218,6 +228,11 @@ class Carrot extends Vegetable implements Element {
         }
 
         @Override
+        public boolean isMaxLevel() {
+            return false;
+        }
+
+        @Override
         public void nextState() {
             System.out.println("Carrot state 3 changed to state 4");
             setState(new CarrotState4(vegetable));
@@ -273,6 +288,11 @@ class Carrot extends Vegetable implements Element {
         @Override
         public boolean isRotten() {
             return false;
+        }
+
+        @Override
+        public boolean isMaxLevel() {
+            return true;
         }
 
         @Override
@@ -336,6 +356,11 @@ class Carrot extends Vegetable implements Element {
         @Override
         public boolean isRotten() {
             return maxGrowthDays == nbJours;
+        }
+
+        @Override
+        public boolean isMaxLevel() {
+            return false;
         }
 
         @Override

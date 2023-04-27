@@ -52,6 +52,7 @@ public class MenuViewModel {
         fermeFacade.newGame();
     }
     public ReadOnlyIntegerProperty score(){return fermeFacade.scoreProperty();}
+    public ReadOnlyIntegerProperty graine(){return fermeFacade.graineProperty();}
     public void sleepMode() {
         fermeFacade.nextDay();
     }
