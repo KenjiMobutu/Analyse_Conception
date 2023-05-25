@@ -106,17 +106,11 @@ class Ferme {
         }
         terrain.removeVegetables(e, line, col);
     }
-    void removeVegetables( int line, int col){
-        ObservableSet<Element> elem = getAllElem(line,col);
-        Element lastElement = elem.stream().reduce((a, b) -> b).orElse(null);
-        if (lastElement != null ){
-            if (lastElement.isVegetable()){
-                Vegetable v = (Vegetable) lastElement;
-                addPoint(v.getCurrentState().getHarvestPoints());
-            }
-            terrain.removeVegetables(lastElement, line, col);
-        }
-        /*ObservableSet<Element> elem = getAllElem(line, col);
+    boolean removeVegetables( int line, int col){
+        /*Vérifie si le niveau de l'élément (dans ce cas, un légume) est au maximum en appelant la méthode isMaxLevel.
+        La méthode removeVegetables renvoie true si au moins un légume a été supprimé et son niveau est au maximum,
+        sinon elle renvoie false.*/
+        ObservableSet<Element> elem = getAllElem(line, col);
         Iterator<Element> iterator = elem.iterator();
         while (iterator.hasNext()) {
             Element e = iterator.next();
@@ -124,10 +118,19 @@ class Ferme {
                 Vegetable v = (Vegetable) e;
                 addPoint(v.getCurrentState().getHarvestPoints());
             }
-            terrain.removeVegetables(e, line, col);
             iterator.remove();
-        }*/
+            terrain.removeVegetables(e, line, col);
+            return isMaxLevel(e);
+        }
+        return false;
+    }
 
+    boolean isMaxLevel(Element e){///// Exam - Verifie si le niveau de l'element est au max (bon état)
+       if (e.isVegetable() ){
+           Vegetable v = (Vegetable) e;
+           return v.getCurrentState().stateProperty() == 4;
+       }
+        return false;
     }
 
     void fertilize(int line, int col){

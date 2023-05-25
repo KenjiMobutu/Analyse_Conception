@@ -51,7 +51,7 @@ public class FermeFacade {
 
     private final IntegerProperty nbJours = new SimpleIntegerProperty(0);
     private final IntegerProperty score = new SimpleIntegerProperty(0);
-
+    private final IntegerProperty graine = new SimpleIntegerProperty(0);///// Exam - déclare une propriété entière nommée graine avec une valeur initiale de 0.
 
     // retourne les éléments d'une cellule :
     public ObservableSet<ParcelleValue> getElementsType(int line, int col){ //BV : à enlevefr
@@ -99,6 +99,7 @@ public class FermeFacade {
 
     public void start(){
         if (isStartable.get()){
+            graine.set(5); /// Exam - initialise la valeur de graine à 5
             System.out.println(" -> lancement du jeu :) ");
             ferme.start();
             spawnFarmerInFarm();
@@ -178,6 +179,7 @@ public class FermeFacade {
             ferme.newGame();
             farmer.setPosFarmer(0,0);
             spawnFarmerInFarm();
+            graine.set(5);//// Exam - initialise la valeur de graine à 5
             ferme.setScore(0);
             System.out.println("le jeu est relancé :D ");
         }
@@ -319,34 +321,45 @@ public class FermeFacade {
 
 //        ferme.spawnFarmer(farmer, farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
     }
+    boolean hasSeed(){ ////Exam - Vérifie si le fermier a des graines
+        return graine.get() > 0;
+    }
 
     void dropGrass(){ //BV : voir plus haut
         Position posGrass = new Position(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
-        farmer.plantGrass(posGrass);//K:Pour DEBUG
-        Grass grass = new Grass(terrain.getParcelle(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()));
 
-        grass.nbJours.bind(nbJours);
+        if (hasSeed() && !containsElementType(ParcelleValue.GRASS,posGrass.x,posGrass.y)){ ///Exam - Vérifie si le fermier a des graines et si il n'y a pas déjà de l'herbe
+            Grass grass = new Grass(terrain.getParcelle(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()));
 
-        System.out.println(!containsElementType(ParcelleValue.GRASS,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) );
-        //addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(),new Grass());
-        ferme.addElementToCell(grass,farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
+            grass.nbJours.bind(nbJours);
+
+            System.out.println(!containsElementType(ParcelleValue.GRASS,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) );
+            //addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(),new Grass());
+            ferme.addElementToCell(grass,farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
+            graine.set(graine.get()-1);////Exam - Retire une graine
+        }
+
 
     }
 
     void plantCabbage(){
-        Cabbage cabbage = new Cabbage(terrain.getParcelle(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()));
-        addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(),cabbage);
+        if (hasSeed() && !ferme.cellContainsVegetable(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY())) { ////Exam - Vérifie si le fermier a des graines et si il n'y a pas déjà de chou
+            Cabbage cabbage = new Cabbage(terrain.getParcelle(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()));
+            addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(), cabbage);
 
-        cabbage.nbJoursProperty().bind(nbJours);
-
-        System.out.println(ferme.getAllElem(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "ICI Cabbage");
+            cabbage.nbJoursProperty().bind(nbJours);
+            graine.set(graine.get() - 1);////Exam - Retire une graine
+            System.out.println(ferme.getAllElem(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "ICI Cabbage");
+        }
     }
     void PlantCarrot(){
-        Carrot carrot = new Carrot(terrain.getParcelle(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY())  );
-        //Position posCarrot = new Position(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
-        addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(), carrot);
-
-        carrot.nbJoursProperty().bind(nbJours);
+        if (hasSeed() && !ferme.cellContainsVegetable(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY())) { ////Exam - Vérifie si le fermier a des graines et si il n'y a pas déjà de carotte
+            Carrot carrot = new Carrot(terrain.getParcelle(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()));
+            //Position posCarrot = new Position(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
+            addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(), carrot);
+            graine.set(graine.get() - 1); ////Exam - Retire une graine
+            carrot.nbJoursProperty().bind(nbJours);
+        }
     }
     void plantCorn(){
         // Définir les bornes pour les positions aléatoires
@@ -384,7 +397,8 @@ public class FermeFacade {
     }
 
     private void recoltVegetals() {
-        ferme.removeVegetables(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
+        if(ferme.removeVegetables(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY()))////Exam - Vérifie si il y a des légumes à récolter
+            graine.set(graine.get()+1);////Exam - Ajoute une graine
     }
     private void putSheep() {
         Sheep sheep = new Sheep(terrain.getParcelle(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()));
@@ -409,6 +423,9 @@ public class FermeFacade {
     public ReadOnlyIntegerProperty scoreProperty(){
         return score;
     }
+    public ReadOnlyIntegerProperty graineProperty(){////Exam - Retourne le nombre de graines
+        return graine;
+    }
 
     private void dropFertilizer() {
         ferme.fertilize(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
@@ -421,6 +438,7 @@ public class FermeFacade {
 
     public IntegerProperty nextDayProperty() {
         nbJours.set(nbJours.get() + 1);
+        graine.set(graine.get() + 1);////Exam - Ajoute une graine quand on passe un jour
         System.out.println("ROTTEN VEGGIEs");
         removeRottenVegetables();
         System.out.println(nbJours + "nbJours");

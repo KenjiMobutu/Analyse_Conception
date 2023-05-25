@@ -64,7 +64,7 @@ public class MenuViewModel {
         fermeFacade.newGame();
     }
     public ReadOnlyIntegerProperty score(){return fermeFacade.scoreProperty();}
-
+    public ReadOnlyIntegerProperty graine(){return fermeFacade.graineProperty();}////// Exam
     public void cowMode() {fermeFacade.cowMode();}
     public void sheepMode() {fermeFacade.sheepMode();}
     public void cornMode() {fermeFacade.cornMode();}
