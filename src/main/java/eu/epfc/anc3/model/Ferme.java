@@ -99,7 +99,7 @@ class Ferme {
         }
         terrain.removeVegetables(e, line, col);
     }
-    void removeVegetables( int line, int col){
+    boolean removeVegetables( int line, int col){
         ObservableSet<Element> elem = getAllElem(line,col);
         Element lastElement = elem.stream().reduce((a, b) -> b).orElse(null);
         if (lastElement != null ){
@@ -108,9 +108,13 @@ class Ferme {
                 addPoint(v.getCurrentState().getHarvestPoints());
             }
             terrain.removeVegetables(lastElement, line, col);
+            return isMaxLevel(lastElement);
         }
+        return false;
     }
-
+    boolean isMaxLevel(Element e){
+        return e.isVegetable() && ((Vegetable) e).getCurrentState().stateProperty() == 4;
+    }
     void fertilize(int line, int col){
         ObservableSet<Element> elem = getAllElem(line,col);
         for (Element e : elem) {
