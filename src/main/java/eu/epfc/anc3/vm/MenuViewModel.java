@@ -2,6 +2,7 @@ package eu.epfc.anc3.vm;
 
 import eu.epfc.anc3.model.FermeFacade;
 import javafx.beans.property.*;
+import javafx.beans.value.ObservableValue;
 
 public class MenuViewModel {
     private final FermeFacade fermeFacade;
@@ -24,6 +25,9 @@ public class MenuViewModel {
     public ReadOnlyStringProperty fertilizerLabelProperty() {
         return new SimpleStringProperty("Fertiliser");
     }
+    public ReadOnlyStringProperty superFertilizerLabelProperty() { ////Exam - text pour le bouton superFertilizer
+        return new SimpleStringProperty("Super Fertiliser");
+    }
     public ReadOnlyStringProperty recoltLabelProperty() {
         return new SimpleStringProperty("Récolter");
     }
@@ -40,9 +44,8 @@ public class MenuViewModel {
     public void plantCarottMode() {
         fermeFacade.plantCarrotMode();
     }
-    public void fertilizerMode() {
-        fermeFacade.fertilizerMode();
-    }
+    public void fertilizerMode() {fermeFacade.fertilizerMode();}
+    public void superFertilizerMode() {fermeFacade.superFertilizerMode();}///Exam - permet l'appel de la méthode superFertilizerMode
     public void recoltMode() {fermeFacade.recoltMode();}
     public void unplantMode(){fermeFacade.unplantMode();}
     public void newGame() {

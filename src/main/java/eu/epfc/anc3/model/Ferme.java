@@ -36,9 +36,8 @@ class Ferme {
         fermeStatus.setValue(FermeStatus.PLANT_CARROT);
     }
 
-    void fertilizerMode() {
-        fermeStatus.setValue(FermeStatus.FERTILIZER);
-    }
+    void fertilizerMode() {fermeStatus.setValue(FermeStatus.FERTILIZER);}
+    void superFertilizerMode() {fermeStatus.setValue(FermeStatus.SUPER_FERTILIZER);}
 
     void recoltMode() {
         fermeStatus.setValue(FermeStatus.RECOLT);
@@ -103,14 +102,37 @@ class Ferme {
         ObservableSet<Element> elem = getAllElem(line,col);
         Element lastElement = elem.stream().reduce((a, b) -> b).orElse(null);
         if (lastElement != null ){
-            if (lastElement.isVegetable()){
+            if (lastElement.isVegetable() ){
                 Vegetable v = (Vegetable) lastElement;
                 addPoint(v.getCurrentState().getHarvestPoints());
             }
             terrain.removeVegetables(lastElement, line, col);
         }
     }
+    void superFertilize(){/// EXAM - parcoure toutes les cellules et fertilize les légumes qui sont au max
+        System.out.println("JE SUIS dans superFertilize !!!!");
+        for (int i = 0; i < Terrain.GRID_HEIGHT; i++) {
+            for (int j = 0; j < Terrain.GRID_WIDTH; j++) {
+                ObservableSet<Element> elem = getAllElem(i,j);
+                for (Element e : elem) {
+                    if ( e.canBeFetilize() && e.isVegetable()){
+                        Vegetable v = (Vegetable) e;
+                        if (e.isVegetable() && isMaxLevel(e)) {
+                            v.getCurrentState().setSuperFertilized(true);// EXAM - fertilize les légumes qui sont au max
+                        }
+                    }
 
+                }
+            }
+        }
+    }
+    boolean isMaxLevel(Element e){ /// EXAM - vérifie si le légume est au bon niveau
+        if (e.isVegetable() ){
+            Vegetable v = (Vegetable) e;
+            return v.getCurrentState().stateProperty() == 3;
+        }
+        return false;
+    }
     void fertilize(int line, int col){
         ObservableSet<Element> elem = getAllElem(line,col);
         for (Element e : elem) {

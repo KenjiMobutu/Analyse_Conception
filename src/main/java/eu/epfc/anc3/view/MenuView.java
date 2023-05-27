@@ -25,11 +25,12 @@ class MenuView extends VBox {
     private final ToggleButton plantCarotteButton = new ToggleButton();
     private final ToggleButton plantCabbageButton = new ToggleButton();
     private final ToggleButton fertilizerButton = new ToggleButton();
+    private final ToggleButton superFertilizerButton = new ToggleButton();///Exam - bouton superFertilizer
     private final ToggleButton recoltButton = new ToggleButton();
     private final MenuViewModel menuViewModel;
     private final HBox nbHbox;
 
-    VBox actionVbox = new VBox(plantButtonGrass,plantCarotteButton, plantCabbageButton,fertilizerButton,recoltButton);
+    VBox actionVbox = new VBox(plantButtonGrass,plantCarotteButton, plantCabbageButton,fertilizerButton,recoltButton,superFertilizerButton);
     HBox buttons = new HBox(startButton,sleepButton);
 
     public MenuView(MenuViewModel menuViewModel) {
@@ -42,6 +43,7 @@ class MenuView extends VBox {
         setUpButtonPlantCabbage();
         setUpButtonPlantCarott();
         setUpButtonFertilizer();
+        setUpButtonSuperFertilizer();//Exam - bouton superFertilizer
         setUpButtonRecolt();
         setUpButtonUnplant();
         setUpButtonStop();
@@ -129,6 +131,8 @@ class MenuView extends VBox {
         ImageView view5 = new ImageView(img5);
         sleepButton.setGraphic(view5);
         sleepButton.setFocusTraversable(false);
+
+        superFertilizerButton.setFocusTraversable(false);///EXAM - rendre le bouton non focusable
     }
 
     private void manageScore(){
@@ -141,6 +145,7 @@ class MenuView extends VBox {
         plantCabbageButton.setToggleGroup(toggleGroup);
         plantCarotteButton.setToggleGroup(toggleGroup);
         fertilizerButton.setToggleGroup(toggleGroup);
+        superFertilizerButton.setToggleGroup(toggleGroup);///EXAM - ajouter le bouton au groupe
         recoltButton.setToggleGroup(toggleGroup);
         unPlantButton.setToggleGroup(toggleGroup);
     }
@@ -154,6 +159,8 @@ class MenuView extends VBox {
         plantCarotteButton.textProperty().bind(menuViewModel.plantCarrotLabelProperty());
         fertilizerButton.textProperty().bind(menuViewModel.fertilizerLabelProperty());
         recoltButton.textProperty().bind(menuViewModel.recoltLabelProperty());
+        superFertilizerButton.textProperty().bind(menuViewModel.superFertilizerLabelProperty());///EXAM - ajouter le texte au bouton
+        superFertilizerButton.disableProperty().bind(menuViewModel.score().lessThan(100));///EXAM - desactiver le bouton si le score est inferieur a 100
     }
 
     HBox createNewHobx() {
@@ -180,6 +187,9 @@ class MenuView extends VBox {
 
     private void setUpButtonFertilizer() {
         fertilizerButton.setOnAction(e -> handleFertilizerButtonAction());
+    }
+    private void setUpButtonSuperFertilizer(){//exam - action
+        superFertilizerButton.setOnAction(e -> handleSuperFertilizerButtonAction());
     }
 
     private void setUpSleepAction(){
@@ -238,9 +248,8 @@ class MenuView extends VBox {
     private void handlePlantCarottButtonAction() {
         menuViewModel.plantCarottMode();
     }
-    private void handleFertilizerButtonAction() {
-        menuViewModel.fertilizerMode();
-    }
+    private void handleFertilizerButtonAction() {menuViewModel.fertilizerMode();}
+    private void handleSuperFertilizerButtonAction() {menuViewModel.superFertilizerMode();}////exam - action
     private void handleRecoltButtonAction() {
         menuViewModel.recoltMode();
     }

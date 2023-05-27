@@ -39,6 +39,7 @@ public class FermeFacade {
     private final BooleanProperty plantCarrot = new SimpleBooleanProperty(false);
     private final BooleanProperty plantCabbage = new SimpleBooleanProperty(false);
     private final BooleanProperty useFertilizer = new SimpleBooleanProperty(false);
+    private final BooleanProperty useSuperFertilizer = new SimpleBooleanProperty(false);//Exam -
     private final BooleanProperty recolt = new SimpleBooleanProperty(false);
     private final IntegerProperty nbJours = new SimpleIntegerProperty(0);
     private final IntegerProperty score = new SimpleIntegerProperty(0);
@@ -57,6 +58,7 @@ public class FermeFacade {
                 .or(ferme.fermeStatusProperty().isEqualTo(FermeStatus.PLANT_CABBAGE))
                 .or(ferme.fermeStatusProperty().isEqualTo(FermeStatus.PLANT_CARROT))
                 .or(ferme.fermeStatusProperty().isEqualTo(FermeStatus.FERTILIZER))
+                .or(ferme.fermeStatusProperty().isEqualTo(FermeStatus.SUPER_FERTILIZER))///EXAM
                 .or(ferme.fermeStatusProperty().isEqualTo(FermeStatus.RECOLT)));
 
         isStarted.bind(ferme.fermeStatusProperty().isNotEqualTo(FermeStatus.START));
@@ -69,6 +71,7 @@ public class FermeFacade {
         plantCarrot.bind(fermeStatusProperty().isEqualTo(FermeStatus.PLANT_CARROT));
         recolt.bind(fermeStatusProperty().isEqualTo(FermeStatus.RECOLT));
         useFertilizer.bind(fermeStatusProperty().isEqualTo(FermeStatus.FERTILIZER));
+        useSuperFertilizer.bind(fermeStatusProperty().isEqualTo(FermeStatus.SUPER_FERTILIZER));////EXAM
         score.bind(ferme.getPoint());
     }
 
@@ -111,6 +114,12 @@ public class FermeFacade {
         if (isStarted.getValue()){
             System.out.println("  -> Fertilizer est possible :) ");
             ferme.fertilizerMode();
+        }
+    }
+    public void superFertilizerMode() {// EXam
+        if (isStarted.getValue()){
+            System.out.println("  -> Fertilizer est possible :) " + useSuperFertilizer.getValue());
+            ferme.superFertilize(); // EXam - appel de la méthode
         }
     }
     public void recoltMode() {

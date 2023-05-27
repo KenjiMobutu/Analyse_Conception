@@ -128,6 +128,21 @@ class Carrot extends Vegetable implements Element {
         }
 
         @Override
+        public int getFetilizedHarvestPoints() {
+            return 0;
+        }
+
+        @Override
+        public boolean isSuperFertilized() {
+            return false;
+        }
+
+        @Override
+        public void setSuperFertilized(boolean superFertilized) {
+
+        }
+
+        @Override
         public void nextDay() {
             nbJours++;
             if (nbJours == daysToNextState) {
@@ -174,6 +189,21 @@ class Carrot extends Vegetable implements Element {
         }
 
         @Override
+        public int getFetilizedHarvestPoints() {
+            return 0;
+        }
+
+        @Override
+        public boolean isSuperFertilized() {
+            return false;
+        }
+
+        @Override
+        public void setSuperFertilized(boolean superFertilized) {
+
+        }
+
+        @Override
         public void nextDay() {
             nbJours++;
             int daysToNextState = 6;
@@ -199,6 +229,7 @@ class Carrot extends Vegetable implements Element {
     //Level3
     public class CarrotState3 extends VegetableState{
         private int nbJours;
+        private boolean superFertilized;/// Exam - propriété qui indique si la plante est super fertilisée ou non!!!!!!!
 
         public CarrotState3(Vegetable vegetable) {
             super(vegetable);
@@ -227,8 +258,27 @@ class Carrot extends Vegetable implements Element {
         }
 
         @Override
-        public int getHarvestPoints() {
-            return maxScore / 2 ;
+        public int getHarvestPoints() {///Exam - méthode qui retourne le nombre de points de récolte de la plante
+                                        // si elle est super fertilisée ou pas
+            if (isSuperFertilized()) {
+                return getFetilizedHarvestPoints();
+            }
+            return maxScore / 2;
+        }
+
+        @Override
+        public int getFetilizedHarvestPoints() { ///Exam - méthode qui retourne le nombre de points de récolte de la plante
+                                                // si elle est super fertilisée
+            return maxScore * 2;
+        }
+
+        @Override
+        public boolean isSuperFertilized() { ///Exam - méthode qui retourne si la plante est super fertilisée ou pas
+            return superFertilized;
+        }
+
+        public void setSuperFertilized(boolean superFertilized) { ///Exam - méthode qui permet de changer la valeur de la propriété
+            this.superFertilized = superFertilized;
         }
 
         @Override
@@ -290,6 +340,21 @@ class Carrot extends Vegetable implements Element {
         }
 
         @Override
+        public int getFetilizedHarvestPoints() {
+            return 0;
+        }
+
+        @Override
+        public boolean isSuperFertilized() {
+            return false;
+        }
+
+        @Override
+        public void setSuperFertilized(boolean superFertilized) {
+
+        }
+
+        @Override
         public void nextDay() {
             nbJours++;
             int daysToNextState = 12;
@@ -342,6 +407,21 @@ class Carrot extends Vegetable implements Element {
         public int getHarvestPoints() {
             //points_perdus = 1/10 * rendement_maximal * (jour de la récolte - premier jour du stade Pourri)
             return (int) ((1.0 / 10.0) * maxScore * (growthDays - nbJours - 12));
+        }
+
+        @Override
+        public int getFetilizedHarvestPoints() {
+            return 0;
+        }
+
+        @Override
+        public boolean isSuperFertilized() {
+            return false;
+        }
+
+        @Override
+        public void setSuperFertilized(boolean superFertilized) {
+
         }
 
         @Override
