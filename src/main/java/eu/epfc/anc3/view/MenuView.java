@@ -16,6 +16,7 @@ class MenuView extends VBox {
     private final TextField nbJour = new TextField("0");
     private final Button startButton = new Button();
     private final Button sleepButton = new Button("sleep");
+    private final Button restoreButton = new Button("Restore");///Exam - ajout bouton restore
     private final Button stopButton = new Button();
     private final Button saveButton = new Button("Sauvegarder");
     private final Button loadButton = new Button("Restaurer");
@@ -30,7 +31,7 @@ class MenuView extends VBox {
     private final HBox nbHbox;
 
     VBox actionVbox = new VBox(plantButtonGrass,plantCarotteButton, plantCabbageButton,fertilizerButton,recoltButton);
-    HBox buttons = new HBox(startButton,sleepButton);
+    HBox buttons = new HBox(startButton,sleepButton,restoreButton);///Exam - ajout bouton restore
 
     public MenuView(MenuViewModel menuViewModel) {
         this.menuViewModel = menuViewModel;
@@ -46,6 +47,7 @@ class MenuView extends VBox {
         setUpButtonUnplant();
         setUpButtonStop();
         setUpSleepAction();
+        setUpRestoreAction();///Exam - initialisation bouton restore
 
     }
 
@@ -129,6 +131,7 @@ class MenuView extends VBox {
         ImageView view5 = new ImageView(img5);
         sleepButton.setGraphic(view5);
         sleepButton.setFocusTraversable(false);
+        restoreButton.setFocusTraversable(false);///EXAM - retirer le focus du bouton restore
     }
 
     private void manageScore(){
@@ -154,6 +157,7 @@ class MenuView extends VBox {
         plantCarotteButton.textProperty().bind(menuViewModel.plantCarrotLabelProperty());
         fertilizerButton.textProperty().bind(menuViewModel.fertilizerLabelProperty());
         recoltButton.textProperty().bind(menuViewModel.recoltLabelProperty());
+        restoreButton.disableProperty().bind(menuViewModel.nbCarrot().lessThan(1));///EXAM - binding sur le nb de carotte
     }
 
     HBox createNewHobx() {
@@ -177,7 +181,9 @@ class MenuView extends VBox {
     private void setUpButtonPlantCarott() {
         plantCarotteButton.setOnAction(e -> handlePlantCarottButtonAction());
     }
-
+    private void setUpRestoreAction(){/// EXAM !!!!
+        restoreButton.setOnAction(event -> handleRestoreButtonAction());
+    }
     private void setUpButtonFertilizer() {
         fertilizerButton.setOnAction(e -> handleFertilizerButtonAction());
     }
@@ -224,6 +230,7 @@ class MenuView extends VBox {
         loadButton.setDisable(true);
         saveButton.setDisable(true);
         sleepButton.setDisable(true);
+        //restoreButton.setDisable(true);///EXAM - desactiver le bouton restore à l'arret du jeu
         menuViewModel.stop();
         nbJour.setText("0");
         manageNewGameButton();
@@ -237,6 +244,9 @@ class MenuView extends VBox {
     }
     private void handlePlantCarottButtonAction() {
         menuViewModel.plantCarottMode();
+    }
+    private void handleRestoreButtonAction() {///EXAM - appel de la fonction restore
+        menuViewModel.restoreMode();
     }
     private void handleFertilizerButtonAction() {
         menuViewModel.fertilizerMode();

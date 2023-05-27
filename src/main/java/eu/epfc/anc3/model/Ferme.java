@@ -7,6 +7,8 @@ import java.util.Iterator;
 class Ferme {
     private Terrain terrain ;
     private final IntegerProperty score = new SimpleIntegerProperty(0);
+    private final IntegerProperty nbCarrot = new SimpleIntegerProperty(0);///EXAM - propriete nbCarrot pour binding du bouton
+
     private final ObjectProperty<FermeStatus> fermeStatus = new SimpleObjectProperty<>(FermeStatus.START);
     public Ferme(){}
 
@@ -106,8 +108,29 @@ class Ferme {
             if (lastElement.isVegetable()){
                 Vegetable v = (Vegetable) lastElement;
                 addPoint(v.getCurrentState().getHarvestPoints());
+
+                addCarrot(-1); ///EXAM - decremente le nombre de carotte
             }
             terrain.removeVegetables(lastElement, line, col);
+        }
+    }
+    ////////////////////////EXAM !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    void restoreMode(){////EXAM - restaure le state des carottes
+        for (int i = 0; i < Terrain.GRID_HEIGHT; i++) {
+            for (int j = 0; j < Terrain.GRID_WIDTH; j++) {
+                ObservableSet<Element> elem = getAllElem(i,j);
+                for (Element e : elem) {
+                    if ( e.isCarrot() && e.isVegetable()){
+                        Vegetable vegetable = (Vegetable) e;
+                        if (vegetable.getCurrentState().stateProperty() > 2 ){
+                            while (vegetable.getCurrentState().stateProperty() != 2){
+                                vegetable.getCurrentState().previousState();
+                            }
+                        }
+                    }
+
+                }
+            }
         }
     }
 
@@ -129,14 +152,22 @@ class Ferme {
     IntegerProperty getPoint(){
         return score;
     }
+    IntegerProperty getNbCarrot(){ ///EXAM - permet d'avoir acces au nb de carotte dans fermeFacade !!!!!!!!!!!!!!!!!!!!
+        return nbCarrot;
+    }
 
     void setScore(int i){
         score.set(i);
     }
-
+    void setNbCarrot(int i){
+        nbCarrot.set(i);
+    }
     void addPoint(int point){
         score.set(score.get() + point);
         //récupérer de removeVegetables les harvestPoint pour ensuite renvoyer les points dans la ferme
+    }
+    void addCarrot(int carrot){ ///EXAM - ajoute le nombre de carotte !!!!!!
+        nbCarrot.set(nbCarrot.get() + carrot);
     }
 
     ObservableSet<Element> getAllElem(int line, int col){ return terrain.getElem(line, col);}
@@ -163,6 +194,7 @@ class Ferme {
             }
         }
     }
+
 
     //permet de déplacer le joueur dans le grid
     void spawnFarmer(Farmer farmer, int line, int col){

@@ -40,6 +40,9 @@ public class MenuViewModel {
     public void plantCarottMode() {
         fermeFacade.plantCarrotMode();
     }
+    public void restoreMode() {///EXAM !!!!!!
+        fermeFacade.restoreMode();
+    }
     public void fertilizerMode() {
         fermeFacade.fertilizerMode();
     }
@@ -49,6 +52,7 @@ public class MenuViewModel {
         fermeFacade.newGame();
     }
     public ReadOnlyIntegerProperty score(){return fermeFacade.scoreProperty();}
+    public ReadOnlyIntegerProperty nbCarrot(){return fermeFacade.nbCarrotProperty();}////EXAM !!!!!! propriete nbCarrot pour binding du bouton
     public void sleepMode() {
         fermeFacade.nextDay();
     }

@@ -42,6 +42,7 @@ public class FermeFacade {
     private final BooleanProperty recolt = new SimpleBooleanProperty(false);
     private final IntegerProperty nbJours = new SimpleIntegerProperty(0);
     private final IntegerProperty score = new SimpleIntegerProperty(0);
+    private final IntegerProperty nbCarrot = new SimpleIntegerProperty(0);///EXAM - propriete nbCarrot pour binding du bouton (compteur)
 
 
     public ObservableSet<Element> getElements(int line, int col){
@@ -70,6 +71,8 @@ public class FermeFacade {
         recolt.bind(fermeStatusProperty().isEqualTo(FermeStatus.RECOLT));
         useFertilizer.bind(fermeStatusProperty().isEqualTo(FermeStatus.FERTILIZER));
         score.bind(ferme.getPoint());
+        nbCarrot.bind(ferme.getNbCarrot()); ////EXAM - recupere le nb de carotte pour le binding !!!!
+
     }
 
     //permet de déplacer le fermier dans le jeu
@@ -107,6 +110,12 @@ public class FermeFacade {
             ferme.plantCarrotMode();
         }
     }
+    public void restoreMode() {///EXAM - restore mode
+        if (isStarted.getValue()){
+            System.out.println("  -> Restaurer est possible :) ");
+            ferme.restoreMode();///EXAM - appel de la fonction restoreMode
+        }
+    }
     public void fertilizerMode() {
         if (isStarted.getValue()){
             System.out.println("  -> Fertilizer est possible :) ");
@@ -133,6 +142,7 @@ public class FermeFacade {
             farmer.setPosFarmer(0,0);
             spawnFarmerInFarm();
             ferme.setScore(0);
+            ferme.setNbCarrot(0);////EXAM - remet le nb de carotte à 0
             System.out.println("le jeu est relancé :D ");
         }
     }
@@ -276,6 +286,8 @@ public class FermeFacade {
         //Position posCarrot = new Position(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
         addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(), carrot);
         carrot.nbJoursProperty().bind(nbJours);
+
+        ferme.addCarrot(1);///EXAM - quand on plante une carotte, on en ajoute une au compteur!!!!!
     }
 
     private void recoltVegetals() {
@@ -285,7 +297,9 @@ public class FermeFacade {
     public ReadOnlyIntegerProperty scoreProperty(){
         return score;
     }
-
+    public ReadOnlyIntegerProperty nbCarrotProperty(){///EXAM - recupere le nb carotte au compteur
+        return nbCarrot;
+    }
     private void dropFertilizer() {
         ferme.fertilize(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
     }

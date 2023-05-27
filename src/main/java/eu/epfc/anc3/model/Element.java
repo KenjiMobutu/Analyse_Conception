@@ -6,6 +6,7 @@ public interface Element {
     void setStateChanged(boolean stateChanged);
     boolean isRotten();
     boolean isVegetable();
+    boolean isCarrot();////EXAM - pour verifier si Vegetable est une carotte !!!!
     boolean canBeFetilize();
     Parcelle getParcelle();
     boolean isGrass();

@@ -6,6 +6,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 
 class Carrot extends Vegetable implements Element {
     private final IntegerProperty nbJours = new SimpleIntegerProperty(0);
+    private final IntegerProperty nbCarrot = new SimpleIntegerProperty(0);
     private boolean stateChanged = false;
     private final ReadOnlyObjectWrapper<VegetableState> state = new ReadOnlyObjectWrapper<>();
     private final int maxScore = 100;
@@ -43,6 +44,11 @@ class Carrot extends Vegetable implements Element {
 
     @Override
     public boolean isVegetable() {
+        return true;
+    }
+
+    @Override
+    public boolean isCarrot() { ///EXAM - verifie si c'est une carotte
         return true;
     }
 
@@ -112,6 +118,11 @@ class Carrot extends Vegetable implements Element {
             System.out.println(getType() + " TYPE");
         }
 
+        @Override
+        public void previousState() {
+
+        }
+
         public ParcelleValue getType() {
             return ParcelleValue.CARROT1;
         }
@@ -165,6 +176,11 @@ class Carrot extends Vegetable implements Element {
             Carrot.this.getType();
             parcelle.setStateChange(true);
             System.out.println(getType() + " TYPE");
+        }
+
+        @Override
+        public void previousState() {
+
         }
 
 
@@ -221,6 +237,15 @@ class Carrot extends Vegetable implements Element {
         public void nextState() {
             System.out.println("Carrot state 3 changed to state 4");
             setState(new CarrotState4(vegetable));
+            Carrot.this.getType();
+            parcelle.setStateChange(true);
+            System.out.println(getType() + " TYPE");
+        }
+
+        @Override
+        public void previousState() {
+            System.out.println("Carrot state 3 changed to state 2");
+            vegetable.setState(new CarrotState2(vegetable));
             Carrot.this.getType();
             parcelle.setStateChange(true);
             System.out.println(getType() + " TYPE");
@@ -285,6 +310,15 @@ class Carrot extends Vegetable implements Element {
         }
 
         @Override
+        public void previousState() {
+            System.out.println("Carrot state 4 changed to state 3");
+            vegetable.setState(new CarrotState3(vegetable));
+            Carrot.this.getType();
+            parcelle.setStateChange(true);
+            System.out.println(getType() + " TYPE");
+        }
+
+        @Override
         public int getHarvestPoints() {
             return maxScore;
         }
@@ -328,6 +362,15 @@ class Carrot extends Vegetable implements Element {
 
         @Override
         public void nextState() {}
+
+        @Override
+        public void previousState() {
+            System.out.println("Carrot state ROTTEN changed to state 4");
+            vegetable.setState(new CarrotState4(vegetable));
+            Carrot.this.getType();
+            parcelle.setStateChange(true);
+            System.out.println(getType() + " TYPE");
+        }
 
         public int stateProperty(){
             return 5;
