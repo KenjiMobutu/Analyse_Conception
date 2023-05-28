@@ -117,6 +117,11 @@ class Carrot extends Vegetable implements Element {
             System.out.println(getType() + " TYPE");
         }
 
+        @Override
+        public void previousState() {
+
+        }
+
         public ParcelleValue getType() {
             return ParcelleValue.CARROT1;
         }
@@ -170,6 +175,11 @@ class Carrot extends Vegetable implements Element {
             Carrot.this.getType();
             parcelle.setStateChange(true);
             System.out.println(getType() + " TYPE");
+        }
+
+        @Override
+        public void previousState() {
+
         }
 
 
@@ -232,6 +242,16 @@ class Carrot extends Vegetable implements Element {
         }
 
         @Override
+        public void previousState() {
+            System.out.println("Carrot state 3 changed to state 2");
+            vegetable.setState(new CarrotState2(vegetable));
+            Carrot.this.getType();
+            parcelle.setStateChange(true);
+            System.out.println(getType() + " TYPE");
+
+        }
+
+        @Override
         public int getHarvestPoints() {
             return maxScore / 2 ;
         }
@@ -290,6 +310,16 @@ class Carrot extends Vegetable implements Element {
         }
 
         @Override
+        public void previousState() {
+            System.out.println("Carrot state 4 changed to state 3");
+            vegetable.setState(new CarrotState3(vegetable));
+            Carrot.this.getType();
+            parcelle.setStateChange(true);
+            System.out.println(getType() + " TYPE");
+
+        }
+
+        @Override
         public int getHarvestPoints() {
             return maxScore;
         }
@@ -333,6 +363,15 @@ class Carrot extends Vegetable implements Element {
 
         @Override
         public void nextState() {}
+
+        @Override
+        public void previousState() {
+            System.out.println("Carrot state Rotten changed to state 4");
+            vegetable.setState(new CarrotState4(vegetable));
+            Carrot.this.getType();
+            parcelle.setStateChange(true);
+            System.out.println(getType() + " TYPE");
+        }
 
         public int stateProperty(){
             return 5;

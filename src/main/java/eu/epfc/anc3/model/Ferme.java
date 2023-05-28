@@ -105,14 +105,15 @@ class Ferme {
         ObservableSet<Element> elem = getAllElem(line,col);
         Element lastElement = elem.stream().reduce((a, b) -> b).orElse(null);
         if (lastElement != null ){
-            if (lastElement.isVegetable()){
-                Vegetable v = (Vegetable) lastElement;
-                addPoint(v.getCurrentState().getHarvestPoints());
-            } else if (lastElement.isVegetable() && lastElement.isCarrot()) {
-                System.out.println("REMOVE CARROT");
+            if (lastElement.isCarrot()){
+                System.out.println("REMOVE IF CARROT");
                 Vegetable v = (Vegetable) lastElement;
                 addPoint(v.getCurrentState().getHarvestPoints());
                 addNbCarrot(-1);
+            }else{
+                System.out.println("REMOVE===> pas CARROT");
+                Vegetable v = (Vegetable) lastElement;
+                addPoint(v.getCurrentState().getHarvestPoints());
             }
             terrain.removeVegetables(lastElement, line, col);
         }
@@ -133,7 +134,23 @@ class Ferme {
         }
     }
     void restoreMode(){
+        System.out.println("RESTORE DES CARROTS");
+        for (int i = 0; i < Terrain.GRID_HEIGHT; i++) {
+            for (int j = 0; j < Terrain.GRID_WIDTH; j++) {
+                ObservableSet<Element> elem = getAllElem(i, j);
+                for (Element e : elem) {
+                    if ( e.isCarrot()&& e.isVegetable()){
+                        Vegetable vegetable = (Vegetable) e;
+                        if (vegetable.getCurrentState().stateProperty() > 2 ){
+                            while (vegetable.getCurrentState().stateProperty() != 2){
+                                vegetable.getCurrentState().previousState();
+                            }
+                        }
+                    }
 
+                }
+            }
+        }
     }
 
     IntegerProperty getPoint(){
