@@ -107,6 +107,11 @@ class Cabbage extends Vegetable implements Element {
         }
 
         @Override
+        public boolean setIsSuperFertilized(boolean isFertilized) {
+            return false;
+        }
+
+        @Override
         public void nextDay() {
             nbJours++;
             if (nbJours == daysToNextState) {
@@ -170,6 +175,11 @@ class Cabbage extends Vegetable implements Element {
         }
 
         @Override
+        public boolean setIsSuperFertilized(boolean isFertilized) {
+            return false;
+        }
+
+        @Override
         public void nextDay() {
             nbJours++;
             System.out.println("nbJours = " + nbJours);
@@ -209,6 +219,7 @@ class Cabbage extends Vegetable implements Element {
     //Level3
     class CabbageState3 extends VegetableState {
         private int nbJours;
+        private boolean isSuperFertilized;
         private final int daysToNextState = 12;
         CabbageState3(Vegetable vegetable) {
             super(vegetable);
@@ -230,7 +241,14 @@ class Cabbage extends Vegetable implements Element {
 
         @Override
         public int getHarvestPoints() {
+            if(isSuperFertilized)
+                return maxScore * 3;
             return 3 * (maxScore/4);
+        }
+
+        @Override
+        public boolean setIsSuperFertilized(boolean isFertilized) {
+            return this.isSuperFertilized = isFertilized;
         }
 
         @Override
@@ -300,6 +318,11 @@ class Cabbage extends Vegetable implements Element {
         }
 
         @Override
+        public boolean setIsSuperFertilized(boolean isFertilized) {
+            return false;
+        }
+
+        @Override
         public void nextDay() {
             nbJours++;
             System.out.println("nbJours = " + nbJours);
@@ -360,6 +383,11 @@ class Cabbage extends Vegetable implements Element {
         @Override
         public int getHarvestPoints() {
             return (int) ((1.0 / 10.0) * maxScore * (growthDays - nbJours - 12));
+        }
+
+        @Override
+        public boolean setIsSuperFertilized(boolean isFertilized) {
+            return false;
         }
 
         @Override

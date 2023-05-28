@@ -125,6 +125,28 @@ class Ferme {
 
         }
     }
+    boolean isGoodLevel(Element e){
+        if (e.isVegetable() ){
+            Vegetable v = (Vegetable) e;
+            return v.getCurrentState().stateProperty() == 3;
+        }
+        return false;
+    }
+    void superFertilizerMode(){
+        System.out.println("Super FERTILIZED");
+        for (int i = 0; i < Terrain.GRID_HEIGHT; i++) {
+            for (int j = 0; j < Terrain.GRID_WIDTH; j++) {
+                ObservableSet<Element> elem = getAllElem(i, j);
+                for (Element e : elem) {
+                    if (isGoodLevel(e) && e.isVegetable()){
+                        Vegetable vegetable = (Vegetable) e;
+                        vegetable.getCurrentState().setIsSuperFertilized(true);
+                    }
+
+                }
+            }
+        }
+    }
 
     IntegerProperty getPoint(){
         return score;
