@@ -102,6 +102,11 @@ class Cabbage extends Vegetable implements Element {
         }
 
         @Override
+        public boolean isSuperFertilized() {
+            return false;
+        }
+
+        @Override
         public int getHarvestPoints() {
             return 0;
         }
@@ -114,6 +119,12 @@ class Cabbage extends Vegetable implements Element {
             }
 
         }
+
+        @Override
+        public boolean setIsSuperFertilized(boolean isFertilized) {
+            return false;
+        }
+
         @Override
         public ParcelleValue getType() {
             return ParcelleValue.CABBAGE1;
@@ -165,6 +176,11 @@ class Cabbage extends Vegetable implements Element {
         }
 
         @Override
+        public boolean isSuperFertilized() {
+            return false;
+        }
+
+        @Override
         public int getHarvestPoints() {
             return 0;
         }
@@ -176,6 +192,11 @@ class Cabbage extends Vegetable implements Element {
             if (nbJours == daysToNextState) {
                 this.nextState();
             }
+        }
+
+        @Override
+        public boolean setIsSuperFertilized(boolean isFertilized) {
+            return false;
         }
 
         @Override
@@ -209,6 +230,7 @@ class Cabbage extends Vegetable implements Element {
     //Level3
     class CabbageState3 extends VegetableState {
         private int nbJours;
+        private boolean isFertilized;
         private final int daysToNextState = 12;
         CabbageState3(Vegetable vegetable) {
             super(vegetable);
@@ -229,7 +251,16 @@ class Cabbage extends Vegetable implements Element {
         }
 
         @Override
+        public boolean isSuperFertilized() {
+            return isFertilized;
+        }
+        public boolean setIsSuperFertilized(boolean isFertilized){
+            return this.isFertilized = isFertilized;
+        }
+        @Override
         public int getHarvestPoints() {
+            if(isSuperFertilized())
+                return maxScore * 3;
             return 3 * (maxScore/4);
         }
 
@@ -295,6 +326,11 @@ class Cabbage extends Vegetable implements Element {
         }
 
         @Override
+        public boolean isSuperFertilized() {
+            return false;
+        }
+
+        @Override
         public int getHarvestPoints() {
             return maxScore;
         }
@@ -308,6 +344,12 @@ class Cabbage extends Vegetable implements Element {
             }
 
         }
+
+        @Override
+        public boolean setIsSuperFertilized(boolean isFertilized) {
+            return false;
+        }
+
         public ParcelleValue getType() {
             return ParcelleValue.CABBAGE4;
         }
@@ -358,6 +400,11 @@ class Cabbage extends Vegetable implements Element {
         }
 
         @Override
+        public boolean isSuperFertilized() {
+            return false;
+        }
+
+        @Override
         public int getHarvestPoints() {
             return (int) ((1.0 / 10.0) * maxScore * (growthDays - nbJours - 12));
         }
@@ -366,6 +413,11 @@ class Cabbage extends Vegetable implements Element {
         public void nextDay() {
             nbJours++;
             System.out.println("nbJours 1 ==>  " + nbJours);
+        }
+
+        @Override
+        public boolean setIsSuperFertilized(boolean isFertilized) {
+            return false;
         }
 
         @Override

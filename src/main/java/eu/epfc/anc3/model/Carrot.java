@@ -112,6 +112,11 @@ class Carrot extends Vegetable implements Element {
             System.out.println(getType() + " TYPE");
         }
 
+        @Override
+        public boolean isSuperFertilized() {
+            return false;
+        }
+
         public ParcelleValue getType() {
             return ParcelleValue.CARROT1;
         }
@@ -133,6 +138,11 @@ class Carrot extends Vegetable implements Element {
             if (nbJours == daysToNextState) {
                 this.nextState();
             }
+        }
+
+        @Override
+        public boolean setIsSuperFertilized(boolean isFertilized) {
+            return false;
         }
     }
 
@@ -167,6 +177,11 @@ class Carrot extends Vegetable implements Element {
             System.out.println(getType() + " TYPE");
         }
 
+        @Override
+        public boolean isSuperFertilized() {
+            return false;
+        }
+
 
         @Override
         public int getHarvestPoints() {
@@ -181,6 +196,12 @@ class Carrot extends Vegetable implements Element {
                 this.nextState();
             }
         }
+
+        @Override
+        public boolean setIsSuperFertilized(boolean isFertilized) {
+            return false;
+        }
+
         public ParcelleValue getType() {
             return ParcelleValue.CARROT2;
         }
@@ -199,7 +220,7 @@ class Carrot extends Vegetable implements Element {
     //Level3
     public class CarrotState3 extends VegetableState{
         private int nbJours;
-
+        private boolean isFertilized;
         public CarrotState3(Vegetable vegetable) {
             super(vegetable);
             vegetable.setState(this);
@@ -227,7 +248,17 @@ class Carrot extends Vegetable implements Element {
         }
 
         @Override
+        public boolean isSuperFertilized() {
+            return isFertilized;
+        }
+        public boolean setIsSuperFertilized(boolean isFertilized){
+            return this.isFertilized = isFertilized;
+        }
+
+        @Override
         public int getHarvestPoints() {
+            if(isSuperFertilized())
+                return maxScore * 2;
             return maxScore / 2 ;
         }
 
@@ -285,6 +316,11 @@ class Carrot extends Vegetable implements Element {
         }
 
         @Override
+        public boolean isSuperFertilized() {
+            return false;
+        }
+
+        @Override
         public int getHarvestPoints() {
             return maxScore;
         }
@@ -297,6 +333,12 @@ class Carrot extends Vegetable implements Element {
                 this.nextState();
             }
         }
+
+        @Override
+        public boolean setIsSuperFertilized(boolean isFertilized) {
+            return false;
+        }
+
         public ParcelleValue getType() {
             return ParcelleValue.CARROT4;
         }
@@ -329,6 +371,11 @@ class Carrot extends Vegetable implements Element {
         @Override
         public void nextState() {}
 
+        @Override
+        public boolean isSuperFertilized() {
+            return false;
+        }
+
         public int stateProperty(){
             return 5;
         }
@@ -348,6 +395,12 @@ class Carrot extends Vegetable implements Element {
         public void nextDay() {
             nbJours++;
         }
+
+        @Override
+        public boolean setIsSuperFertilized(boolean isFertilized) {
+            return false;
+        }
+
         public ParcelleValue getType() {
             return ParcelleValue.ROTTEN_CARROT;
         }

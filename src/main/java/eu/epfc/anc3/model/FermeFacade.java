@@ -113,6 +113,12 @@ public class FermeFacade {
             ferme.fertilizerMode();
         }
     }
+    public void superFertilizerMode() {
+        if (isStarted.getValue()){
+            System.out.println("  -> Fertilizer est possible :) ");
+            ferme.superFertilizerMode();
+        }
+    }
     public void recoltMode() {
         if (isStarted.getValue()){
             System.out.println("  -> Recolt est possible :) ");
