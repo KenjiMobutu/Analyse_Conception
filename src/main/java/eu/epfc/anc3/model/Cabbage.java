@@ -143,6 +143,11 @@ class Cabbage extends Vegetable implements Element {
             return false;
         }
 
+        @Override
+        public boolean isGoodLevel() {
+            return false;
+        }
+
 
     }
 
@@ -211,6 +216,11 @@ class Cabbage extends Vegetable implements Element {
             return getState();
         }
         public boolean isRotten() {
+            return false;
+        }
+
+        @Override
+        public boolean isGoodLevel() {
             return false;
         }
 
@@ -284,6 +294,11 @@ class Cabbage extends Vegetable implements Element {
             return false;
         }
 
+        @Override
+        public boolean isGoodLevel() {
+            return true;
+        }
+
         public VegetableState getCurrentState() {
             return getState();
         }
@@ -354,6 +369,11 @@ class Cabbage extends Vegetable implements Element {
             return false;
         }
 
+        @Override
+        public boolean isGoodLevel() {
+            return false;
+        }
+
         public VegetableState getCurrentState() {
             return getState();
         }
@@ -418,6 +438,11 @@ class Cabbage extends Vegetable implements Element {
 
         public boolean isRotten() {
             return maxGrowthDays == nbJours;
+        }
+
+        @Override
+        public boolean isGoodLevel() {
+            return false;
         }
 
     }

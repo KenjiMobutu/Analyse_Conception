@@ -104,6 +104,11 @@ class Carrot extends Vegetable implements Element {
         }
 
         @Override
+        public boolean isGoodLevel() {
+            return false;
+        }
+
+        @Override
         public void nextState() {
             vegetable.setCurrentState(new CarrotState2(vegetable));
             System.out.println("Carrot state 1 changed to state 2");
@@ -160,6 +165,11 @@ class Carrot extends Vegetable implements Element {
 
         @Override
         public boolean isRotten() {
+            return false;
+        }
+
+        @Override
+        public boolean isGoodLevel() {
             return false;
         }
 
@@ -229,6 +239,11 @@ class Carrot extends Vegetable implements Element {
         }
 
         @Override
+        public boolean isGoodLevel() {
+            return true;
+        }
+
+        @Override
         public void nextState() {
             System.out.println("Carrot state 3 changed to state 4");
             setState(new CarrotState4(vegetable));
@@ -288,6 +303,11 @@ class Carrot extends Vegetable implements Element {
 
         @Override
         public boolean isRotten() {
+            return false;
+        }
+
+        @Override
+        public boolean isGoodLevel() {
             return false;
         }
 
@@ -357,6 +377,11 @@ class Carrot extends Vegetable implements Element {
         @Override
         public boolean isRotten() {
             return maxGrowthDays == nbJours;
+        }
+
+        @Override
+        public boolean isGoodLevel() {
+            return false;
         }
 
         @Override

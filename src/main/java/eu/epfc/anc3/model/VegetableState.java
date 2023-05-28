@@ -32,4 +32,5 @@ abstract class VegetableState {
     public abstract int stateProperty();
 
     public abstract boolean isRotten();
+    public abstract boolean isGoodLevel();
 }

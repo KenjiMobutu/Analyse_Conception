@@ -128,7 +128,7 @@ class Ferme {
     boolean isGoodLevel(Element e){
         if (e.isVegetable() ){
             Vegetable v = (Vegetable) e;
-            return v.getCurrentState().stateProperty() == 3;
+            return v.getCurrentState().isGoodLevel();
         }
         return false;
     }
