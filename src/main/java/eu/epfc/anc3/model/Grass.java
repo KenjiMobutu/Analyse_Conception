@@ -50,6 +50,11 @@ class Grass extends Vegetable implements Element{ //BV : pas public
     }
 
     @Override
+    public boolean isCarrot() {
+        return false;
+    }
+
+    @Override
     public boolean canBeFetilize() {
         return false;
     }

@@ -42,7 +42,7 @@ public class FermeFacade {
     private final BooleanProperty recolt = new SimpleBooleanProperty(false);
     private final IntegerProperty nbJours = new SimpleIntegerProperty(0);
     private final IntegerProperty score = new SimpleIntegerProperty(0);
-
+    private final IntegerProperty nbCarrot = new SimpleIntegerProperty(0);
 
     public ObservableSet<Element> getElements(int line, int col){
         return ferme.getAllElem(line,col);
@@ -70,6 +70,7 @@ public class FermeFacade {
         recolt.bind(fermeStatusProperty().isEqualTo(FermeStatus.RECOLT));
         useFertilizer.bind(fermeStatusProperty().isEqualTo(FermeStatus.FERTILIZER));
         score.bind(ferme.getPoint());
+        nbCarrot.bind(ferme.getNbCarrot());
     }
 
     //permet de déplacer le fermier dans le jeu
@@ -111,6 +112,12 @@ public class FermeFacade {
         if (isStarted.getValue()){
             System.out.println("  -> Fertilizer est possible :) ");
             ferme.fertilizerMode();
+        }
+    }
+    public void restoreAction(){
+        if (isStarted.getValue()){
+            System.out.println("  -> RESTORE est possible :) ");
+            ferme.restoreMode();
         }
     }
     public void recoltMode() {
@@ -276,6 +283,7 @@ public class FermeFacade {
         //Position posCarrot = new Position(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
         addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(), carrot);
         carrot.nbJoursProperty().bind(nbJours);
+        ferme.addCarrot(1);
     }
 
     private void recoltVegetals() {
@@ -284,6 +292,9 @@ public class FermeFacade {
     }
     public ReadOnlyIntegerProperty scoreProperty(){
         return score;
+    }
+    public ReadOnlyIntegerProperty nbCarrotProperty(){
+        return nbCarrot;
     }
 
     private void dropFertilizer() {
