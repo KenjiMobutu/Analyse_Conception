@@ -107,6 +107,11 @@ class Cabbage extends Vegetable implements Element {
         }
 
         @Override
+        public boolean isGoodState() {
+            return false;
+        }
+
+        @Override
         public void nextDay() {
             nbJours++;
             if (nbJours == daysToNextState) {
@@ -167,6 +172,11 @@ class Cabbage extends Vegetable implements Element {
         @Override
         public int getHarvestPoints() {
             return 0;
+        }
+
+        @Override
+        public boolean isGoodState() {
+            return false;
         }
 
         @Override
@@ -231,6 +241,11 @@ class Cabbage extends Vegetable implements Element {
         @Override
         public int getHarvestPoints() {
             return 3 * (maxScore/4);
+        }
+
+        @Override
+        public boolean isGoodState() {
+            return false;
         }
 
         @Override
@@ -300,6 +315,11 @@ class Cabbage extends Vegetable implements Element {
         }
 
         @Override
+        public boolean isGoodState() {
+            return true;
+        }
+
+        @Override
         public void nextDay() {
             nbJours++;
             System.out.println("nbJours = " + nbJours);
@@ -360,6 +380,11 @@ class Cabbage extends Vegetable implements Element {
         @Override
         public int getHarvestPoints() {
             return (int) ((1.0 / 10.0) * maxScore * (growthDays - nbJours - 12));
+        }
+
+        @Override
+        public boolean isGoodState() {
+            return false;
         }
 
         @Override

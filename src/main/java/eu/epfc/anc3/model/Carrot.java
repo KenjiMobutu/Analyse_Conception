@@ -128,6 +128,11 @@ class Carrot extends Vegetable implements Element {
         }
 
         @Override
+        public boolean isGoodState() {
+            return false;
+        }
+
+        @Override
         public void nextDay() {
             nbJours++;
             if (nbJours == daysToNextState) {
@@ -171,6 +176,11 @@ class Carrot extends Vegetable implements Element {
         @Override
         public int getHarvestPoints() {
             return maxScore / 5;
+        }
+
+        @Override
+        public boolean isGoodState() {
+            return false;
         }
 
         @Override
@@ -232,6 +242,11 @@ class Carrot extends Vegetable implements Element {
         }
 
         @Override
+        public boolean isGoodState() {
+            return true;
+        }
+
+        @Override
         public void nextDay() {
             nbJours++;
             int daysToNextState = 9;
@@ -290,6 +305,11 @@ class Carrot extends Vegetable implements Element {
         }
 
         @Override
+        public boolean isGoodState() {
+            return true;
+        }
+
+        @Override
         public void nextDay() {
             nbJours++;
             int daysToNextState = 12;
@@ -342,6 +362,11 @@ class Carrot extends Vegetable implements Element {
         public int getHarvestPoints() {
             //points_perdus = 1/10 * rendement_maximal * (jour de la récolte - premier jour du stade Pourri)
             return (int) ((1.0 / 10.0) * maxScore * (growthDays - nbJours - 12));
+        }
+
+        @Override
+        public boolean isGoodState() {
+            return false;
         }
 
         @Override

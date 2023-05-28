@@ -290,11 +290,12 @@ public class FermeFacade {
 
     }
     public boolean hasGraine(){
-        return nbGraine.get() > 5;
+        return nbGraine.get() > 0;
     }
     private void recoltVegetals() {
         //faire fonction addPoint qui récupère le state du légume et les points lié a celui-ci
-        ferme.removeVegetables(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
+        if(ferme.removeVegetables(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY()))
+            nbGraine.set(nbGraine.get() + 1);
     }
     public ReadOnlyIntegerProperty scoreProperty(){
         return score;
@@ -313,6 +314,7 @@ public class FermeFacade {
 
     public IntegerProperty nextDayProperty() {
         nbJours.set(nbJours.get() + 1);
+        nbGraine.set(nbGraine.get() +1);
         System.out.println("ROTTEN VEGGIEs");
         removeRottenVegetables();
         System.out.println(nbJours + "nbJours");
