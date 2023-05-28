@@ -40,10 +40,12 @@ public class MenuViewModel {
     public void plantCarottMode() {
         fermeFacade.plantCarrotMode();
     }
+    public ReadOnlyIntegerProperty nbCarrot(){return fermeFacade.getNbCarrot();}
     public void fertilizerMode() {
         fermeFacade.fertilizerMode();
     }
     public void recoltMode() {fermeFacade.recoltMode();}
+    public void restoreMode(){fermeFacade.restoreMode();}
     public void unplantMode(){fermeFacade.unplantMode();}
     public void newGame() {
         fermeFacade.newGame();

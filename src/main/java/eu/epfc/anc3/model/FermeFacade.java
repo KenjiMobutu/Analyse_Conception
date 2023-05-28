@@ -42,6 +42,7 @@ public class FermeFacade {
     private final BooleanProperty recolt = new SimpleBooleanProperty(false);
     private final IntegerProperty nbJours = new SimpleIntegerProperty(0);
     private final IntegerProperty score = new SimpleIntegerProperty(0);
+    private final IntegerProperty nbCarrot = new SimpleIntegerProperty(0);
 
 
     public ObservableSet<Element> getElements(int line, int col){
@@ -70,6 +71,7 @@ public class FermeFacade {
         recolt.bind(fermeStatusProperty().isEqualTo(FermeStatus.RECOLT));
         useFertilizer.bind(fermeStatusProperty().isEqualTo(FermeStatus.FERTILIZER));
         score.bind(ferme.getPoint());
+        nbCarrot.bind(ferme.getNbCarrot());
     }
 
     //permet de déplacer le fermier dans le jeu
@@ -119,6 +121,12 @@ public class FermeFacade {
             ferme.recoltMode();
         }
     }
+    public void restoreMode(){
+        if(isStarted.getValue()){
+            System.out.println("Restore mode");
+            ferme.restoreMode();
+        }
+    }
 
     public void unplantMode(){
         if (isStarted.getValue()){
@@ -133,6 +141,7 @@ public class FermeFacade {
             farmer.setPosFarmer(0,0);
             spawnFarmerInFarm();
             ferme.setScore(0);
+            ferme.setNbCarrot(0);
             System.out.println("le jeu est relancé :D ");
         }
     }
@@ -276,16 +285,20 @@ public class FermeFacade {
         //Position posCarrot = new Position(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
         addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(), carrot);
         carrot.nbJoursProperty().bind(nbJours);
+        ferme.addNbCarrot(1);
     }
 
     private void recoltVegetals() {
         //faire fonction addPoint qui récupère le state du légume et les points lié a celui-ci
         ferme.removeVegetables(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
+
     }
     public ReadOnlyIntegerProperty scoreProperty(){
         return score;
     }
-
+    public ReadOnlyIntegerProperty getNbCarrot() {
+        return nbCarrot;
+    }
     private void dropFertilizer() {
         ferme.fertilize(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
     }
@@ -311,4 +324,6 @@ public class FermeFacade {
     public BooleanProperty getElementsStateProperty(int line, int col){
         return terrain.getElementsStateProperty(line, col);
     }
+
+
 }

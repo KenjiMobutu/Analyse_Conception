@@ -19,6 +19,7 @@ class MenuView extends VBox {
     private final Button stopButton = new Button();
     private final Button saveButton = new Button("Sauvegarder");
     private final Button loadButton = new Button("Restaurer");
+    private final Button restoreButton = new Button("Restore");
     private final ToggleButton plantButtonGrass = new ToggleButton();
     private final ToggleButton unPlantButton = new ToggleButton();
     private final ToggleGroup toggleGroup = new ToggleGroup();
@@ -30,7 +31,7 @@ class MenuView extends VBox {
     private final HBox nbHbox;
 
     VBox actionVbox = new VBox(plantButtonGrass,plantCarotteButton, plantCabbageButton,fertilizerButton,recoltButton);
-    HBox buttons = new HBox(startButton,sleepButton);
+    HBox buttons = new HBox(startButton,sleepButton, restoreButton);
 
     public MenuView(MenuViewModel menuViewModel) {
         this.menuViewModel = menuViewModel;
@@ -46,6 +47,7 @@ class MenuView extends VBox {
         setUpButtonUnplant();
         setUpButtonStop();
         setUpSleepAction();
+        setUpRestoreAction();
 
     }
 
@@ -129,6 +131,8 @@ class MenuView extends VBox {
         ImageView view5 = new ImageView(img5);
         sleepButton.setGraphic(view5);
         sleepButton.setFocusTraversable(false);
+
+        restoreButton.setFocusTraversable(false);
     }
 
     private void manageScore(){
@@ -154,6 +158,7 @@ class MenuView extends VBox {
         plantCarotteButton.textProperty().bind(menuViewModel.plantCarrotLabelProperty());
         fertilizerButton.textProperty().bind(menuViewModel.fertilizerLabelProperty());
         recoltButton.textProperty().bind(menuViewModel.recoltLabelProperty());
+        restoreButton.disableProperty().bind(menuViewModel.nbCarrot().lessThan(1));
     }
 
     HBox createNewHobx() {
@@ -181,6 +186,7 @@ class MenuView extends VBox {
     private void setUpButtonFertilizer() {
         fertilizerButton.setOnAction(e -> handleFertilizerButtonAction());
     }
+    private void setUpRestoreAction(){restoreButton.setOnAction(e -> handleRestoreButtonAction() );}
 
     private void setUpSleepAction(){
         sleepButton.setOnAction(event -> {
@@ -241,6 +247,7 @@ class MenuView extends VBox {
     private void handleFertilizerButtonAction() {
         menuViewModel.fertilizerMode();
     }
+    private void handleRestoreButtonAction(){ menuViewModel.restoreMode();}
     private void handleRecoltButtonAction() {
         menuViewModel.recoltMode();
     }

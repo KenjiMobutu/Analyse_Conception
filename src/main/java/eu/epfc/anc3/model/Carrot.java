@@ -47,6 +47,11 @@ class Carrot extends Vegetable implements Element {
     }
 
     @Override
+    public boolean isCarrot() {
+        return true;
+    }
+
+    @Override
     public boolean canBeFetilize() {
         return true;
     }

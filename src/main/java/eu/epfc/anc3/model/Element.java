@@ -6,6 +6,7 @@ public interface Element {
     void setStateChanged(boolean stateChanged);
     boolean isRotten();
     boolean isVegetable();
+    boolean isCarrot();
     boolean canBeFetilize();
     Parcelle getParcelle();
     boolean isGrass();

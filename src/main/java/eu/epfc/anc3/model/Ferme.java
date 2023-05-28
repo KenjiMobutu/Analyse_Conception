@@ -7,6 +7,8 @@ import java.util.Iterator;
 class Ferme {
     private Terrain terrain ;
     private final IntegerProperty score = new SimpleIntegerProperty(0);
+    private final IntegerProperty nbCarrot = new SimpleIntegerProperty(0);
+
     private final ObjectProperty<FermeStatus> fermeStatus = new SimpleObjectProperty<>(FermeStatus.START);
     public Ferme(){}
 
@@ -106,6 +108,11 @@ class Ferme {
             if (lastElement.isVegetable()){
                 Vegetable v = (Vegetable) lastElement;
                 addPoint(v.getCurrentState().getHarvestPoints());
+            } else if (lastElement.isVegetable() && lastElement.isCarrot()) {
+                System.out.println("REMOVE CARROT");
+                Vegetable v = (Vegetable) lastElement;
+                addPoint(v.getCurrentState().getHarvestPoints());
+                addNbCarrot(-1);
             }
             terrain.removeVegetables(lastElement, line, col);
         }
@@ -125,20 +132,28 @@ class Ferme {
 
         }
     }
+    void restoreMode(){
+
+    }
 
     IntegerProperty getPoint(){
         return score;
+    }
+    IntegerProperty getNbCarrot(){
+        return nbCarrot;
     }
 
     void setScore(int i){
         score.set(i);
     }
-
+    void setNbCarrot(int i){nbCarrot.set(i);}
     void addPoint(int point){
         score.set(score.get() + point);
         //récupérer de removeVegetables les harvestPoint pour ensuite renvoyer les points dans la ferme
     }
-
+    void addNbCarrot(int carrot){
+        nbCarrot.set(nbCarrot.get() + carrot);
+    }
     ObservableSet<Element> getAllElem(int line, int col){ return terrain.getElem(line, col);}
 
     ObservableSet<ParcelleValue> getAllElemType(int line, int col){return terrain.getElemType(line,col);}
