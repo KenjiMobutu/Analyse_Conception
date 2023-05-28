@@ -106,9 +106,9 @@ class Ferme {
             if (lastElement.isVegetable()){
                 Vegetable v = (Vegetable) lastElement;
                 addPoint(v.getCurrentState().getHarvestPoints());
-                return isGoodState(lastElement);
             }
             terrain.removeVegetables(lastElement, line, col);
+            return isGoodState(lastElement);
         }
         return false;
     }
