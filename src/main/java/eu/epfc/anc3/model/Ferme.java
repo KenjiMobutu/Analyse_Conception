@@ -110,7 +110,7 @@ class Ferme {
                 Vegetable v = (Vegetable) lastElement;
                 addPoint(v.getCurrentState().getHarvestPoints());
                 addNbCarrot(-1);
-            }else{
+            }else if (lastElement.isVegetable()){
                 System.out.println("REMOVE===> pas CARROT");
                 Vegetable v = (Vegetable) lastElement;
                 addPoint(v.getCurrentState().getHarvestPoints());
