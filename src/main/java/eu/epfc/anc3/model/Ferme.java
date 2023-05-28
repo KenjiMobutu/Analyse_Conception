@@ -115,7 +115,7 @@ class Ferme {
             for (int j = 0; j < Terrain.GRID_WIDTH; j++) {
                 ObservableSet<Element> elem = getAllElem(i,j);
                 for (Element e : elem) {
-                    if ( e.canBeFetilize() && e.isVegetable()){
+                    if ( e.isVegetable()){
                         Vegetable v = (Vegetable) e;
                         if (e.isVegetable() && isMaxLevel(e)) {
                             v.getCurrentState().setSuperFertilized(true);// EXAM - fertilize les légumes qui sont au max

@@ -261,8 +261,9 @@ class Cabbage extends Vegetable implements Element {
 
         @Override
         public int getHarvestPoints() {
-            if(isSuperFertilized())
+            if(isSuperFertilized()) {
                 return getFetilizedHarvestPoints();
+            }
             return 3 * (maxScore/4);
         }
 
@@ -279,6 +280,7 @@ class Cabbage extends Vegetable implements Element {
         public void setSuperFertilized(boolean superFertilized) {
             this.superFertilized = superFertilized;
         }
+
 
         @Override
         public void nextDay() {
