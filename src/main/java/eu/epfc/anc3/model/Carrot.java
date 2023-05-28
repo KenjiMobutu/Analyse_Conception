@@ -112,6 +112,11 @@ class Carrot extends Vegetable implements Element {
             System.out.println(getType() + " TYPE");
         }
 
+        @Override
+        public boolean isGoodLevel() {
+            return false;
+        }
+
         public ParcelleValue getType() {
             return ParcelleValue.CARROT1;
         }
@@ -165,6 +170,11 @@ class Carrot extends Vegetable implements Element {
             Carrot.this.getType();
             parcelle.setStateChange(true);
             System.out.println(getType() + " TYPE");
+        }
+
+        @Override
+        public boolean isGoodLevel() {
+            return false;
         }
 
 
@@ -227,6 +237,11 @@ class Carrot extends Vegetable implements Element {
         }
 
         @Override
+        public boolean isGoodLevel() {
+            return false;
+        }
+
+        @Override
         public int getHarvestPoints() {
             return maxScore / 2 ;
         }
@@ -285,6 +300,11 @@ class Carrot extends Vegetable implements Element {
         }
 
         @Override
+        public boolean isGoodLevel() {
+            return true;
+        }
+
+        @Override
         public int getHarvestPoints() {
             return maxScore;
         }
@@ -328,6 +348,11 @@ class Carrot extends Vegetable implements Element {
 
         @Override
         public void nextState() {}
+
+        @Override
+        public boolean isGoodLevel() {
+            return false;
+        }
 
         public int stateProperty(){
             return 5;

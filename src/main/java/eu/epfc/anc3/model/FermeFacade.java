@@ -42,6 +42,7 @@ public class FermeFacade {
     private final BooleanProperty recolt = new SimpleBooleanProperty(false);
     private final IntegerProperty nbJours = new SimpleIntegerProperty(0);
     private final IntegerProperty score = new SimpleIntegerProperty(0);
+    private final IntegerProperty graine = new SimpleIntegerProperty(0);
 
 
     public ObservableSet<Element> getElements(int line, int col){
@@ -79,6 +80,7 @@ public class FermeFacade {
         if (isStartable.get()){
             System.out.println(" -> lancement du jeu :) ");
             ferme.start();
+            graine.set(5);
             spawnFarmerInFarm();
         }
     }
@@ -87,6 +89,7 @@ public class FermeFacade {
         if (isStarted.getValue() ||isInProgress.getValue()){
             System.out.println(" -> arrêt du jeu :) ");
             ferme.stop();
+            graine.set(0);
         }
     }
     public void plantGrassMode(){
@@ -133,6 +136,7 @@ public class FermeFacade {
             farmer.setPosFarmer(0,0);
             spawnFarmerInFarm();
             ferme.setScore(0);
+            graine.set(5);
             System.out.println("le jeu est relancé :D ");
         }
     }
@@ -257,33 +261,48 @@ public class FermeFacade {
     }
 
     void dropGrass(){
-        Grass grass = new Grass(terrain.getParcelle(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()));
-        grass.nbJours.bind(nbJours);
-        System.out.println(!containsElementType(ParcelleValue.GRASS,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) );
-        ferme.addElementToCell(grass,farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
+        if(hasGraine() && !containsElementType(ParcelleValue.GRASS,farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) ) {
+            Grass grass = new Grass(terrain.getParcelle(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()));
+            grass.nbJours.bind(nbJours);
+            System.out.println(!containsElementType(ParcelleValue.GRASS, farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()));
+            ferme.addElementToCell(grass, farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY());
+            graine.set(graine.get()-1);
+        }
     }
 
     void plantCabbage(){
-        Cabbage cabbage = new Cabbage(terrain.getParcelle(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()));
-        addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(),cabbage);
+        if(hasGraine() && !ferme.cellContainsVegetable(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY())) {
+            Cabbage cabbage = new Cabbage(terrain.getParcelle(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()));
+            addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(), cabbage);
 
-        cabbage.nbJoursProperty().bind(nbJours);
+            cabbage.nbJoursProperty().bind(nbJours);
 
-        System.out.println(ferme.getAllElem(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "ICI Cabbage");
+            System.out.println(ferme.getAllElem(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()) + "ICI Cabbage");
+            graine.set(graine.get()-1);
+        }
     }
     void PlantCarrot(){
-        Carrot carrot = new Carrot(terrain.getParcelle(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY())  );
-        //Position posCarrot = new Position(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
-        addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(), carrot);
-        carrot.nbJoursProperty().bind(nbJours);
+        if(hasGraine() && !ferme.cellContainsVegetable(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY())) {
+            Carrot carrot = new Carrot(terrain.getParcelle(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY()));
+            //Position posCarrot = new Position(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
+            addElementToCell(farmer.getPosFarmer().getX(), farmer.getPosFarmer().getY(), carrot);
+            carrot.nbJoursProperty().bind(nbJours);
+            graine.set(graine.get()-1);
+        }
     }
-
+    public boolean hasGraine(){
+        return graine.get() > 0;
+    }
     private void recoltVegetals() {
         //faire fonction addPoint qui récupère le state du légume et les points lié a celui-ci
-        ferme.removeVegetables(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY());
+        if(ferme.removeVegetables(farmer.getPosFarmer().getX(),farmer.getPosFarmer().getY()))
+            graine.set(graine.get()+1);
     }
     public ReadOnlyIntegerProperty scoreProperty(){
         return score;
+    }
+    public ReadOnlyIntegerProperty graineProperty(){
+        return graine;
     }
 
     private void dropFertilizer() {
@@ -297,6 +316,7 @@ public class FermeFacade {
 
     public IntegerProperty nextDayProperty() {
         nbJours.set(nbJours.get() + 1);
+        graine.set(graine.get() +1);
         System.out.println("ROTTEN VEGGIEs");
         removeRottenVegetables();
         System.out.println(nbJours + "nbJours");

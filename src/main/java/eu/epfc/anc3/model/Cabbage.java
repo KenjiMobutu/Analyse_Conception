@@ -102,6 +102,11 @@ class Cabbage extends Vegetable implements Element {
         }
 
         @Override
+        public boolean isGoodLevel() {
+            return false;
+        }
+
+        @Override
         public int getHarvestPoints() {
             return 0;
         }
@@ -162,6 +167,11 @@ class Cabbage extends Vegetable implements Element {
             vegetable.setState(new Cabbage.CabbageState3(vegetable));
             Cabbage.this.getType();
             System.out.println(getType() + " TYPE");
+        }
+
+        @Override
+        public boolean isGoodLevel() {
+            return false;
         }
 
         @Override
@@ -226,6 +236,11 @@ class Cabbage extends Vegetable implements Element {
             parcelle.setStateChange(true);
             Cabbage.this.getType();
             System.out.println(getType() + " TYPE");
+        }
+
+        @Override
+        public boolean isGoodLevel() {
+            return false;
         }
 
         @Override
@@ -295,6 +310,11 @@ class Cabbage extends Vegetable implements Element {
         }
 
         @Override
+        public boolean isGoodLevel() {
+            return true;
+        }
+
+        @Override
         public int getHarvestPoints() {
             return maxScore;
         }
@@ -355,6 +375,11 @@ class Cabbage extends Vegetable implements Element {
 
         @Override
         public void nextState() {
+        }
+
+        @Override
+        public boolean isGoodLevel() {
+            return false;
         }
 
         @Override
