@@ -14,6 +14,8 @@ abstract class VegetableState {
 
     // Méthode abstraite pour obtenir le nombre de points gagnés en récoltant le légume
     public abstract int getHarvestPoints();
+    public abstract boolean isSuperFertilized();
+    public abstract boolean setIsSuperFertilized(boolean isSuperFertilized);
 
     // Méthode abstraite pour faire avancer la croissance du légume
     public abstract void nextDay();

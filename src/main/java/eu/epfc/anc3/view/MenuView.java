@@ -25,12 +25,13 @@ class MenuView extends VBox {
     private final ToggleButton plantCarotteButton = new ToggleButton();
     private final ToggleButton plantCabbageButton = new ToggleButton();
     private final ToggleButton fertilizerButton = new ToggleButton();
+    private final ToggleButton superFertilizerButton = new ToggleButton("Super Fertilize");
     private final ToggleButton recoltButton = new ToggleButton();
     private final MenuViewModel menuViewModel;
     private final HBox nbHbox;
 
     VBox actionVbox = new VBox(plantButtonGrass,plantCarotteButton, plantCabbageButton,fertilizerButton,recoltButton);
-    HBox buttons = new HBox(startButton,sleepButton);
+    HBox buttons = new HBox(startButton,sleepButton,superFertilizerButton);
 
     public MenuView(MenuViewModel menuViewModel) {
         this.menuViewModel = menuViewModel;
@@ -42,6 +43,7 @@ class MenuView extends VBox {
         setUpButtonPlantCabbage();
         setUpButtonPlantCarott();
         setUpButtonFertilizer();
+        setUpButtonSuperFertilizer();
         setUpButtonRecolt();
         setUpButtonUnplant();
         setUpButtonStop();
@@ -99,6 +101,7 @@ class MenuView extends VBox {
         sleepButton.setDisable(true);
         saveButton.setDisable(true);
         loadButton.setDisable(true);
+        superFertilizerButton.setFocusTraversable(false);
     }
     private void setUpImages(){
         Image img1 = new Image("cabbage4.png");
@@ -143,6 +146,7 @@ class MenuView extends VBox {
         fertilizerButton.setToggleGroup(toggleGroup);
         recoltButton.setToggleGroup(toggleGroup);
         unPlantButton.setToggleGroup(toggleGroup);
+        superFertilizerButton.setToggleGroup(toggleGroup);
     }
 
     private void bindLabelsToViewModel() {
@@ -154,6 +158,7 @@ class MenuView extends VBox {
         plantCarotteButton.textProperty().bind(menuViewModel.plantCarrotLabelProperty());
         fertilizerButton.textProperty().bind(menuViewModel.fertilizerLabelProperty());
         recoltButton.textProperty().bind(menuViewModel.recoltLabelProperty());
+        superFertilizerButton.disableProperty().bind(menuViewModel.score().lessThan(100));
     }
 
     HBox createNewHobx() {
@@ -180,6 +185,9 @@ class MenuView extends VBox {
 
     private void setUpButtonFertilizer() {
         fertilizerButton.setOnAction(e -> handleFertilizerButtonAction());
+    }
+    private void setUpButtonSuperFertilizer(){
+        superFertilizerButton.setOnAction(e -> handleSuperFertilizeButtonAction());
     }
 
     private void setUpSleepAction(){
@@ -240,6 +248,9 @@ class MenuView extends VBox {
     }
     private void handleFertilizerButtonAction() {
         menuViewModel.fertilizerMode();
+    }
+    private void handleSuperFertilizeButtonAction(){
+        menuViewModel.superFertilizeMode();
     }
     private void handleRecoltButtonAction() {
         menuViewModel.recoltMode();

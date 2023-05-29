@@ -110,6 +110,21 @@ class Ferme {
             terrain.removeVegetables(lastElement, line, col);
         }
     }
+    void superFertilize(){
+        System.out.println(" Je SUIS DANS SUPER FERTILIZE");
+        for (int i = 0; i < Terrain.GRID_HEIGHT; i++) {
+            for (int j = 0; j < Terrain.GRID_WIDTH; j++) {
+                ObservableSet<Element> elem = getAllElem(i, j);
+                for (Element e : elem) {
+                    if (e.isVegetable()){
+                        Vegetable vegetable = (Vegetable) e;
+                        vegetable.getCurrentState().setIsSuperFertilized(true);
+                    }
+
+                }
+            }
+        }
+    }
 
     void fertilize(int line, int col){
         ObservableSet<Element> elem = getAllElem(line,col);
