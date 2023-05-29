@@ -7,6 +7,7 @@ import java.util.Iterator;
 class Ferme {
     private Terrain terrain ;
     private final IntegerProperty score = new SimpleIntegerProperty(0);
+    private final IntegerProperty nbCarrot = new SimpleIntegerProperty(0);
     private final ObjectProperty<FermeStatus> fermeStatus = new SimpleObjectProperty<>(FermeStatus.START);
     public Ferme(){}
 
@@ -103,7 +104,11 @@ class Ferme {
         ObservableSet<Element> elem = getAllElem(line,col);
         Element lastElement = elem.stream().reduce((a, b) -> b).orElse(null);
         if (lastElement != null ){
-            if (lastElement.isVegetable()){
+            if (lastElement.isVegetable() && lastElement.isCarrot()){
+                Vegetable v = (Vegetable) lastElement;
+                addPoint(v.getCurrentState().getHarvestPoints());
+                addCarrot(-1);
+            }else if(lastElement.isVegetable()){
                 Vegetable v = (Vegetable) lastElement;
                 addPoint(v.getCurrentState().getHarvestPoints());
             }
@@ -129,14 +134,21 @@ class Ferme {
     IntegerProperty getPoint(){
         return score;
     }
-
+    IntegerProperty getNbCarrot(){
+        return nbCarrot;
+    }
     void setScore(int i){
         score.set(i);
     }
-
+    void setNbCarrot(int i){
+        nbCarrot.set(i);
+    }
     void addPoint(int point){
         score.set(score.get() + point);
         //récupérer de removeVegetables les harvestPoint pour ensuite renvoyer les points dans la ferme
+    }
+    void addCarrot(int carrot){
+        nbCarrot.set(nbCarrot.get() +carrot);
     }
 
     ObservableSet<Element> getAllElem(int line, int col){ return terrain.getElem(line, col);}
@@ -145,6 +157,25 @@ class Ferme {
 
     //retourne le status du jeu
     ReadOnlyObjectProperty<FermeStatus> fermeStatusProperty(){return fermeStatus;}
+    void restore(){
+        System.out.println("JE SUIS DANS RESTORE");
+        for (int i = 0; i < Terrain.GRID_HEIGHT; i++) {
+            for (int j = 0; j < Terrain.GRID_WIDTH; j++) {
+                ObservableSet<Element> elem = getAllElem(i, j);
+                for (Element e : elem) {
+                    if ( e.canBeFetilize() && e.isVegetable()){
+                        Vegetable vegetable = (Vegetable) e;
+                        if (vegetable.getCurrentState().stateProperty() > 2 ){
+                            while (vegetable.getCurrentState().stateProperty() != 2){
+                                vegetable.getCurrentState().previousState();
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+    }
 
     void removeRotten() {
         for (int i = 0; i < Terrain.GRID_HEIGHT; i++) {

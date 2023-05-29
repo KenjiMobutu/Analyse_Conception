@@ -43,12 +43,16 @@ public class MenuViewModel {
     public void fertilizerMode() {
         fermeFacade.fertilizerMode();
     }
+    public void restoreMode(){
+        fermeFacade.restoreMode();
+    }
     public void recoltMode() {fermeFacade.recoltMode();}
     public void unplantMode(){fermeFacade.unplantMode();}
     public void newGame() {
         fermeFacade.newGame();
     }
     public ReadOnlyIntegerProperty score(){return fermeFacade.scoreProperty();}
+    public ReadOnlyIntegerProperty nbCarrot(){return fermeFacade.nbCarrotProperty();}
     public void sleepMode() {
         fermeFacade.nextDay();
     }

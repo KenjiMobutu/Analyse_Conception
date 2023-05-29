@@ -43,6 +43,11 @@ class Farmer implements Element{
     }
 
     @Override
+    public boolean isCarrot() {
+        return false;
+    }
+
+    @Override
     public boolean canBeFetilize() {
         return false;
     }

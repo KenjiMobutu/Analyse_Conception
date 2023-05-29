@@ -49,6 +49,11 @@ class Cabbage extends Vegetable implements Element {
     }
 
     @Override
+    public boolean isCarrot() {
+        return false;
+    }
+
+    @Override
     public boolean canBeFetilize() {
         return false;
     }
@@ -99,6 +104,11 @@ class Cabbage extends Vegetable implements Element {
         public void nextState() {
             parcelle.setStateChange(true);
             vegetable.nextState(new CabbageState2(vegetable));
+        }
+
+        @Override
+        public void previousState() {
+
         }
 
         @Override
@@ -165,6 +175,11 @@ class Cabbage extends Vegetable implements Element {
         }
 
         @Override
+        public void previousState() {
+
+        }
+
+        @Override
         public int getHarvestPoints() {
             return 0;
         }
@@ -226,6 +241,11 @@ class Cabbage extends Vegetable implements Element {
             parcelle.setStateChange(true);
             Cabbage.this.getType();
             System.out.println(getType() + " TYPE");
+        }
+
+        @Override
+        public void previousState() {
+
         }
 
         @Override
@@ -295,6 +315,11 @@ class Cabbage extends Vegetable implements Element {
         }
 
         @Override
+        public void previousState() {
+
+        }
+
+        @Override
         public int getHarvestPoints() {
             return maxScore;
         }
@@ -355,6 +380,11 @@ class Cabbage extends Vegetable implements Element {
 
         @Override
         public void nextState() {
+        }
+
+        @Override
+        public void previousState() {
+
         }
 
         @Override
