@@ -99,6 +99,11 @@ class Carrot extends Vegetable implements Element {
         }
 
         @Override
+        public boolean isGoodState() {
+            return false;
+        }
+
+        @Override
         public boolean isRotten() {
             return false;
         }
@@ -151,6 +156,11 @@ class Carrot extends Vegetable implements Element {
 
         public int stateProperty(){
             return 2;
+        }
+
+        @Override
+        public boolean isGoodState() {
+            return false;
         }
 
         @Override
@@ -213,6 +223,11 @@ class Carrot extends Vegetable implements Element {
         }
 
         @Override
+        public boolean isGoodState() {
+            return false;
+        }
+
+        @Override
         public boolean isRotten() {
             return false;
         }
@@ -268,6 +283,11 @@ class Carrot extends Vegetable implements Element {
         }
         public int stateProperty(){
             return 4;
+        }
+
+        @Override
+        public boolean isGoodState() {
+            return true;
         }
 
         @Override
@@ -331,6 +351,11 @@ class Carrot extends Vegetable implements Element {
 
         public int stateProperty(){
             return 5;
+        }
+
+        @Override
+        public boolean isGoodState() {
+            return false;
         }
 
         @Override

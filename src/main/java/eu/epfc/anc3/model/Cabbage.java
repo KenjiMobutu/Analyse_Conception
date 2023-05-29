@@ -134,6 +134,11 @@ class Cabbage extends Vegetable implements Element {
         }
 
         @Override
+        public boolean isGoodState() {
+            return false;
+        }
+
+        @Override
         public boolean isRotten() {
             return false;
         }
@@ -195,6 +200,11 @@ class Cabbage extends Vegetable implements Element {
         @Override
         public int stateProperty() {
             return 2;
+        }
+
+        @Override
+        public boolean isGoodState() {
+            return false;
         }
 
         public VegetableState getCurrentState() {
@@ -259,6 +269,11 @@ class Cabbage extends Vegetable implements Element {
         @Override
         public int stateProperty() {
             return 3;
+        }
+
+        @Override
+        public boolean isGoodState() {
+            return false;
         }
 
         @Override
@@ -327,6 +342,11 @@ class Cabbage extends Vegetable implements Element {
         }
 
         @Override
+        public boolean isGoodState() {
+            return true;
+        }
+
+        @Override
         public boolean isRotten() {
             return false;
         }
@@ -382,6 +402,11 @@ class Cabbage extends Vegetable implements Element {
         @Override
         public int stateProperty() {
             return 5;
+        }
+
+        @Override
+        public boolean isGoodState() {
+            return false;
         }
 
         public VegetableState getCurrentState() {
