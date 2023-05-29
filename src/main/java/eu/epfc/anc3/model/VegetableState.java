@@ -30,6 +30,7 @@ abstract class VegetableState {
     public abstract void nextDayWithGrass();
 
     public abstract int stateProperty();
+    public abstract boolean isGoodState();
 
     public abstract boolean isRotten();
 }
