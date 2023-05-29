@@ -146,6 +146,24 @@ class Ferme {
     //retourne le status du jeu
     ReadOnlyObjectProperty<FermeStatus> fermeStatusProperty(){return fermeStatus;}
 
+    void superFertilize(){
+        System.out.println("Je RENTRE dans SUPER FERTILIZE");
+        for (int i = 0; i < Terrain.GRID_HEIGHT; i++) {
+            for (int j = 0; j < Terrain.GRID_WIDTH; j++) {
+                ObservableSet<Element> elem = getAllElem(i, j);
+                for (Element e : elem) {
+                    if (e.isVegetable()){
+                        Vegetable vegetable = (Vegetable) e;
+                        if (vegetable.getCurrentState().stateProperty() == 3 ){
+                            vegetable.getCurrentState().setIsSuperFertilized(true);
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+
     void removeRotten() {
         for (int i = 0; i < Terrain.GRID_HEIGHT; i++) {
             for (int j = 0; j < Terrain.GRID_WIDTH; j++) {

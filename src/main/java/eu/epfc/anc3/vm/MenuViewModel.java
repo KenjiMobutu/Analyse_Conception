@@ -43,6 +43,9 @@ public class MenuViewModel {
     public void fertilizerMode() {
         fermeFacade.fertilizerMode();
     }
+    public void superFertilizeMode(){
+        fermeFacade.superFertilizeMode();
+    }
     public void recoltMode() {fermeFacade.recoltMode();}
     public void unplantMode(){fermeFacade.unplantMode();}
     public void newGame() {
