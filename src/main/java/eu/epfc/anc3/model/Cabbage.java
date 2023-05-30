@@ -102,6 +102,16 @@ class Cabbage extends Vegetable implements Element {
         }
 
         @Override
+        public boolean isSuperFertilized() {
+            return false;
+        }
+
+        @Override
+        public boolean setIsSuperFertilized(boolean isSuperFertilize) {
+            return false;
+        }
+
+        @Override
         public int getHarvestPoints() {
             return 0;
         }
@@ -165,6 +175,16 @@ class Cabbage extends Vegetable implements Element {
         }
 
         @Override
+        public boolean isSuperFertilized() {
+            return false;
+        }
+
+        @Override
+        public boolean setIsSuperFertilized(boolean isSuperFertilize) {
+            return false;
+        }
+
+        @Override
         public int getHarvestPoints() {
             return 0;
         }
@@ -209,6 +229,7 @@ class Cabbage extends Vegetable implements Element {
     //Level3
     class CabbageState3 extends VegetableState {
         private int nbJours;
+        private boolean isSuperFertilized;
         private final int daysToNextState = 12;
         CabbageState3(Vegetable vegetable) {
             super(vegetable);
@@ -229,7 +250,19 @@ class Cabbage extends Vegetable implements Element {
         }
 
         @Override
+        public boolean isSuperFertilized() {
+            return isSuperFertilized;
+        }
+
+        @Override
+        public boolean setIsSuperFertilized(boolean isSuperFertilize) {
+            return this.isSuperFertilized = isSuperFertilize;
+        }
+
+        @Override
         public int getHarvestPoints() {
+            if (isSuperFertilized())
+                return maxScore * 3;
             return 3 * (maxScore/4);
         }
 
@@ -295,6 +328,16 @@ class Cabbage extends Vegetable implements Element {
         }
 
         @Override
+        public boolean isSuperFertilized() {
+            return false;
+        }
+
+        @Override
+        public boolean setIsSuperFertilized(boolean isSuperFertilize) {
+            return false;
+        }
+
+        @Override
         public int getHarvestPoints() {
             return maxScore;
         }
@@ -355,6 +398,16 @@ class Cabbage extends Vegetable implements Element {
 
         @Override
         public void nextState() {
+        }
+
+        @Override
+        public boolean isSuperFertilized() {
+            return false;
+        }
+
+        @Override
+        public boolean setIsSuperFertilized(boolean isSuperFertilize) {
+            return false;
         }
 
         @Override

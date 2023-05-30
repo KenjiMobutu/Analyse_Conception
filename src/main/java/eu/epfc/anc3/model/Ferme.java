@@ -125,6 +125,25 @@ class Ferme {
 
         }
     }
+    void superFertilize(){
+        System.out.println("==> RENTRE DANS SUPER FERTILIZE");
+        for (int i = 0; i < Terrain.GRID_HEIGHT; i++) {
+            for (int j = 0; j < Terrain.GRID_WIDTH; j++) {
+                ObservableSet<Element> elem = getAllElem(i, j);
+                for (Element e : elem) {
+                    if ( e.isVegetable()){
+                        Vegetable vegetable = (Vegetable) e;
+                        if (vegetable.getCurrentState().stateProperty() == 3 ){
+                            vegetable.getCurrentState().setIsSuperFertilized(true);
+
+                        }
+                    }
+
+                }
+            }
+        }
+
+    }
 
     IntegerProperty getPoint(){
         return score;
